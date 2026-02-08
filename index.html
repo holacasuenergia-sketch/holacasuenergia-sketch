@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enerlux Soluciones | Paga Menos en Luz y Gas</title>
-    <meta name="description" content="Asesoría energética independiente. Ahorra en tu factura de luz y gas sin cambiar tus hábitos. Comparamos más de 50 comercializadoras: ENDESA, IBERDROLA, NATURGY, HOLALUZ, GANA ENERGÍA y más.">
+    <meta name="description" content="Asesoría energética independiente. Ahorra en tu factura de luz y gas sin cambiar tus hábitos. Comparamos más de 50 comercializadoras.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,29 +15,11 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #2563EB;
-            --primary-dark: #1E40AF;
-            --secondary: #10B981;
-            --dark: #1F2937;
-            --light: #F3F4F6;
-            --white: #FFFFFF;
-            --accent: #F59E0B;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-energy: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
-        }
-
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: var(--dark);
+            color: #1f2937;
             overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            line-height: 1.2;
         }
 
         .container {
@@ -46,65 +28,73 @@
             padding: 0 20px;
         }
 
+        /* Colors - Softer & Cleaner */
+        :root {
+            --primary: #3B82F6;
+            --primary-dark: #2563EB;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --bg-light: #F8FAFC;
+            --bg-white: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+        }
+
         /* Header */
         header {
-            background: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 16px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .logo {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-weight: 800;
-            font-size: 24px;
+            font-size: 20px;
             color: var(--primary);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-energy);
-            border-radius: 10px;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 20px;
+            font-size: 16px;
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 32px;
             list-style: none;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--dark);
+            color: var(--text-primary);
             font-weight: 500;
             font-size: 14px;
-            transition: color 0.3s ease;
+            transition: color 0.2s ease;
         }
 
         .nav-links a:hover {
@@ -112,17 +102,17 @@
         }
 
         .nav-cta {
-            background: var(--gradient-energy);
+            background: var(--primary);
             color: white !important;
-            padding: 10px 25px;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .nav-cta:hover {
+            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
         }
 
         .mobile-menu-btn {
@@ -131,634 +121,327 @@
             border: none;
             font-size: 24px;
             cursor: pointer;
-            color: var(--dark);
+            color: var(--text-primary);
         }
 
-        /* Hero Section */
+        /* Hero - Clean & Friendly */
         .hero {
-            padding: 120px 0 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 140px 0 100px;
+            background: linear-gradient(180deg, #EFF6FF 0%, #ffffff 100%);
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
-            opacity: 0.5;
         }
 
         .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        .hero-text h1 {
+        .hero h1 {
             font-size: 48px;
-            color: white;
-            margin-bottom: 25px;
-            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 800;
         }
 
-        .hero-text .highlight {
-            background: var(--accent);
-            padding: 0 10px;
-            border-radius: 5px;
-            display: inline-block;
-            transform: rotate(-2deg);
-        }
-
-        .hero-text p {
-            font-size: 18px;
-            color: rgba(255,255,255,0.9);
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
             margin-bottom: 30px;
-            line-height: 1.7;
-        }
-
-        .hero-phone {
-            font-size: 32px;
-            color: white;
-            font-weight: 700;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .hero-phone-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+            line-height: 1.6;
         }
 
         .hero-cta {
             display: flex;
-            gap: 15px;
+            gap: 16px;
+            justify-content: center;
             flex-wrap: wrap;
         }
 
-        .btn-primary, .btn-secondary {
-            padding: 15px 35px;
-            border-radius: 30px;
-            font-weight: 700;
+        .btn {
+            padding: 16px 32px;
+            border-radius: 10px;
+            font-weight: 600;
             font-size: 16px;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
             border: none;
         }
 
         .btn-primary {
-            background: var(--accent);
-            color: var(--dark);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
 
         .btn-secondary {
-            background: white;
-            color: var(--primary);
+            background: var(--bg-white);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .btn-secondary:hover {
-            background: var(--light);
-            transform: translateY(-3px);
+            background: var(--bg-light);
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
-        .hero-image {
-            position: relative;
+        .hero-badges {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-top: 50px;
+            flex-wrap: wrap;
         }
 
-        .hero-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-            position: relative;
-            transform: rotate(-3deg);
+        .hero-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-white);
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            font-size: 14px;
+            color: var(--text-secondary);
         }
 
-        .hero-card::before {
-            content: '⚡';
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            font-size: 60px;
-            transform: rotate(15deg);
-        }
-
-        .hero-card h3 {
-            color: var(--primary);
+        .hero-badge .icon {
             font-size: 20px;
-            margin-bottom: 15px;
         }
 
-        .hero-card .savings {
-            font-size: 48px;
-            font-weight: 800;
-            color: var(--secondary);
-            margin: 10px 0;
-        }
-
-        .hero-card .savings span {
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--dark);
-        }
-
-        /* Companies Bar */
+        /* Companies Bar - Minimal */
         .companies-bar {
-            background: var(--light);
             padding: 40px 0;
-            border-bottom: 1px solid #e5e7eb;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .companies-title {
             text-align: center;
-            margin-bottom: 25px;
-            color: var(--dark);
-            font-weight: 600;
-            font-size: 16px;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
         }
 
         .companies-grid {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px;
+            gap: 30px;
             flex-wrap: wrap;
         }
 
         .company-logo {
-            font-weight: 700;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* CTA Section - Purpose Focus */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            color: white;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .cta-section p {
             font-size: 18px;
-            color: #6b7280;
-            padding: 10px 20px;
-            background: white;
-            border-radius: 10px;
-            border: 2px solid #e5e7eb;
-            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .company-logo:hover {
-            border-color: var(--primary);
+        .cta-section .btn-large {
+            background: var(--bg-white);
             color: var(--primary);
-            transform: translateY(-2px);
+            padding: 20px 50px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
-        /* Benefits Section */
+        .cta-section .btn-large:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Benefits - Clean */
         .benefits {
             padding: 100px 0;
-            background: var(--white);
+            background: var(--bg-white);
         }
 
-        .section-title {
+        .section-header {
             text-align: center;
             margin-bottom: 60px;
         }
 
-        .section-title.gana-style {
-            margin-bottom: 80px;
+        .section-header h2 {
+            font-size: 32px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-weight: 700;
         }
 
-        .section-title h2 {
-            font-size: 36px;
-            color: var(--dark);
-            margin-bottom: 15px;
-        }
-
-        .section-title p {
-            font-size: 18px;
-            color: #6b7280;
+        .section-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        .rating-highlight {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            font-size: 18px;
-            color: var(--dark);
-        }
-
-        .rating-highlight .stars {
-            font-size: 28px;
-            color: var(--accent);
-        }
-
-        .rating-highlight .rating {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .rating-highlight .clients {
-            color: #6b7280;
-            font-weight: 500;
         }
 
         .benefits-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 32px;
         }
 
         .benefit-card {
-            background: var(--light);
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            background: var(--bg-light);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
         }
 
         .benefit-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .benefit-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-energy);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary);
         }
 
         .benefit-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 36px;
+            margin-bottom: 16px;
         }
 
         .benefit-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--dark);
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-weight: 700;
         }
 
         .benefit-card .number {
-            font-size: 48px;
+            font-size: 42px;
             font-weight: 800;
             color: var(--primary);
             margin: 15px 0;
         }
 
-        .benefit-card .number span {
-            font-size: 16px;
-            font-weight: 500;
-            color: #6b7280;
+        .benefit-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
         }
 
-        /* How It Works */
+        /* How It Works - Simple */
         .how-it-works {
             padding: 100px 0;
-            background: var(--light);
+            background: var(--bg-light);
         }
 
         .steps {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            position: relative;
-        }
-
-        .steps::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: var(--primary);
-            z-index: 0;
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .step {
             text-align: center;
-            position: relative;
-            z-index: 1;
         }
 
         .step-number {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-energy);
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 800;
             margin: 0 auto 20px;
-            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
         }
 
         .step h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: var(--dark);
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
         }
 
         .step p {
-            color: #6b7280;
+            color: var(--text-secondary);
             font-size: 14px;
             line-height: 1.5;
         }
 
-        /* Team Section */
-        .team-section {
-            padding: 100px 0;
-            background: var(--white);
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* Mobile Responsive */
-
-        .team-card {
-            background: var(--light);
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .team-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-energy);
-        }
-
-        .team-avatar {
-            width: 120px;
-            height: 120px;
-            background: var(--gradient-energy);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            margin: 0 auto 20px;
-        }
-
-        .team-card h3 {
-            font-size: 22px;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-
-        .team-role {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .team-desc {
-            font-size: 15px;
-            color: #6b7280;
-            line-height: 1.6;
-            font-style: italic;
-        }
-
-        /* Comparison Section */
-        .comparison-section {
-            padding: 100px 0;
-            background: #f8f9fa;
-        }
-
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .comparison-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .comparison-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .comparison-card.luz {
-            border-color: #F59E0B;
-        }
-
-        .comparison-card.luz::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #F59E0B;
-        }
-
-        .comparison-card.gas {
-            border-color: #3B82F6;
-        }
-
-        .comparison-card.gas::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #3B82F6;
-        }
-
-        .comparison-card.combo {
-            border-color: #10B981;
-        }
-
-        .comparison-card.combo::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: #10B981;
-        }
-
-        .comparison-header h3 {
-            font-size: 28px;
-            color: var(--dark);
-            margin-bottom: 15px;
-        }
-
-        .comparison-price {
-            font-size: 36px;
-            font-weight: 800;
-            margin: 15px 0;
-            color: var(--primary);
-        }
-
-        .comparison-desc {
-            font-size: 14px;
-            color: #6b7280;
-            margin-bottom: 25px;
-        }
-
-        .comparison-features {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 30px;
-            text-align: left;
-        }
-
-        .comparison-features li {
-            padding: 8px 0;
-            font-size: 14px;
-            color: #6b7280;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .comparison-features li:last-child {
-            border-bottom: none;
-        }
-
-        .comparison-cta {
-            display: inline-block;
-            background: var(--gradient-energy);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .comparison-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
-        }
-
-        .comparison-promo {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            margin-top: 50px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        .comparison-promo h4 {
-            font-size: 20px;
-            color: var(--dark);
-            margin-bottom: 10px;
-        }
-
-        .comparison-promo p {
-            color: #6b7280;
-            margin-bottom: 20px;
-        }
-
-        .comparison-promo-cta {
-            display: inline-block;
-            background: var(--light);
-            color: var(--dark);
-            padding: 10px 25px;
-            border-radius: 20px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .comparison-promo-cta:hover {
-            background: #e5e7eb;
-        }
-
-        /* Testimonials */
+        /* Testimonials - Clean */
         .testimonials {
             padding: 100px 0;
-            background: var(--white);
+            background: var(--bg-white);
         }
 
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 32px;
         }
 
         .testimonial-card {
-            background: var(--light);
-            padding: 35px;
-            border-radius: 20px;
-            position: relative;
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 60px;
-            color: var(--primary);
-            opacity: 0.2;
-            font-family: Georgia, serif;
+            background: var(--bg-light);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
         }
 
         .testimonial-rating {
             color: var(--accent);
-            font-size: 24px;
-            margin-bottom: 15px;
+            font-size: 18px;
+            margin-bottom: 16px;
         }
 
         .testimonial-text {
-            font-size: 16px;
-            color: var(--dark);
+            font-size: 15px;
+            color: var(--text-primary);
             margin-bottom: 20px;
             font-style: italic;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         .testimonial-author {
@@ -768,46 +451,34 @@
         }
 
         .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-energy);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 16px;
         }
 
         .testimonial-info h4 {
-            font-size: 16px;
-            color: var(--dark);
+            font-size: 14px;
+            color: var(--text-primary);
             margin-bottom: 2px;
+            font-weight: 600;
         }
 
         .testimonial-info p {
-            font-size: 14px;
-            color: #6b7280;
+            font-size: 13px;
+            color: var(--text-secondary);
         }
 
-        /* Upload Form Section */
+        /* Upload Section - Prominent */
         .upload-section {
             padding: 100px 0;
-            background: var(--gradient-energy);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .upload-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g fill="%23ffffff" fill-opacity="0.1"><path d="M0 0h20v20H0V0zm20 20h20v20H20V20z"/></g></svg>');
-            opacity: 0.3;
+            background: var(--bg-light);
         }
 
         .upload-content {
@@ -815,79 +486,69 @@
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
-            position: relative;
-            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        .upload-text h2 {
-            font-size: 42px;
-            color: white;
+        .upload-info h2 {
+            font-size: 36px;
+            color: var(--text-primary);
             margin-bottom: 20px;
+            font-weight: 700;
         }
 
-        .simulator-cta {
-            margin: 30px 0;
-        }
-
-        .btn-large {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--dark);
-            padding: 20px 50px;
-            border-radius: 35px;
-            font-size: 20px;
-            font-weight: 800;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
-        }
-
-        .btn-large:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
-        }
-
-        .upload-text p {
-            font-size: 18px;
-            color: rgba(255,255,255,0.9);
+        .upload-info p {
+            font-size: 17px;
+            color: var(--text-secondary);
             margin-bottom: 30px;
+            line-height: 1.7;
         }
 
-        .upload-form {
-            background: white;
+        .upload-cta-box {
+            background: var(--bg-white);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--primary);
         }
 
-        .upload-form h3 {
-            color: var(--dark);
-            font-size: 22px;
+        .upload-cta-box h3 {
+            font-size: 24px;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .upload-cta-box .highlight {
+            color: var(--primary);
+            font-size: 18px;
             margin-bottom: 25px;
+            display: block;
+            font-weight: 600;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
-            color: var(--dark);
-            font-size: 14px;
+            color: var(--text-primary);
+            font-size: 13px;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            font-family: inherit;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
             font-size: 14px;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.2s ease;
         }
 
         .form-group input:focus,
@@ -895,22 +556,24 @@
         .form-group select:focus {
             outline: none;
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .form-group input[type="file"] {
             padding: 10px;
             cursor: pointer;
+            font-size: 13px;
         }
 
         .form-group .file-info {
             font-size: 12px;
-            color: #6b7280;
+            color: var(--text-secondary);
             margin-top: 5px;
         }
 
         .form-submit {
             width: 100%;
-            padding: 15px;
+            padding: 16px;
             background: var(--primary);
             color: white;
             border: none;
@@ -918,41 +581,119 @@
             font-weight: 700;
             font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .form-submit:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
         }
 
-        /* Collaborators Section */
+        /* Comparison - Simple */
+        .comparison-section {
+            padding: 100px 0;
+            background: var(--bg-white);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .comparison-card {
+            background: var(--bg-light);
+            padding: 36px 28px;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .comparison-card.luz {
+            border-color: #F59E0B;
+        }
+
+        .comparison-card.gas {
+            border-color: #3B82F6;
+        }
+
+        .comparison-card.combo {
+            border-color: #10B981;
+        }
+
+        .comparison-card h3 {
+            font-size: 22px;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .comparison-price {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 12px 0;
+            color: var(--primary);
+        }
+
+        .comparison-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .comparison-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .comparison-features li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-features li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-cta {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .comparison-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Collaborators - Clean */
         .collaborators {
             padding: 100px 0;
-            background: var(--dark);
-            position: relative;
-        }
-
-        .collaborators::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient);
-            opacity: 0.1;
+            background: var(--bg-light);
         }
 
         .collaborators-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .collaborators .section-title h2,
-        .collaborators .section-title p {
-            color: white;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .collaborators-grid {
@@ -963,55 +704,58 @@
         }
 
         .collab-info h2 {
-            font-size: 42px;
-            color: white;
-            margin-bottom: 25px;
+            font-size: 36px;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 700;
         }
 
         .collab-info p {
-            font-size: 18px;
-            color: rgba(255,255,255,0.9);
+            font-size: 17px;
+            color: var(--text-secondary);
             margin-bottom: 20px;
             line-height: 1.7;
         }
 
         .collab-features {
             list-style: none;
-            margin-bottom: 30px;
+            margin: 25px 0;
         }
 
         .collab-features li {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-            color: rgba(255,255,255,0.9);
-            font-size: 16px;
+            gap: 10px;
+            margin-bottom: 14px;
+            color: var(--text-primary);
+            font-size: 15px;
         }
 
         .collab-features li::before {
             content: '✓';
             color: var(--secondary);
             font-weight: 700;
-            font-size: 20px;
+            font-size: 18px;
         }
 
         .collab-form {
-            background: white;
-            padding: 40px;
+            background: var(--bg-white);
+            padding: 36px 32px;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
         }
 
         .collab-form h3 {
-            color: var(--dark);
-            font-size: 24px;
-            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-size: 22px;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
 
         .collab-form .highlight {
             color: var(--accent);
-            font-size: 18px;
+            font-size: 16px;
             margin-bottom: 25px;
             display: block;
             font-weight: 600;
@@ -1020,42 +764,40 @@
         /* Contact Info */
         .contact-info {
             padding: 80px 0;
-            background: var(--light);
+            background: var(--bg-white);
             text-align: center;
         }
 
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 32px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .contact-item {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: var(--bg-light);
+            padding: 28px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
         }
 
         .contact-item .icon {
-            font-size: 40px;
-            margin-bottom: 15px;
+            font-size: 32px;
+            margin-bottom: 12px;
         }
 
         .contact-item h4 {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: var(--dark);
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
         }
 
         .contact-item p {
-            color: #6b7280;
-            font-size: 14px;
+            color: var(--text-secondary);
+            font-size: 13px;
         }
 
         .contact-item a {
@@ -1066,9 +808,9 @@
 
         /* Footer */
         footer {
-            background: var(--white);
+            background: var(--bg-white);
             padding: 40px 0;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid var(--border-color);
         }
 
         .footer-content {
@@ -1080,131 +822,128 @@
         }
 
         .footer-logo {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-weight: 800;
-            font-size: 20px;
+            font-size: 18px;
             color: var(--primary);
         }
 
         .footer-info {
             display: flex;
-            gap: 30px;
+            gap: 25px;
             flex-wrap: wrap;
         }
 
         .footer-info p {
-            font-size: 14px;
-            color: #6b7280;
+            font-size: 13px;
+            color: var(--text-secondary);
         }
 
         .footer-info a {
-            color: var(--primary);
+            color: var(--text-primary);
             text-decoration: none;
         }
 
         .footer-social {
             display: flex;
-            gap: 15px;
+            gap: 12px;
         }
 
         .footer-social a {
-            width: 40px;
-            height: 40px;
-            background: var(--light);
-            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            background: var(--bg-light);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary);
             text-decoration: none;
-            font-size: 18px;
-            transition: all 0.3s ease;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
         }
 
         .footer-social a:hover {
             background: var(--primary);
             color: white;
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         /* WhatsApp Floating Button */
         .whatsapp-float {
             position: fixed;
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             background: #25D366;
             color: white;
             border-radius: 50%;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 35px;
+            font-size: 30px;
             text-decoration: none;
             bottom: 30px;
             right: 30px;
             z-index: 1000;
             transition: all 0.3s ease;
-            animation: pulse 2s infinite;
         }
 
         .whatsapp-float:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.5);
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
         }
 
         /* Mobile Responsive */
-        @media (max-width: 968px) {
-            .team-grid,
-            .comparison-grid,
-            .hero-content,
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .benefits-grid,
+            .testimonials-grid,
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
             .upload-content,
             .collaborators-grid {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
 
-            .hero-text h1 {
-                font-size: 36px;
-            }
-
-            .hero-card {
-                transform: rotate(0);
-            }
-
-            .benefits-grid,
-            .testimonials-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
             .steps {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .team-grid,
-            .comparison-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .comparison-card {
-                padding: 30px 20px;
-            }
-
-            .comparison-promo {
-                padding: 20px;
-            }
-
-            .steps::before {
-                display: none;
             }
 
             .contact-grid {
@@ -1218,43 +957,6 @@
             .mobile-menu-btn {
                 display: block;
             }
-        }
-
-        @media (max-width: 640px) {
-            .hero {
-                padding: 100px 0 60px;
-            }
-
-            .hero-text h1 {
-                font-size: 28px;
-            }
-
-            .hero-phone {
-                font-size: 24px;
-            }
-
-            .hero-cta {
-                flex-direction: column;
-            }
-
-            .benefits-grid,
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .benefit-card,
-            .testimonial-card {
-                padding: 25px;
-            }
-
-            .upload-form,
-            .collab-form {
-                padding: 25px;
-            }
-
-            .section-title h2 {
-                font-size: 28px;
-            }
 
             .whatsapp-float {
                 width: 55px;
@@ -1264,13 +966,22 @@
                 font-size: 28px;
             }
 
-            .companies-grid {
-                gap: 15px;
+            .cta-section h2 {
+                font-size: 28px;
             }
 
-            .company-logo {
-                font-size: 14px;
-                padding: 8px 15px;
+            .cta-section p {
+                font-size: 16px;
+            }
+
+            .cta-section .btn-large {
+                padding: 16px 32px;
+                font-size: 16px;
+            }
+
+            .upload-cta-box,
+            .collab-form {
+                padding: 28px 20px;
             }
         }
     </style>
@@ -1289,7 +1000,6 @@
                     <li><a href="#beneficios">Beneficios</a></li>
                     <li><a href="#como-funciona">Cómo Funciona</a></li>
                     <li><a href="#testimonios">Testimonios</a></li>
-                    <li><a href="#colaboradores">Colaboradores</a></li>
                     <li><a href="#contacto" class="nav-cta">Subir Factura</a></li>
                 </ul>
             </nav>
@@ -1301,32 +1011,28 @@
     <section class="hero" id="inicio">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Érase una vez Juan, que pagaba demasiado en su factura de luz. Un día decidió cambiar y <span class="highlight">sin papeleos, sin cortes de luz</span> y en un solo día <span class="highlight">ahorró 380€/año</span>.</h1>
-                    <p>Analizamos tu factura y te enviamos la mejor opción. Gratis, rápido y sin compromiso. Más de 500 familias ya ahorran con nosotros.</p>
-                    <div class="hero-phone">
-                        <div class="hero-phone-icon">📞</div>
-                        610 243 061
-                    </div>
-                    <div class="hero-cta">
-                        <a href="#contacto" class="btn-primary">
-                            📄 Subir Mi Factura
-                        </a>
-                        <a href="#comparativa" class="btn-secondary">
-                            ⚡ Ver Tarifas
-                        </a>
-                    </div>
+                <h1>Érase una vez Juan, que pagaba demasiado en su factura de luz. Un día decidió cambiar y <span style="color: #3B82F6;">ahorró 380€/año</span>.</h1>
+                <p>Analizamos tu factura y te enviamos la mejor opción. Gratis, rápido y sin compromiso.</p>
+                <div class="hero-cta">
+                    <a href="#contacto" class="btn btn-primary">
+                        📄 Subir Tu Factura Ahora
+                    </a>
+                    <a href="#comparativa" class="btn btn-secondary">
+                        ⚡ Ver Tarifas
+                    </a>
                 </div>
-                <div class="hero-image">
-                    <div class="hero-card">
-                        <h3>💰 Ahorra hasta</h3>
-                        <div class="savings">380€<span>/año</span></div>
-                        <p>comparando más de 50 comercializadoras</p>
-                        <div style="margin-top: 20px; font-size: 14px; color: #6b7280;">
-                            ✓ Sin papeleos<br>
-                            ✓ Sin cortes de luz<br>
-                            ✓ Cambio en 24h
-                        </div>
+                <div class="hero-badges">
+                    <div class="hero-badge">
+                        <span class="icon">✓</span> Sin papeleos
+                    </div>
+                    <div class="hero-badge">
+                        <span class="icon">✓</span> Sin cortes de luz
+                    </div>
+                    <div class="hero-badge">
+                        <span class="icon">✓</span> Cambio en 24h
+                    </div>
+                    <div class="hero-badge">
+                        <span class="icon">✓</span> +500 familias
                     </div>
                 </div>
             </div>
@@ -1336,7 +1042,7 @@
     <!-- Companies Bar -->
     <section class="companies-bar">
         <div class="container">
-            <p class="companies-title">Trabajamos con las mejores compañías del mercado</p>
+            <p class="companies-title">Trabajamos con las mejores compañías</p>
             <div class="companies-grid">
                 <span class="company-logo">ENDESA</span>
                 <span class="company-logo">NATURGY</span>
@@ -1348,31 +1054,42 @@
         </div>
     </section>
 
+    <!-- CTA Section - Principal Purpose -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>🔥 ¿Quieres saber cuánto podrías ahorrar?</h2>
+            <p>Una escapada, cenar en un restaurante, comprarte una bici... Tú decides qué hacer con el dinero que ahorras en tu factura de luz y gas.</p>
+            <a href="#contacto" class="btn-large">
+                🔢 CALCULAR AHORRO AHORA
+            </a>
+        </div>
+    </section>
+
     <!-- Benefits Section -->
     <section class="benefits" id="beneficios">
         <div class="container">
-            <div class="section-title">
-                <h2>Beneficios de Cambiar Con Nosotros</h2>
-                <p>Especialistas en asesoría energética. Analizamos, comparamos y te recomendamos la mejor opción para ti.</p>
+            <div class="section-header">
+                <h2>¿Por qué cambiar con nosotros?</h2>
+                <p>Especialistas en asesoría energética. Analizamos, comparamos y te recomendamos la mejor opción.</p>
             </div>
             <div class="benefits-grid">
                 <div class="benefit-card">
-                    <div class="benefit-icon">🐷</div>
+                    <div class="benefit-icon">💰</div>
                     <h3>Ahorro Real</h3>
-                    <div class="number">380€<span>/año</span></div>
-                    <p>Reducimos tu factura sin cambiar tus hábitos de consumo</p>
+                    <div class="number">380€<span style="font-size: 18px; color: #64748b;">/año</span></div>
+                    <p>El ahorro promedio de nuestros clientes sin cambiar sus hábitos de consumo.</p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">📊</div>
                     <h3>Comparativa Completa</h3>
-                    <div class="number">+50<span> tarifas</span></div>
-                    <p>Analizamos más de 50 comercializadoras para encontrar la mejor oferta</p>
+                    <div class="number">+50<span style="font-size: 18px; color: #64748b;"> tarifas</span></div>
+                    <p>Analizamos más de 50 comercializadoras para encontrar la mejor oferta para ti.</p>
                 </div>
                 <div class="benefit-card">
                     <div class="benefit-icon">👨‍💼</div>
                     <h3>Gestión Total</h3>
-                    <div class="number">100<span>%</span></div>
-                    <p>Nos encargamos de todo el trámite de cambio por ti</p>
+                    <div class="number">100<span style="font-size: 18px; color: #64748b;">%</span></div>
+                    <p>Nos encargamos de todo el trámite de cambio por ti, sin complicaciones.</p>
                 </div>
             </div>
         </div>
@@ -1381,8 +1098,8 @@
     <!-- How It Works -->
     <section class="how-it-works" id="como-funciona">
         <div class="container">
-            <div class="section-title">
-                <h2>Cómo Funciona</h2>
+            <div class="section-header">
+                <h2>Cómo funciona</h2>
                 <p>En 4 simples pasos, empieza a ahorrar en tu factura de luz y gas</p>
             </div>
             <div class="steps">
@@ -1410,40 +1127,12 @@
         </div>
     </section>
 
-    <!-- Aquí Te Atienden -->
-    <section class="team-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Aquí te atienden personas como tú, no robots</h2>
-                <p>Sin contestadores automáticos. Siempre experto humano, disponible.</p>
-            </div>
-            <div class="team-grid">
-                <div class="team-card">
-                    <div class="team-avatar">👤</div>
-                    <h3>Asesor Principal</h3>
-                    <p class="team-role">Director Enerlux</p>
-                    <p class="team-desc">"Cuando contactas con Enerlux, siempre te atiende una persona real, experta en luz y gas. Sin burocracia, sin espera."</p>
-                </div>
-                <div class="team-card">
-                    <div class="team-avatar">👥</div>
-                    <h3>Equipo Enerlux</h3>
-                    <p class="team-role">Asesores de Energía</p>
-                    <p class="team-desc">"Analizamos más de 50 comercializadoras para encontrar la tarifa más económica para ti. Ahorro real, sin trampa."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Testimonials -->
     <section class="testimonials" id="testimonios">
         <div class="container">
-            <div class="section-title">
-                <h2>Lo Que Dicen Nuestros Clientes</h2>
-                <p class="rating-highlight">
-                    <span class="stars">★★★★★</span>
-                    <span class="rating">4.5/5</span>
-                    <span class="clients">- +500 Clientes Satisfechos</span>
-                </p>
+            <div class="section-header">
+                <h2>Lo que dicen nuestros clientes</h2>
+                <p>Más de 500 familias ya ahorran con Enerlux Soluciones</p>
             </div>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
@@ -1483,90 +1172,38 @@
         </div>
     </section>
 
-    <!-- Comparativa de Tarifas -->
-    <section class="comparison-section" id="comparativa">
-        <div class="container">
-            <div class="section-title">
-                <h2>⚡ Tarifas de Luz y Gas</h2>
-                <p>Precio fijo durante too0oodo el día. ¡Adiós al reloj!</p>
-            </div>
-            <div class="comparison-grid">
-                <div class="comparison-card luz">
-                    <div class="comparison-header">
-                        <h3>💡 Luz</h3>
-                        <div class="comparison-price">Precio Fijo</div>
-                        <div class="comparison-desc">24 horas al día</div>
-                    </div>
-                    <ul class="comparison-features">
-                        <li>✓ Sin horarios de punta/valle</li>
-                        <li>✓ Misma tarifa todo el día</li>
-                        <li>✓ Sin sorpresas en factura</li>
-                        <li>✓ Sin permanencia</li>
-                    </ul>
-                    <a href="#contacto" class="comparison-cta">Ver Tarifa →</a>
-                </div>
-                <div class="comparison-card gas">
-                    <div class="comparison-header">
-                        <h3>🔥 Gas</h3>
-                        <div class="comparison-price">Precio Indexado</div>
-                        <div class="comparison-desc">Mejor precio del mercado</div>
-                    </div>
-                    <ul class="comparison-features">
-                        <li>✓ Precio fijo 12 meses</li>
-                        <li>✓ Ahorro garantizado</li>
-                        <li>✓ Sin letras pequeñas</li>
-                        <li>✓ Cancelación gratis</li>
-                    </ul>
-                    <a href="#contacto" class="comparison-cta">Ver Tarifa →</a>
-                </div>
-                <div class="comparison-card combo">
-                    <div class="comparison-header">
-                        <h3>⚡💡 Luz + Gas</h3>
-                        <div class="comparison-price">PACK COMPLETO</div>
-                        <div class="comparison-desc">Ahorro Máximo</div>
-                    </div>
-                    <ul class="comparison-features">
-                        <li>✓ Luz fijo + Gas indexado</li>
-                        <li>✓ Descuento especial combo</li>
-                        <li>✓ Una sola factura</li>
-                        <li>✓ Gestión simplificada</li>
-                    </ul>
-                    <a href="#contacto" class="comparison-cta">Ver Pack →</a>
-                </div>
-            </div>
-            <div class="comparison-promo">
-                <h4>💰 ¿No estás satisfecho? 🔄 Cambia cuando quieras</h4>
-                <p>Sin permanencia mínima. Cancela tu servicio cuando quieras sin costes.</p>
-                <a href="#contacto" class="comparison-promo-cta">← Volver a Subir Factura</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Upload Section / Simulador -->
+    <!-- Upload Section - Prominent -->
     <section class="upload-section" id="contacto">
         <div class="container">
             <div class="upload-content">
-                <div class="upload-text">
-                    <h2>🎯 Simulador de Factura: Descubre cuánto podrás ahorrarte</h2>
-                    <p>Una escapada, cenar en un restaurante, comprarte una bici... ¡Tú decides qué hacer con el dinero que ahorras en tu factura de luz con Enerlux!</p>
-                    <div class="simulator-cta">
-                        <a href="#billForm" class="btn-large">
-                            🔢 IR AL SIMULADOR
-                        </a>
+                <div class="upload-info">
+                    <h2>📄 Sube tu factura y recibe tu comparativa gratis</h2>
+                    <p>Analizamos tu factura sin coste y te enviamos la mejor opción por email. Sin compromisos.</p>
+                    <div style="background: white; padding: 24px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
+                        <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px;">
+                            <div style="font-size: 32px;">📧</div>
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 4px;">enerlux.soluciones@gmail.com</h4>
+                                <p style="font-size: 14px; color: #64748b;">Respuesta en 24h</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <div style="font-size: 32px;">📞</div>
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 4px;">610 243 061</h4>
+                                <p style="font-size: 14px; color: #64748b;">Lunes - Viernes: 9:00 - 19:00</p>
+                            </div>
+                        </div>
                     </div>
-                    <div style="font-size: 24px; margin: 30px 0;">
-                        📧 enerlux.soluciones@gmail.com<br>
-                        📞 610 243 061
-                    </div>
-                    <p style="font-size: 14px; opacity: 0.9;">
-                        ✓ Respuesta en menos de 24h<br>
+                    <div style="font-size: 14px; color: #64748b; line-height: 1.8;">
                         ✓ Análisis totalmente gratuito<br>
-                        ✓ Sin compromiso de cambio
-                    </p>
+                        ✓ Sin compromiso de cambio<br>
+                        ✓ Respuesta en menos de 24h
+                    </div>
                 </div>
-                <form class="upload-form" action="mailto:enerlux.soluciones@gmail.com" method="post" enctype="text/plain" id="billForm">
-                    <h3>📊 Simula tu Ahorro Ahora</h3>
-                    <h3>Sube Tu Factura</h3>
+                <form class="upload-cta-box" action="mailto:enerlux.soluciones@gmail.com" method="post" enctype="text/plain" id="billForm">
+                    <h3>📊 Calcula tu ahorro ahora</h3>
+                    <span class="highlight">Sube tu factura y te enviamos tu ahorro estimado en menos de 24h</span>
                     <div class="form-group">
                         <label for="name">Nombre Completo *</label>
                         <input type="text" id="name" name="nombre" required>
@@ -1590,14 +1227,62 @@
                     <div class="form-group">
                         <label for="bill">Foto de tu Factura (opcional)</label>
                         <input type="file" id="bill" name="factura" accept="image/*,.pdf">
-                        <p class="file-info">Formatos aceptados: JPG, PNG, PDF. Máximo 10MB.</p>
+                        <p class="file-info">Formatos: JPG, PNG, PDF. Máximo 10MB.</p>
                     </div>
                     <div class="form-group">
                         <label for="message">Mensaje (opcional)</label>
                         <textarea id="message" name="mensaje" rows="3" placeholder="Cuéntanos más sobre tu situación actual..."></textarea>
                     </div>
-                    <button type="submit" class="form-submit">📤 Enviar Factura</button>
+                    <button type="submit" class="form-submit">📤 CALCULAR AHORRO</button>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section" id="comparativa">
+        <div class="container">
+            <div class="section-header">
+                <h2>⚡ Tarifas de Luz y Gas</h2>
+                <p>Precio fijo durante to0oodo el día. ¡Adiós al reloj!</p>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card luz">
+                    <h3>💡 Luz</h3>
+                    <div class="comparison-price">Precio Fijo</div>
+                    <div class="comparison-desc">24 horas al día</div>
+                    <ul class="comparison-features">
+                        <li>✓ Sin horarios de punta/valle</li>
+                        <li>✓ Misma tarifa todo el día</li>
+                        <li>✓ Sin sorpresas en factura</li>
+                        <li>✓ Sin permanencia</li>
+                    </ul>
+                    <a href="#contacto" class="comparison-cta">Ver Tarifa →</a>
+                </div>
+                <div class="comparison-card gas">
+                    <h3>🔥 Gas</h3>
+                    <div class="comparison-price">Precio Fijo</div>
+                    <div class="comparison-desc">12 meses garantizados</div>
+                    <ul class="comparison-features">
+                        <li>✓ Precio fijo 12 meses</li>
+                        <li>✓ Ahorro garantizado</li>
+                        <li>✓ Sin letras pequeñas</li>
+                        <li>✓ Cancelación gratis</li>
+                    </ul>
+                    <a href="#contacto" class="comparison-cta">Ver Tarifa →</a>
+                </div>
+                <div class="comparison-card combo">
+                    <h3>⚡💡 Luz + Gas</h3>
+                    <div class="comparison-price">PACK COMPLETO</div>
+                    <div class="comparison-desc">Ahorro Máximo</div>
+                    <ul class="comparison-features">
+                        <li>✓ Luz fijo + Gas fijo</li>
+                        <li>✓ Descuento especial combo</li>
+                        <li>✓ Una sola factura</li>
+                        <li>✓ Gestión simplificada</li>
+                    </ul>
+                    <a href="#contacto" class="comparison-cta">Ver Pack →</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1606,13 +1291,13 @@
     <section class="collaborators" id="colaboradores">
         <div class="container">
             <div class="collaborators-content">
-                <div class="section-title">
-                    <h2>Colabora Con Nosotros</h2>
+                <div class="section-header">
+                    <h2>Colabora con nosotros</h2>
                     <p>Eres autónomo o comercial? Únete a nuestro equipo y genera ingresos extra</p>
                 </div>
                 <div class="collaborators-grid">
                     <div class="collab-info">
-                        <h2>Únete a Nuestro Equipo de Colaboradores</h2>
+                        <h2>Únete a nuestro equipo de colaboradores</h2>
                         <p>¿Eres autónomo o comercial? Genera ingresos extra ofreciendo los mejores precios de luz y gas a tus clientes.</p>
                         <ul class="collab-features">
                             <li>Altas comisiones por cada venta cerrada</li>
@@ -1621,7 +1306,7 @@
                             <li>Formación y soporte continuo</li>
                             <li>Acceso a plataforma de gestión de clientes</li>
                         </ul>
-                        <p>⚡ <strong>¡Empieza a generar ingresos hoy mismo!</strong></p>
+                        <p style="font-size: 16px; color: #3B82F6; font-weight: 600;">⚡ ¡Empieza a generar ingresos hoy mismo!</p>
                     </div>
                     <form class="collab-form" action="mailto:enerlux.soluciones@gmail.com" method="post" enctype="text/plain">
                         <h3>¿Eres Autónomo?</h3>
@@ -1655,7 +1340,7 @@
                             <label for="collab-message">¿Por qué quieres colaborar con nosotros?</label>
                             <textarea id="collab-message" name="mensaje" rows="3"></textarea>
                         </div>
-                        <button type="submit" class="form-submit">🚺 Solicitar Colaboración</button>
+                        <button type="submit" class="form-submit">🎯 Solicitar Colaboración</button>
                     </form>
                 </div>
             </div>
@@ -1670,7 +1355,7 @@
                     <div class="icon">📞</div>
                     <h4>Llámanos</h4>
                     <p><a href="tel:+34610243061">610 243 061</a></p>
-                    <p>Lunes - Viernes: 9:00 - 19:00</p>
+                    <p>Lun-Vie 9:00-19:00</p>
                 </div>
                 <div class="contact-item">
                     <div class="icon">📧</div>
@@ -1713,16 +1398,6 @@
     </a>
 
     <script>
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -1752,6 +1427,7 @@
                 navLinks.style.background = 'white';
                 navLinks.style.padding = '20px';
                 navLinks.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+                navLinks.style.borderBottom = '1px solid #e2e8f0';
             }
         });
 
@@ -1765,10 +1441,10 @@
 
             requiredFields.forEach(field => {
                 if (!field.value.trim()) {
-                   valid = false;
+                    valid = false;
                     field.style.borderColor = '#ef4444';
                 } else {
-                    field.style.borderColor = '#e5e7eb';
+                    field.style.borderColor = '#e2e8f0';
                 }
             });
 
