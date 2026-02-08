@@ -1215,7 +1215,15 @@
                 <div class="form-group">
                     <label>Sube tu factura *</label>
                     <input type="file" name="attachment" accept=".pdf,.jpg,.jpeg,.png" required>
-                    <p style="font-size: 12px; color: #999; margin-top: 5px;">Formatos: PDF, JPG, JPEG, PNG</p>
+                    <p style="font-size: 12px; color: #999; margin-top: 5px;">Formatos: PDF, JPG, JPEG, PNG (máximo: 25 MB)</p>
+                </div>
+                <div class="form-group">
+                    <label>Confirmación: Adjunto correcto *</label>
+                    <select name="confirmacion" required>
+                        <option value="no" selected>Selecciona...</option>
+                        <option value="si">✅ Sí, he adjuntado mi factura</option>
+                    </select>
+                    <p style="font-size: 12px; color: #d00; margin-top: 5px;">⚠️ Si no adjuntas tu factura, no podemos analizarla</p>
                 </div>
                 <button type="submit" class="btn-submit">Solicita tu análisis gratis</button>
             </form>
