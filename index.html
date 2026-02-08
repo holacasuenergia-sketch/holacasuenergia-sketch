@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Enerlux Soluciones - Asesoría energética independiente en España. Ahorra en tu factura de luz y gas sin cambiar tus hábitos. +500 familias ya ahorran con nosotros.">
+    <meta name="keywords" content="asesoría energética, ahorro luz gas, facturas electricidad, luz gas barata, comercializadoras luz gas, España">
+    <meta name="author" content="Enerlux Soluciones">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pagomenosluzygas.es/">
+    <meta property="og:title" content="Enerlux Soluciones | Asesoría Energética - Paga menso en luz y gas">
+    <meta property="og:description" content="Ahorra 380€/año en tu factura de luz y gas sin cambiar tus hábitos. Analizamos +50 comercializadoras y te enviamos la mejor opción. Gratis y sin compromiso.">
+    <meta property="og:image" content="https://pagomenosluzygas.es/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://pagomenosluzygas.es/">
+    <meta property="twitter:title" content="Enerlux Soluciones | Asesoría Energética">
+    <meta property="twitter:description" content="Ahorra en tu factura de luz y gas. +500 clientess ya ahorran con nosotros.">
+    <meta property="twitter:image" content="https://pagomenosluzygas.es/og-image.jpg">
+    
+    <title>Enerlux Soluciones | Asesoría Energética - Ahorra en Luz y Gas</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --verde: #10B981;
+            --verde-dark: #059669;
+            --naranja: #F59E0B;
+            --naranja-dark: #D97706;
+            --blanco: #FFFFFF;
+            --gris-claro: #F9FAFB;
+            --gris-medio: #6B7280;
+            --gris-oscuro: #1F2937;
+            --negro: #111827;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--gris-oscuro);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: var(--blanco);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--verde-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo span {
+            color: var(--naranja);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gris-oscuro);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--verde);
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--naranja), var(--naranja-dark));
+            color: var(--blanco);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #ECFDF5 0%, #FEF3C7 100%);
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+        }
+        
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--verde-dark), var(--naranja));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gris-medio);
+            margin-bottom: 2rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .hero-buttons .cta-button {
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+        }
+        
+        .hero-buttons .secondary-button {
+            background: var(--blanco);
+            color: var(--verde-dark);
+            border: 2px solid var(--verde);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-buttons .secondary-button:hover {
+            background: var(--verde);
+            color: var(--blanco);
+        }
+        
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 2rem;
+            background: var(--blanco);
+            padding: 1.5rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .trust-badge .stat {
+            text-align: center;
+        }
+        
+        .trust-badge .stat h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            color: var(--verde-dark);
+            margin-bottom: 0.25rem;
+        }
+        
+        .trust-badge .stat p {
+            font-size: 0.9rem;
+            color: var(--gris-medio);
+            margin: 0;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: var(--blanco);
+            padding: 4rem 2rem;
+        }
+        
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            color: var(--verde-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card p {
+            color: var(--gris-medio);
+            font-size: 1rem;
+        }
+        
+        /* Features Section */
+        .features-section {
+            background: var(--gris-claro);
+            padding: 6rem 2rem;
+        }
+        
+        .section-header {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+        
+        .section-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            color: var(--gris-oscuro);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--gris-medio);
+        }
+        
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--blanco);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--verde), var(--verde-dark));
+            border-radius: 15px;
+            color: var(--blanco);
+        }
+        
+        .feature-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--gris-oscuro);
+        }
+        
+        .feature-card p {
+            color: var(--gris-medio);
+        }
+        
+        /* How It Works Section */
+        .how-it-works-section {
+            background: var(--blanco);
+            padding: 6rem 2rem;
+        }
+        
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--verde), var(--naranja));
+            border-radius: 2px;
+        }
+        
+        .timeline-step {
+            display: flex;
+            justify-content: flex-end;
+            padding-bottom: 4rem;
+            position: relative;
+        }
+        
+        .timeline-step:nth-child(even) {
+            justify-content: flex-start;
+        }
+        
+        .timeline-content {
+            background: var(--gris-claro);
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 45%;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-step-number {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--verde), var(--naranja));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--blanco);
+            top: 0;
+        }
+        
+        .timeline-content h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--gris-oscuro);
+        }
+        
+        .timeline-content p {
+            color: var(--gris-medio);
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            background: linear-gradient(135deg, #ECFDF5 0%, #FEF3C7 100%);
+            padding: 6rem 2rem;
+        }
+        
+        .testimonials-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background: var(--blanco);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-card .stars {
+            color: var(--naranja);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-card p {
+            color: var(--gris-oscuro);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .testimonial-card .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--verde), var(--naranja));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blanco);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        
+        .testimonial-card .author-info h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            color: var(--gris-oscuro);
+        }
+        
+        .testimonial-card .author-info p {
+            font-size: 0.9rem;
+            color: var(--gris-medio);
+            margin: 0;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            background: var(--blanco);
+            padding: 6rem 2rem;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--gris-claro);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            background: #E5E7EB;
+        }
+        
+        .faq-item h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            color: var(--gris-oscuro);
+            margin-bottom: 0.5rem;
+        }
+        
+        .faq-item p {
+            color: var(--gris-medio);
+            margin: 0;
+            display: none;
+        }
+        
+        .faq-item.active p {
+            display: block;
+            margin-top: 1rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--verde), var(--verde-dark));
+            padding: 6rem 2rem;
+            text-align: center;
+            color: var(--blanco);
+        }
+        
+        .cta-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-section .cta-button {
+            background: var(--naranja);
+            font-size: 1.3rem;
+            padding: 1.25rem 2.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--negro);
+            color: var(--blanco);
+            padding: 4rem 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--naranja);
+        }
+        
+        .footer-section p {
+            color: #9CA3AF;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section a {
+            color: #9CA3AF;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--naranja);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            text-align: center;
+            color: #9CA3AF;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+        
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .whatsapp-button svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 0.3rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--gris-oscuro);
+            transition: all 0.3s ease;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--blanco);
+                padding: 2rem;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .trust-badge {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-step {
+                justify-content: flex-start;
+                padding-left: 60px;
+            }
+            
+            .timeline-step-number {
+                left: 20px;
+                transform: translateX(-50%);
+            }
+            
+            .timeline-content {
+                max-width: 100%;
+            }
+            
+            .whatsapp-button {
+                width: 50px;
+                height: 50px;
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                ⚡ Enerlux<span>Soluciones</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#beneficios">Beneficios</a></li>
+                <li><a href="#como-funciona">Cómo Funciona</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <a href="#contacto" class="cta-button">Empezar Ahora</a>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Paga Menos en tu Factura de Luz y Gas Sin Cambiar tus Hábitos</h1>
+            <p>Analizamos tu factura y te enviamos la mejor opción. Gratis, rápido y sin compromiso.</p>
+            <div class="hero-buttons">
+                <a href="#contacto" class="cta-button">Sube tu Factura Gratis</a>
+                <a href="#como-funciona" class="secondary-button">Ver Cómo Funciona</a>
+            </div>
+            <div class="trust-badge">
+                <div class="stat">
+                    <h3>+500</h3>
+                    <p>Familias ya ahorran</p>
+                </div>
+                <div class="stat">
+                    <h3>380€</h3>
+                    <p>Ahorro promedio/año</p>
+                </div>
+                <div class="stat">
+                    <h3>+50</h3>
+                    <p>Comercializadoras</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon">🐷</div>
+                <h3>€380</h3>
+                <p>Ahorro promedio anual por familia</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon">📊</div>
+                <h3>+50</h3>
+                <p>Comercializadoras analizadas</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon">👨‍💼</div>
+                <h3>100%</h3>
+                <p>Gestión total del cambio</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon">⏱️</div>
+                <h3>24h</h3>
+                <p>Respuesta garantizada</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="beneficios">
+        <div class="section-header">
+            <h2>Beneficios de Cambiar con Nosotros</h2>
+            <p>Descubre cómo podemos ayudarte a ahorrar en tus facturas de energía</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon">💰</div>
+                <h3>Ahorro Real</h3>
+                <p>Reducimos tu factura sin cambiar tus hábitos de consumo</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📈</div>
+                <h3>Comparativa Completa</h3>
+                <p>Analizamos más de 50 comercializadoras para encontrar la mejor opción</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">⚙️</div>
+                <h3>Gestión Total</h3>
+                <p>Nos encargamos del cambio por ti, sin complicaciones</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔒</div>
+                <h3>Sin Compromiso</h3>
+                <p>Gratis y sin obligación de contratación</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">👥</div>
+                <h3>Asesoría Personalizada</h3>
+                <p>Expertos a tu disposición para resolver todas tus dudas</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📱</div>
+                <h3>Rápido y Fácil</h3>
+                <p>En menos de 24 horas tienes tu comparativa lista</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works-section" id="como-funciona">
+        <div class="section-header">
+            <h2>Cómo Funciona</h2>
+            <p>En solo 4 pasos simples puedes empezar a ahorrar</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-step">
+                <div class="timeline-step-number">1</div>
+                <div class="timeline-content">
+                    <h3>Sube tu Factura</h3>
+                    <p>Envíanos tu factura actual de luz o gas por WhatsApp o email</p>
+                </div>
+            </div>
+            <div class="timeline-step">
+                <div class="timeline-step-number">2</div>
+                <div class="timeline-content">
+                    <h3>Analizamos tu Consumo</h3>
+                    <p>Estudiamos tu patrón de consumo y necesidades específicas</p>
+                </div>
+            </div>
+            <div class="timeline-step">
+                <div class="timeline-step-number">3</div>
+                <div class="timeline-content">
+                    <h3>Enviamos la Mejor Opción</h3>
+                    <p>Recibes una comparativa personalizada con la mejor oferta del mercado</p>
+                </div>
+            </div>
+            <div class="timeline-step">
+                <div class="timeline-step-number">4</div>
+                <div class="timeline-content">
+                    <h3>Gestionamos el Cambio</h3>
+                    <p>Si aceptas, nos encargamos de todo el proceso administrativo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonios">
+        <div class="section-header">
+            <h2>Lo que Dicen Nuestros Clientes</h2>
+            <p>+500 familias ya ahorran con Enerlux Soluciones</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"Me ahorraron 45€ al mes. No sabía que pagaba de más."</p>
+                <div class="author">
+                    <div class="author-avatar">MG</div>
+                    <div class="author-info">
+                        <h4>María García</h4>
+                        <p>Madrid</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"Rápido y sin presión. El proceso fue muy sencillo."</p>
+                <div class="author">
+                    <div class="author-avatar">CR</div>
+                    <div class="author-info">
+                        <h4>Carlos Rodríguez</h4>
+                        <p>Barcelona</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"Equipo muy profesional y atento. Recomiendo totalmente."</p>
+                <div class="author">
+                    <div class="author-avatar">AM</div>
+                    <div class="author-info">
+                        <h4>Ana Martínez</h4>
+                        <p>Valencia</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>Ahorro de 380€ al año. Increíble servicio.</p>
+                <div class="author">
+                    <div class="author-avatar">JP</div>
+                    <div class="author-info">
+                        <h4>Juan Pérez</h4>
+                        <p>Sevilla</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>Sin complicaciones y muy transparentes.</p>
+                <div class="author">
+                    <div class="author-avatar">LS</div>
+                    <div class="author-info">
+                        <h4>Laura Sánchez</h4>
+                        <p>Bilbao</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>Respuesta rápida y ofertas muy competitivas.</p>
+                <div class="author">
+                    <div class="author-avatar">DG</div>
+                    <div class="author-info">
+                        <h4>Diego García</h4>
+                        <p>Madrid</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="section-header">
+            <h2>Preguntas Frecuentes</h2>
+            <p>Resolvemos todas tus dudas sobre el cambio de compañía</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h3>¿Es realmente gratis?</h3>
+                <p>¡Sí! Nuestro servicio es 100% gratuito. Cobramos una comisión a la compañía energética, no a ti.</p>
+            </div>
+            <div class="faq-item">
+                <h3>¿Cuánto puedo ahorrar?</h3>
+                <p>Depende de tu consumo actual. El ahorro promedio de nuestros clientes es de 380€ al año.</p>
+            </div>
+            <div class="faq-item">
+                <h3>¿Tengo que cambiar mis hábitos de consumo?</h3>
+                <p>No. Analizamos tu consumo actual y encontramos la mejor tarifa para tu perfil. Ahorras sin cambiar nada.</p>
+            </div>
+            <div class="faq-item">
+                <h3>¿Cuándo cambia mi compañía?</h3>
+                <p>El cambio tarda entre 2-4 semanas desde que aceptas la oferta. En este periodo mantienes tu servicio actual.</p>
+            </div>
+            <div class="faq-item">
+                <h3>¿Con qué compañías trabajáis?</h3>
+                <p>Trabajamos con las principales comercializadoras: ENDESA, IBERDROLA, NATURGY, HOLALUZ, GANA ENERGÍA y más.</p>
+            </div>
+            <div class="faq-item">
+                <h3>¿Puedo volver a mi compañía anterior?</h3>
+                <p>Sí, puedes cambiar cuando quieras. No hay permanencia mínima de nuestra parte.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contacto">
+        <h2>¿Listo para Empezar a Ahorrar?</h2>
+        <p>Sube tu factura y recibe tu comparativa gratis en menos de 24h</p>
+        <a href="mailto:enerlux.soluciones@gmail.com?subject=Solicitar%20Comparativa" class="cta-button">Subir Factura Ahora</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Enerlux Soluciones</h3>
+                <p>Asesoría energética independiente especializada en ayudar a familias en España a ahorrar en sus facturas de luz y gas.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <a href="#beneficios">Beneficios</a>
+                <a href="#como-funciona">Cómo Funciona</a>
+                <a href="#testimonios">Testimonios</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p>📧 enerlux.soluciones@gmail.com</p>
+                <p>📱 WhatsApp: Próximamente</p>
+                <p>🌐 pagomenosluzygas.es</p>
+            </div>
+            <div class="footer-section">
+                <h3>Trabajamos con</h3>
+                <p>ENDESA · IBERDROLA · NATURGY</p>
+                <p>HOLALUZ · GANA ENERGÍA</p>
+                <p>y más</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Enerlux Soluciones. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/34XXXXXXXXXX?text=Hola%20Enerlux,%20quiero%20ahorrar%20en%20mi%20factura%20de%20luz%20y%20gas" class="whatsapp-button" target="_blank">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
