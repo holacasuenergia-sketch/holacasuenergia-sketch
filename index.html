@@ -3,9 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Enerlux Soluciones - Ahorra en tu factura de luz y gas. Asesoría independiente que compara tarifas de Endesa, Gana Energía, Holaluz, Naturgy e Iberdrola.">
-    <meta name="keywords" content="enerlux, luz, gas, ahorro, endesa, gana energía, holaluz, naturgy, iberdrola, tarifas, asesoría energética">
-    <title>Enerlux Soluciones - Ahorra en Luz y Gas</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Ahorra hasta 30% en tu factura de luz y gas con Enerlux Soluciones. Comparación gratuita de tarifas de Endesa, Gana Energía, Holaluz, Naturgy e Iberdrola. Tarifas desde 0,11€ kWh o tarifa plana.">
+    <meta name="keywords" content="enerlux, luz, gas, ahorro, endesa, gana energía, holaluz, naturgy, iberdrola, tarifas, asesoría energética, 0.11€ kWh, tarifa plana">
+    <meta name="author" content="Enerlux Soluciones">
+    <meta name="robots" content="index, follow">
+    <title>Enerlux Soluciones - Ahorra hasta 30% en Luz y Gas | Tarifas desde 0,11€ kWh</title>
+    <link rel="canonical" href="https://pagomenosluzygas.es/">
+
+    <!-- Open Graph (Facebook/LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pagomenosluzygas.es/">
+    <meta property="og:title" content="Enerlux Soluciones - Ahorra hasta 30% en Luz y Gas">
+    <meta property="og:description" content="Compara tarifas de 50+ comercializadoras gratis. Ahorra desde el primer día con tarifas desde 0,11€ kWh o tarifa plana. ¡Sin compromiso!">
+    <meta property="og:image" content="https://dahao12.github.io/enerlux-website/logo-enerlux.jpg">
+    <meta property="og:locale" content="es_ES">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://pagomenosluzygas.es/">
+    <meta name="twitter:title" content="Enerlux Soluciones - Ahorra hasta 30% en Luz y Gas">
+    <meta name="twitter:description" content="Compara tarifas de 50+ comercializadoras gratis. Ahorra desde el primer día con tarifas desde 0,11€ kWh o tarifa plana. ¡Sin compromiso!">
+    <meta name="twitter:image" content="https://dahao12.github.io/enerlux-website/logo-enerlux.jpg">
+
+    <!-- Structured Data Schema (LocalBusiness) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Enerlux Soluciones",
+      "description": "Asesoría energética independiente especializada en comparación de tarifas de luz y gas",
+      "telephone": "+34 610 243 061",
+      "email": "enerlux.soluciones@gmail.com",
+      "url": "https://pagomenosluzygas.es/",
+      "priceRange": "Gratis",
+      "serviceType": "Asesoría energética",
+      "areaServed": {
+        "@type": "Country",
+        "name": "España"
+      },
+      "sameAs": []
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -306,6 +346,37 @@
             gap: 45px;
             flex-wrap: wrap;
             align-items: center;
+        }
+
+        .company-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .company-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .company-company-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .company-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-dark);
         }
 
         .company-logo {
@@ -1137,13 +1208,24 @@
             }
         }
     </style>
+
+    <!-- GOOGLE ANALYTICS GA4 -->
+    <!-- REEMPLAZAR GA_MEASUREMENT_ID con tu ID real de Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+
 </head>
 <body>
 
     <!-- HEADER (FIJO) -->
     <header class="header">
         <div class="container">
-            <a href="#" class="logo">
+            <a href="#hero" class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
                 <img src="logo-enerlux.jpg" alt="Enerlux Soluciones">
             </a>
             <div class="header-buttons">
@@ -1184,11 +1266,26 @@
             <h3>Trabajamos con las principales comercializadoras</h3>
             <p>Independencia garantizada - Comparamos TODAS las opciones para TI</p>
             <div class="companies-grid">
-                <span class="company-logo">ENDESA</span>
-                <span class="company-logo">GANA ENERGÍA</span>
-                <span class="company-logo">HOLALUZ</span>
-                <span class="company-logo">NATURGY</span>
-                <span class="company-logo">IBERDROLA</span>
+                <div class="company-item">
+                    <div class="company-company-badge" style="background: linear-gradient(135deg, #0066CC 0%, #003399 100%)">EN</div>
+                    <span class="company-name">ENDESA</span>
+                </div>
+                <div class="company-item">
+                    <div class="company-company-badge" style="background: linear-gradient(135deg, #00BFFF 0%, #0077CC 100%)">GN</div>
+                    <span class="company-name">GANA ENERGÍA</span>
+                </div>
+                <div class="company-item">
+                    <div class="company-company-badge" style="background: linear-gradient(135deg, #1E90FF 0%, #1565C0 100%)">HL</div>
+                    <span class="company-name">HOLALUZ</span>
+                </div>
+                <div class="company-item">
+                    <div class="company-company-badge" style="background: linear-gradient(135deg, #1A5490 0%, #0D3B66 100%)">NT</div>
+                    <span class="company-name">NATURGY</span>
+                </div>
+                <div class="company-item">
+                    <div class="company-company-badge" style="background: linear-gradient(135deg, #FF6600 0%, #CC5200 100%)">IB</div>
+                    <span class="company-name">IBERDROLA</span>
+                </div>
             </div>
         </div>
     </section>
@@ -1369,6 +1466,11 @@
                     <div class="testimonial-stars">★★★★★</div>
                     <p class="testimonial-quote">"Rápido, profesional y me ahorraron más de 500€ al año. Estoy muy contento con el servicio."</p>
                     <p class="testimonial-author">– Carlos P.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-quote">"Me ayudaron a encontrar una tarifa plana que se adapta perfectamente a mi consumo. ¡Ahorré más de 800€!"</p>
+                    <p class="testimonial-author">– Laura M.</p>
                 </div>
             </div>
         </div>
