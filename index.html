@@ -52,7 +52,7 @@
             left: 0;
             right: 0;
             background: var(--primary-dark);
-            padding: 15px 0;
+            padding: 12px 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
@@ -73,6 +73,17 @@
             color: var(--white);
             text-decoration: none;
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 55px;
+            width: auto;
+        }
+
+        .logo-text {
+            display: none;
         }
 
         .header-buttons {
@@ -988,7 +999,9 @@
     <!-- HEADER (FIJO) -->
     <header class="header">
         <div class="container">
-            <a href="#" class="logo">ENERLUX SOLUCIONES</a>
+            <a href="#" class="logo">
+                <img src="logo-enerlux.jpg" alt="Enerlux Soluciones">
+            </a>
             <div class="header-buttons">
                 <a href="tel:+34610243061">📞 Llámanos ahora</a>
                 <a href="https://wa.me/34610243061">💬 WhatsApp</a>
@@ -1237,6 +1250,7 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
+            <img src="logo-enerlux.jpg" alt="Enerlux Soluciones" style="height: 70px; margin-bottom: 25px;">
             <h2>¿Listo para empezar a ahorrar?</h2>
             <p>Llámanos o envíanos un WhatsApp ahora mismo.</p>
             <div class="footer-buttons">
