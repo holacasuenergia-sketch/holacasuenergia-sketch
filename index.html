@@ -21,7 +21,8 @@
             --text-secondary: #666666;    /* Gris medio - Textos secundarios */
             --text-light: #d9d9d9;        /* Gris claro - Subtítulos hero */
             --accent-green: #2e8b57;      /* Verde suave - Iconos/acentos */
-            --cta-yellow: #f2b600;        /* Amarillo mostaza - Botones */
+            --btn-whatsapp: #25D366;      /* Verde WhatsApp oficial */
+            --btn-phone: #87CEEB;         /* Celeste cielo - Llamadas */
             --white: #ffffff;             /* Blanco - Fondos */
         }
 
@@ -82,8 +83,6 @@
         .header a {
             display: inline-block;
             padding: 10px 20px;
-            background: var(--cta-yellow);
-            color: var(--primary-dark);
             text-decoration: none;
             font-weight: 700;
             font-size: 14px;
@@ -91,8 +90,23 @@
             transition: all 0.3s ease;
         }
 
-        .header a:hover {
-            background: #e0a400;
+        .header a[href^="tel:"] {
+            background: var(--btn-phone);
+            color: var(--primary-dark);
+        }
+
+        .header a[href^="https://wa.me"] {
+            background: var(--btn-whatsapp);
+            color: var(--white);
+        }
+
+        .header a[href^="tel:"]:hover {
+            background: #00BFFF;
+            transform: translateY(-2px);
+        }
+
+        .header a[href^="https://wa.me"]:hover {
+            background: #128C7E;
             transform: translateY(-2px);
         }
 
@@ -158,20 +172,36 @@
         .btn-hero {
             display: inline-block;
             padding: 20px 45px;
-            background: var(--cta-yellow);
-            color: var(--primary-dark);
             text-decoration: none;
             font-weight: 700;
             font-size: 17px;
             border-radius: 10px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(242,182,0,0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .btn-hero:hover {
-            background: #e0a400;
+        .btn-hero[href^="tel:"] {
+            background: var(--btn-phone);
+            color: var(--primary-dark);
+            box-shadow: 0 4px 15px rgba(135,206,235,0.4);
+        }
+
+        .btn-hero[href^="https://wa.me"] {
+            background: var(--btn-whatsapp);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(37,211,102,0.4);
+        }
+
+        .btn-hero[href^="tel:"]:hover {
+            background: #00BFFF;
             transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(242,182,0,0.5);
+            box-shadow: 0 8px 25px rgba(135,206,235,0.5);
+        }
+
+        .btn-hero[href^="https://wa.me"]:hover {
+            background: #128C7E;
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(37,211,102,0.5);
         }
 
         @keyframes fadeInUp {
@@ -363,8 +393,8 @@
         .btn-submit {
             width: 100%;
             padding: 20px;
-            background: var(--cta-yellow);
-            color: var(--primary-dark);
+            background: var(--primary-dark);
+            color: var(--white);
             border: none;
             border-radius: 10px;
             font-size: 17px;
@@ -372,13 +402,13 @@
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(242,182,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,51,102,0.3);
         }
 
         .btn-submit:hover {
-            background: #e0a400;
+            background: var(--primary-medium);
             transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 8px 25px rgba(242,182,0,0.4);
+            box-shadow: 0 8px 25px rgba(0,51,102,0.4);
         }
 
         /* ========================================
@@ -808,20 +838,36 @@
         .footer a {
             display: inline-block;
             padding: 16px 32px;
-            background: var(--cta-yellow);
-            color: var(--primary-dark);
             text-decoration: none;
             font-weight: 700;
             font-size: 16px;
             border-radius: 10px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(242,182,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .footer a:hover {
-            background: #e0a400;
+        .footer a[href^="tel:"] {
+            background: var(--btn-phone);
+            color: var(--primary-dark);
+            box-shadow: 0 4px 15px rgba(135,206,235,0.3);
+        }
+
+        .footer a[href^="https://wa.me"] {
+            background: var(--btn-whatsapp);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(37,211,102,0.3);
+        }
+
+        .footer a[href^="tel:"]:hover {
+            background: #00BFFF;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(242,182,0,0.4);
+            box-shadow: 0 6px 20px rgba(135,206,235,0.4);
+        }
+
+        .footer a[href^="https://wa.me"]:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37,211,102,0.4);
         }
 
         .footer-info {
@@ -995,7 +1041,10 @@
         <div class="container">
             <h2>¿Quieres saber cuánto puedes ahorrar?</h2>
             <p class="form-intro">Súbenos tu factura actual y te haremos un análisis personalizado sin compromiso.</p>
-            <form class="form-box" action="mailto:enerlux.soluciones@gmail.com" method="post" enctype="text/plain">
+            <form class="form-box" action="https://formsubmit.co/enerlux.soluciones@gmail.com" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_subject" value="NUEVO CLIENTE - Análisis de Factura - Enerlux Soluciones">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
                 <div class="form-group">
                     <label>Nombre completo *</label>
                     <input type="text" name="nombre" required>
@@ -1015,6 +1064,10 @@
                         <option value="gas">Gas</option>
                         <option value="ambos">Luz + Gas</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label>Sube tu factura (opcional)</label>
+                    <input type="file" name="attachment" accept=".pdf,.jpg,.jpeg,.png">
                 </div>
                 <button type="submit" class="btn-submit">Solicita tu análisis gratis</button>
             </form>
@@ -1114,7 +1167,10 @@
         <div class="container">
             <h2>¿Eres autónomo o agente?</h2>
             <p class="collaborators-intro">Únete a nuestro equipo de colaboradores y genera ingresos extra ayudando a hogares y empresas a ahorrar en sus facturas de luz y gas.</p>
-            <form class="collaborators-box" action="mailto:enerlux.soluciones@gmail.com" method="post" enctype="text/plain">
+            <form class="collaborators-box" action="https://formsubmit.co/enerlux.soluciones@gmail.com" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_subject" value="NUEVO COLABORADOR - Enerlux Soluciones">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
                 <div class="collab-form-row">
                     <div class="form-group">
                         <label>Nombre completo *</label>
