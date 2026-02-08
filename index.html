@@ -337,6 +337,10 @@
             margin-bottom: 60px;
         }
 
+        .section-title.gana-style {
+            margin-bottom: 80px;
+        }
+
         .section-title h2 {
             font-size: 36px;
             color: var(--dark);
@@ -348,6 +352,32 @@
             color: #6b7280;
             max-width: 600px;
             margin: 0 auto;
+        }
+
+        .rating-highlight {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 18px;
+            color: var(--dark);
+        }
+
+        .rating-highlight .stars {
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        .rating-highlight .rating {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .rating-highlight .clients {
+            color: #6b7280;
+            font-weight: 500;
         }
 
         .benefits-grid {
@@ -462,6 +492,231 @@
             line-height: 1.5;
         }
 
+        /* Team Section */
+        .team-section {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Mobile Responsive */
+
+        .team-card {
+            background: var(--light);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-energy);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-energy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin: 0 auto 20px;
+        }
+
+        .team-card h3 {
+            font-size: 22px;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .team-role {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .team-desc {
+            font-size: 15px;
+            color: #6b7280;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .comparison-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .comparison-card.luz {
+            border-color: #F59E0B;
+        }
+
+        .comparison-card.luz::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #F59E0B;
+        }
+
+        .comparison-card.gas {
+            border-color: #3B82F6;
+        }
+
+        .comparison-card.gas::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #3B82F6;
+        }
+
+        .comparison-card.combo {
+            border-color: #10B981;
+        }
+
+        .comparison-card.combo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #10B981;
+        }
+
+        .comparison-header h3 {
+            font-size: 28px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .comparison-price {
+            font-size: 36px;
+            font-weight: 800;
+            margin: 15px 0;
+            color: var(--primary);
+        }
+
+        .comparison-desc {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        .comparison-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .comparison-features li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: #6b7280;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .comparison-features li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-cta {
+            display: inline-block;
+            background: var(--gradient-energy);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .comparison-promo {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 50px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .comparison-promo h4 {
+            font-size: 20px;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .comparison-promo p {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .comparison-promo-cta {
+            display: inline-block;
+            background: var(--light);
+            color: var(--dark);
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-promo-cta:hover {
+            background: #e5e7eb;
+        }
+
         /* Testimonials */
         .testimonials {
             padding: 100px 0;
@@ -568,6 +823,28 @@
             font-size: 42px;
             color: white;
             margin-bottom: 20px;
+        }
+
+        .simulator-cta {
+            margin: 30px 0;
+        }
+
+        .btn-large {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 20px 50px;
+            border-radius: 35px;
+            font-size: 20px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-large:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
         }
 
         .upload-text p {
@@ -887,6 +1164,8 @@
 
         /* Mobile Responsive */
         @media (max-width: 968px) {
+            .team-grid,
+            .comparison-grid,
             .hero-content,
             .upload-content,
             .collaborators-grid {
@@ -909,6 +1188,19 @@
 
             .steps {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid,
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-card {
+                padding: 30px 20px;
+            }
+
+            .comparison-promo {
+                padding: 20px;
             }
 
             .steps::before {
@@ -1010,7 +1302,7 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Paga Menos en tu Factura de <span class="highlight">Luz y Gas</span> sin Cambiar tus Hábitos</h1>
+                    <h1>Érase una vez Juan, que pagaba demasiado en su factura de luz. Un día decidió cambiar y <span class="highlight">sin papeleos, sin cortes de luz</span> y en un solo día <span class="highlight">ahorró 380€/año</span>.</h1>
                     <p>Analizamos tu factura y te enviamos la mejor opción. Gratis, rápido y sin compromiso. Más de 500 familias ya ahorran con nosotros.</p>
                     <div class="hero-phone">
                         <div class="hero-phone-icon">📞</div>
@@ -1018,10 +1310,10 @@
                     </div>
                     <div class="hero-cta">
                         <a href="#contacto" class="btn-primary">
-                            📄 Subir Mi Factura Ahora
+                            📄 Subir Mi Factura
                         </a>
-                        <a href="https://wa.me/34610243061" class="btn-secondary">
-                            💬 WhatsApp Directo
+                        <a href="#comparativa" class="btn-secondary">
+                            ⚡ Ver Tarifas
                         </a>
                     </div>
                 </div>
@@ -1118,12 +1410,40 @@
         </div>
     </section>
 
+    <!-- Aquí Te Atienden -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Aquí te atienden personas como tú, no robots</h2>
+                <p>Sin contestadores automáticos. Siempre experto humano, disponible.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">👤</div>
+                    <h3>Asesor Principal</h3>
+                    <p class="team-role">Director Enerlux</p>
+                    <p class="team-desc">"Cuando contactas con Enerlux, siempre te atiende una persona real, experta en luz y gas. Sin burocracia, sin espera."</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">👥</div>
+                    <h3>Equipo Enerlux</h3>
+                    <p class="team-role">Asesores de Energía</p>
+                    <p class="team-desc">"Analizamos más de 50 comercializadoras para encontrar la tarifa más económica para ti. Ahorro real, sin trampa."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Testimonials -->
     <section class="testimonials" id="testimonios">
         <div class="container">
             <div class="section-title">
                 <h2>Lo Que Dicen Nuestros Clientes</h2>
-                <p>Más de 500 familias ya ahorran con Enerlux Soluciones</p>
+                <p class="rating-highlight">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating">4.5/5</span>
+                    <span class="clients">- +500 Clientes Satisfechos</span>
+                </p>
             </div>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
@@ -1163,14 +1483,78 @@
         </div>
     </section>
 
-    <!-- Upload Section -->
+    <!-- Comparativa de Tarifas -->
+    <section class="comparison-section" id="comparativa">
+        <div class="container">
+            <div class="section-title">
+                <h2>⚡ Tarifas de Luz y Gas</h2>
+                <p>Precio fijo durante too0oodo el día. ¡Adiós al reloj!</p>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card luz">
+                    <div class="comparison-header">
+                        <h3>💡 Luz</h3>
+                        <div class="comparison-price">Precio Fijo</div>
+                        <div class="comparison-desc">24 horas al día</div>
+                    </div>
+                    <ul class="comparison-features">
+                        <li>✓ Sin horarios de punta/valle</li>
+                        <li>✓ Misma tarifa todo el día</li>
+                        <li>✓ Sin sorpresas en factura</li>
+                        <li>✓ Sin permanencia</li>
+                    </ul>
+                    <a href="#contacto" class="comparison-cta">Ver Tarifa →</a>
+                </div>
+                <div class="comparison-card gas">
+                    <div class="comparison-header">
+                        <h3>🔥 Gas</h3>
+                        <div class="comparison-price">Precio Indexado</div>
+                        <div class="comparison-desc">Mejor precio del mercado</div>
+                    </div>
+                    <ul class="comparison-features">
+                        <li>✓ Precio fijo 12 meses</li>
+                        <li>✓ Ahorro garantizado</li>
+                        <li>✓ Sin letras pequeñas</li>
+                        <li>✓ Cancelación gratis</li>
+                    </ul>
+                    <a href="#contacto" class="comparison-cta">Ver Tarifa →</a>
+                </div>
+                <div class="comparison-card combo">
+                    <div class="comparison-header">
+                        <h3>⚡💡 Luz + Gas</h3>
+                        <div class="comparison-price">PACK COMPLETO</div>
+                        <div class="comparison-desc">Ahorro Máximo</div>
+                    </div>
+                    <ul class="comparison-features">
+                        <li>✓ Luz fijo + Gas indexado</li>
+                        <li>✓ Descuento especial combo</li>
+                        <li>✓ Una sola factura</li>
+                        <li>✓ Gestión simplificada</li>
+                    </ul>
+                    <a href="#contacto" class="comparison-cta">Ver Pack →</a>
+                </div>
+            </div>
+            <div class="comparison-promo">
+                <h4>💰 ¿No estás satisfecho? 🔄 Cambia cuando quieras</h4>
+                <p>Sin permanencia mínima. Cancela tu servicio cuando quieras sin costes.</p>
+                <a href="#contacto" class="comparison-promo-cta">← Volver a Subir Factura</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section / Simulador -->
     <section class="upload-section" id="contacto">
         <div class="container">
             <div class="upload-content">
                 <div class="upload-text">
-                    <h2>Sube Tu Factura y Recibe Tu Comparativa Gratis</h2>
-                    <p>Analizamos tu factura sin coste y te enviamos la mejor opción por email. Sin compromisos.</p>
-                    <div style="font-size: 24px; margin-bottom: 20px;">
+                    <h2>🎯 Simulador de Factura: Descubre cuánto podrás ahorrarte</h2>
+                    <p>Una escapada, cenar en un restaurante, comprarte una bici... ¡Tú decides qué hacer con el dinero que ahorras en tu factura de luz con Enerlux!</p>
+                    <div class="simulator-cta">
+                        <a href="#billForm" class="btn-large">
+                            🔢 IR AL SIMULADOR
+                        </a>
+                    </div>
+                    <div style="font-size: 24px; margin: 30px 0;">
                         📧 enerlux.soluciones@gmail.com<br>
                         📞 610 243 061
                     </div>
@@ -1181,6 +1565,7 @@
                     </p>
                 </div>
                 <form class="upload-form" action="mailto:enerlux.soluciones@gmail.com" method="post" enctype="text/plain" id="billForm">
+                    <h3>📊 Simula tu Ahorro Ahora</h3>
                     <h3>Sube Tu Factura</h3>
                     <div class="form-group">
                         <label for="name">Nombre Completo *</label>
