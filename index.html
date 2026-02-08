@@ -931,6 +931,119 @@
             color: #6B21A8;
         }
 
+        .client-form-quick {
+            padding: 80px 0;
+            background: var(--bg-light);
+        }
+
+        .client-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .client-form-box, .quick-cta {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .client-form-box h3, .quick-cta h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .client-form-box p, .quick-cta p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .quick-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .quick-form .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-form label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .quick-form input, .quick-form select {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .quick-cta {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .quick-cta h3 {
+            color: var(--primary);
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59,130,246,0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .client-form-grid {
+                grid-template-columns: 1fr;
+            }
+            .quick-form .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .tariffs-info {
             max-width: 900px;
             margin: 0 auto;
@@ -1509,18 +1622,69 @@
         </div>
     </section>
 
-    <!-- Real Tariffs Section - NEW -->
-    <section class="real-tariffs" id="tarifas-reales">
+    <!-- Client Form Quick Section -->
+    <section class="client-form-quick" id="formulario">
         <div class="container">
             <div class="section-header">
-                <h2>💡 Tarifas Fijas del Mercado (Sin IVA)</h2>
-                <p>Precios actualizados de tarifas fijas 24h de cada comercializadora. <strong>Mostramos precios SIN IVA</strong> (21%). Precio mismo día y noche, sin horarios.</p>
+                <h2>📋 ¿Cuánto puedes ahorrar?</h2>
+                <p>Déjanos tus datos y calculamos tu ahorro sin compromiso</p>
+            </div>
+            <div class="client-form-grid">
+                <div class="client-form-box">
+                    <h3>📊 Calcula tu ahorro</h3>
+                    <p>Analizamos tu factura y te enviamos tu mejor opción</p>
+                    <form class="quick-form" action="mailto:enerlux.soluciones@gmail.com" method="post" enctype="text/plain">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre *</label>
+                                <input type="text" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email *</label>
+                                <input type="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Teléfono *</label>
+                                <input type="tel" name="telefono" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Servicio *</label>
+                                <select name="servicio" required>
+                                    <option value="luz">Luz</option>
+                                    <option value="gas">Gas</option>
+                                    <option value="ambos">Luz + Gas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary btn-large">
+                            📩 CALCULAR AHORRO
+                        </button>
+                    </form>
+                </div>
+                <div class="quick-cta">
+                    <h3>⚡ Ver tarifas del mercado</h3>
+                    <p>Comparativa completa de todas las comercializadoras</p>
+                    <button onclick="toggleTariffs()" class="btn-secondary btn-large" id="viewTariffsBtn">
+                        👁️ VER TARIFAS
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tariffs Table Section - HIDDEN BY DEFAULT -->
+    <section class="real-tariffs" id="tarifas-reales" style="display: none;">
+        <div class="container">
+            <div class="section-header">
+                <h2>💡 Tarifas del Mercado (Sin IVA)</h2>
+                <p>Comparativas actualizadas de tarifas fijas, Dual, indexadas y planas. Precios <strong>SIN IVA</strong> (21%).</p>
             </div>
             <div class="tariffs-table-wrapper">
                 <table class="tariffs-table">
                     <thead>
                         <tr>
-                            <th>Compañía</th>
                             <th>Tipo de Tarifa</th>
                             <th>Precio/kWh Luz<br><small>(Sin IVA)</small></th>
                             <th>Precio/kWh Gas<br><small>(Sin IVA)</small></th>
@@ -1530,38 +1694,33 @@
                     <tbody>
                         <!-- TARIFA FIJA 24H -->
                         <tr style="background: #F0F9FF; font-weight: bold;">
-                            <td colspan="5">📌 TARIFA FIJA 24H</td>
+                            <td colspan="4">📌 TARIFA FIJA 24H</td>
                         </tr>
                         <tr class="highlight-row">
-                            <td><strong>⭐ GANA ENERGÍA</strong></td>
                             <td><span class="tag tag-fixed">Fija 24h</span></td>
                             <td><strong>⭐ 0,111 €/kWh</strong></td>
                             <td>Desde 0,01 €/kWh</td>
-                            <td><strong>Precio fijo 24h - Luz más barata del mercado</strong>, sin permanencia</td>
+                            <td><strong>Luz más barata</strong> del mercado, sin permanencia</td>
                         </tr>
                         <tr>
-                            <td><strong>NATURGY</strong></td>
                             <td><span class="tag tag-fixed">Fija 24h</span></td>
                             <td><strong>0,1199 €/kWh</strong></td>
                             <td>0,0774 €/kWh</td>
                             <td>Tarifa Por Uso: Precio bajo sin permanencia</td>
                         </tr>
                         <tr>
-                            <td><strong>ENDESA</strong></td>
                             <td><span class="tag tag-fixed">Fija 24h</span></td>
                             <td><strong>0,1207 €/kWh</strong></td>
                             <td>0,0597 €/kWh</td>
-                            <td>Conecta Luz/Gas: Fijo 24h, contrato online</td>
+                            <td>Conecta: Fijo 24h, contrato online</td>
                         </tr>
                         <tr>
-                            <td><strong>HOLA LUZ</strong></td>
                             <td><span class="tag tag-fixed">Fija 24h</span></td>
                             <td><strong>0,12 €/kWh</strong></td>
                             <td>0,07 €/kWh</td>
-                            <td>Precio estable, luz 100% renovable, servicio 100% online</td>
+                            <td>Precio estable, luz 100% renovable, 100% online</td>
                         </tr>
                         <tr>
-                            <td><strong>IBERDROLA</strong></td>
                             <td><span class="tag tag-fixed">Fija 24h</span></td>
                             <td><strong>0,13 €/kWh</strong></td>
                             <td>0,08 €/kWh</td>
@@ -1570,24 +1729,21 @@
 
                         <!-- TARIFA DUAL -->
                         <tr style="background: #FDF4FF; font-weight: bold;">
-                            <td colspan="5">⚡ TARIFA DUAL (Luz + Gas)</td>
+                            <td colspan="4">⚡ TARIFA DUAL (Luz + Gas)</td>
                         </tr>
                         <tr>
-                            <td><strong>ENDESA</strong></td>
                             <td><span class="tag tag-mixed">DUAL</span></td>
                             <td><strong>0,1039 €/kWh</strong></td>
                             <td>0,0638 €/kWh</td>
-                            <td><strong>⭐ Mejor DUAL</strong> - One Luz + Gas con dto especial 1er año</td>
+                            <td><strong>⭐ Mejor DUAL</strong> - Uno Luz+Gas con dto especial 1er año</td>
                         </tr>
                         <tr>
-                            <td><strong>NATURGY</strong></td>
                             <td><span class="tag tag-mixed">DUAL</span></td>
                             <td><strong>~0,112 €/kWh</strong></td>
                             <td>~0,072 €/kWh</td>
                             <td>Luz + Gas con descuento</td>
                         </tr>
                         <tr>
-                            <td><strong>IBERDROLA</strong></td>
                             <td><span class="tag tag-mixed">DUAL</span></td>
                             <td><strong>~0,125 €/kWh</strong></td>
                             <td>~0,078 €/kWh</td>
@@ -1596,24 +1752,21 @@
 
                         <!-- TARIFA INDEXADA -->
                         <tr style="background: #FEF3C7; font-weight: bold;">
-                            <td colspan="5">📈 TARIFA INDEXADA</td>
+                            <td colspan="4">📈 TARIFA INDEXADA</td>
                         </tr>
                         <tr>
-                            <td><strong>GANA ENERGÍA</strong></td>
                             <td><span class="tag tag-index">Indexada</span></td>
                             <td><strong>Pool + fee</strong></td>
                             <td>~0,01 €/kWh</td>
                             <td>Indexada pura - Varía según mercado</td>
                         </tr>
                         <tr>
-                            <td><strong>HOLA LUZ</strong></td>
                             <td><span class="tag tag-index">Indexada</span></td>
                             <td><strong>Pool + fee</strong></td>
                             <td>--</td>
                             <td>Indexada pura - Luz 100% renovable</td>
                         </tr>
                         <tr>
-                            <td><strong>IBERDROLA</strong></td>
                             <td><span class="tag tag-index">Indexada</span></td>
                             <td><strong>Pool + fee</strong></td>
                             <td>~0,042 €/kWh</td>
@@ -1622,10 +1775,9 @@
 
                         <!-- TARIFA PLANA -->
                         <tr style="background: #ECFDF5; font-weight: bold;">
-                            <td colspan="5">💰 TARIFA PLANA</td>
+                            <td colspan="4">💰 TARIFA PLANA</td>
                         </tr>
                         <tr>
-                            <td><strong>NATURGY</strong></td>
                             <td><span class="tag tag-index">Plana</span></td>
                             <td><strong>Cuota fija mensual</strong></td>
                             <td><strong>Cuota fija mensual</strong></td>
@@ -1635,13 +1787,16 @@
                 </table>
             </div>
             <div class="tariffs-info">
-                <p>* Precios SIN IVA - Tarifas Fijas 24h (2024-2025).</p>
-                <p>💡 Precios mostrados <strong>sin impuestos electricos ni IVA (21%)</strong>. Para precio final con IVA, multiplicar por 1,21. Ejemplo: 0,111€ × 1,21 = 0,134€/kWh.</p>
+                <p>* Precios SIN IVA - Tarifas (2024-2025).</p>
+                <p>💡 Precios mostrados <strong>sin impuestos electricos ni IVA (21%)</strong>. Para precio final con IVA, multiplicar por 1,21.</p>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="toggleTariffs()" class="btn-secondary">
+                    🔼 OCULTAR TARIFAS
+                </button>
             </div>
         </div>
-    </section>
-
-    <!-- Upload Section - Prominent -->
+    </section>    <!-- Upload Section - Prominent -->
     <section class="upload-section" id="contacto">
         <div class="container">
             <div class="upload-content">
@@ -1941,6 +2096,30 @@
                 alert('❌ Por favor, completa todos los campos requeridos.');
             }
         });
+
+        // Toggle tariffs visibility
+        function toggleTariffs() {
+            const tariffsSection = document.getElementById('tarifas-reales');
+            const btn = document.getElementById('viewTariffsBtn');
+
+            if (tariffsSection.style.display === 'none') {
+                tariffsSection.style.display = 'block';
+                btn.textContent = '👁️ OCULTAR TARIFAS';
+                // Smooth scroll to tariffs
+                tariffsSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            } else {
+                tariffsSection.style.display = 'none';
+                btn.textContent = '👁️ VER TARIFAS';
+                // Scroll back up
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
     </script>
 </body>
 </html>
