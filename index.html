@@ -401,6 +401,50 @@
             box-shadow: 0 0 0 3px rgba(0,51,102,0.1);
         }
 
+        .form-highlight {
+            background: linear-gradient(135deg, #fff3f3 0%, #fff 100%);
+            border: 2px solid #ff6b6b;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(255, 107, 107, 0);
+            }
+        }
+
+        .form-highlight h3 {
+            font-size: 24px;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .form-highlight p {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .form-highlight strong {
+            color: #ff6b6b;
+            font-weight: 700;
+        }
+
+        .highlight-text {
+            color: #003366 !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            margin-top: 15px !important;
+        }
         .btn-submit {
             width: 100%;
             padding: 20px;
@@ -1228,8 +1272,14 @@
                 <div class="form-group">
                     <label>He leído y acepto las condiciones *</label>
                     <input type="checkbox" name="condiciones" required>
-                    <p style="font-size: 12px; color: #d00; margin-top: 5px;">⚠️ Si recibes email SIN archivo, adjunta por WhatsApp: +34 610 243 061</p>
                 </div>
+
+                <div class="form-highlight">
+                    <h3>🔥 ¡AHORRA DESDE EL PRIMER DÍA!</h3>
+                    <p>Analizamos tu factura y encontramos tarifas a partir de <strong>0,11€ kWh</strong> con <strong>TARIFA PLANA</strong></p>
+                    <p class="highlight-text">No pagues más por capricho... paga lo justo por lo que usas 💪</p>
+                </div>
+
                 <button type="submit" class="btn-submit">Solicita tu análisis gratis</button>
             </form>
         </div>
