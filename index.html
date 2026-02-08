@@ -1158,6 +1158,7 @@
                 <input type="hidden" name="_subject" value="NUEVO CLIENTE - Análisis de Factura - Enerlux Soluciones">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://dahao12.github.io/enerlux-website/?formulario=enviado">
                 <div class="form-group">
                     <label>Nombre completo *</label>
                     <input type="text" name="nombre" required>
@@ -1225,11 +1226,8 @@
                     <p style="font-size: 12px; color: #999; margin-top: 5px;">Formatos: PDF, JPG, JPEG, PNG (máximo: 25 MB)</p>
                 </div>
                 <div class="form-group">
-                    <label>Confirmación: Adjunto correcto *</label>
-                    <select name="confirmacion" required>
-                        <option value="no" selected>Selecciona...</option>
-                        <option value="si">✅ Sí, he adjuntado mi factura</option>
-                    </select>
+                    <label>He leído y acepto las condiciones *</label>
+                    <input type="checkbox" name="condiciones" required>
                     <p style="font-size: 12px; color: #d00; margin-top: 5px;">⚠️ Si recibes email SIN archivo, adjunta por WhatsApp: +34 610 243 061</p>
                 </div>
                 <button type="submit" class="btn-submit">Solicita tu análisis gratis</button>
@@ -1397,6 +1395,22 @@
         </div>
     </footer>
 
+    <!-- GRACIAS POR CONTACTAR - SECCIÓN OCULTA (se muestra después de enviar formulario) -->
+    <section class="gracias-section" id="gracias-section" style="display: none;">
+        <div class="container">
+            <div class="gracias-card">
+                <div class="gracias-icon">✅</div>
+                <h2>¡Gracias por confiar en Enerlux Soluciones!</h2>
+                <p>Tu solicitud ha sido enviada correctamente. Recibirás un email de confirmación en breve.</p>
+                <p>Si no recibes el email con el archivo adjunto en los próximos 5 minutos, por favor envíanos tu factura por WhatsApp:</p>
+                <div class="gracias-whatsapp">
+                    <a href="https://wa.me/34610243061" target="_blank">💬 WhatsApp: +34 610 243 061</a>
+                </div>
+                <p>¡Te contactaremos lo antes posible para comenzar a ahorrar!</p>
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
@@ -1413,6 +1427,63 @@
             </div>
         </div>
     </footer>
+
+    <!-- GRACIAS POR CONTACTAR - CSS -->
+    <style>
+        .gracias-section {
+            background: linear-gradient(135deg, #00509e 0%, #003366 100%);
+            padding: 120px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .gracias-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .gracias-icon {
+            font-size: 80px;
+            margin-bottom: 25px;
+        }
+
+        .gracias-card h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 25px;
+        }
+
+        .gracias-card p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .gracias-whatsapp a {
+            display: inline-block;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .gracias-whatsapp a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+    </style>
 
     <!-- WHATSAPP FLOATING BUTTON -->
     <a href="https://wa.me/34610243061" class="whatsapp-float" title="WhatsApp">💬</a>
@@ -1475,6 +1546,29 @@
                 if (options) options.classList.remove('show');
                 if (selected) selected.classList.remove('active');
                 if (arrow) arrow.classList.remove('rotate');
+            }
+        });
+    </script>
+
+    <script>
+        // Detectar si el formulario fue enviado (URL parameter ?formulario=enviado)
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const formularioEnviado = urlParams.get('formulario');
+
+            if (formularioEnviado === 'enviado') {
+                // Mostrar sección de gracias
+                document.getElementById('gracias-section').style.display = 'block';
+
+                // Ocultar otras secciones (opcional - para que solo vea gracias)
+                // document.querySelectorAll('section').forEach(section => {
+                //     if (section.id !== 'gracias-section') {
+                //         section.style.display = 'none';
+                //     }
+                // });
+
+                // Scroll a la sección de gracias
+                document.getElementById('gracias-section').scrollIntoView({ behavior: 'smooth' });
             }
         });
     </script>
