@@ -933,6 +933,99 @@
         }
 
         /* ========================================
+           CUSTOM DROPDOWN - Compañía
+           ======================================== */
+        .custom-dropdown {
+            width: 100%;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .dropdown-selected {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            background: white;
+            border: 2px solid #d0d0d0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-selected:hover {
+            border-color: var(--primary-dark);
+        }
+
+        .dropdown-selected.active {
+            border-color: var(--primary-dark);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .company-option-logo {
+            height: 30px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .dropdown-arrow {
+            margin-left: auto;
+            font-size: 12px;
+            color: #999;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-arrow.rotate {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--primary-dark);
+            border-top: none;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            z-index: 100;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .dropdown-options.show {
+            display: block;
+        }
+
+        .dropdown-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .dropdown-option:hover {
+            background: #f8fafc;
+        }
+
+        .dropdown-option:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-option.selected {
+            background: #e8f0fe;
+        }
+
+        /* ========================================
            RESPONSIVE
            ======================================== */
         @media (max-width: 768px) {
@@ -1080,15 +1173,44 @@
                 </div>
                 <div class="form-group">
                     <label>Compañía actual</label>
-                    <select name="compania">
-                        <option value="no-lo-se">No lo sé</option>
-                        <option value="endesa">ENDESA</option>
-                        <option value="gana-energia">GANA ENERGÍA</option>
-                        <option value="holaluz">HOLALUZ</option>
-                        <option value="naturgy">NATURGY</option>
-                        <option value="iberdrola">IBERDROLA</option>
-                        <option value="otra">Otra</option>
-                    </select>
+                    <input type="hidden" name="compania" id="compania-value" value="no-lo-se">
+                    <div class="custom-dropdown" id="compania-dropdown">
+                        <div class="dropdown-selected" onclick="toggleDropdown()">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png" class="company-option-logo" alt="No lo sé">
+                            <span>No lo sé</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="dropdown-options">
+                            <div class="dropdown-option" onclick="selectCompany('no-lo-se', 'No lo sé', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png" class="company-option-logo" alt="No lo sé">
+                                <span>No lo sé</span>
+                            </div>
+                            <div class="dropdown-option" onclick="selectCompany('endesa', 'ENDESA', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png" class="company-option-logo" alt="ENDESA">
+                                <span>ENDESA</span>
+                            </div>
+                            <div class="dropdown-option" onclick="selectCompany('gana-energia', 'GANA ENERGÍA', 'https://www.ganaenergia.com/images/logo.png')">
+                                <img src="https://www.ganaenergia.com/images/logo.png" class="company-option-logo" alt="GANA ENERGÍA">
+                                <span>GANA ENERGÍA</span>
+                            </div>
+                            <div class="dropdown-option" onclick="selectCompany('holaluz', 'HOLALUZ', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Holaluz_logo.svg/1200px-Holaluz_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Holaluz_logo.svg/1200px-Holaluz_logo.svg.png" class="company-option-logo" alt="HOLALUZ">
+                                <span>HOLALUZ</span>
+                            </div>
+                            <div class="dropdown-option" onclick="selectCompany('naturgy', 'NATURGY', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Naturgy_logo.svg/1200px-Naturgy_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Naturgy_logo.svg/1200px-Naturgy_logo.svg.png" class="company-option-logo" alt="NATURGY">
+                                <span>NATURGY</span>
+                            </div>
+                            <div class="dropdown-option" onclick="selectCompany('iberdrola', 'IBERDROLA', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Iberdrola_logo.svg/1200px-Iberdrola_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Iberdrola_logo.svg/1200px-Iberdrola_logo.svg.png" class="company-option-logo" alt="IBERDROLA">
+                                <span>IBERDROLA</span>
+                            </div>
+                            <div class="dropdown-option" onclick="selectCompany('otra', 'Otra', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png" class="company-option-logo" alt="Otra">
+                                <span>Otra</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Sube tu factura *</label>
@@ -1279,6 +1401,68 @@
 
     <!-- WHATSAPP FLOATING BUTTON -->
     <a href="https://wa.me/34610243061" class="whatsapp-float" title="WhatsApp">💬</a>
+
+    <script>
+        // Custom Dropdown - Compañía
+        function toggleDropdown() {
+            const dropdown = document.getElementById('compania-dropdown');
+            const selected = dropdown.querySelector('.dropdown-selected');
+            const options = dropdown.querySelector('.dropdown-options');
+            const arrow = selected.querySelector('.dropdown-arrow');
+
+            if (options.classList.contains('show')) {
+                options.classList.remove('show');
+                selected.classList.remove('active');
+                arrow.classList.remove('rotate');
+            } else {
+                options.classList.add('show');
+                selected.classList.add('active');
+                arrow.classList.add('rotate');
+            }
+        }
+
+        function selectCompany(value, name, logo) {
+            const dropdown = document.getElementById('compania-dropdown');
+            const selected = dropdown.querySelector('.dropdown-selected');
+            const options = dropdown.querySelector('.dropdown-options');
+            const arrow = selected.querySelector('.dropdown-arrow');
+            const hiddenInput = document.getElementById('compania-value');
+
+            // Update selected option
+            selected.innerHTML = `
+                <img src="${logo}" class="company-option-logo" alt="${name}">
+                <span>${name}</span>
+                <span class="dropdown-arrow">▼</span>
+            `;
+
+            // Update hidden input
+            hiddenInput.value = value;
+
+            // Update selected state on options
+            options.querySelectorAll('.dropdown-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Close dropdown
+            options.classList.remove('show');
+            selected.classList.remove('active');
+            arrow.classList.remove('rotate');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('compania-dropdown');
+            if (dropdown && !dropdown.contains(event.target)) {
+                const options = dropdown.querySelector('.dropdown-options');
+                const selected = dropdown.querySelector('.dropdown-selected');
+                const arrow = selected ? selected.querySelector('.dropdown-arrow') : null;
+
+                if (options) options.classList.remove('show');
+                if (selected) selected.classList.remove('active');
+                if (arrow) arrow.classList.remove('rotate');
+            }
+        });
+    </script>
 
 </body>
 </html>
