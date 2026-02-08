@@ -965,12 +965,10 @@
             border-bottom-right-radius: 0;
         }
 
-        .company-emoji {
-            font-size: 24px;
-            width: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .company-logo {
+            width: 80px;
+            height: 40px;
+            object-fit: contain;
         }
 
         .dropdown-arrow {
@@ -1178,37 +1176,37 @@
                     <input type="hidden" name="compania" id="compania-value" value="no-lo-se">
                     <div class="custom-dropdown" id="compania-dropdown">
                         <div class="dropdown-selected" onclick="toggleDropdown()">
-                            <span class="company-emoji">❓</span>
+                            <img src="https://placehold.co/80x40/f2f2f2/003366?text=?" class="company-logo" alt="No lo sé">
                             <span>No lo sé</span>
                             <span class="dropdown-arrow">▼</span>
                         </div>
                         <div class="dropdown-options">
-                            <div class="dropdown-option" onclick="selectCompany('no-lo-se', 'No lo sé', '❓')">
-                                <span class="company-emoji">❓</span>
+                            <div class="dropdown-option" onclick="selectCompany('no-lo-se', 'No lo sé', 'https://placehold.co/80x40/f2f2f2/003366?text=?')">
+                                <img src="https://placehold.co/80x40/f2f2f2/003366?text=?" class="company-logo" alt="No lo sé">
                                 <span>No lo sé</span>
                             </div>
-                            <div class="dropdown-option" onclick="selectCompany('endesa', 'ENDESA', '🔋')">
-                                <span class="company-emoji">🔋</span>
+                            <div class="dropdown-option" onclick="selectCompany('endesa', 'ENDESA', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png" class="company-logo" alt="ENDESA" onerror="this.src='https://placehold.co/80x40/0066cc/ffffff?text=ENDESA'">
                                 <span>ENDESA</span>
                             </div>
-                            <div class="dropdown-option" onclick="selectCompany('gana-energia', 'GANA ENERGÍA', '⚡')">
-                                <span class="company-emoji">⚡</span>
+                            <div class="dropdown-option" onclick="selectCompany('gana-energia', 'GANA ENERGÍA', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Endesa_logo.svg/1200px-Endesa_logo.svg.png" class="company-logo" alt="GANA ENERGÍA" onerror="this.src='https://placehold.co/80x40/00bfff/ffffff?text=GANA'">
                                 <span>GANA ENERGÍA</span>
                             </div>
-                            <div class="dropdown-option" onclick="selectCompany('holaluz', 'HOLALUZ', '☀️')">
-                                <span class="company-emoji">☀️</span>
+                            <div class="dropdown-option" onclick="selectCompany('holaluz', 'HOLALUZ', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Holaluz_logo.svg/1200px-Holaluz_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Holaluz_logo.svg/1200px-Holaluz_logo.svg.png" class="company-logo" alt="HOLALUZ" onerror="this.src='https://placehold.co/80x40/1E90FF/ffffff?text=HOLALUZ'">
                                 <span>HOLALUZ</span>
                             </div>
-                            <div class="dropdown-option" onclick="selectCompany('naturgy', 'NATURGY', '⚙️')">
-                                <span class="company-emoji">⚙️</span>
+                            <div class="dropdown-option" onclick="selectCompany('naturgy', 'NATURGY', 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Naturgy_logo.svg/1200px-Naturgy_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Naturgy_logo.svg/1200px-Naturgy_logo.svg.png" class="company-logo" alt="NATURGY" onerror="this.src='https://placehold.co/80x40/1a5490/ffffff?text=NATURGY'">
                                 <span>NATURGY</span>
                             </div>
-                            <div class="dropdown-option" onclick="selectCompany('iberdrola', 'IBERDROLA', '💬')">
-                                <span class="company-emoji">💬</span>
+                            <div class="dropdown-option" onclick="selectCompany('iberdrola', 'IBERDROLA', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Iberdrola_logo.svg/1200px-Iberdrola_logo.svg.png')">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Iberdrola_logo.svg/1200px-Iberdrola_logo.svg.png" class="company-logo" alt="IBERDROLA" onerror="this.src='https://placehold.co/80x40/ff6600/ffffff?text=IBERDROLA'">
                                 <span>IBERDROLA</span>
                             </div>
-                            <div class="dropdown-option" onclick="selectCompany('otra', 'Otra', '🔐')">
-                                <span class="company-emoji">🔐</span>
+                            <div class="dropdown-option" onclick="selectCompany('otra', 'Otra', 'https://placehold.co/80x40/f2f2f2/003366?text=?')">
+                                <img src="https://placehold.co/80x40/f2f2f2/003366?text=?" class="company-logo" alt="Otra">
                                 <span>Otra</span>
                             </div>
                         </div>
@@ -1423,16 +1421,16 @@
             }
         }
 
-        function selectCompany(value, name, emoji) {
+        function selectCompany(value, name, logo) {
             const dropdown = document.getElementById('compania-dropdown');
             const selected = dropdown.querySelector('.dropdown-selected');
             const options = dropdown.querySelector('.dropdown-options');
-            const arrow = selected.querySelector('.dropdown-arrow');
+            const arrow = dropdown.querySelector('.dropdown-arrow');
             const hiddenInput = document.getElementById('compania-value');
 
             // Update selected option
             selected.innerHTML = `
-                <span class="company-emoji">${emoji}</span>
+                <img src="${logo}" class="company-logo" alt="${name}" onerror="this.src='https://placehold.co/80x40/ffffff/003366?text=...'">
                 <span>${name}</span>
                 <span class="dropdown-arrow">▼</span>
             `;
@@ -1448,7 +1446,7 @@
             // Close dropdown
             options.classList.remove('show');
             selected.classList.remove('active');
-            arrow.classList.remove('rotate');
+            if (arrow) arrow.classList.remove('rotate');
         }
 
         // Close dropdown when clicking outside
