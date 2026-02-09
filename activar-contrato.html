@@ -780,7 +780,7 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Potencia 1 <span class="required-star">*</span></label>
+                        <label>Potencia <span class="required-star">*</span></label>
                         <select name="potencia_1" required>
                             <option value="">Selecciona...</option>
                             <option value="1.15 kW">1.15 kW</option>
@@ -792,10 +792,10 @@
                             <option value="8.05 kW">8.05 kW</option>
                             <option value="9.2 kW">9.2 kW</option>
                         </select>
-                        <p class="form-help-text">Horario punta (P1)</p>
+                        <p class="form-help-text">Puntas (P1)</p>
                     </div>
                     <div class="form-group">
-                        <label>Potencia 2 <span class="required-star">*</span></label>
+                        <label>Potencia <span class="required-star">*</span></label>
                         <select name="potencia_2" required>
                             <option value="">Selecciona...</option>
                             <option value="1.15 kW">1.15 kW</option>
@@ -807,7 +807,7 @@
                             <option value="8.05 kW">8.05 kW</option>
                             <option value="9.2 kW">9.2 kW</option>
                         </select>
-                        <p class="form-help-text">Horario valle (P2)</p>
+                        <p class="form-help-text">Valle (P2)</p>
                     </div>
                 </div>
 
@@ -821,11 +821,6 @@
                     <label>IBAN <span class="required-star">*</span></label>
                     <input type="text" name="iban" required placeholder="ESXX XXXX XXXX XXXX XXXX XXXX" pattern="ES[0-9]{2}[0-9]{20}" maxlength="24">
                     <p class="form-help-text">Formato: ES + 22 dígitos (sin espacios)</p>
-                </div>
-
-                <div class="form-group">
-                    <label>Confirmar IBAN <span class="required-star">*</span></label>
-                    <input type="text" name="iban_confirm" required placeholder="ESXX XXXX XXXX XXXX XXXX XXXX" pattern="ES[0-9]{2}[0-9]{20}" maxlength="24">
                 </div>
 
                 <!-- CONDICIONES -->
@@ -863,7 +858,6 @@
     <script>
         // IBAN validation and formatting
         const ibanInput = document.querySelector('input[name="iban"]');
-        const ibanConfirmInput = document.querySelector('input[name="iban_confirm"]');
 
         function formatIBAN(value) {
             // Remove spaces and convert to uppercase
@@ -872,20 +866,6 @@
 
         ibanInput.addEventListener('blur', function() {
             this.value = formatIBAN(this.value);
-        });
-
-        ibanConfirmInput.addEventListener('blur', function() {
-            this.value = formatIBAN(this.value);
-        });
-
-        // IBAN match validation
-        const form = document.querySelector('form');
-        form.addEventListener('submit', function(e) {
-            if (ibanInput.value !== ibanConfirmInput.value) {
-                e.preventDefault();
-                alert('Los IBANs no coinciden. Por favor, verifica los datos.');
-                ibanConfirmInput.focus();
-            }
         });
 
         // Phone formatting (optional enhancement)
