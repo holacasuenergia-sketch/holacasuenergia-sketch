@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Activa tu contrato con Enerlux Soluciones. Formulario de activación de servicio de luz y gas. Ahorra desde el primer día.">
+    <meta name="keywords" content="enerlux, activar contrato, luz, gas, ahorro, cambio comercializadora, tarifas baratas">
+    <meta name="author" content="Enerlux Soluciones">
+    <meta name="robots" content="index, follow">
+    <title>Activar Contrato - Enerlux Soluciones | Ahorra en Luz y Gas</title>
+    <link rel="canonical" href="https://pagomenosluzygas.es/activar-contrato">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           VARIABLES & RESET
+           ======================================== */
+        :root {
+            --primary-dark: #003366;
+            --primary-medium: #00509e;
+            --bg-light: #f2f2f2;
+            --text-primary: #003366;
+            --text-secondary: #666666;
+            --text-light: #d9d9d9;
+            --accent-green: #2e8b57;
+            --btn-whatsapp: #25D366;
+            --btn-phone: #87CEEB;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            background: var(--white);
+        }
+
+        /* ========================================
+           HEADER (FIJO)
+           ======================================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--primary-dark);
+            padding: 12px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 55px;
+            width: auto;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header a {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .header a[href^="tel:"] {
+            background: var(--btn-phone);
+            color: var(--primary-dark);
+        }
+
+        .header a[href^="https://wa.me"] {
+            background: var(--btn-whatsapp);
+            color: var(--white);
+        }
+
+        .header a[href^="/"] {
+            background: transparent;
+            color: var(--white);
+        }
+
+        .header a[href^="/"]:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .header a[href^="tel:"]:hover {
+            background: #00BFFF;
+            transform: translateY(-2px);
+        }
+
+        .header a[href^="https://wa.me"]:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            margin-top: 70px;
+            padding: 80px 0 60px 0;
+            background: linear-gradient(135deg, #003366 0%, #00509e 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+        }
+
+        .hero .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        /* ========================================
+           FORM SECTION
+           ======================================== */
+        .form-section {
+            padding: 60px 0 90px 0;
+            background: linear-gradient(135deg, white 0%, #fafbfc 100%);
+        }
+
+        .form-section .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .form-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .form-intro {
+            font-size: 17px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,51,102,0.1);
+            border: 2px solid #e8f0fe;
+        }
+
+        .form-section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 0 0 30px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--accent-green);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-section-title .step-number {
+            background: var(--accent-green);
+            color: white;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #d0d0d0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 3px rgba(0,51,102,0.1);
+        }
+
+        .form-help-text {
+            font-size: 13px;
+            color: #999;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row-3 .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-row-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-row-4 .form-group {
+            margin-bottom: 0;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .required-star {
+            color: #ff6b6b;
+            font-weight: 700;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 20px;
+            background: var(--primary-dark);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,51,102,0.3);
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-medium);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 8px 25px rgba(0,51,102,0.4);
+        }
+
+        .notice-box {
+            background: linear-gradient(135deg, #fff3f3 0%, #fff 100%);
+            border: 2px solid #ff6b6b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .notice-box h4 {
+            color: #ff6b6b;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .notice-box p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            padding: 50px 0;
+            background: linear-gradient(135deg, #003366 0%, #002244 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .footer .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer a {
+            display: inline-block;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .footer a[href^="tel:"] {
+            background: var(--btn-phone);
+            color: var(--primary-dark);
+        }
+
+        .footer a[href^="https://wa.me"] {
+            background: var(--btn-whatsapp);
+            color: var(--white);
+        }
+
+        .footer a[href^="/"] {
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+        }
+
+        .footer a[href^="tel:"]:hover {
+            background: #00BFFF;
+            transform: translateY(-3px);
+        }
+
+        .footer a[href^="https://wa.me"]:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+        }
+
+        .footer a[href^="/"]:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .footer-info {
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .footer-info a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========================================
+           WHATSAPP FLOATING BUTTON
+           ======================================== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 6px 25px rgba(37,211,102,0.4);
+            z-index: 1000;
+            animation: pulse 2s infinite;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 6px 25px rgba(37,211,102,0.4);
+            }
+            50% {
+                transform: scale(1.08);
+                box-shadow: 0 8px 35px rgba(37,211,102,0.6);
+            }
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 10px 40px rgba(37,211,102,0.5);
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .form-section h2 {
+                font-size: 28px;
+            }
+
+            .form-row,
+            .form-row-3,
+            .form-row-4 {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .header-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .header a {
+                font-size: 11px;
+                padding: 8px 12px;
+            }
+
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                font-size: 28px;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .form-box {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER (FIJO) -->
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="logo-enerlux.jpg" alt="Enerlux Soluciones">
+            </a>
+            <div class="header-buttons">
+                <a href="/">← Volver</a>
+                <a href="tel:+34610243061">📞 Llámanos</a>
+                <a href="https://wa.me/34610243061">💬 WhatsApp</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <a href="/" class="back-link">← Volver al inicio</a>
+            <h1>Activar Contrato - Enerlux Soluciones</h1>
+            <p>Completa este formulario para activar tu nuevo contrato de luz y gas de forma segura y sencilla.</p>
+        </div>
+    </section>
+
+    <!-- FORMULARIO -->
+    <section class="form-section">
+        <div class="container">
+            <h2>Formulario de Activación</h2>
+            <p class="form-intro">Todos los campos marcados con un asterisco (*) son obligatorios. Tu información está protegida y solo se usará para gestionar tu contrato.</p>
+
+            <div class="notice-box">
+                <h4>🔒 Tu información está segura</h4>
+                <p>Tus datos personales y bancarios se transmiten de forma encriptada y segura. Cumplimos con el RGPD y la Ley de Protección de Datos.</p>
+            </div>
+
+            <form class="form-box" action="https://formsubmit.co/enerlux.soluciones@gmail.com" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_subject" value="ACTIVAR CONTRATO - Nuevo Cliente - Enerlux Soluciones">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://pagomenosluzygas.es/?contrato=enviado">
+
+                <!-- SECCIÓN 1: DATOS DEL TITULAR -->
+                <h3 class="form-section-title">
+                    <div class="step-number">1</div>
+                    Datos del titular
+                </h3>
+
+                <div class="form-group">
+                    <label>Identificación (DNI/NIE) <span class="required-star">*</span></label>
+                    <input type="file" name="dni_file" accept=".pdf,.jpg,.jpeg,.png" required>
+                    <p class="form-help-text">Adjunta una foto de tu DNI o NIE (anverso y reverso en un solo archivo)</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre y Apellidos <span class="required-star">*</span></label>
+                    <input type="text" name="nombre" required placeholder="Ej: Juan García Pérez">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email <span class="required-star">*</span></label>
+                        <input type="email" name="email" required placeholder="Ej: juan@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Móvil <span class="required-star">*</span></label>
+                        <input type="tel" name="telefono" required placeholder="Ej: 610 243 061" pattern="[0-9\s\+\-]{9,15}">
+                        <p class="form-help-text">Formato: +34 XXX XXX XXX o XXX XXX XXX</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nacionalidad <span class="required-star">*</span></label>
+                    <select name="nacionalidad" required>
+                        <option value="">Selecciona...</option>
+                        <option value="espana" selected>España</option>
+                        <option value="otra">Otra</option>
+                    </select>
+                </div>
+
+                <!-- SECCIÓN 2: DIRECCIÓN Y DATOS DE SUMINISTRO -->
+                <h3 class="form-section-title" style="margin-top: 40px;">
+                    <div class="step-number">2</div>
+                    Dirección y datos de suministro
+                </h3>
+
+                <div class="form-group">
+                    <label>Dirección de suministro <span class="required-star">*</span></label>
+                    <input type="text" name="direccion" required placeholder="Calle completa...">
+                </div>
+
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label>Código postal <span class="required-star">*</span></label>
+                        <input type="text" name="codigo_postal" required placeholder="Ej: 08025" pattern="[0-9]{5}" maxlength="5">
+                    </div>
+                    <div class="form-group">
+                        <label>Provincia <span class="required-star">*</span></label>
+                        <select name="provincia" required>
+                            <option value="">Selecciona...</option>
+                            <option value="alava">Álava</option>
+                            <option value="albacete">Albacete</option>
+                            <option value="alicante">Alicante</option>
+                            <option value="almeria">Almería</option>
+                            <option value="asturias">Asturias</option>
+                            <option value="avila">Ávila</option>
+                            <option value="badajoz">Badajoz</option>
+                            <option value="barcelona" selected>Barcelona</option>
+                            <option value="burgos">Burgos</option>
+                            <option value="caceres">Cáceres</option>
+                            <option value="cadiz">Cádiz</option>
+                            <option value="cantabria">Cantabria</option>
+                            <option value="castellon">Castellón</option>
+                            <option value="ceuta">Ceuta</option>
+                            <option value="ciudad_real">Ciudad Real</option>
+                            <option value="cordoba">Córdoba</option>
+                            <option value="cuenca">Cuenca</option>
+                            <option value="girona">Girona</option>
+                            <option value="granada">Granada</option>
+                            <option value="guadalajara">Guadalajara</option>
+                            <option value="guipuzcoa">Guipúzcoa</option>
+                            <option value="huelva">Huelva</option>
+                            <option value="huesca">Huesca</option>
+                            <option value="illes_baleares">Illes Balears</option>
+                            <option value="jaen">Jaén</option>
+                            <option value="a_coruna">A Coruña</option>
+                            <option value="la_rioja">La Rioja</option>
+                            <option value="las_palmas">Las Palmas</option>
+                            <option value="leon">León</option>
+                            <option value="lleida">Lleida</option>
+                            <option value="lugo">Lugo</option>
+                            <option value="madrid">Madrid</option>
+                            <option value="malaga">Málaga</option>
+                            <option value="melilla">Melilla</option>
+                            <option value="murcia">Murcia</option>
+                            <option value="navarra">Navarra</option>
+                            <option value="ourense">Ourense</option>
+                            <option value="palencia">Palencia</option>
+                            <option value="pontevedra">Pontevedra</option>
+                            <option value="salamanca">Salamanca</option>
+                            <option value="segovia">Segovia</option>
+                            <option value="sevilla">Sevilla</option>
+                            <option value="soria">Soria</option>
+                            <option value="tarragona">Tarragona</option>
+                            <option value="santa_cruz_de_tenerife">Santa Cruz de Tenerife</option>
+                            <option value="teruel">Teruel</option>
+                            <option value="toledo">Toledo</option>
+                            <option value="valencia">Valencia</option>
+                            <option value="valladolid">Valladolid</option>
+                            <option value="vizcaya">Vizcaya</option>
+                            <option value="zamora">Zamora</option>
+                            <option value="zaragoza">Zaragoza</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Municipio <span class="required-star">*</span></label>
+                        <input type="text" name="municipio" required placeholder="Ej: Barcelona">
+                    </div>
+                </div>
+
+                <div class="form-row-4">
+                    <div class="form-group">
+                        <label>Tipo de vía <span class="required-star">*</span></label>
+                        <select name="tipo_via" required>
+                            <option value="">Selecciona...</option>
+                            <option value="calle" selected>Calle</option>
+                            <option value="avenida">Avenida</option>
+                            <option value="plaza">Plaza</option>
+                            <option value="paseo">Paseo</option>
+                            <option value="rambla">Rambla</option>
+                            <option value="carrer">Carrer</option>
+                            <option value="ronda">Ronda</option>
+                            <option value="poblado">Poblado</option>
+                            <option value="callejon">Callejón</option>
+                            <option value="pasaje">Pasaje</option>
+                            <option value="camino">Camino</option>
+                            <option value="barrio">Barrio</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre de la vía <span class="required-star">*</span></label>
+                        <input type="text" name="nombre_via" required placeholder="Ej: Travessera de Gràcia">
+                    </div>
+                    <div class="form-group">
+                        <label>Número <span class="required-star">*</span></label>
+                        <input type="text" name="numero" required placeholder="Ej: 415">
+                    </div>
+                    <div class="form-group">
+                        <label>Escalera</label>
+                        <input type="text" name="escalera" placeholder="Opcional">
+                    </div>
+                </div>
+
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label>Piso</label>
+                        <input type="text" name="piso" placeholder="Opcional">
+                    </div>
+                    <div class="form-group">
+                        <label>Puerta</label>
+                        <input type="text" name="puerta" placeholder="Opcional">
+                    </div>
+                    <div class="form-group">
+                        <label>Local</label>
+                        <input type="text" name="local" placeholder="Opcional">
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" name="mantenimiento" id="mantenimiento">
+                    <label for="mantenimiento">Servicio de mantenimiento</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Comercializadora actual <span class="required-star">*</span></label>
+                    <select name="compania_actual" required>
+                        <option value="">Selecciona...</option>
+                        <option value="endesa">ENDESA</option>
+                        <option value="gana_energia">GANA ENERGÍA</option>
+                        <option value="holaluz">HOLALUZ</option>
+                        <option value="naturgy">NATURGY</option>
+                        <option value="iberdrola">IBERDROLA</option>
+                        <option value="repsol">REPSOL</option>
+                        <option value="total">TOTAL</option>
+                        <option value="edo">EDO</option>
+                        <option value="otra">Otra (especificar en notas)</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Potencia 1 <span class="required-star">*</span></label>
+                        <select name="potencia_1" required>
+                            <option value="">Selecciona...</option>
+                            <option value="1.15 kW">1.15 kW</option>
+                            <option value="2.3 kW">2.3 kW</option>
+                            <option value="3.45 kW" selected>3.45 kW (más común)</option>
+                            <option value="4.6 kW">4.6 kW</option>
+                            <option value="5.75 kW">5.75 kW</option>
+                            <option value="6.9 kW">6.9 kW</option>
+                            <option value="8.05 kW">8.05 kW</option>
+                            <option value="9.2 kW">9.2 kW</option>
+                        </select>
+                        <p class="form-help-text">Horario punta (P1)</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Potencia 2 <span class="required-star">*</span></label>
+                        <select name="potencia_2" required>
+                            <option value="">Selecciona...</option>
+                            <option value="1.15 kW">1.15 kW</option>
+                            <option value="2.3 kW">2.3 kW</option>
+                            <option value="3.45 kW">3.45 kW</option>
+                            <option value="4.6 kW">4.6 kW</option>
+                            <option value="5.75 kW">5.75 kW</option>
+                            <option value="6.9 kW">6.9 kW</option>
+                            <option value="8.05 kW">8.05 kW</option>
+                            <option value="9.2 kW">9.2 kW</option>
+                        </select>
+                        <p class="form-help-text">Horario valle (P2)</p>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 3: DATOS DE FACTURACIÓN -->
+                <h3 class="form-section-title" style="margin-top: 40px;">
+                    <div class="step-number">3</div>
+                    Datos de facturación
+                </h3>
+
+                <div class="form-group">
+                    <label>IBAN <span class="required-star">*</span></label>
+                    <input type="text" name="iban" required placeholder="ESXX XXXX XXXX XXXX XXXX XXXX" pattern="ES[0-9]{2}[0-9]{20}" maxlength="24">
+                    <p class="form-help-text">Formato: ES + 22 dígitos (sin espacios)</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirmar IBAN <span class="required-star">*</span></label>
+                    <input type="text" name="iban_confirm" required placeholder="ESXX XXXX XXXX XXXX XXXX XXXX" pattern="ES[0-9]{2}[0-9]{20}" maxlength="24">
+                </div>
+
+                <!-- CONDICIONES -->
+                <div class="checkbox-group" style="background: #fff3cd; border: 2px solid #ffc107;">
+                    <input type="checkbox" name="acepto_condiciones" id="acepto_condiciones" required>
+                    <label for="acepto_condiciones">He leído y acepto las <a href="aviso-legal.html" target="_blank" style="color: var(--primary-dark); text-decoration: underline;">condiciones generales</a>, la <a href="politica-privacidad.html" target="_blank" style="color: var(--primary-dark); text-decoration: underline;">política de privacidad</a> y autorizo el cambio de comercializadora <span class="required-star">*</span></label>
+                </div>
+
+                <br>
+                <button type="submit" class="btn-submit">✅ Activar Contrato Ahora</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <img src="logo-enerlux.jpg" alt="Enerlux Soluciones" style="height: 60px; margin-bottom: 20px;">
+            <div class="footer-buttons">
+                <a href="/">← Volver al inicio</a>
+                <a href="tel:+34610243061">📞 Llámanos</a>
+                <a href="https://wa.me/34610243061">💬 WhatsApp</a>
+            </div>
+            <div class="footer-info">
+                <p>Teléfono: <a href="tel:+34610243061">+34 610 243 061</a></p>
+                <p>Email: <a href="mailto:enerlux.soluciones@gmail.com">enerlux.soluciones@gmail.com</a></p>
+            </div>
+            <p style="font-size: 13px; margin-top: 20px; opacity: 0.7;">© 2025 Enerlux Soluciones. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOATING BUTTON -->
+    <a href="https://wa.me/34610243061" class="whatsapp-float" title="WhatsApp">💬</a>
+
+    <script>
+        // IBAN validation and formatting
+        const ibanInput = document.querySelector('input[name="iban"]');
+        const ibanConfirmInput = document.querySelector('input[name="iban_confirm"]');
+
+        function formatIBAN(value) {
+            // Remove spaces and convert to uppercase
+            return value.replace(/\s/g, '').toUpperCase();
+        }
+
+        ibanInput.addEventListener('blur', function() {
+            this.value = formatIBAN(this.value);
+        });
+
+        ibanConfirmInput.addEventListener('blur', function() {
+            this.value = formatIBAN(this.value);
+        });
+
+        // IBAN match validation
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(e) {
+            if (ibanInput.value !== ibanConfirmInput.value) {
+                e.preventDefault();
+                alert('Los IBANs no coinciden. Por favor, verifica los datos.');
+                ibanConfirmInput.focus();
+            }
+        });
+
+        // Phone formatting (optional enhancement)
+        const phoneInput = document.querySelector('input[name="telefono"]');
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 9) {
+                value = value.slice(0, 9);
+            }
+            e.target.value = value;
+        });
+    </script>
+
+</body>
+</html>
