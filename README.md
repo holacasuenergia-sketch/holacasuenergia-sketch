@@ -39,19 +39,48 @@ Añadir Google Analytics / Google Tag Manager
 
 ## 🚀 Despliegue
 
-### Netlify
+### Netlify (Frontend)
 
 1. Conectar repositorio GitHub
 2. Build: HTML estático (instantáneo)
 3. Dominio: pagomenosluzygas.es
 4. Auto-deploy con cada commit
 
+### Render (Backend)
+
+- **URL**: https://enerlux-backend.onrender.com (por crear)
+- **Framework**: Node.js + Express
+- **Database**: PostgreSQL
+
 ### GitHub Pages (Backup)
 
-URL: https://dahao12.github.io/enerlux-website/
+URL: ✅ https://dahao12.github.io/enerlux-website/
+
+## 🤖 FUNCIONALIDADES SaaS
+
+- ✅ Subida de factura (drag & drop)
+- ⏳ Comparativa automática (OCR + APIs comercializadoras)
+- ⏳ Chatbot WhatsApp (24/7)
+- ⏳ Envío automático email con resultados
+- ⏳ Dashboard visual del cliente
+- ⏳ Simulador de ahorro real
+- ⏳ Blog educativo
+
+## 📋 STATUS DEL PROYECTO
+
+| Funcionalidad | Estado |
+|---------------|--------|
+| Frontend Landing | ✅ COMPLETADO |
+| Backend API | ⏳ EN CONSTRUCCIÓN |
+| OCR Extracción | ⏳ PENDIENTE |
+| WhatsApp Bot | ⏳ PENDIENTE |
+| Email Automático | ⏳ PENDIENTE |
+| Dashboard Cliente | ⏳ PENDIENTE |
+| Blog Educativo | ⏳ PENDIENTE |
 
 ---
 
 Creado: 2024-02-08  
 Versión: 1.0  
-Autor: Shide
+Autor: Shide  
+Última actualización: 2024-02-08
