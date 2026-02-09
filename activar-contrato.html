@@ -637,16 +637,7 @@
 
                 <div class="form-group">
                     <label>Nacionalidad <span class="required-star">*</span></label>
-                    <select name="nacionalidad" id="nacionalidad-select" required>
-                        <option value="">Selecciona...</option>
-                        <option value="espana" selected>España</option>
-                        <option value="otra">Otra</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="otra-nacionalidad-group" style="display: none;">
-                    <label>Especifica otra nacionalidad <span class="required-star">*</span></label>
-                    <input type="text" name="otra_nacionalidad" id="otra-nacionalidad-input" placeholder="Ej: Argentina, Francia, etc.">
+                    <input type="text" name="nacionalidad" required placeholder="Ej: España, Argentina, Francia, etc.">
                 </div>
 
                 <!-- SECCIÓN 2: DIRECCIÓN Y DATOS DE SUMINISTRO -->
@@ -905,31 +896,6 @@
                 value = value.slice(0, 9);
             }
             e.target.value = value;
-        });
-
-        // Nacionalidad logic
-        const nacionalidadSelect = document.getElementById('nacionalidad-select');
-        const otraNacionalidadGroup = document.getElementById('otra-nacionalidad-group');
-        const otraNacionalidadInput = document.getElementById('otra-nacionalidad-input');
-
-        nacionalidadSelect.addEventListener('change', function() {
-            if (this.value === 'otra') {
-                otraNacionalidadGroup.style.display = 'block';
-                otraNacionalidadInput.required = true;
-            } else {
-                otraNacionalidadGroup.style.display = 'none';
-                otraNacionalidadInput.required = false;
-                otraNacionalidadInput.value = '';
-            }
-        });
-
-        // Update form validation for "otra nacionalidad"
-        form.addEventListener('submit', function(e) {
-            if (nacionalidadSelect.value === 'otra' && !otraNacionalidadInput.value.trim()) {
-                e.preventDefault();
-                alert('Por favor, especifica tu nacionalidad.');
-                otraNacionalidadInput.focus();
-            }
         });
     </script>
 
