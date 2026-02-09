@@ -613,9 +613,23 @@
                 </h3>
 
                 <div class="form-group">
+                    <label>Tipo de cliente <span class="required-star">*</span></label>
+                    <select name="tipo_cliente" id="tipo_cliente" required>
+                        <option value="particular" selected>Particular</option>
+                        <option value="empresa">Empresa</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="dni-group">
                     <label>Identificación (DNI/NIE) <span class="required-star">*</span></label>
                     <input type="file" name="dni_file" accept=".pdf,.jpg,.jpeg,.png" required>
                     <p class="form-help-text">Adjunta una foto de tu DNI o NIE (anverso y reverso en un solo archivo)</p>
+                </div>
+
+                <div class="form-group" id="cif-group" style="display: none;">
+                    <label>CIF de la empresa <span class="required-star">*</span></label>
+                    <input type="text" name="cif" id="cif-input" placeholder="Ej: B12345678">
+                    <p class="form-help-text">Introduce el CIF de tu empresa</p>
                 </div>
 
                 <div class="form-group">
@@ -778,10 +792,24 @@
                     <input type="text" name="compania_actual" required placeholder="Ej: Endesa, Gana Energía, Holaluz, Naturgy, Iberdrola, etc.">
                 </div>
 
-                <div class="form-row">
+                <div class="form-group">
+                    <label>Potencia contratada <span class="required-star">*</span></label>
+                    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 10px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <input type="radio" name="potencia_option" id="potencia_same" value="misma" checked>
+                            <label for="potencia_same" style="margin: 0; font-weight: 600;">Misimas potencias actuales</label>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <input type="radio" name="potencia_option" id="potencia_change" value="cambiar">
+                            <label for="potencia_change" style="margin: 0; font-weight: 600;">Deseo modificar la potencia</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" id="potencia_selects" style="display: none;">
                     <div class="form-group">
                         <label>Potencia <span class="required-star">*</span></label>
-                        <select name="potencia_1" required>
+                        <select name="potencia_1" id="potencia_1_select">
                             <option value="">Selecciona...</option>
                             <option value="1.15 kW">1.15 kW</option>
                             <option value="2.3 kW">2.3 kW</option>
@@ -796,7 +824,7 @@
                     </div>
                     <div class="form-group">
                         <label>Potencia <span class="required-star">*</span></label>
-                        <select name="potencia_2" required>
+                        <select name="potencia_2" id="potencia_2_select">
                             <option value="">Selecciona...</option>
                             <option value="1.15 kW">1.15 kW</option>
                             <option value="2.3 kW">2.3 kW</option>
@@ -877,6 +905,53 @@
             }
             e.target.value = value;
         });
+
+        // Tipo de cliente logic (Particular vs Empresa)
+        const tipoClienteSelect = document.getElementById('tipo_cliente');
+        const dniGroup = document.getElementById('dni-group');
+        const cifGroup = document.getElementById('cif-group');
+        const cifInput = document.getElementById('cif-input');
+        const dniFile = document.querySelector('input[name="dni_file"]');
+
+        tipoClienteSelect.addEventListener('change', function() {
+            if (this.value === 'empresa') {
+                dniGroup.style.display = 'none';
+                dniFile.required = false;
+                cifGroup.style.display = 'block';
+                cifInput.required = true;
+            } else {
+                dniGroup.style.display = 'block';
+                dniFile.required = true;
+                cifGroup.style.display = 'none';
+                cifInput.required = false;
+                cifInput.value = '';
+            }
+        });
+
+        // Potencia logic (Mismas vs Modificar)
+        const potenciaSameRadio = document.getElementById('potencia_same');
+        const potenciaChangeRadio = document.getElementById('potencia_change');
+        const potenciaSelects = document.getElementById('potencia_selects');
+        const potencia1Select = document.getElementById('potencia_1_select');
+        const potencia2Select = document.getElementById('potencia_2_select');
+
+        function updatePotenciaVisibility() {
+            if (potenciaChangeRadio.checked) {
+                potenciaSelects.style.display = 'flex';
+                potencia1Select.required = true;
+                potencia2Select.required = true;
+            } else {
+                potenciaSelects.style.display = 'none';
+                potencia1Select.required = false;
+                potencia2Select.required = false;
+            }
+        }
+
+        potenciaSameRadio.addEventListener('change', updatePotenciaVisibility);
+        potenciaChangeRadio.addEventListener('change', updatePotenciaVisibility);
+
+        // Initialize on page load
+        updatePotenciaVisibility();
     </script>
 
 </body>
