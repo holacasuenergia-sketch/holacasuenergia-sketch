@@ -571,6 +571,18 @@
                 font-size: 13px !important;
             }
 
+            /* Reduce spacing for potencia radio buttons specifically */
+            .form-group input[type="radio"] + label,
+            .form-group input[type="checkbox"] + label {
+                font-size: 14px !important;
+                margin: 0 0 8px 0 !important;
+            }
+
+            .form-group input[type="radio"] + div {
+                margin-top: 5px !important;
+                gap: 10px !important;
+            }
+
             .form-group input,
             .form-group select {
                 padding: 12px;
@@ -804,7 +816,7 @@
 
                 <div class="checkbox-group">
                     <input type="checkbox" name="mantenimiento" id="mantenimiento">
-                    <label for="mantenimiento">Servicio de mantenimiento</label>
+                    <label for="mantenimiento" style="font-size: 15px;">Servicio de mantenimiento</label>
                 </div>
 
                 <div class="form-group">
@@ -814,14 +826,14 @@
 
                 <div class="form-group">
                     <label>Potencia contratada <span class="required-star">*</span></label>
-                    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 10px;">
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 5px;">
                         <div style="display: flex; align-items: center; gap: 12px;">
                             <input type="radio" name="potencia_option" id="potencia_same" value="misma" checked>
-                            <label for="potencia_same" style="margin: 0; font-weight: 600;">Misimas potencias actuales</label>
+                            <label for="potencia_same" style="margin: 0; font-weight: 600; font-size: 15px;">Misimas potencias actuales</label>
                         </div>
                         <div style="display: flex; align-items: center; gap: 12px;">
                             <input type="radio" name="potencia_option" id="potencia_change" value="cambiar">
-                            <label for="potencia_change" style="margin: 0; font-weight: 600;">Deseo modificar la potencia</label>
+                            <label for="potencia_change" style="margin: 0; font-weight: 600; font-size: 15px;">Deseo modificar la potencia</label>
                         </div>
                     </div>
                 </div>
