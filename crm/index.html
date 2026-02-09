@@ -6,87 +6,170 @@
   <title>CRM - Enerlux Soluciones</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; }
-    #root { width: 100%; height: 100vh; }
-    .loading { display: flex; align-items: center; justify-content: center; height: 100vh; font-size: 18px; color: #0a3b6f; background: #f5f8ff; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .container { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0b4f8a; }
+    .card { background: white; padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    h2 { color: #0a3b6f; text-align: center; margin-bottom: 20px; }
+    input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 14px; }
+    button { width: 100%; padding: 12px; background: #0a3b6f; color: white; border: none; border-radius: 10px; margin-top: 10px; font-size: 16px; cursor: pointer; }
+    button:hover { background: #093357; }
+    button:disabled { background: #ccc; cursor: not-allowed; }
+    .error { background: #fee; border: 1px solid #fcc; padding: 10px; color: #c44; border-radius: 8px; font-size: 13px; margin-bottom: 15px; display: none; }
+    .info { text-align: center; margin-top: 20px; font-size: 12px; color: #999; }
+    .info ul { font-size: 11px; color: #666; margin-left: 20px; margin-top: 5px; list-style: none; }
+    .info li { margin: 5px 0; }
+    .dashboard { display: none; background: #f5f8ff; min-height: 100vh; }
+    .header { background: #0a3b6f; color: white; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+    .content { padding: 30px; }
+    .welcome-card { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .logout { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+    .loading { text-align: center; color: #0a3b6f; background: #f5f8ff; min-height: 100vh; display: flex; align-items: center; justify-content: center; font-size: 18px; }
   </style>
 </head>
 <body>
-  <div id="root"><div class="loading">Cargando CRM...</div></div>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <div id="loading" class="loading">⚡ Cargando CRM...</div>
+
+  <div id="login-screen" class="container" style="display: none;">
+    <div class="card">
+      <h2>Enerlux Soluciones</h2>
+      <div id="login-error" class="error"></div>
+      <form id="login-form">
+        <label>Email:</label>
+        <input type="email" id="email" placeholder="admin@enerlux.com" required>
+        <label>Contraseña:</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+        <button type="submit" id="login-btn">Iniciar sesión</button>
+      </form>
+      <div class="info">
+        <p><strong>Prueba:</strong></p>
+        <ul>
+          <li>Email: admin@enerlux.com</li>
+          <li>Password: enerlux123</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="dashboard-screen" class="dashboard">
+    <div class="header">
+      <div>
+        <h2>Enerlux Soluciones</h2>
+        <p id="user-email" style="margin: 5px 0 0; font-size: 14px; opacity: 0.9;"></p>
+      </div>
+      <button class="logout" onclick="logout()">Cerrar sesión</button>
+    </div>
+    <div class="content">
+      <div class="welcome-card">
+        <h3 style="color: #0a3b6f; margin: 0 0 15px;">🎉 ¡Bienvenido al CRM!</h3>
+        <p style="font-size: 15px; line-height: 1.6; color: #333;">
+          <strong>Has iniciado sesión correctamente:</strong>
+        </p>
+        <ul style="margin: 15px 0; padding-left: 20px; line-height: 1.8;">
+          <li>Email: <span id="dash-email"></span></li>
+          <li>UID: <span id="dash-uid"></span></li>
+        </ul>
+        <p style="margin-top: 20px; font-size: 14px; color: #666;">
+          ✅ Firebase Authentication: <strong>OK</strong><br>
+          ✅ Login: <strong>SUCCESS</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script>
-    const firebaseConfig = { apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc", authDomain: "enerlux-crm.firebaseapp.com", projectId: "enerlux-crm", storageBucket: "enerlux-crm.firebasestorage.app", messagingSenderId: "84970919171", appId: "1:84970919171:web:a9904b377254bb26884536", measurementId: "G-LVY9D58L88" };
-    firebase.initializeApp(firebaseConfig);
-    window.firebaseAuth = firebase.auth();
-    window.firebaseDB =firebase.database();
-  </script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-  <script type="text/babel">
-    const { useState, useEffect, createContext, useContext } = React;
-    const AuthContext = createContext();
-    function useAuth() { return useContext(AuthContext); }
-    function AuthProvider({ children }) {
-      const [currentUser, setCurrentUser] = useState(null);
-      const [userRole, setUserRole] = useState(null);
-      const [loading, setLoading] = useState(true);
-      useEffect(() => {
-        if (!window.firebaseAuth) { setLoading(false); return; }
-        const unsubscribe = window.firebaseAuth.onAuthStateChanged(async (user) => {
-          if (user) {
-            try {
-              const response = await fetch(\`https://enerlux-crm-default-rtdb.firebaseio.com/users/\${user.uid}.json\`);
-              const data = await response.json();
-              setUserRole(data?.role || 'asesor');
-            } catch { setUserRole('asesor'); }
-          } else { setUserRole(null); }
-          setCurrentUser(user); setLoading(false);
-        });
-        return () => unsubscribe();
-      }, []);
-      const isAdmin = () => userRole === 'admin';
-      const value = { currentUser, userRole, isAdmin, loading, login: async (email, password) => await window.firebaseAuth.signInWithEmailAndPassword(email, password), logout: async () => await window.firebaseAuth.signOut() };
-      return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
+      authDomain: "enerlux-crm.firebaseapp.com",
+      projectId: "enerlux-crm",
+      storageBucket: "enerlux-crm.firebasestorage.app",
+      messagingSenderId: "84970919171",
+      appId: "1:84970919171:web:a9904b377254bb26884536",
+      measurementId: "G-LVY9D58L88"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Elements
+    const loading = document.getElementById('loading');
+    const loginScreen = document.getElementById('login-screen');
+    const dashboardScreen = document.getElementById('dashboard-screen');
+    const loginForm = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const loginBtn = document.getElementById('login-btn');
+    const loginError = document.getElementById('login-error');
+    const userEmail = document.getElementById('user-email');
+    const dashEmail = document.getElementById('dash-email');
+    const dashUid = document.getElementById('dash-uid');
+
+    // Auth state listener
+    auth.onAuthStateChanged((user) => {
+      console.log('Auth state changed:', user ? user.email : null);
+      
+      loading.style.display = 'none';
+      
+      if (user) {
+        loginScreen.style.display = 'none';
+        dashboardScreen.style.display = 'block';
+        userEmail.textContent = user.email;
+        dashEmail.textContent = user.email;
+        dashUid.textContent = user.uid ? user.uid.substring(0, 8) + '...' : 'N/A';
+      } else {
+        loginScreen.style.display = 'flex';
+        dashboardScreen.style.display = 'none';
+      }
+    });
+
+    // Login form submit
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      
+      if (!email || !password) {
+        showError('Por favor, completa todos los campos');
+        return;
+      }
+      
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Cargando...';
+      loginError.style.display = 'none';
+      
+      try {
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        console.log('Login successful:', userCredential.user.email);
+        // Auth state listener will handle the redirect
+      } catch (error) {
+        console.error('Login error:', error);
+        showError('Credenciales incorrectas: ' + error.message);
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Iniciar sesión';
+      }
+    });
+
+    // Logout function
+    function logout() {
+      auth.signOut().then(() => {
+        console.log('Logout successful');
+      }).catch((error) => {
+        console.error('Logout error:', error);
+      });
     }
-    function Login({ onLogin }) {
-      const [email, setEmail] = useState(''), [password, setPassword] = useState(''), [error, setError] = useState(''), [loading, setLoading] = useState(false);
-      const handleSubmit = async (e) => {
-        e.preventDefault(); setError(''); setLoading(true);
-        try { const userCredential = await onLogin(email, password); const user = userCredential.user; console.log('Login successful:', user.email); } catch (err) { console.error('Login error:', err); setError('Credenciales incorrectas: ' + err.message); setLoading(false); }
-      };
-      return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#0b4f8a' }}>
-        <div style={{ background: 'white', padding: '40px', borderRadius: '20px', width: '100%', maxWidth: '400px' }}>
-          <h2 style={{ margin: '0 0 20px', color: '#0a3b6f', textAlign: 'center' }}>Enerlux Soluciones</h2>
-          {error && <div style={{ padding: '10px', background: '#fee', border: '1px solid #fcc', borderRadius: '8px', color: '#c44', marginBottom: '15px', fontSize: '13px' }}>{error}</div>}
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required style={{ padding: '12px', border: '1px solid #ddd', borderRadius: '10px', fontSize: '14px' }} />
-            <input type="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} required style={{ padding: '12px', border: '1px solid #ddd', borderRadius: '10px', fontSize: '14px' }} />
-            <button type="submit" disabled={loading} style={{ background: '#0a3b6f', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', marginTop: '10px', fontSize: '16px' }}>{loading ? 'Cargando...' : 'Iniciar sesión'}</button>
-          </form>
-          <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#999' }}>Prueba:</p>
-          <ul style={{ fontSize: '11px', color: '#666', marginLeft: '20px', marginTop: '5px' }}>
-            <li>admin@enerlux.com / enerlux123</li>
-            <li>juan@enerlux.com / enerlux123</li>
-          </ul>
-        </div>
-      </div>;
+
+    // Show error message
+    function showError(message) {
+      loginError.textContent = message;
+      loginError.style.display = 'block';
     }
-    function App() { return <AuthProvider><CRMApp /></AuthProvider>; }
-    function CRMApp() {
-      const { currentUser, login, logout, loading } = useAuth();
-      if (loading) return <div className="loading"><div style={{ textAlign: 'center' }}><div style={{ fontSize: '48px' }}>⚡</div><p>Cargando CRM...</p></div></div>;
-      return <div style={{ width: '100%', height: '100vh' }}>{!currentUser ? <Login onLogin={login} /> : <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: '#f5f8ff' }}>
-        <div style={{ background: '#0a3b6f', color: 'white', padding: '20px 30px', display: 'flex', justifyContent: 'space-between' }}>
-          <div><h2 style={{ margin: 0 }}>Enerlux Soluciones</h2><p style={{ margin: '5px 0 0', fontSize: '14px' }}>{currentUser?.email}</p></div>
-          <button onClick={logout} style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.3)', padding: '8px 16px', borderRadius: '8px', cursor: 'pointer' }}>Cerrar sesión</button>
-        </div>
-        <div style={{ padding: '30px' }}><div style={{ background: 'white', borderRadius: '16px', padding: '30px' }}><h3 style={{ margin: '0 0 15px', color: '#0a3b6f' }}>🎉 ¡Bienvenido al CRM!</h3><p style={{ fontSize: '15px', lineHeight: '1.6', color: '#333' }}><strong>Has iniciado sesión correctamente:</strong></p><ul style={{ margin: '15px 0', paddingLeft: '20px', lineHeight: '1.8' }}><li>Email: {currentUser?.email}</li><li>UID: {currentUser?.uid?.substring(0, 8)}...</li><li>Usuario ID: {currentUser?.uid}</li></ul><p style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>✅ Firebase Authentication: <strong>OK</strong><br/>✅ Firebase Realtime Database: <strong>OK</strong><br/>✅ Login: <strong>SUCCESS</strong></p></div></div>
-      </div>}</div>;
-    }
-    ReactDOM.createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);
+
+    // Initialize page state
+    console.log('CRM loading...');
+    console.log(' Firebase Auth:', auth ? 'OK' : 'FAILED');
   </script>
 </body>
 </html>
