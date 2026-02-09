@@ -10,20 +10,74 @@
     .container { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0b4f8a; }
     .card { background: white; padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
     h2 { color: #0a3b6f; text-align: center; margin-bottom: 20px; }
-    input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 14px; }
+    input, select, textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 14px; }
     button { width: 100%; padding: 12px; background: #0a3b6f; color: white; border: none; border-radius: 10px; margin-top: 10px; font-size: 16px; cursor: pointer; }
     button:hover { background: #093357; }
     button:disabled { background: #ccc; cursor: not-allowed; }
+    button.secondary { background: #95a5a6; margin-top: 5px; }
+    button.secondary:hover { background: #7f8c8d; }
+    button.danger { background: #e74c3c; }
+    button.danger:hover { background: #c0392b; }
+    button.success { background: #27ae60; }
+    button.success:hover { background: #219a52; }
     .error { background: #fee; border: 1px solid #fcc; padding: 10px; color: #c44; border-radius: 8px; font-size: 13px; margin-bottom: 15px; display: none; }
     .info { text-align: center; margin-top: 20px; font-size: 12px; color: #999; }
     .info ul { font-size: 11px; color: #666; margin-left: 20px; margin-top: 5px; list-style: none; }
     .info li { margin: 5px 0; }
     .dashboard { display: none; background: #f5f8ff; min-height: 100vh; }
-    .header { background: #0a3b6f; color: white; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
-    .content { padding: 30px; }
-    .welcome-card { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .header { background: #0a3b6f; color: white; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .content { padding: 30px; max-width: 1400px; margin: 0 auto; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+    .stat-card { background: white; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-left: 4px solid #0a3b6f; }
+    .stat-card h3 { color: #666; font-size: 14px; margin-bottom: 10px; }
+    .stat-card .value { font-size: 32px; font-weight: bold; color: #0a3b6f; }
+    .stat-card .sub { font-size: 12px; color: #999; margin-top: 5px; }
+    .welcome-card { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 30px; }
     .logout { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 8px; cursor: pointer; }
     .loading { text-align: center; color: #0a3b6f; background: #f5f8ff; min-height: 100vh; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+    .modal-content { background-color: white; margin: 5% auto; padding: 30px; border-radius: 20px; width: 90%; max-width: 500px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    .close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+    .close:hover { color: black; }
+    .progress-container { background: #e0e0e0; border-radius: 10px; height: 20px; margin: 10px 0; overflow: hidden; }
+    .progress-bar { height: 100%; background: linear-gradient(90deg, #27ae60, #2ecc71); border-radius: 10px; transition: width 0.5s ease; }
+    .operations-table { width: 100%; border-collapse: collapse; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+    .operations-table th, .operations-table td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+    .operations-table th { background: #0a3b6f; color: white; font-weight: 600; }
+    .operations-table tr:hover { background: #f8f9fa; }
+    .status-badge { padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: 600; }
+    .status-tramite { background: #fff3cd; color: #856404; }
+    .status-completo { background: #cce5ff; color: #004085; }
+    .status-activo { background: #d4edda; color: #155724; }
+    .status-baja { background: #f8d7da; color: #721c24; }
+    .action-buttons { display: flex; gap: 5px; }
+    .action-buttons button { width: auto; padding: 6px 12px; margin: 0; font-size: 12px; }
+    .leaderboard { background: white; border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .leaderboard-item { display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
+    .leaderboard-item:last-child { border-bottom: none; }
+    .rank { width: 50px; text-align: center; font-size: 24px; font-weight: bold; }
+    .rank-1 { color: #f39c12; }
+    .rank-2 { color: #95a5a6; }
+    .rank-3 { color: #7f8c8d; }
+    .rank-other { color: #666; }
+    .asesor-info { flex: 1; }
+    .asesor-name { font-weight: bold; margin-bottom: 5px; }
+    .asesor-stats { font-size: 14px; color: #666; }
+    .asesor-commission { font-size: 20px; font-weight: bold; color: #27ae60; text-align: right; }
+    .tab-buttons { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab-button { flex: 1; min-width: 150px; padding: 12px; background: #95a5a6; color: white; border: none; border-radius: 10px; cursor: pointer; margin: 0; }
+    .tab-button.active { background: #0a3b6f; }
+    .tab-button:hover { background: #7f8c8d; }
+    .tab-button.active:hover { background: #093357; }
+    .section { display: none; }
+    .section.active { display: block; }
+    @media (max-width: 768px) {
+      .header { padding: 15px; }
+      .content { padding: 15px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .operations-table { display: block; overflow-x: auto; }
+      .action-buttons { flex-direction: column; }
+    }
   </style>
 </head>
 <body>
@@ -54,30 +108,167 @@
     <div class="header">
       <div>
         <h2>Enerlux Soluciones</h2>
-        <p id="user-email" style="margin: 5px 0 0; font-size: 14px; opacity: 0.9;"></p>
+        <p id="user-info" style="margin: 5px 0 0; font-size: 14px; opacity: 0.9;"></p>
       </div>
       <button class="logout" onclick="logout()">Cerrar sesión</button>
     </div>
     <div class="content">
-      <div class="welcome-card">
-        <h3 style="color: #0a3b6f; margin: 0 0 15px;">🎉 ¡Bienvenido al CRM!</h3>
-        <p style="font-size: 15px; line-height: 1.6; color: #333;">
-          <strong>Has iniciado sesión correctamente:</strong>
-        </p>
-        <ul style="margin: 15px 0; padding-left: 20px; line-height: 1.8;">
-          <li>Email: <span id="dash-email"></span></li>
-          <li>UID: <span id="dash-uid"></span></li>
-        </ul>
-        <p style="margin-top: 20px; font-size: 14px; color: #666;">
-          ✅ Firebase Authentication: <strong>OK</strong><br>
-          ✅ Login: <strong>SUCCESS</strong>
-        </p>
+      <h3 style="color: #0a3b6f; margin: 0 0 20px;">Dashboard</h3>
+      
+      <div class="tab-buttons" id="tab-buttons">
+        <button class="tab-button active" onclick="switchTab('overview')">📊 Resumen</button>
+        <button class="tab-button" onclick="switchTab('operations')">📋 Operaciones</button>
+        <button class="tab-button" onclick="switchTab('objectives')">🎯 Objetivos</button>
+        <button class="tab-button" onclick="switchTab('leaderboard')" id="leaderboard-tab" style="display: none;">🏆 Leaderboard</button>
       </div>
+
+      <!-- Overview Section -->
+      <div id="overview-section" class="section active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>👤 Clientes Activos</h3>
+            <div class="value" id="active-clients">0</div>
+            <div class="sub">35€ por cliente</div>
+          </div>
+          <div class="stat-card">
+            <h3>💰 Ganancia Total</h3>
+            <div class="value" id="total-commission">0€</div>
+            <div class="sub">Todas las comisiones</div>
+          </div>
+          <div class="stat-card">
+            <h3>📈 Ganancia Este Mes</h3>
+            <div class="value" id="monthly-commission">0€</div>
+            <div class="sub">Clientes nuevos este mes</div>
+          </div>
+          <div class="stat-card">
+            <h3>📊 Tasa de Conversión</h3>
+            <div class="value" id="conversion-rate">0%</div>
+            <div class="sub">Completos/Total</div>
+          </div>
+        </div>
+
+        <div class="welcome-card">
+          <h3 style="color: #0a3b6f; margin: 0 0 15px;">🎉 ¡Bienvenido al CRM!</h3>
+          <p style="font-size: 15px; line-height: 1.6; color: #333;" id="welcome-message"></p>
+        </div>
+      </div>
+
+      <!-- Operations Section -->
+      <div id="operations-section" class="section">
+        <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="success" onclick="openAddModal()" style="width: auto;">➕ Nueva Operación</button>
+          <select id="filter-status" onchange="filterOperations()" style="width: auto; min-width: 150px;">
+            <option value="">Todos los estados</option>
+            <option value="En trámite">En trámite</option>
+            <option value="Completo">Completo</option>
+            <option value="Activo">Activo</option>
+            <option value="Dado de baja">Dado de baja</option>
+          </select>
+        </div>
+        <table class="operations-table" id="operations-table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Estado</th>
+              <th>Fecha Inicio</th>
+              <th>Fecha Activo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="operations-tbody">
+            <tr><td colspan="5" style="text-align: center;">Cargando operaciones...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Objectives Section -->
+      <div id="objectives-section" class="section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h3>📱 Clientes Activos - Este Mes</h3>
+            <div class="value" id="obj-monthly-active">0 / 8</div>
+            <div class="progress-container">
+              <div class="progress-bar" id="progress-monthly-active"></div>
+            </div>
+            <div class="sub">Objetivo: 280€</div>
+          </div>
+          <div class="stat-card">
+            <h3>📊 Clientes Activos - Total</h3>
+            <div class="value" id="obj-total-active">0 / 30</div>
+            <div class="progress-container">
+              <div class="progress-bar" id="progress-total-active"></div>
+            </div>
+            <div class="sub">Cartera total</div>
+          </div>
+          <div class="stat-card">
+            <h3>🎯 Tasa de Conversión</h3>
+            <div class="value" id="obj-conversion">0%</div>
+            <div class="progress-container">
+              <div class="progress-bar" id="progress-conversion"></div>
+            </div>
+            <div class="sub">Objetivo: 70%</div>
+          </div>
+        </div>
+
+        <div class="welcome-card">
+          <h3 style="color: #0a3b6f; margin: 0 0 15px;">💡 Motivación</h3>
+          <p id="motivation-message" style="font-size: 15px; line-height: 1.6; color: #333;"></p>
+        </div>
+      </div>
+
+      <!-- Leaderboard Section -->
+      <div id="leaderboard-section" class="section">
+        <div class="leaderboard" id="leaderboard-content">
+          <h3 style="color: #0a3b6f; margin: 0 0 20px;">🏆 Ranking de Asesores</h3>
+          <div id="leaderboard-list">
+            <p>Cargando leaderboard...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title" style="color: #0a3b6f; margin: 0 0 20px;">Nueva Operación</h2>
+      <form id="operation-form">
+        <label>Nombre del Cliente:</label>
+        <input type="text" id="client-name" required>
+        
+        <label>Estado:</label>
+        <select id="status" required>
+          <option value="En trámite">En trámite</option>
+          <option value="Completo">Completo</option>
+          <option value="Activo">Activo</option>
+          <option value="Dado de baja">Dado de baja</option>
+        </select>
+
+        <label>Fecha Inicio:</label>
+        <input type="date" id="date-inicio" required>
+
+        <label>Fecha Completo:</label>
+        <input type="date" id="date-completo">
+
+        <label>Fecha Activo:</label>
+        <input type="date" id="date-activo">
+
+        <label>Fecha Baja:</label>
+        <input type="date" id="date-baja">
+
+        <label>Notas:</label>
+        <textarea id="notes" placeholder="Detales adicionales..." rows="3"></textarea>
+
+        <button type="submit" id="save-btn">Guardar</button>
+        <button type="button" class="secondary" onclick="closeModal()">Cancelar</button>
+      </form>
     </div>
   </div>
 
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
   <script>
     // Firebase configuration
     const firebaseConfig = {
@@ -93,6 +284,13 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+    const db = firebase.database();
+
+    // Global variables
+    let currentUser = null;
+    let currentUserRole = null;
+    let operations = [];
+    let editingOperationId = null;
 
     // Elements
     const loading = document.getElementById('loading');
@@ -103,25 +301,334 @@
     const passwordInput = document.getElementById('password');
     const loginBtn = document.getElementById('login-btn');
     const loginError = document.getElementById('login-error');
-    const userEmail = document.getElementById('user-email');
-    const dashEmail = document.getElementById('dash-email');
-    const dashUid = document.getElementById('dash-uid');
+    const modal = document.getElementById('modal');
 
     // Auth state listener
-    auth.onAuthStateChanged((user) => {
-      console.log('Auth state changed:', user ? user.email : null);
-      
+    auth.onAuthStateChanged(async (user) => {
       loading.style.display = 'none';
       
       if (user) {
+        currentUser = user;
+        await loadUserRole();
         loginScreen.style.display = 'none';
         dashboardScreen.style.display = 'block';
-        userEmail.textContent = user.email;
-        dashEmail.textContent = user.email;
-        dashUid.textContent = user.uid ? user.uid.substring(0, 8) + '...' : 'N/A';
+        loadDashboard();
       } else {
+        currentUser = null;
+        currentUserRole = null;
         loginScreen.style.display = 'flex';
         dashboardScreen.style.display = 'none';
+      }
+    });
+
+    // Load user role
+    async function loadUserRole() {
+      try {
+        const snapshot = await db.ref(`users/${currentUser.uid}/role`).once('value');
+        currentUserRole = snapshot.val() || 'asesor';
+        console.log('User role:', currentUserRole);
+        
+        // Show leaderboard tab for admin only
+        document.getElementById('leaderboard-tab').style.display = currentUserRole === 'admin' ? 'block' : 'none';
+        
+        updateUserInfo();
+      } catch (error) {
+        console.error('Error loading user role:', error);
+        currentUserRole = 'asesor';
+      }
+    }
+
+    // Update user info
+    function updateUserInfo() {
+      document.getElementById('user-info').textContent = currentUserRole === 'admin' ? 'Admin' : 'Asesor';
+      document.getElementById('welcome-message').textContent = currentUserRole === 'admin' 
+        ? 'Has iniciado sesión como Administrador. Ve el dashboard completo con todas las operaciones.'
+        : 'Has iniciado sesión correctamente como Asesor. Ve tus operaciones y objetivos.';
+    }
+
+    // Load dashboard
+    function loadDashboard() {
+      loadOperations();
+    }
+
+    // Load operations
+    async function loadOperations() {
+      try {
+        let operationsRef;
+        if (currentUserRole === 'admin') {
+          operationsRef = db.ref('crms');
+        } else {
+          operationsRef = db.ref(`crms/${currentUser.uid}/operations`);
+        }
+
+        const snapshot = await operationsRef.once('value');
+        operations = [];
+
+        if (currentUserRole === 'admin') {
+          snapshot.forEach((asesorSnapshot) => {
+            const asesorOperations = asesorSnapshot.val();
+            if (asesorOperations && asesorOperations.operations) {
+              Object.keys(asesorOperations.operations).forEach((opId) => {
+                operations.push({
+                  id: opId,
+                  asesorUid: asesorSnapshot.key,
+                  ...asesorOperations.operations[opId]
+                });
+              });
+            }
+          });
+        } else if (snapshot.val()) {
+          if (snapshot.val().operations) {
+            Object.keys(snapshot.val().operations).forEach((opId) => {
+              operations.push({
+                id: opId,
+                ...snapshot.val().operations[opId]
+              });
+            });
+          }
+        }
+
+        updateStats();
+        updateOperationsTable();
+        updateObjectives();
+        updateLeaderboard();
+      } catch (error) {
+        console.error('Error loading operations:', error);
+      }
+    }
+
+    // Update stats
+    function updateStats() {
+      const activeClients = operations.filter(op => op.status === 'Activo').length;
+      const totalCommission = activeClients * 35;
+      
+      const thisMonth = new Date().getMonth();
+      const thisYear = new Date().getFullYear();
+      const monthlyActive = operations.filter(op => {
+        if (op.status !== 'Activo' || !op.dateActivo) return false;
+        const date = new Date(op.dateActivo);
+        return date.getMonth() === thisMonth && date.getFullYear() === thisYear;
+      }).length;
+      const monthlyCommission = monthlyActive * 35;
+
+      const completedAndActive = operations.filter(op => op.status === 'Completo' || op.status === 'Activo').length;
+      const conversionRate = operations.length > 0 ? Math.round((completedAndActive / operations.length) * 100) : 0;
+
+      document.getElementById('active-clients').textContent = activeClients;
+      document.getElementById('total-commission').textContent = totalCommission + '€';
+      document.getElementById('monthly-commission').textContent = monthlyCommission + '€';
+      document.getElementById('conversion-rate').textContent = conversionRate + '%';
+      document.getElementById('obj-monthly-active').textContent = `${monthlyActive} / 8`;
+      document.getElementById('obj-total-active').textContent = `${activeClients} / 30`;
+      document.getElementById('obj-conversion').textContent = conversionRate + '%';
+
+      // Update progress bars
+      const monthlyProgress = Math.min((monthlyActive / 8) * 100, 100);
+      const totalProgress = Math.min((activeClients / 30) * 100, 100);
+      const conversionProgress = Math.min(conversionRate, 100);
+
+      document.getElementById('progress-monthly-active').style.width = monthlyProgress + '%';
+      document.getElementById('progress-total-active').style.width = totalProgress + '%';
+      document.getElementById('progress-conversion').style.width = conversionProgress + '%';
+
+      // Update motivation message
+      updateMotivation(monthlyProgress, totalProgress, conversionProgress);
+    }
+
+    // Update motivation message
+    function updateMotivation(monthlyProgress, totalProgress, conversionProgress) {
+      let message = '';
+      if (monthlyProgress >= 100) {
+        message = '🌟 ¡Fantástico! Has alcanzado tu objetivo mensual. ¡Sigue así!';
+      } else if (monthlyProgress >= 70) {
+        message = '🚀 ¡Casi llegas al objetivo mensual! ¡Un último empujón!';
+      } else if (totalProgress >= 80) {
+        message = '✨ Excelente progreso en tu cartera total. ¡Mantén el impulso!';
+      } else if (conversionProgress >= 70) {
+        message = '💪 ¡Buen trabajo! Tasa de conversión sólida.';
+      } else {
+        message = '📈 ¡Cada cliente cuenta! Sigue trabajando en alcanzar tus objetivos. Tú puedes.';
+      }
+      document.getElementById('motivation-message').textContent = message;
+    }
+
+    // Update operations table
+    function updateOperationsTable(filteredOperations = null) {
+      const tbody = document.getElementById('operations-tbody');
+      const ops = filteredOperations || operations;
+
+      if (ops.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No hay operaciones registradas</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = ops.map(op => {
+        const statusClass = op.status === 'En trámite' ? 'status-tramite' :
+                           op.status === 'Completo' ? 'status-completo' :
+                           op.status === 'Activo' ? 'status-activo' : 'status-baja';
+        const statusLabel = op.status === 'Dado de baja' ? 'Baja' : op.status;
+
+        return `
+          <tr>
+            <td><strong>${op.clientName}</strong></td>
+            <td><span class="status-badge ${statusClass}">${statusLabel}</span></td>
+            <td>${op.dateInicio || '-'}</td>
+            <td>${op.dateActivo || '-'}</td>
+            <td class="action-buttons">
+              <button onclick="editOperation('${op.id}')" style="width: auto; padding: 6px 12px; margin: 0; font-size: 12px;">✏️</button>
+              <button class="danger" onclick="deleteOperation('${op.id}')" style="width: auto; padding: 6px 12px; margin: 0; font-size: 12px;">🗑️</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Filter operations
+    function filterOperations() {
+      const statusFilter = document.getElementById('filter-status').value;
+      if (!statusFilter) {
+        updateOperationsTable();
+        return;
+      }
+      const filtered = operations.filter(op => op.status === statusFilter);
+      updateOperationsTable(filtered);
+    }
+
+    // Update objectives
+    function updateObjectives() {
+      // Already called in updateStats
+    }
+
+    // Update leaderboard
+    async function updateLeaderboard() {
+      if (currentUserRole !== 'admin') return;
+
+      const content = document.getElementById('leaderboard-list');
+      content.innerHTML = '<p>Cargando leaderboard...</p>';
+
+      try {
+        const asesoresSnapshot = await db.ref('users').once('value');
+        const leaderboardData = [];
+
+        await Promise.all(Object.keys(asesoresSnapshot.val() || {}).map(async (uid) => {
+          const userRole = asesoresSnapshot.val()[uid]?.role;
+          if (userRole !== 'asesor') return;
+
+          const snapshot = await db.ref(`crms/${uid}/operations`).once('value');
+          const asesorOperations = snapshot.val()?.operations || {};
+
+          const operations = Object.keys(asesorOperations).map(opId => ({
+            ...asesorOperations[opId]
+          }));
+
+          const activeClients = operations.filter(op => op.status === 'Activo').length;
+          const commission = activeClients * 35;
+
+          leaderboardData.push({
+            uid,
+            name: asesoresSnapshot.val()[uid]?.name || uid.substring(0, 8),
+            activeClients,
+            commission
+          });
+        }));
+
+        // Sort by commission (descending)
+        leaderboardData.sort((a, b) => b.commission - a.commission);
+
+        // Render leaderboard
+        content.innerHTML = leaderboardData.map((asesor, index) => `
+          <div class="leaderboard-item">
+            <div class="rank rank-${index + 1}">${index + 1}</div>
+            <div class="asesor-info">
+              <div class="asesor-name">${asesor.name}</div>
+              <div class="asesor-stats">${asesor.activeClients} clientes activos</div>
+            </div>
+            <div class="asesor-commission">${asesor.commission}€</div>
+          </div>
+        `).join('');
+
+      } catch (error) {
+        console.error('Error loading leaderboard:', error);
+        content.innerHTML = '<p>Error al cargar leaderboard.</p>';
+      }
+    }
+
+    // Open add modal
+    function openAddModal() {
+      editingOperationId = null;
+      document.getElementById('modal-title').textContent = 'Nueva Operación';
+      document.getElementById('operation-form').reset();
+      document.getElementById('date-inicio').valueAsDate = new Date();
+      modal.style.display = 'block';
+    }
+
+    // Edit operation
+    async function editOperation(opId) {
+      const operation = operations.find(op => op.id === opId);
+      if (!operation) return;
+
+      editingOperationId = opId;
+      document.getElementById('modal-title').textContent = 'Editar Operación';
+      document.getElementById('client-name').value = operation.clientName || '';
+      document.getElementById('status').value = operation.status || 'En trámite';
+      document.getElementById('date-inicio').value = operation.dateInicio || '';
+      document.getElementById('date-completo').value = operation.dateCompleto || '';
+      document.getElementById('date-activo').value = operation.dateActivo || '';
+      document.getElementById('date-baja').value = operation.dateBaja || '';
+      document.getElementById('notes').value = operation.notes || '';
+      modal.style.display = 'block';
+    }
+
+    // Delete operation
+    async function deleteOperation(opId) {
+      if (!confirm('¿Estás seguro de eliminar esta operación?')) return;
+
+      try {
+        await db.ref(`crms/${currentUser.uid}/operations/${opId}`).remove();
+        alert('Operación eliminada');
+        loadOperations();
+      } catch (error) {
+        console.error('Error deleting operation:', error);
+        alert('Error al eliminar operación');
+      }
+    }
+
+    // Close modal
+    function closeModal() {
+      modal.style.display = 'none';
+      document.getElementById('operation-form').reset();
+      editingOperationId = null;
+    }
+
+    // Save operation
+    document.getElementById('operation-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const operationData = {
+        clientName: document.getElementById('client-name').value.trim(),
+        status: document.getElementById('status').value,
+        dateInicio: document.getElementById('date-inicio').value,
+        dateCompleto: document.getElementById('date-completo').value,
+        dateActivo: document.getElementById('date-activo').value,
+        dateBaja: document.getElementById('date-baja').value,
+        notes: document.getElementById('notes').value,
+        updatedAt: Date.now()
+      };
+
+      try {
+        if (editingOperationId) {
+          await db.ref(`crms/${currentUser.uid}/operations/${editingOperationId}`).update(operationData);
+          alert('Operación actualizada');
+        } else {
+          operationData.createdAt = Date.now();
+          await db.ref(`crms/${currentUser.uid}/operations`).push(operationData);
+          alert('Operación creada');
+        }
+        closeModal();
+        loadOperations();
+      } catch (error) {
+        console.error('Error saving operation:', error);
+        alert('Error al guardar operación');
       }
     });
 
@@ -143,7 +650,6 @@
       try {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
         console.log('Login successful:', userCredential.user.email);
-        // Auth state listener will handle the redirect
       } catch (error) {
         console.error('Login error:', error);
         showError('Credenciales incorrectas: ' + error.message);
@@ -167,9 +673,41 @@
       loginError.style.display = 'block';
     }
 
-    // Initialize page state
-    console.log('CRM loading...');
-    console.log(' Firebase Auth:', auth ? 'OK' : 'FAILED');
+    // Switch tabs
+    function switchTab(tabId) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Deactivate all buttons
+      document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active');
+      });
+      
+      // Activate selected section
+      document.getElementById(tabId + '-section').classList.add('active');
+      
+      // Activate button (find the one with the matching onclick)
+      const buttons = document.querySelectorAll('.tab-button');
+      buttons.forEach(button => {
+        if (button.getAttribute('onclick').includes(tabId)) {
+          button.classList.add('active');
+        }
+      });
+
+      // Reload leaderboard if switching to leaderboad
+      if (tabId === 'leaderboard' && currentUserRole === 'admin') {
+        updateLeaderboard();
+      }
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
   </script>
 </body>
 </html>
