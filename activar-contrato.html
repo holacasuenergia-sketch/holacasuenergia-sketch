@@ -572,6 +572,33 @@
             }
 
             /* Reduce spacing for potencia radio buttons specifically */
+            .potencia-options > div {
+                gap: 6px !important;
+            }
+
+            .potencia-options input[type="radio"] {
+                width: 22px;
+                height: 22px;
+                min-width: 22px;
+            }
+
+            .potencia-options label {
+                font-size: 14px !important;
+                margin: 0 0 6px 0 !important;
+                line-height: 1.4;
+            }
+
+            .checkbox-group input[type="checkbox"] {
+                width: 20px !important;
+                height: 20px !important;
+                min-width: 20px !important;
+            }
+
+            .checkbox-group label {
+                font-size: 14px !important;
+                margin: 0 !important;
+            }
+
             .form-group input[type="radio"] + label,
             .form-group input[type="checkbox"] + label {
                 font-size: 14px !important;
@@ -815,8 +842,8 @@
                 </div>
 
                 <div class="checkbox-group">
-                    <input type="checkbox" name="mantenimiento" id="mantenimiento">
-                    <label for="mantenimiento" style="font-size: 15px;">Servicio de mantenimiento</label>
+                    <input type="checkbox" name="mantenimiento" id="mantenimiento" style="width: 20px; height: 20px; min-width: 20px;">
+                    <label for="mantenimiento" style="font-size: 14px; margin: 0;">Servicio de mantenimiento</label>
                 </div>
 
                 <div class="form-group">
@@ -826,12 +853,12 @@
 
                 <div class="form-group">
                     <label>Potencia contratada <span class="required-star">*</span></label>
-                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 5px;">
-                        <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 5px;" class="potencia-options">
+                        <div style="display: flex; align-items: center; gap: 8px;">
                             <input type="radio" name="potencia_option" id="potencia_same" value="misma" checked>
                             <label for="potencia_same" style="margin: 0; font-weight: 600; font-size: 15px;">Misimas potencias actuales</label>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
                             <input type="radio" name="potencia_option" id="potencia_change" value="cambiar">
                             <label for="potencia_change" style="margin: 0; font-weight: 600; font-size: 15px;">Deseo modificar la potencia</label>
                         </div>
