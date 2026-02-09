@@ -1,195 +1,201 @@
-# Enerlux Soluciones CRM
+# Enerlux CRM - README
 
-## 🚀 Multi-Tenant CRM con Firebase
-
-**Sistema CRM profesional para Enerlux Soluciones con:**
-- ✅ Multi-tenancy (Admin + Asesores)
-- ✅ Comisiones (35€ por cliente activo)
-- ✅ Objetivos y gamificación
-- ✅ Dashboard personalizado
-- ✅ Sistema de roles
+**Enerlux Soluciones CRM System**
+**Deployed:** February 9, 2026
+**Status:** LIVE on GitHub Pages (HTTPS)
 
 ---
 
-## 📋 INSTALACIÓN Y DEPLOY
+## 🌐 **DEPLOYED URLs**
 
-### **Paso 1: Crear Firebase Project (TÚ)**
-
-1. Entra a https://console.firebase.google.com
-2. Crea proyecto: `enerlux-crm`
-3. Habilita Authentication (Email/Password)
-4. Habilita Realtime Database
-5. Copia credenciales `firebaseConfig`
-
-### **Paso 2: Añadir credenciales (TÚ)**
-
-Edita `index.html`, línea ~42:
-
-```javascript
-const firebaseConfig = {
-  apiKey: "TU_API_KEY_AQUI",
-  authDomain: "enerlux-crm.firebaseapp.com",
-  projectId: "enerlux-crm",
-  storageBucket: "enerlux-crm.appspot.com",
-  messagingSenderId: "TU_MESSAGING_SENDER_ID",
-  appId: "TU_APP_ID"
-};
+### **Primary - HTTPS (Recommended):**
+```
+https://dahao12.github.io/enerlux-website/crm/
 ```
 
-**REEMPLAZA los valores con tus credenciales de Firebase.**
-
-### **Paso 3: Crear usuarios en Firebase (TÚ)**
-
-1. Firebase Console → Authentication
-2. "Agregar usuario"
-
-**Admin:**
-- Email: `admin@enerlux.com`
-- Password: `tu-contraseña-segura`
-
-**Asesores (ejemplo):**
-- Email: `juan@enerlux.com`
-- Password: `password-seguro`
-- Email: `maria@enerlux.com`
-- Password: `password-seguro`
-
-### **Paso 4: Añadir roles en Firebase Database (TÚ)**
-
-En Firebase Console → Realtime Database:
-
-```json
-{
-  "users": {
-    "admin-uid-aqui": {
-      "email": "admin@enerlux.com",
-      "name": "Administrador",
-      "role": "admin"
-    },
-    "asesor-uid-aqui": {
-      "email": "juan@enerlux.com",
-      "name": "Juan Asesor",
-      "role": "asesor"
-    }
-  }
-}
+### **Debug Version - For Testing:**
+```
+https://dahao12.github.io/enerlux-website/crm/debug.html
 ```
 
-**Para obtener los UIDs:**
-1. Firebase Console → Authentication → Users
-2. Click en un usuario → Copy UID
-
-### **Paso 5: Deploy (YO + TÚ)**
-
-```bash
-# Crear repo en GitHub
-cd /Users/clowd/.openclaw/workspace/enerlux-crm
-git init
-git add .
-git commit -m "Initial Enerlux CRM deployment"
-git branch -M main
-git remote add origin https://github.com/Dahao12/enerlux-crm.git
-git push -u origin main
+### **Alternative - HTTP Only (Auth Blocked):**
 ```
-
-Luego activa GitHub Pages en el repo:
-1. Settings → Pages
-2. Source: `deploy from a branch`
-3. Branch: `main` → `/root`
-4. Click "Save"
-
-**URL:** `https://dahao12.github.io/enerlux-crm/`
-
-Opcional: Configurar dominio `crm.pagomenosluzygas.es`
-
----
-
-## 📱 ACCESO
-
-**Como Admin:**
-- URL: `https://dahao12.github.io/enerlux-crm/`
-- Email: `admin@enerlux.com`
-- Password: tu contraseña
-
-**Como Asesor:**
-- URL: `https://dahao12.github.io/enerlux-crm/`
-- Email: `juan@enerlux.com`
-- Password: su contraseña
-
----
-
-## 🎯 OBJETIVOS DEL SISTEMA
-
-### **Para Asesores:**
-1. 8 clientes activos/mes (280€)
-2. 30 clientes totales en cartera
-3. 70% tasa de conversión
-4. Ver sus ganancias en tiempo real
-
-### **Para Admin:**
-1. Ver todos los asesores y su performance
-2. Ver ingresos totales del negocio
-3. Leaderboard de asesores
-4. Identificar asesores que necesitan ayuda
-
----
-
-## 💰 COMISIÓN
-
-**35€ por cliente activo**
-
-El sistema calcula AUTOMÁTICAMENTE:
-```javascript
-ganancia = clientes_activos × 35€
+http://pagomenosluzygas.es/crm/
 ```
 
 ---
 
-## 📂 ESTRUCTURA DEL PROYECTO
+## 🔐 **LOGIN CREDENTIALS**
 
+### **Admin Account:**
 ```
-enerlux-crm/
-├── index.html              ← Página principal (login + CRM)
-├── package.json           ← Dependencies
-├── README.md              ← Este archivo
-└── (otros archivos del workspace)
+Email: admin@enerlux.com
+Password: enerlux123
+Role: Admin (view all asesores + leaderboard)
+```
+
+### **Asesor Account:**
+```
+Email: juan@enerlux.com
+Password: enerlux123
+Role: Asesor (view personal operations only)
 ```
 
 ---
 
-## 🔧 TECNOLOGÍAS
+## 🎯 **FEATURES**
 
-- **Frontend:** React 18 (vanilla JS + Babel)
-- **Auth:** Firebase Authentication
+### **1. Operations Management**
+- Create, edit, delete client operations
+- Status workflow: En trámite → Completo → Activo → Dado de baja
+- Date tracking (inicio, completo, activo, baja)
+- Notes field for details
+- Filter operations by status
+
+### **2. Commission Calculator**
+- Commission rate: 35€ per active client
+- Real-time calculation
+- Total commission display
+- Monthly commission tracking (new clients this month)
+- Conversion rate percentage
+
+### **3. Objectives System**
+- **Daily Target:** 2 sales (Monday-Friday only)
+- **Weekly Target:** 10 sales (2 × 5 days)
+- **Monthly Target:** ~40 sales (20 working days)
+- Progress bars with shimmer animation
+- Motivation messages based on performance
+
+### **4. Leaderboard (Admin Only)**
+- Ranking of asesores by commission
+- Top 3 positions highlighted
+- Week sales tracking
+- Real-time updates
+
+### **5. Role-Based Views**
+- **Asesor:** Personal operations, personal stats
+- **Admin:** All asesores, consolidated metrics, leaderboard
+
+### **6. Mobile Responsive**
+- Optimized for asesors on mobile devices
+- Touch-friendly interface
+- Responsive tables and forms
+
+---
+
+## 📊 **DATABASE STRUCTURE**
+
+### **Firebase Realtime Database:**
+```
+/crms
+  /{asesor-uid}
+    /operations
+      /{operation-id}
+        - clientName
+        - status (En trámite|Completo|Activo|Dado de baja)
+        - dateInicio
+        - dateCompleto
+        - dateActivo
+        - dateBaja
+        - notes
+        - createdAt
+        - updatedAt
+
+/users
+  /{uid}
+    - role (admin|asesor)
+    - name
+    - email
+```
+
+---
+
+## 🔧 **TECHNICAL STACK**
+
+- **Frontend:** Vanilla JavaScript (no frameworks)
+- **Auth:** Firebase Authentication (enerlux-crim project)
 - **Database:** Firebase Realtime Database
-- **Hosting:** GitHub Pages
-- **Styling:** Inline styles (fácil deployment)
+- **Hosting:** GitHub Pages (HTTPS enabled)
+- **CSS:** Custom professional styling with gradients
+- **Font:** Inter (Google Fonts)
 
 ---
 
-## 🚀 ESTADO
+## ⚙️ **CONFIGURATION**
 
-✅ **Implementación completa** - Listo para deploy
-
-**Qué se ha implementado:**
-- ✅ Multi-tenant system
-- ✅ Role-based access (Admin/Asesor)
-- ✅ Comisiones (35€ / cliente)
-- ✅ Objetivos + gamificación
-- ✅ Dashboard personal
-- ✅ Ready para production
-
-**Pendiente:**
-- ⏳ Credenciales de Firebase (tú)
-- ⏳ Crear usuarios (tú)
-- ⏳ Añadir roles (tú)
-- ⏳ Deploy (nosotros)
+### **Firebase Project:**
+- **Name:** enerlux-crm
+- **API Key:** AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc
+- **Auth Domain:** enerlux-crm.firebaseapp.com
+- **Project ID:** enerlux-crm
+- **Database URL:** https://enerlux-crm-default-rtdb.firebaseio.com
 
 ---
 
-## 💬 SOPORTE
+## 🚀 **DEPLOYMENT INSTRUCTIONS**
 
-WhatsApp @105901679730824 - Asistente OpenClaw
+### **To GitHub Pages:**
+```bash
+cd /Users/clowd/.openclaw/workspace/enerlux-website
+git add crm/
+git commit -m "Update CRM"
+git push origin main
+```
+
+### **To Firebase Hosting:**
+```bash
+cd /Users/clowd/.openclaw/workspace/enerlux-website
+firebase deploy --project enerlux-crm --only hosting
+```
 
 ---
 
-**Enerlux Soluciones CRM** ⚡
+## 🐛 **TROUBLESHOOTING**
+
+### **Issue: Login not working on HTTP**
+**Solution:** Use HTTPS version at https://dahao12.github.io/enerlux-website/crm/
+**Reason:** Firebase Auth requires HTTPS for cookie security
+
+### **Issue: Shows "Cargando..." indefinitely**
+**Solution:**
+1. Try incognito mode
+2. Use debug version: https://dahao12.github.io/enerlux-website/crm/debug.html
+3. Check browser console for errors (F12)
+
+### **Issue: Operations not saving**
+**Solution:**
+1. Verify Firebase Database has correct rules
+2. Check user role in Firebase Auth
+3. Ensure internet connection
+
+---
+
+## 📞 **SUPPORT**
+
+- **Email:** enerlux.soluciones@gmail.com
+- **WhatsApp:** +34 610 243 061
+- **Developer:** Shide (AI Agent)
+
+---
+
+## 📝 **TODO ITEMS**
+
+### **High Priority:**
+- [ ] User testing confirmation
+- [ ] Enable HTTPS on custom domain (optional)
+
+### **Medium Priority:**
+- [ ] Add lead import functionality
+- [ ] Implement AI phone agent with Zadarma
+- [ ] Add reports and analytics dashboard
+
+### **Low Priority:**
+- [ ] Email notifications for new leads
+- [ ] In-app chat between asesores
+- [ ] Advanced filtering and search
+
+---
+
+**Version:** 3.0 (Objectives corrected to 2 sales/day M-F)
+**Last Updated:** February 9, 2026
+**Maintained by:** Shide
