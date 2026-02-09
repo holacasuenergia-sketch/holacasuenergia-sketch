@@ -573,19 +573,21 @@
 
             /* Reduce spacing for potencia radio buttons specifically */
             .potencia-options > div {
-                gap: 6px !important;
+                gap: 2px !important;
             }
 
             .potencia-options input[type="radio"] {
-                width: 22px;
-                height: 22px;
-                min-width: 22px;
+                width: 18px !important;
+                height: 18px !important;
+                min-width: 18px !important;
+                margin: 0 !important;
             }
 
             .potencia-options label {
-                font-size: 14px !important;
-                margin: 0 0 6px 0 !important;
-                line-height: 1.4;
+                font-size: 13px !important;
+                margin: 0 0 4px 0 !important;
+                line-height: 1.3 !important;
+                margin-left: 2px !important;
             }
 
             .checkbox-group input[type="checkbox"] {
@@ -854,13 +856,13 @@
                 <div class="form-group">
                     <label>Potencia contratada <span class="required-star">*</span></label>
                     <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 5px;" class="potencia-options">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <input type="radio" name="potencia_option" id="potencia_same" value="misma" checked>
-                            <label for="potencia_same" style="margin: 0; font-weight: 600; font-size: 15px;">Misimas potencias actuales</label>
+                        <div style="display: flex; align-items: center; gap: 4px !important;">
+                            <input type="radio" name="potencia_option" id="potencia_same" value="misma" checked style="width: 20px; height: 20px; min-width: 20px; margin: 0;">
+                            <label for="potencia_same" style="margin: 0 0 0 0 !important; font-weight: 600; font-size: 14px; line-height: 1.4;">Misimas potencias actuales</label>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <input type="radio" name="potencia_option" id="potencia_change" value="cambiar">
-                            <label for="potencia_change" style="margin: 0; font-weight: 600; font-size: 15px;">Deseo modificar la potencia</label>
+                        <div style="display: flex; align-items: center; gap: 4px !important;">
+                            <input type="radio" name="potencia_option" id="potencia_change" value="cambiar" style="width: 20px; height: 20px; min-width: 20px; margin: 0;">
+                            <label for="potencia_change" style="margin: 0 0 0 0 !important; font-weight: 600; font-size: 14px; line-height: 1.4;">Deseo modificar la potencia</label>
                         </div>
                     </div>
                 </div>
