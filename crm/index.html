@@ -5,434 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRM - Enerlux Soluciones</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    #root {
-      width: 100%;
-      height: 100vh;
-    }
-
-    /* Loading screen */
-    .loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      font-size: 18px;
-      color: #0a3b6f;
-      background: #f5f8ff;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; }
+    #root { width: 100%; height: 100vh; }
+    .loading { display: flex; align-items: center; justify-content: center; height: 100vh; font-size: 18px; color: #0a3b6f; background: #f5f8ff; }
   </style>
 </head>
 <body>
-  <div id="root">
-    <div class="loading">Cargando CRM Energy Soluciones...</div>
-  </div>
-
-  <!-- Firebase SDK (CDN version) -->
-  <script type="module">
-    // Firebase imports from CDN
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-    import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
-
-    // Firebase configuration - ¡REEMPLAZAR CON TUS CREDENCIALES!
-    const firebaseConfig = {
-      apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
-      authDomain: "enerlux-crm.firebaseapp.com",
-      projectId: "enerlux-crm",
-      storageBucket: "enerlux-crm.firebasestorage.app",
-      messagingSenderId: "84970919171",
-      appId: "1:84970919171:web:a9904b377254bb26884536",
-      measurementId: "G-LVY9D58L88"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const database = getDatabase(app);
-
-    // Make them available globally
-    window.firebaseApp = app;
-    window.firebaseAuth = auth;
-    window.firebaseDatabase = database;
-
-    // Load the CRM application
-    window.addEventListener('DOMContentLoaded', () => {
-      // The CRM will be initialized here after Firebase is ready
-      console.log('Firebase initialized:', {
-        auth: auth ? 'OK' : 'FAILED',
-        database: database ? 'OK' : 'FAILED'
-      });
-    });
-  </script>
-
-  <!-- React & ReactDOM from CDN -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <div id="root"><div class="loading">Cargando CRM...</div></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <!-- CRM Application -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script>
+    const firebaseConfig = { apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc", authDomain: "enerlux-crm.firebaseapp.com", projectId: "enerlux-crm", storageBucket: "enerlux-crm.firebasestorage.app", messagingSenderId: "84970919171", appId: "1:84970919171:web:a9904b377254bb26884536", measurementId: "G-LVY9D58L88" };
+    firebase.initializeApp(firebaseConfig);
+    window.firebaseAuth = firebase.auth();
+    window.firebaseDB =firebase.database();
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
   <script type="text/babel">
     const { useState, useEffect, createContext, useContext } = React;
-
-    // AuthContext
     const AuthContext = createContext();
-
-    function useAuth() {
-      return useContext(AuthContext);
-    }
-
+    function useAuth() { return useContext(AuthContext); }
     function AuthProvider({ children }) {
       const [currentUser, setCurrentUser] = useState(null);
       const [userRole, setUserRole] = useState(null);
       const [loading, setLoading] = useState(true);
-
       useEffect(() => {
-        if (!window.firebaseAuth) {
-          setLoading(false);
-          return;
-        }
-
+        if (!window.firebaseAuth) { setLoading(false); return; }
         const unsubscribe = window.firebaseAuth.onAuthStateChanged(async (user) => {
           if (user) {
             try {
-              // Obtener rol del usuario
-              const response = await fetch(
-                `https://enerlux-crm-default-rtdb.firebaseio.com/users/${user.uid}.json`
-              );
+              const response = await fetch(\`https://enerlux-crm-default-rtdb.firebaseio.com/users/\${user.uid}.json\`);
               const data = await response.json();
-
-              if (data) {
-                setUserRole(data.role || 'asesor');
-              } else {
-                setUserRole('asesor');
-              }
-            } catch (error) {
-              console.error('Error fetching user role:', error);
-              setUserRole('asesor');
-            }
-          } else {
-            setUserRole(null);
-          }
-          setCurrentUser(user);
-          setLoading(false);
+              setUserRole(data?.role || 'asesor');
+            } catch { setUserRole('asesor'); }
+          } else { setUserRole(null); }
+          setCurrentUser(user); setLoading(false);
         });
-
         return () => unsubscribe();
       }, []);
-
       const isAdmin = () => userRole === 'admin';
-
-      const value = {
-        currentUser,
-        userRole,
-        isAdmin,
-        loading,
-        login: async (email, password) => {
-          return await window.firebaseAuth.signInWithEmailAndPassword(email, password);
-        },
-        logout: async () => {
-          return await window.firebaseAuth.signOut();
-        }
-      };
-
-      return (
-        <AuthContext.Provider value={value}>
-          {!loading && children}
-        </AuthContext.Provider>
-      );
+      const value = { currentUser, userRole, isAdmin, loading, login: async (email, password) => await window.firebaseAuth.signInWithEmailAndPassword(email, password), logout: async () => await window.firebaseAuth.signOut() };
+      return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
     }
-
-    // Login Screen
     function Login({ onLogin }) {
-      const [email, setEmail] = useState('');
-      const [password, setPassword] = useState('');
-      const [error, setError] = useState('');
-      const [loading, setLoading] = useState(false);
-
+      const [email, setEmail] = useState(''), [password, setPassword] = useState(''), [error, setError] = useState(''), [loading, setLoading] = useState(false);
       const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        setLoading(true);
-
-        try {
-          await onLogin(email, password);
-        } catch (err) {
-          setError('Credenciales incorrectas');
-          setLoading(false);
-        }
+        e.preventDefault(); setError(''); setLoading(true);
+        try { const userCredential = await onLogin(email, password); const user = userCredential.user; console.log('Login successful:', user.email); } catch (err) { console.error('Login error:', err); setError('Credenciales incorrectas: ' + err.message); setLoading(false); }
       };
-
-      return (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
-          background: '#0b4f8a'
-        }}>
-          <div style={{
-            background: 'white',
-            padding: '40px',
-            borderRadius: '20px',
-            width: '100%',
-            maxWidth: '400px',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.2)'
-          }}>
-            <video
-              id="logo-video"
-              controls
-              style={{
-                width: '100%',
-                marginBottom: '20px',
-                borderRadius: '10px'
-              }}
-              controlsList="nodownload"
-            >
-              {/*
-                Reemplaza este src con la URL de tu video de logo
-                Ejemplo: src="https://tudominio.com/logo.mp4"
-              */}
-              <source src="" type="video/mp4" />
-              Tu navegador no soporta el video.
-            </video>
-
-            <h2 style={{
-              margin: '0 0 20px',
-              color: '#0a3b6f',
-              textAlign: 'center'
-            }}>
-              Enerlux Soluciones
-            </h2>
-
-            {error && <div style={{
-              padding: '10px',
-              background: '#fee',
-              border: '1px solid #fcc',
-              borderRadius: '8px',
-              color: '#c44',
-              marginBottom: '15px',
-              fontSize: '13px'
-            }}>
-              {error}
-            </div>}
-
-            <form onSubmit={handleSubmit} style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '15px'
-            }}>
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                style={{
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '10px',
-                  fontSize: '14px'
-                }}
-              />
-              <input
-                type="password"
-                placeholder="Contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                style={{
-                  padding: '12px',
-                  border: '1px solid #ddd',
-                  borderRadius: '10px',
-                  fontSize: '14px'
-                }}
-              />
-              <button
-                type="submit"
-                disabled={loading}
-                style={{
-                  background: '#0a3b6f',
-                  color: 'white',
-                  border: 'none',
-                  padding: '12px',
-                  borderRadius: '10px',
-                  cursor: loading ? 'not-allowed' : 'pointer',
-                  fontSize: '16px',
-                  fontWeight: 'bold',
-                  marginTop: '10px'
-                }}
-              >
-                {loading ? 'Cargando...' : 'Iniciar sesión'}
-              </button>
-            </form>
-
-            <p style={{
-              textAlign: 'center',
-              marginTop: '20px',
-              fontSize: '12px',
-              color: '#999'
-            }}>
-              CRM Multi-Tenant Enerlux Soluciones
-            </p>
-          </div>
+      return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#0b4f8a' }}>
+        <div style={{ background: 'white', padding: '40px', borderRadius: '20px', width: '100%', maxWidth: '400px' }}>
+          <h2 style={{ margin: '0 0 20px', color: '#0a3b6f', textAlign: 'center' }}>Enerlux Soluciones</h2>
+          {error && <div style={{ padding: '10px', background: '#fee', border: '1px solid #fcc', borderRadius: '8px', color: '#c44', marginBottom: '15px', fontSize: '13px' }}>{error}</div>}
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required style={{ padding: '12px', border: '1px solid #ddd', borderRadius: '10px', fontSize: '14px' }} />
+            <input type="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} required style={{ padding: '12px', border: '1px solid #ddd', borderRadius: '10px', fontSize: '14px' }} />
+            <button type="submit" disabled={loading} style={{ background: '#0a3b6f', color: 'white', border: 'none', padding: '12px', borderRadius: '10px', marginTop: '10px', fontSize: '16px' }}>{loading ? 'Cargando...' : 'Iniciar sesión'}</button>
+          </form>
+          <p style={{ textAlign: 'center', marginTop: '20px', fontSize: '12px', color: '#999' }}>Prueba:</p>
+          <ul style={{ fontSize: '11px', color: '#666', marginLeft: '20px', marginTop: '5px' }}>
+            <li>admin@enerlux.com / enerlux123</li>
+            <li>juan@enerlux.com / enerlux123</li>
+          </ul>
         </div>
-      );
+      </div>;
     }
-
-    // Loading Screen
-    function LoadingScreen() {
-      return (
-        <div className="loading">
-          <div style={{
-            textAlign: 'center'
-          }}>
-            <div style={{
-              fontSize: '48px',
-              animation: 'spin 1s linear infinite'
-            }}>
-              ⚡
-            </div>
-            <p style={{ marginTop: '15px' }}>Cargando CRM Energy Soluciones...</p>
-          </div>
-
-          <style>{`
-            @keyframes spin {
-              from { transform: rotate(0deg); }
-              to { transform: rotate(360deg); }
-            }
-          `}</style>
-        </div>
-      );
-    }
-
-    // App Component
-    function App() {
-      return (
-        <AuthProvider>
-          <CRMApp />
-        </AuthProvider>
-      );
-    }
-
+    function App() { return <AuthProvider><CRMApp /></AuthProvider>; }
     function CRMApp() {
       const { currentUser, login, logout, loading } = useAuth();
-
-      if (loading) {
-        return <LoadingScreen />;
-      }
-
-      return (
-        <div style={{ width: '100%', height: '100vh' }}>
-          {!currentUser ? (
-            <Login onLogin={login} />
-          ) : (
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100vh',
-              background: '#f5f8ff'
-            }}>
-              {/* Header */}
-              <div style={{
-                background: '#0a3b6f',
-                color: 'white',
-                padding: '20px 30px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center'
-              }}>
-                <div>
-                  <h2 style={{ margin: 0 }}>Enerlux Soluciones</h2>
-                  <p style={{ margin: '5px 0 0', fontSize: '14px', opacity: 0.9 }}>
-                    {currentUser?.email} • {currentUser?.uid?.substring(0, 8)}...
-                  </p>
-                </div>
-                <button
-                  onClick={logout}
-                  style={{
-                    background: 'rgba(255,255,255,0.1)',
-                    color: 'white',
-                    border: '1px solid rgba(255,255,255,0.3)',
-                    padding: '8px 16px',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    fontSize: '14px'
-                  }}
-                >
-                  Cerrar sesión
-                </button>
-              </div>
-
-              {/* Content */}
-              <div style={{ padding: '30px', flex: 1 }}>
-                <div style={{
-                  background: 'white',
-                  borderRadius: '16px',
-                  padding: '30px',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
-                }}>
-                  <h3 style={{ margin: '0 0 15px', color: '#0a3b6f' }}>🎉 ¡Bienvenido al CRM!</h3>
-
-                  <p style={{ fontSize: '15px', lineHeight: '1.6', color: '#333' }}>
-                    <strong>Has iniciado sesión correctamente:</strong>
-                  </p>
-
-                  <ul style={{ margin: '15px 0', paddingLeft: '20px', lineHeight: '1.8' }}>
-                    <li>Email: {currentUser?.email}</li>
-                    <li>UID: {currentUser?.uid?.substring(0, 8)}...</li>
-                    <li>Usuario ID: {currentUser?.uid}</li>
-                  </ul>
-
-                  <p style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>
-                    ✅ Firebase Authentication: <strong>OK</strong><br/>
-                    ✅ Firebase Realtime Database: <strong>OK</strong><br/>
-                    ✅ Multi-tenant system: <strong>OK</strong>
-                  </p>
-
-                  <div style={{
-                    marginTop: '25px',
-                    padding: '15px',
-                    background: '#e3f2fd',
-                    borderLeft: '4px solid #0a3b6f',
-                    borderRadius: '8px'
-                  }}>
-                    <h4 style={{ margin: '0 0 10px', color: '#0a3b6f' }}>📝 Próximos pasos:</h4>
-                    <ol style={{ margin: 0, paddingLeft: '20px', fontSize: '14px', lineHeight: '1.8', color: '#0a3b6f' }}>
-                      <li>Crea usuarios admin y asesores en Firebase Console</li>
-                      <li>Cargar datos de roles en Firebase Realtime Database</li>
-                      <li>Implementar el dashboard completo de CRM</li>
-                      <li>Test con usuarios reales</li>
-                    </ol>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+      if (loading) return <div className="loading"><div style={{ textAlign: 'center' }}><div style={{ fontSize: '48px' }}>⚡</div><p>Cargando CRM...</p></div></div>;
+      return <div style={{ width: '100%', height: '100vh' }}>{!currentUser ? <Login onLogin={login} /> : <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: '#f5f8ff' }}>
+        <div style={{ background: '#0a3b6f', color: 'white', padding: '20px 30px', display: 'flex', justifyContent: 'space-between' }}>
+          <div><h2 style={{ margin: 0 }}>Enerlux Soluciones</h2><p style={{ margin: '5px 0 0', fontSize: '14px' }}>{currentUser?.email}</p></div>
+          <button onClick={logout} style={{ background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.3)', padding: '8px 16px', borderRadius: '8px', cursor: 'pointer' }}>Cerrar sesión</button>
         </div>
-      );
+        <div style={{ padding: '30px' }}><div style={{ background: 'white', borderRadius: '16px', padding: '30px' }}><h3 style={{ margin: '0 0 15px', color: '#0a3b6f' }}>🎉 ¡Bienvenido al CRM!</h3><p style={{ fontSize: '15px', lineHeight: '1.6', color: '#333' }}><strong>Has iniciado sesión correctamente:</strong></p><ul style={{ margin: '15px 0', paddingLeft: '20px', lineHeight: '1.8' }}><li>Email: {currentUser?.email}</li><li>UID: {currentUser?.uid?.substring(0, 8)}...</li><li>Usuario ID: {currentUser?.uid}</li></ul><p style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>✅ Firebase Authentication: <strong>OK</strong><br/>✅ Firebase Realtime Database: <strong>OK</strong><br/>✅ Login: <strong>SUCCESS</strong></p></div></div>
+      </div>}</div>;
     }
-
-    // Renderizar la aplicación
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    );
+    ReactDOM.createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);
   </script>
 </body>
 </html>
