@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Test - Enerlux CRM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #F2F7F8;
+      padding: 20px;
+    }
+    .test-result {
+      margin: 20px 0;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .success {
+      background: #D1FAE5;
+      color: #065F46;
+      border: 2px solid #10B981;
+    }
+    .error {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 2px solid #EF4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Test de Login - Enerlux CRM</h1>
+    <p>Verifica si el login funciona correctamente</p>
+
+    <div class="card">
+      <div class="card-body">
+        <h5>Test 1: Conexión Firebase</h5>
+        <div id="test-1" class="test-result">
+          Pendiente...
+        </div>
+
+        <h5>Test 2: Login Admin</h5>
+        <div class="mb-3">
+          <input type="email" id="test-email" value="admin@enerlux.com" class="form-control">
+          <input type="password" id="test-password" value="Enerlux123" class="form-control mt-2">
+        </div>
+        <button onclick="testLogin()" class="btn btn-primary">Test Login</button>
+        <div id="test-2" class="test-result mt-3">
+          Pendiente...
+        </div>
+
+        <h5>Test 3: Verificar URL actual</h5>
+        <p>URL actual: <span id="current-url"></span></p>
+        <div id="test-3" class="test-result">
+          Pendiente...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
+      authDomain: "enerlux-crm.firebaseapp.com",
+      databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "enerlux-crm",
+      storageBucket: "enerlux-crm.firebasestorage.app",
+      messagingSenderId: "84970919171",
+      appId: "1:84970919171:web:a9904b377254bb26884536",
+      measurementId: "G-LVY9D58L88"
+    };
+
+    // Mostrar URL actual
+    document.getElementById('current-url').textContent = window.location.href;
+
+    // Test 1: Firebase connection
+    document.getElementById('test-1').innerHTML = 'Conectando a Firebase...';
+    document.getElementById('test-1').className = 'test-result';
+
+    try {
+      const app = firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      document.getElementById('test-1').innerHTML = '✅ Firebase conectado correctamente';
+      document.getElementById('test-1').className = 'test-result success';
+    } catch (error) {
+      document.getElementById('test-1').innerHTML = '❌ Error de Firebase: ' + error.message;
+      document.getElementById('test-1').className = 'test-result error';
+    }
+
+    // Test 2: Login
+    async function testLogin() {
+      const email = document.getElementById('test-email').value;
+      const password = document.getElementById('test-password').value;
+
+      document.getElementById('test-2').innerHTML = 'Intentando login...';
+      document.getElementById('test-2').className = 'test-result';
+
+      try {
+        const auth = firebase.auth();
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        document.getElementById('test-2').innerHTML = '✅ Login exitoso! Usuario: ' + user.email;
+        document.getElementById('test-2').className = 'test-result success';
+
+        // Test 3: Verificar redirect
+        setTimeout(() => {
+          document.getElementById('test-3').innerHTML = 'Verificando redirección...';
+          document.getElementById('test-3').className = 'test-result';
+
+          if (window.location.href.includes('admin-dashboard')) {
+            document.getElementById('test-3').innerHTML = '✅ Redirección correcta a admin-dashboard';
+            document.getElementById('test-3').className = 'test-result success';
+          } else if (window.location.href.includes('asesor-dashboard')) {
+            document.getElementById('test-3').innerHTML = '✅ Redirección correcta a asesor-dashboard';
+            document.getElementById('test-3').className = 'test-result success';
+          } else {
+            document.getElementById('test-3').innerHTML = '⏳ Esperando redirección... URL actual: ' + window.location.href;
+            document.getElementById('test-3').className = 'test-result';
+          }
+        }, 2000);
+
+      } catch (error) {
+        document.getElementById('test-2').innerHTML = '❌ Error en login: ' + error.code + ' - ' + error.message;
+        document.getElementById('test-2').className = 'test-result error';
+      }
+    }
+  </script>
+</body>
+</html>
