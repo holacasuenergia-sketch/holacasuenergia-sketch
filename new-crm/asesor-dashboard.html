@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enerlux CRM - Asesor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: #0B1220;
+      color: #E5E7EB;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .sidebar {
+      background: #052E16;
+      min-height: 100vh;
+      height: 100%;
+      padding: 20px 0;
+    }
+    .sidebar h5 {
+      color: #22C55E;
+      margin-bottom: 30px;
+    }
+    .sidebar a {
+      color: #9CA3AF;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      padding: 14px 24px;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      background: #064E3B;
+      color: #22C55E;
+      border-left-color: #22C55E;
+    }
+    .sidebar a i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+    .main-content {
+      padding: 24px;
+    }
+    .card {
+      background: #111827;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .kpi-asesor {
+      border-left: 4px solid #22C55E;
+    }
+    .kpi-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .kpi-label {
+      color: #9CA3AF;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .table {
+      color: #E5E7EB;
+    }
+    .table thead th {
+      background: #020617;
+      border-color: #1F2933;
+      color: #22C55E;
+      padding: 16px;
+    }
+    .table tbody td {
+      border-color: #1F2933;
+      padding: 16px;
+      vertical-align: middle;
+    }
+    .table tbody tr:hover {
+      background: #1F2933;
+    }
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .status-enviada { background: rgba(56, 189, 248, 0.2); color: #38BDF8; }
+    .status-en-tramite { background: rgba(250, 204, 21, 0.2); color: #FACC15; }
+    .status-completa { background: rgba(250, 204, 21, 0.2); color: #FACC15; }
+    .status-activa { background: rgba(34, 197, 94, 0.2); color: #22C55E; }
+    .status-baja { background: rgba(239, 68, 68, 0.2); color: #EF4444; }
+    .btn-success-custom {
+      background: #22C55E;
+      border: none;
+      padding: 12px 24px;
+      color: white;
+      font-weight: 600;
+    }
+    .btn-success-custom:hover {
+      background: #16A34A;
+      color: white;
+    }
+    .logout-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+    }
+    .modal-content {
+      background: #111827;
+      border: 1px solid #1F2933;
+      border-radius: 16px;
+    }
+    .modal-header {
+      border-color: #1F2933;
+    }
+    .modal-footer {
+      border-color: #1F2933;
+    }
+    .form-control, .form-select {
+      background: #0B1220;
+      border-color: #1F2933;
+      color: #E5E7EB;
+    }
+    .form-control:focus, .form-select:focus {
+      background: #0B1220;
+      border-color: #22C55E;
+      color: #E5E7EB;
+      box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.25);
+    }
+    .contact-section {
+      margin-top: 30px;
+    }
+    .contact-card {
+      background: #111827;
+      border-left: 4px solid #22C55E;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .contact-link {
+      color: #22C55E;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .contact-link:hover {
+      color: #16A34A;
+      text-decoration: underline;
+    }
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    .whatsapp-btn:hover {
+      background: #128C7E;
+      color: white;
+    }
+    .email-btn {
+      background: #3B82F6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    .email-btn:hover {
+      background: #2563EB;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-2 sidebar">
+        <h5 class="px-4">Enerlux</h5>
+        <a href="#" class="active"><i class="bi bi-speedometer2"></i> Mi Dashboard</a>
+        <a href="#" onclick="showNewSaleModal(); return false;"><i class="bi bi-plus-lg"></i> Nueva Venta</a>
+        <a href="#"><i class="bi bi-people"></i> Mis Clientes</a>
+        <a href="#"><i class="bi bi-graph-up"></i> Mi Progreso</a>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-10 main-content">
+        <button class="btn btn-danger btn-sm logout-btn" onclick="logout()">
+          <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+        </button>
+
+        <h3 class="mb-4">Hola, <span id="asesor-name">Asesor</span> 👋</h3>
+
+        <!-- KPIs -->
+        <div class="row row-cols-1 row-cols-md-4 mb-4">
+          <div class="col mb-3">
+            <div class="card kpi-asesor p-4">
+              <p class="kpi-label">Ventas Hoy</p>
+              <h3 class="kpi-value" id="kpi-today">0 / 4</h3>
+            </div>
+          </div>
+          <div class="col mb-3">
+            <div class="card kpi-asesor p-4">
+              <p class="kpi-label">Ventas Semana</p>
+              <h3 class="kpi-value" id="kpi-week">0</h3>
+            </div>
+          </div>
+          <div class="col mb-3">
+            <div class="card kpi-asesor p-4">
+              <p class="kpi-label">Activo</p>
+              <h3 class="kpi-value" id="kpi-active">0 €</h3>
+            </div>
+          </div>
+          <div class="col mb-3">
+            <div class="card kpi-asesor p-4">
+              <p class="kpi-label">Pendiente</p>
+              <h3 class="kpi-value" id="kpi-pending">0 €</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mis Clientes Table -->
+        <div class="card mb-4">
+          <div class="card-header border-0 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Mis Clientes</h5>
+            <button class="btn btn-success-custom" onclick="showNewSaleModal()">
+              <i class="bi bi-plus-lg"></i> Nueva Venta
+            </button>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Compañía</th>
+                    <th>Fecha</th>
+                    <th>Servicio</th>
+                    <th>Mantenimiento</th>
+                    <th>Estado</th>
+                    <th>Importe</th>
+                  </tr>
+                </thead>
+                <tbody id="clients-table">
+                  <!-- Clients will be loaded here -->
+                </tbody>
+              </table>
+              <div class="text-center py-4" id="no-clients" style="display: none;">
+                <p class="text-muted">No tienes clientes registrados aún</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="mb-3"><i class="bi bi-headset"></i> Contacto de Ayuda</h5>
+              <p class="text-muted">¿Necesitas ayuda o tienes preguntas? Contáctanos:</p>
+
+              <div class="contact-card">
+                <div class="row align-items-center">
+                  <div class="col-md-6 mb-3 mb-md-0">
+                    <strong><i class="bi bi-whatsapp"></i> WhatsApp:</strong>
+                    <div class="mt-2">
+                      <a href="https://wa.me/34610243061" class="contact-link" target="_blank">
+                        610243061
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <strong><i class="bi bi-envelope"></i> Email:</strong>
+                    <div class="mt-2">
+                      <a href="mailto:enerlux.soluciones@gmail.com" class="contact-link">
+                        enerlux.soluciones@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-md-6 mb-2 mb-md-0">
+                    <a href="https://wa.me/34610243061" class="btn whatsapp-btn w-100" target="_blank">
+                      <i class="bi bi-whatsapp"></i> Contactar por WhatsApp
+                    </a>
+                  </div>
+                  <div class="col-md-6">
+                    <a href="mailto:enerlux.soluciones@gmail.com" class="btn email-btn w-100">
+                      <i class="bi bi-envelope"></i> Enviar Email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Sale Modal -->
+  <div class="modal fade" id="newSaleModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nueva Venta</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="new-sale-form">
+            <div class="mb-3">
+              <label for="client-name" class="form-label">Nombre del Cliente *</label>
+              <input type="text" class="form-control" id="client-name" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="company" class="form-label">Compañía Destino *</label>
+              <input type="text" class="form-control" id="company" required placeholder="Ej. Iberdrola, Endesa, etc.">
+            </div>
+
+            <div class="mb-3">
+              <label for="service" class="form-label">Servicio *</label>
+              <input type="text" class="form-control" id="service" required placeholder="Ej. Luz, Gas, Duo, etc.">
+            </div>
+
+            <div class="mb-3">
+              <label for="maintenance-type" class="form-label">¿Mantenimiento?</label>
+              <select class="form-select" id="maintenance-type">
+                <option value="no">No</option>
+                <option value="yes-simples">Sí - Simples</option>
+                <option value="yes-multiples">Sí - Múltiples</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="date" class="form-label">Fecha *</label>
+              <input type="date" class="form-control" id="date" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="observations" class="form-label">Observaciones</label>
+              <textarea class="form-control" id="observations" rows="3" placeholder="Detalles adicionales..."></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success-custom" onclick="saveNewSale()">Guardar Venta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
+      authDomain: "enerlux-crm.firebaseapp.com",
+      databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "enerlux-crm",
+      storageBucket: "enerlux-crm.firebasestorage.app",
+      messagingSenderId: "84970919171",
+      appId: "1:84970919171:web:a9904b377254bb26884536",
+      measurementId: "G-LVY9D58L88"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    let currentUser = null;
+    let myOperations = [];
+    let newSaleModal;
+
+    // Initialize modal
+    document.addEventListener('DOMContentLoaded', () => {
+      newSaleModal = new bootstrap.Modal(document.getElementById('newSaleModal'));
+      checkAuth();
+    });
+
+    function checkAuth() {
+      auth.onAuthStateChanged(async (user) => {
+        if (!user) {
+          window.location.href = 'login.html';
+          return;
+        }
+
+        currentUser = user;
+        const asesorName = user.email.split('@')[0];
+        document.getElementById('asesor-name').textContent = asesorName.charAt(0).toUpperCase() + asesorName.slice(1);
+
+        // Load data
+        loadMyOperations();
+        loadKPIs();
+      });
+    }
+
+    function logout() {
+      auth.signOut().then(() => {
+        window.location.href = 'login.html';
+      });
+    }
+
+    function loadMyOperations() {
+      db.ref('operations').orderByChild('asesorId').equalTo(currentUser.uid).on('value', (snapshot) => {
+        const data = snapshot.val();
+        myOperations = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+        renderClients();
+        loadKPIs();
+      });
+    }
+
+    function renderClients() {
+      const tbody = document.getElementById('clients-table');
+      const noClients = document.getElementById('no-clients');
+
+      if (myOperations.length === 0) {
+        tbody.innerHTML = '';
+        noClients.style.display = 'block';
+        return;
+      }
+
+      noClients.style.display = 'none';
+
+      tbody.innerHTML = myOperations.map(op => `
+        <tr>
+          <td><strong>${op.clientName}</strong></td>
+          <td>${op.company || '-'}</td>
+          <td>${formatDate(op.date)}</td>
+          <td>${op.service || '-'}</td>
+          <td>${op.maintenance ? 'Sí' : 'No'}</td>
+          <td><span class="status-badge status-${getStatusClass(op.status)}">${op.status}</span></td>
+          <td>${op.amount ? op.amount + ' €' : '-'}</td>
+        </tr>
+      `).join('');
+    }
+
+    function loadKPIs() {
+      const today = new Date().toDateString();
+      const todayOperations = myOperations.filter(op => {
+        const opDate = new Date(op.date).toDateString();
+        return opDate === today;
+      });
+
+      const weekStart = getStartOfWeek(new Date());
+      const weekOperations = myOperations.filter(op => new Date(op.date) >= weekStart);
+
+      const activeOperations = myOperations.filter(op => op.status === 'Activa');
+      const pendingOperations = myOperations.filter(op =>
+        op.status !== 'Activa' && op.status !== 'Baja'
+      );
+
+      const activeRevenue = activeOperations.reduce((sum, op) => sum + (parseFloat(op.amount) || 0), 0);
+      const pendingRevenue = pendingOperations.reduce((sum, op) => sum + (parseFloat(op.amount) || 0), 0);
+
+      document.getElementById('kpi-today').textContent = `${todayOperations.length} / 4`;
+      document.getElementById('kpi-week').textContent = weekOperations.length.toString();
+      document.getElementById('kpi-active').textContent = `${activeRevenue.toFixed(2)} €`;
+      document.getElementById('kpi-pending').textContent = `${pendingRevenue.toFixed(2)} €`;
+    }
+
+    function getStartOfWeek(date) {
+      const d = new Date(date);
+      const day = d.getDay();
+      const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+      return new Date(d.setDate(diff));
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    }
+
+    function getStatusClass(status) {
+      const statusMap = {
+        'Enviada': 'enviada',
+        'En trámite': 'en-tramite',
+        'Completa': 'completa',
+        'Activa': 'activa',
+        'Baja': 'baja'
+      };
+      return statusMap[status] || '';
+    }
+
+    function showNewSaleModal() {
+      document.getElementById('new-sale-form').reset();
+      document.getElementById('date').valueAsDate = new Date();
+      newSaleModal.show();
+    }
+
+    async function saveNewSale() {
+      const clientName = document.getElementById('client-name').value.trim();
+      const company = document.getElementById('company').value.trim();
+      const service = document.getElementById('service').value.trim();
+      const maintenanceType = document.getElementById('maintenance-type').value;
+      const date = document.getElementById('date').value;
+      const observations = document.getElementById('observations').value.trim();
+
+      if (!clientName || !company || !service || !date) {
+        alert('Por favor, completa todos los campos requeridos (*).');
+        return;
+      }
+
+      const hasMaintenance = maintenanceType !== 'no';
+      const maintenanceText = maintenanceType === 'yes-simples' ? 'Simples' :
+                             maintenanceType === 'yes-multiples' ? 'Múltiples' : 'No';
+
+      const operationData = {
+        asesorId: currentUser.uid,
+        asesorName: currentUser.email.split('@')[0],
+        clientName,
+        company,
+        service,
+        maintenance: hasMaintenance,
+        maintenanceType: maintenanceText,
+        date,
+        status: 'Enviada',
+        amount: 0,
+        notes: observations,
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+      };
+
+      try {
+        await db.ref('operations').push(operationData);
+        alert('Venta registrada correctamente. ¡Buen trabajo! 🎉');
+        newSaleModal.hide();
+      } catch (error) {
+        console.error('Error saving operation:', error);
+        alert('Error al registrar la venta. Por favor, intenta nuevamente.');
+      }
+    }
+  </script>
+</body>
+</html>

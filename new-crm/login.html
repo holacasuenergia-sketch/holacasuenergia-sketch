@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enerlux CRM - Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #0B1220;
+      color: #E5E7EB;
+    }
+    .login-card {
+      background: #111827;
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    }
+    .btn-primary-custom {
+      background: #3B82F6;
+      border: none;
+      padding: 12px 32px;
+    }
+    .btn-primary-custom:hover {
+      background: #2563EB;
+    }
+    .form-control {
+      background: #0B1220;
+      border: 1px solid #1F2933;
+      color: #E5E7EB;
+    }
+    .form-control:focus {
+      background: #0B1220;
+      border-color: #3B82F6;
+      color: #E5E7EB;
+      box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+    }
+    .login-title {
+      color: #E5E7EB;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .error {
+      color: #EF4444;
+      font-size: 14px;
+      text-align: center;
+      display: none;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+  <div class="login-card p-5" style="width: 400px;">
+    <h4 class="login-title">Enerlux CRM</h4>
+
+    <form id="login-form">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="email@ejemplo.com" required>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn btn-primary-custom btn-primary w-100" id="login-btn">
+        <span id="btn-text">Acceder</span>
+        <span id="loading-spinner" class="spinner-border spinner-border-sm" style="display: none;"></span>
+      </button>
+    </form>
+
+    <div class="error" id="error-message"></div>
+    <div class="loading" id="loading-message">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2">Iniciando sesión...</p>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
+      authDomain: "enerlux-crm.firebaseapp.com",
+      databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "enerlux-crm",
+      storageBucket: "enerlux-crm.firebasestorage.app",
+      messagingSenderId: "84970919171",
+      appId: "1:84970919171:web:a9904b377254bb26884536",
+      measurementId: "G-LVY9D58L88"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    // Check if user is already logged in
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          const roleSnapshot = await db.ref(`users/${user.uid}/role`).once('value');
+          const role = roleSnapshot.val();
+
+          if (role === 'admin') {
+            window.location.href = 'admin-dashboard.html';
+          } else if (role === 'asesor') {
+            window.location.href = 'asesor-dashboard.html';
+          } else {
+            // User has no role assigned
+            showError('No tienes permisos asignados. Contacta al administrador.');
+          }
+        } catch (error) {
+          console.error('Error checking user role:', error);
+          showError('Error al verificar permisos. Intenta nuevamente.');
+        }
+      }
+    });
+
+    // Login form submission
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Validate inputs
+      if (!email || !password) {
+        showError('Por favor, completa todos los campos.');
+        return;
+      }
+
+      // Show loading state
+      document.getElementById('login-btn').disabled = true;
+      document.getElementById('btn-text').textContent = 'Accediendo...';
+      document.getElementById('loading-spinner').style.display = 'inline-block';
+      hideError();
+
+      try {
+        // Attempt login
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        // Get user role
+        const roleSnapshot = await db.ref(`users/${user.uid}/role`).once('value');
+        const role = roleSnapshot.val();
+
+        if (role === 'admin') {
+          window.location.href = 'admin-dashboard.html';
+        } else if (role === 'asesor') {
+          window.location.href = 'asesor-dashboard.html';
+        } else {
+          showError('No tienes permisos asignados. Contacta al administrador.');
+          await auth.signOut();
+          resetLoginButton();
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+          showError('Email o contraseña incorrectos.');
+        } else if (error.code === 'auth/invalid-email') {
+          showError('Email inválido.');
+        } else if (error.code === 'auth/too-many-requests') {
+          showError('Demasiados intentos. Intenta más tarde.');
+        } else {
+          showError('Error al iniciar sesión. Intenta nuevamente.');
+        }
+
+        resetLoginButton();
+      }
+    });
+
+    function showError(message) {
+      const errorDiv = document.getElementById('error-message');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+    }
+
+    function hideError() {
+      document.getElementById('error-message').style.display = 'none';
+    }
+
+    function resetLoginButton() {
+      document.getElementById('login-btn').disabled = false;
+      document.getElementById('btn-text').textContent = 'Acceder';
+      document.getElementById('loading-spinner').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

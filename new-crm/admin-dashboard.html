@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enerlux CRM - Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background: #0B1220;
+      color: #E5E7EB;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .sidebar {
+      background: #020617;
+      min-height: 100vh;
+      height: 100%;
+      padding: 20px 0;
+    }
+    .sidebar h5 {
+      color: #3B82F6;
+      margin-bottom: 30px;
+    }
+    .sidebar a {
+      color: #9CA3AF;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      padding: 14px 24px;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+    .sidebar a:hover, .sidebar a.active {
+      background: #111827;
+      color: #3B82F6;
+      border-left-color: #3B82F6;
+    }
+    .sidebar a i {
+      margin-right: 10px;
+      font-size: 18px;
+    }
+    .main-content {
+      padding: 24px;
+    }
+    .card {
+      background: #111827;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .kpi-admin {
+      border-left: 4px solid #3B82F6;
+    }
+    .kpi-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .kpi-label {
+      color: #9CA3AF;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .table {
+      color: #E5E7EB;
+    }
+    .table thead th {
+      background: #020617;
+      border-color: #1F2933;
+      color: #3B82F6;
+      padding: 16px;
+    }
+    .table tbody td {
+      border-color: #1F2933;
+      padding: 16px;
+      vertical-align: middle;
+    }
+    .table tbody tr:hover {
+      background: #1F2933;
+    }
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .status-enviada { background: rgba(56, 189, 248, 0.2); color: #38BDF8; }
+    .status-en-tramite { background: rgba(250, 204, 21, 0.2); color: #FACC15; }
+    .status-completa { background: rgba(250, 204, 21, 0.2); color: #FACC15; }
+    .status-activa { background: rgba(34, 197, 94, 0.2); color: #22C55E; }
+    .status-baja { background: rgba(239, 68, 68, 0.2); color: #EF4444; }
+    .btn-primary-custom {
+      background: #3B82F6;
+      border: none;
+      padding: 10px 24px;
+      color: white;
+    }
+    .btn-primary-custom:hover {
+      background: #2563EB;
+      color: white;
+    }
+    .btn-danger-custom {
+      background: #EF4444;
+      border: none;
+    }
+    .btn-danger-custom:hover {
+      background: #DC2626;
+    }
+    .btn-success-custom {
+      background: #22C55E;
+      border: none;
+    }
+    .btn-success-custom:hover {
+      background: #16A34A;
+    }
+    .date-display {
+      color: #9CA3AF;
+      font-size: 0.9rem;
+    }
+    .logout-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+    }
+    .modal-content {
+      background: #111827;
+      border: 1px solid #1F2933;
+      border-radius: 16px;
+    }
+    .modal-header {
+      border-color: #1F2933;
+    }
+    .modal-footer {
+      border-color: #1F2933;
+    }
+    .form-control, .form-select {
+      background: #0B1220;
+      border-color: #1F2933;
+      color: #E5E7EB;
+    }
+    .form-control:focus, .form-select:focus {
+      background: #0B1220;
+      border-color: #3B82F6;
+      color: #E5E7EB;
+      box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-2 sidebar">
+        <h5 class="px-4">Enerlux</h5>
+        <a href="#" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="#"><i class="bi bi-people"></i> Operaciones</a>
+        <a href="#"><i class="bi bi-trophy"></i> Objetivos</a>
+        <a href="#"><i class="bi bi-bar-chart"></i> Ranking</a>
+        <a href="#"><i class="bi bi-cash-coin"></i> Liquidaciones</a>
+        <a href="#"><i class="bi bi-file-earmark-arrow-up"></i> Importar</a>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-10 main-content">
+        <button class="btn btn-danger-custom btn-sm logout-btn" onclick="logout()">
+          <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+        </button>
+
+        <h6 class="date-display" id="current-date"></h6>
+        <h3 class="mb-4">Panel Administrador</h3>
+
+        <!-- KPIs -->
+        <div class="row row-cols-1 row-cols-md-4 mb-4">
+          <div class="col mb-3">
+            <div class="card kpi-admin p-4">
+              <p class="kpi-label">Ventas Hoy</p>
+              <h3 class="kpi-value" id="kpi-today">0 / 8</h3>
+            </div>
+          </div>
+          <div class="col mb-3">
+            <div class="card kpi-admin p-4">
+              <p class="kpi-label">Ventas Semana</p>
+              <h3 class="kpi-value" id="kpi-week">0 / 40</h3>
+            </div>
+          </div>
+          <div class="col mb-3">
+            <div class="card kpi-admin p-4">
+              <p class="kpi-label">Ganancia</p>
+              <h3 class="kpi-value" id="kpi-revenue">0 €</h3>
+            </div>
+          </div>
+          <div class="col mb-3">
+            <div class="card kpi-admin p-4">
+              <p class="kpi-label">Conversión</p>
+              <h3 class="kpi-value" id="kpi-conversion">0%</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Operations Table -->
+        <div class="card mb-4">
+          <div class="card-header border-0 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Operaciones</h5>
+            <button class="btn btn-primary-custom" onclick="showAddModal()">
+              <i class="bi bi-plus-lg"></i> Nueva Operación
+            </button>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th>Nº</th>
+                    <th>Fecha</th>
+                    <th>Asesor</th>
+                    <th>Cliente</th>
+                    <th>Compañía</th>
+                    <th>Mantenimiento</th>
+                    <th>Estado</th>
+                    <th>Importe</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="operations-table">
+                  <!-- Operations will be loaded here -->
+                </tbody>
+              </table>
+              <div class="text-center py-4" id="no-operations" style="display: none;">
+                <p class="text-muted">No hay operaciones registradas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Operation Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar Operación</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-operation-form">
+            <input type="hidden" id="edit-operation-id">
+
+            <div class="mb-3">
+              <label for="edit-client" class="form-label">Cliente</label>
+              <input type="text" class="form-control" id="edit-client" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-company" class="form-label">Compañía</label>
+              <input type="text" class="form-control" id="edit-company">
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-service" class="form-label">Servicio</label>
+              <input type="text" class="form-control" id="edit-service">
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-status" class="form-label">Estado</label>
+              <select class="form-select" id="edit-status" required>
+                <option value="Enviada">Enviada</option>
+                <option value="En trámite">En trámite</option>
+                <option value="Completa">Completa</option>
+                <option value="Activa">Activa</option>
+                <option value="Baja">Baja</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-amount" class="form-label">Importe (€)</label>
+              <input type="number" class="form-control" id="edit-amount" step="0.01">
+            </div>
+
+            <div class="mb-3">
+              <label for="edit-notes" class="form-label">Notas</label>
+              <textarea class="form-control" id="edit-notes" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success-custom" onclick="saveOperation()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
+      authDomain: "enerlux-crm.firebaseapp.com",
+      databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "enerlux-crm",
+      storageBucket: "enerlux-crm.firebasestorage.app",
+      messagingSenderId: "84970919171",
+      appId: "1:84970919171:web:a9904b377254bb26884536",
+      measurementId: "G-LVY9D58L88"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    let currentUser = null;
+    let operations = [];
+    let editModal;
+
+    // Initialize modal
+    document.addEventListener('DOMContentLoaded', () => {
+      editModal = new bootstrap.Modal(document.getElementById('editModal'));
+      updateDateDisplay();
+      checkAuth();
+    });
+
+    function updateDateDisplay() {
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('current-date').textContent = now.toLocaleDateString('es-ES', options);
+    }
+
+    function checkAuth() {
+      auth.onAuthStateChanged(async (user) => {
+        if (!user) {
+          window.location.href = 'login.html';
+          return;
+        }
+
+        currentUser = user;
+
+        // Verify admin role
+        const roleSnapshot = await db.ref(`users/${user.uid}/role`).once('value');
+        const role = roleSnapshot.val();
+
+        if (role !== 'admin') {
+          alert('No tienes permisos para acceder a esta página.');
+          window.location.href = 'asesor-dashboard.html';
+          return;
+        }
+
+        // Load data
+        loadOperations();
+        loadKPIs();
+      });
+    }
+
+    function logout() {
+      auth.signOut().then(() => {
+        window.location.href = 'login.html';
+      });
+    }
+
+    function loadOperations() {
+      db.ref('operations').on('value', (snapshot) => {
+        const data = snapshot.val();
+        operations = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+        renderOperations();
+      });
+    }
+
+    function renderOperations() {
+      const tbody = document.getElementById('operations-table');
+      const noOperations = document.getElementById('no-operations');
+
+      if (operations.length === 0) {
+        tbody.innerHTML = '';
+        noOperations.style.display = 'block';
+        return;
+      }
+
+      noOperations.style.display = 'none';
+
+      tbody.innerHTML = operations.map((op, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${formatDate(op.date)}</td>
+          <td>${op.asesorName || '-'}</td>
+          <td><strong>${op.clientName}</strong></td>
+          <td>${op.company || '-'}</td>
+          <td>${op.maintenance ? 'Sí' : 'No'}</td>
+          <td><span class="status-badge status-${getStatusClass(op.status)}">${op.status}</span></td>
+          <td>${op.amount ? op.amount + ' €' : '-'}</td>
+          <td>
+            <button class="btn btn-sm btn-primary-custom me-1" onclick="editOperation('${op.id}')">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-danger-custom" onclick="deleteOperation('${op.id}')">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function loadKPIs() {
+      // Calculate today's operations
+      const today = new Date().toDateString();
+      const todayOperations = operations.filter(op => {
+        const opDate = new Date(op.date).toDateString();
+        return opDate === today;
+      });
+
+      const weekStart = getStartOfWeek(new Date());
+      const weekOperations = operations.filter(op => new Date(op.date) >= weekStart);
+
+      const activeOperations = operations.filter(op => op.status === 'Activa');
+      const totalRevenue = activeOperations.reduce((sum, op) => sum + (parseFloat(op.amount) || 0), 0);
+      const conversionRate = operations.length > 0
+        ? ((activeOperations.length / operations.length) * 100).toFixed(1)
+        : '0';
+
+      document.getElementById('kpi-today').textContent = `${todayOperations.length} / 8`;
+      document.getElementById('kpi-week').textContent = `${weekOperations.length} / 40`;
+      document.getElementById('kpi-revenue').textContent = `${totalRevenue.toFixed(2)} €`;
+      document.getElementById('kpi-conversion').textContent = `${conversionRate}%`;
+    }
+
+    function getStartOfWeek(date) {
+      const d = new Date(date);
+      const day = d.getDay();
+      const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+      return new Date(d.setDate(diff));
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    }
+
+    function getStatusClass(status) {
+      const statusMap = {
+        'Enviada': 'enviada',
+        'En trámite': 'en-tramite',
+        'Completa': 'completa',
+        'Activa': 'activa',
+        'Baja': 'baja'
+      };
+      return statusMap[status] || '';
+    }
+
+    function showAddModal() {
+      document.getElementById('edit-operation-form').reset();
+      document.getElementById('edit-operation-id').value = '';
+      document.querySelector('.modal-title').textContent = 'Nueva Operación';
+      editModal.show();
+    }
+
+    function editOperation(opId) {
+      const operation = operations.find(op => op.id === opId);
+      if (!operation) return;
+
+      document.getElementById('edit-operation-id').value = operation.id;
+      document.getElementById('edit-client').value = operation.clientName || '';
+      document.getElementById('edit-company').value = operation.company || '';
+      document.getElementById('edit-service').value = operation.service || '';
+      document.getElementById('edit-status').value = operation.status || 'Enviada';
+      document.getElementById('edit-amount').value = operation.amount || '';
+      document.getElementById('edit-notes').value = operation.notes || '';
+
+      document.querySelector('.modal-title').textContent = 'Editar Operación';
+      editModal.show();
+    }
+
+    async function saveOperation() {
+      const opId = document.getElementById('edit-operation-id').value;
+      const operationData = {
+        clientName: document.getElementById('edit-client').value,
+        company: document.getElementById('edit-company').value,
+        service: document.getElementById('edit-service').value,
+        status: document.getElementById('edit-status').value,
+        amount: parseFloat(document.getElementById('edit-amount').value) || 0,
+        notes: document.getElementById('edit-notes').value,
+        updatedAt: Date.now()
+      };
+
+      try {
+        if (opId) {
+          await db.ref(`operations/${opId}`).update(operationData);
+          alert('Operación actualizada correctamente');
+        } else {
+          operationData.asesorId = currentUser.uid;
+          operationData.asesorName = currentUser.email.split('@')[0];
+          operationData.date = new Date().toISOString().split('T')[0];
+          operationData.createdAt = Date.now();
+          operationData.maintenance = false;
+          await db.ref('operations').push(operationData);
+          alert('Operación creada correctamente');
+        }
+        editModal.hide();
+      } catch (error) {
+        console.error('Error saving operation:', error);
+        alert('Error al guardar la operación');
+      }
+    }
+
+    async function deleteOperation(opId) {
+      if (!confirm('¿Estás seguro de que quieres eliminar esta operación?')) return;
+
+      try {
+        await db.ref(`operations/${opId}`).remove();
+        alert('Operación eliminada correctamente');
+      } catch (error) {
+        console.error('Error deleting operation:', error);
+        alert('Error al eliminar la operación');
+      }
+    }
+  </script>
+</body>
+</html>
