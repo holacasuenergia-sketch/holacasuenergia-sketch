@@ -555,6 +555,30 @@
       .header h1 { font-size: 20px; }
       .stat-card .value { font-size: 28px; }
     }
+
+    /* Checkbox Label */
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      margin: 20px 0;
+    }
+    .checkbox-label input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    .checkbox-label span {
+      color: #334155;
+      font-size: 14px;
+    }
+
+    /* Admin Fields */
+    #admin-fields {
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -571,13 +595,6 @@
         <input type="password" id="password" placeholder="••••••••" required>
         <button type="submit" id="login-btn">Iniciar sesión</button>
       </form>
-      <div class="info">
-        <p><strong>Credenciales de prueba:</strong></p>
-        <ul>
-          <li>Email: admin@enerlux.com</li>
-          <li>Password: enerlux123</li>
-        </ul>
-      </div>
     </div>
   </div>
 
@@ -726,29 +743,35 @@
       <form id="operation-form">
         <label>Nombre del Cliente</label>
         <input type="text" id="client-name" required>
-        
-        <label>Estado</label>
-        <select id="status" required>
-          <option value="En trámite">En trámite</option>
-          <option value="Completo">Completo</option>
-          <option value="Activo">Activo</option>
-          <option value="Dado de baja">Dado de baja</option>
-        </select>
 
-        <label>Fecha Inicio</label>
-        <input type="date" id="date-inicio" required>
+        <label>Compañía</label>
+        <input type="text" id="company" placeholder="Nombre de la compañía">
 
-        <label>Fecha Completo</label>
-        <input type="date" id="date-completo">
+        <label>Servicio</label>
+        <input type="text" id="service" placeholder="Tipo de servicio" required>
 
-        <label>Fecha Activo</label>
-        <input type="date" id="date-activo">
+        <label>¿Servicio de mantenimiento?</label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="maintenance">
+          <span>¿Incluye servicio de mantenimiento?</span>
+        </label>
 
-        <label>Fecha Baja</label>
-        <input type="date" id="date-baja">
+        <label>Fecha</label>
+        <input type="date" id="operation-date" required>
 
-        <label>Notas</label>
-        <textarea id="notes" placeholder="Detalles adicionales..." rows="3"></textarea>
+        <div id="admin-fields">
+          <label>Estado</label>
+          <select id="status" required>
+            <option value="En trámite">En trámite</option>
+            <option value="Enviado">Enviado</option>
+            <option value="Completo">Completo</option>
+            <option value="Activo">Activo</option>
+            <option value="Dado de baja">Dado de baja</option>
+          </select>
+
+          <label>Notas</label>
+          <textarea id="notes" placeholder="Detalles adicionales..." rows="3"></textarea>
+        </div>
 
         <button type="submit" id="save-btn">Guardar</button>
         <button type="button" class="secondary" onclick="closeModal()">Cancelar</button>
@@ -764,6 +787,7 @@
     const firebaseConfig = {
       apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
       authDomain: "enerlux-crm.firebaseapp.com",
+      databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
       projectId: "enerlux-crm",
       storageBucket: "enerlux-crm.firebasestorage.app",
       messagingSenderId: "84970919171",
@@ -1130,7 +1154,26 @@
       editingOperationId = null;
       document.getElementById('modal-title').textContent = 'Nueva Operación';
       document.getElementById('operation-form').reset();
-      document.getElementById('date-inicio').valueAsDate = new Date();
+
+      // Set today's date
+      document.getElementById('operation-date').valueAsDate = new Date();
+
+      // Show/Hide admin fields based on role
+      const isAdmin = currentUserRole === 'admin';
+      document.getElementById('admin-fields').style.display = isAdmin ? 'block' : 'none';
+
+      // Reset status based on role
+      const statusSelect = document.getElementById('status');
+      if (!isAdmin) {
+        statusSelect.innerHTML = '<option value="Enviado">Enviado</option>';
+      } else {
+        statusSelect.innerHTML = '<option value="En trámite">En trámite</option>' +
+                               '<option value="Enviado">Enviado</option>' +
+                               '<option value="Completo">Completo</option>' +
+                               '<option value="Activo">Activo</option>' +
+                               '<option value="Dado de baja">Dado de baja</option>';
+      }
+
       modal.style.display = 'block';
     }
 
@@ -1141,13 +1184,58 @@
 
       editingOperationId = opId;
       document.getElementById('modal-title').textContent = 'Editar Operación';
+
+      // Show/Hide admin fields based on role
+      const isAdmin = currentUserRole === 'admin';
+      document.getElementById('admin-fields').style.display = isAdmin ? 'block' : 'none';
+
+      // Fill common fields
       document.getElementById('client-name').value = operation.clientName || '';
-      document.getElementById('status').value = operation.status || 'En trámite';
-      document.getElementById('date-inicio').value = operation.dateInicio || '';
-      document.getElementById('date-completo').value = operation.dateCompleto || '';
-      document.getElementById('date-activo').value = operation.dateActivo || '';
-      document.getElementById('date-baja').value = operation.dateBaja || '';
-      document.getElementById('notes').value = operation.notes || '';
+      document.getElementById('company').value = operation.company || '';
+      document.getElementById('service').value = operation.service || '';
+      document.getElementById('maintenance').checked = operation.maintenance || false;
+      document.getElementById('operation-date').value = operation.date || '';
+
+      // Role-based permissions
+      const isAsesor = currentUserRole === 'asesor';
+
+      // For asesor: only allow status change to "Enviado"
+      if (isAsesor) {
+        // Disable most fields, only allow status change
+        document.getElementById('client-name').disabled = true;
+        document.getElementById('company').disabled = true;
+        document.getElementById('service').disabled = true;
+        document.getElementById('maintenance').disabled = true;
+        document.getElementById('operation-date').disabled = true;
+
+        // Set status options for asesor
+        const statusSelect = document.getElementById('status');
+        statusSelect.innerHTML = '<option value="En trámite">En trámite</option>' +
+                               '<option value="Enviado">Enviado</option>';
+        statusSelect.value = operation.status || 'En trámite';
+        statusSelect.disabled = false;
+      } else {
+        // Admin: can edit everything
+        document.getElementById('client-name').disabled = false;
+        document.getElementById('company').disabled = false;
+        document.getElementById('service').disabled = false;
+        document.getElementById('maintenance').disabled = false;
+        document.getElementById('operation-date').disabled = false;
+
+        // Reset status options for admin
+        const statusSelect = document.getElementById('status');
+        statusSelect.innerHTML = '<option value="En trámite">En trámite</option>' +
+                               '<option value="Enviado">Enviado</option>' +
+                               '<option value="Completo">Completo</option>' +
+                               '<option value="Activo">Activo</option>' +
+                               '<option value="Dado de baja">Dado de baja</option>';
+        statusSelect.value = operation.status || 'En trámite';
+        statusSelect.disabled = false;
+
+        // Admin notes field
+        document.getElementById('notes').value = operation.notes || '';
+      }
+
       modal.style.display = 'block';
     }
 
@@ -1176,16 +1264,45 @@
     document.getElementById('operation-form').addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      // Get original operation data for validation
+      let originalOperation = null;
+      if (editingOperationId) {
+        originalOperation = operations.find(op => op.id === editingOperationId);
+      }
+
+      const newStatus = document.getElementById('status').value;
+
+      // Asesor validation: can only change to "Enviado"
+      if (currentUserRole === 'asesor' && editingOperationId && originalOperation) {
+        const currentStatus = originalOperation.status;
+
+        // Asesor can only change status to "Enviado" from current status
+        if (currentStatus !== 'Enviado' && newStatus !== 'Enviado') {
+          alert('Como asesor, solo puedes cambiar el estado a "Enviado".');
+          return;
+        }
+
+        // Asesor cannot change from "Enviado" to other statuses
+        if (currentStatus === 'Enviado' && newStatus !== currentStatus) {
+          alert('Como asesor, no puedes cambiar el estado después de "Enviado".');
+          return;
+        }
+      }
+
       const operationData = {
         clientName: document.getElementById('client-name').value.trim(),
-        status: document.getElementById('status').value,
-        dateInicio: document.getElementById('date-inicio').value,
-        dateCompleto: document.getElementById('date-completo').value,
-        dateActivo: document.getElementById('date-activo').value,
-        dateBaja: document.getElementById('date-baja').value,
-        notes: document.getElementById('notes').value,
+        company: document.getElementById('company').value.trim(),
+        service: document.getElementById('service').value.trim(),
+        maintenance: document.getElementById('maintenance').checked,
+        date: document.getElementById('operation-date').value,
+        status: newStatus,
         updatedAt: Date.now()
       };
+
+      // Admin can have additional fields (notes, other dates)
+      if (currentUserRole === 'admin') {
+        operationData.notes = document.getElementById('notes').value;
+      }
 
       try {
         if (editingOperationId) {

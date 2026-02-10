@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     body {
-      background: #0B1220;
+      background: #0f172a;
       color: #E5E7EB;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
@@ -101,6 +101,13 @@
       background: #16A34A;
       color: white;
     }
+    .logo-img {
+      max-height: 80px;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
     .logout-btn {
       position: absolute;
       top: 24px;
@@ -170,6 +177,64 @@
       background: #2563EB;
       color: white;
     }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .container-fluid {
+        padding: 0;
+      }
+      .row {
+        margin: 0;
+      }
+      .col-2.sidebar {
+        min-height: auto;
+        padding: 10px 0;
+      }
+      .col-10.main-content {
+        padding: 16px;
+      }
+      .sidebar h5 {
+        font-size: 14px;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      .sidebar a {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+      .col-md-3 {
+        margin-bottom: 15px;
+      }
+      .kpi-value {
+        font-size: 2rem;
+      }
+      .table {
+        font-size: 12px;
+      }
+      .table th, .table td {
+        padding: 8px;
+      }
+      .status-badge {
+        padding: 4px 8px;
+        font-size: 11px;
+      }
+      .logout-btn {
+        position: static;
+        margin-bottom: 15px;
+      }
+      .contact-section {
+        margin-top: 20px;
+      }
+      .contact-card {
+        padding: 15px;
+      }
+      h3 {
+        font-size: 20px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -177,6 +242,9 @@
     <div class="row">
       <!-- Sidebar -->
       <div class="col-2 sidebar">
+        <a href="/new-crm/login.html" class="text-decoration-none">
+          <img src="logo.png" alt="Enerlux Logo" class="logo-img px-3">
+        </a>
         <h5 class="px-4">Enerlux</h5>
         <a href="#" class="active"><i class="bi bi-speedometer2"></i> Mi Dashboard</a>
         <a href="#" onclick="showNewSaleModal(); return false;"><i class="bi bi-plus-lg"></i> Nueva Venta</a>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Auth Test - Enerlux</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input { padding: 10px; margin: 5px; width: 300px; }
+    button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    .log { background: #f0f0f0; padding: 10px; margin-top: 20px; border: 1px solid #ccc; min-height: 200px; overflow-y: auto; }
+    .error { color: red; }
+    .success { color: green; }
+  </style>
+</head>
+<body>
+  <h1>Simple Auth Test - Enerlux</h1>
+
+  <div>
+    <input type="email" id="email" value="admin@enerlux.com" placeholder="Email">
+    <input type="password" id="password" value="enerlux123" placeholder="Password">
+    <button onclick="testLogin()">Login</button>
+    <button onclick="testLogout()">Logout</button>
+  </div>
+
+  <div class="log" id="log"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
+      authDomain: "enerlux-crm.firebaseapp.com",
+      projectId: "enerlux-crm",
+      storageBucket: "enerlux-crm.firebasestorage.app",
+      messagingSenderId: "84970919171",
+      appId: "1:84970919171:web:a9904b377254bb26884536",
+      measurementId: "G-LVY9D58L88"
+    };
+
+    const logDiv = document.getElementById('log');
+
+    function log(msg, type = '') {
+      const time = new Date().toLocaleTimeString();
+      const span = document.createElement('div');
+      span.innerHTML = `[${time}] ${msg}`;
+      if (type) span.className = type;
+      logDiv.appendChild(span);
+      logDiv.scrollTop = logDiv.scrollHeight;
+      console.log(msg);
+    }
+
+    try {
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      log('✅ Firebase initialized', 'success');
+
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          log(`✅ User logged in: ${user.email}`, 'success');
+        } else {
+          log('ℹ️ No user logged in', '');
+        }
+      });
+
+      async function testLogin() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        log(`🔐 Attempting login with: ${email}`, '');
+
+        try {
+          const userCredential = await auth.signInWithEmailAndPassword(email, password);
+          log(`✅ Login SUCCESS: ${userCredential.user.email}`, 'success');
+        } catch (error) {
+          log(`❌ Login ERROR: ${error.code} - ${error.message}`, 'error');
+          log(`   Error details: ${JSON.stringify(error)}`, 'error');
+        }
+      }
+
+      async function testLogout() {
+        await auth.signOut();
+        log('✅ Logged out', 'success');
+      }
+
+      window.testLogin = testLogin;
+      window.testLogout = testLogout;
+
+    } catch (error) {
+      log(`❌ Firebase ERROR: ${error.message}`, 'error');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth Debug - Enerlux CRM</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .log { background: #f0f0f0; padding: 10px; margin: 10px 0; border: 1px solid #ccc; }
+    .error { color: red; font-weight: bold; }
+    .success { color: green; font-weight: bold; }
+    .warning { color: orange; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Firebase Auth Debug - Enerlux CRM</h1>
+
+  <div id="logs"></div>
+
+  <button onclick="manualLogin()">Login as Admin</button>
+  <button onclick="manualLogout()">Logout</button>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
+      authDomain: "enerlux-crm.firebaseapp.com",
+      databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "enerlux-crm",
+      storageBucket: "enerlux-crm.firebasestorage.app",
+      messagingSenderId: "84970919171",
+      appId: "1:84970919171:web:a9904b377254bb26884536",
+      measurementId: "G-LVY9D58L88"
+    };
+
+    const logsDiv = document.getElementById('logs');
+
+    function log(msg, type = '') {
+      const time = new Date().toLocaleTimeString();
+      const div = document.createElement('div');
+      div.className = 'log ' + (type || '');
+      div.innerHTML = `[${time}] ${msg}`;
+      logsDiv.appendChild(div);
+      console.log(msg);
+    }
+
+    try {
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      log('✅ Firebase initialized', 'success');
+
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          log(`👤 User authenticated: ${user.email}`, 'success');
+          log(`   UID: ${user.uid}`, 'success');
+          log(`   Email verified: ${user.emailVerified}`, 'success');
+        } else {
+          log('👤 No user authenticated', 'warning');
+          log('   User object is null or undefined', 'warning');
+        }
+      });
+
+      async function manualLogin() {
+        log('🔐 Attempting admin login...', '');
+        try {
+          const userCredential = await auth.signInWithEmailAndPassword('admin@enerlux.com', 'enerlux123');
+          log(`✅ Login successful: ${userCredential.user.email}`, 'success');
+        } catch (error) {
+          log(`❌ Login FAILED: ${error.code}`, 'error');
+          log(`   Message: ${error.message}`, 'error');
+          log(`   Full error:`, 'error');
+          console.error(error);
+        }
+      }
+
+      async function manualLogout() {
+        log('📤 Attempting logout...', '');
+        try {
+          await auth.signOut();
+          log('✅ Logout successful', 'success');
+        } catch (error) {
+          log(`❌ Logout FAILED: ${error.message}`, 'error');
+        }
+      }
+
+      window.manualLogin = manualLogin;
+      window.manualLogout = manualLogout;
+
+      log('📋 Debug page loaded. Waiting for auth state...', '');
+
+    } catch (error) {
+      log(`❌ FATAL ERROR during Firebase init: ${error.message}`, 'error');
+      log(`   Full error:`, 'error');
+      console.error(error);
+    }
+  </script>
+</body>
+</html>

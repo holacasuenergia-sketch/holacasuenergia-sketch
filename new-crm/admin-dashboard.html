@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     body {
-      background: #0B1220;
+      background: #0f172a;
       color: #E5E7EB;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
@@ -114,6 +114,13 @@
     .btn-success-custom:hover {
       background: #16A34A;
     }
+    .logo-img {
+      max-height: 80px;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
     .date-display {
       color: #9CA3AF;
       font-size: 0.9rem;
@@ -152,6 +159,9 @@
     <div class="row">
       <!-- Sidebar -->
       <div class="col-2 sidebar">
+        <a href="/new-crm/login.html" class="text-decoration-none">
+          <img src="logo.png" alt="Enerlux Logo" class="logo-img px-3">
+        </a>
         <h5 class="px-4">Enerlux</h5>
         <a href="#" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a>
         <a href="#"><i class="bi bi-people"></i> Operaciones</a>
@@ -501,19 +511,45 @@
       rankingDiv.innerHTML = ranking.map((advisor, index) => {
         const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
         const borderColor = index < 3 ? 'border-warning' : 'border-secondary';
+        const conversion = advisor.total > 0 ? ((advisor.active / advisor.total) * 100).toFixed(1) : '0';
 
         return `
-          <div class="card ${borderColor}" style="border-left: 4px solid;">
+          <div class="card ${borderColor}" style="border-left: 4px solid; background: linear-gradient(135deg, #111827 0%, #1F2933 100%);">
             <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-start mb-2">
                 <div>
-                  <strong>${medal} ${advisor.name}</strong>
+                  <h5 class="mb-1">${medal} ${advisor.name}</h5>
+                  <small class="text-muted">Posición #${index + 1}</small>
                 </div>
                 <div class="text-end">
-                  <div class="text-success fw-bold">${advisor.revenue.toFixed(2)} €</div>
-                  <small class="text-muted">${advisor.active}/${advisor.total} activas</small>
+                  <div class="text-success fw-bold fs-4">${advisor.revenue.toFixed(2)} €</div>
+                  <small class="text-success">Ganado</small>
                 </div>
               </div>
+              <div class="row g-2">
+                <div class="col-6">
+                  <div class="text-white fw-bold">${advisor.total}</div>
+                  <small class="text-muted">Total ventas</small>
+                </div>
+                <div class="col-6">
+                  <div class="text-white fw-bold">${advisor.active}</div>
+                  <small class="text-muted">Activas</small>
+                </div>
+              </div>
+              <div class="mt-2">
+                <div class="d-flex justify-content-between">
+                  <small class="text-muted">Conversión</small>
+                  <small class="text-white">${conversion}%</small>
+                </div>
+                <div class="progress" style="height: 6px; background: #374151;">
+                  <div class="progress-bar bg-success" style="width: ${conversion}%"></div>
+                </div>
+              </div>
+              ${advisor.revenue > 0 ? `
+              <div class="mt-2 pt-2 border-top border-secondary">
+                <strong class="text-warning">💰 Premio motivación: ${advisor.revenue.toFixed(2)} €</strong>
+              </div>
+              ` : ''}
             </div>
           </div>
         `;
