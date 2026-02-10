@@ -174,6 +174,12 @@
     .border-secondary {
       border-color: #E6F0F2 !important;
     }
+    .section-content {
+      display: none;
+    }
+    .section-content.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -185,12 +191,10 @@
           <img src="logo.png" alt="Enerlux Logo" class="logo-img px-3">
         </a>
         <h5 class="px-4">Enerlux</h5>
-        <a href="#" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a>
-        <a href="#"><i class="bi bi-people"></i> Operaciones</a>
-        <a href="#"><i class="bi bi-trophy"></i> Objetivos</a>
-        <a href="#"><i class="bi bi-bar-chart"></i> Ranking</a>
-        <a href="#"><i class="bi bi-cash-coin"></i> Liquidaciones</a>
-        <a href="#"><i class="bi bi-file-earmark-arrow-up"></i> Importar</a>
+        <a href="#" onclick="showSection('dashboard'); return false;" class="active" data-section="dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="#" onclick="showSection('operations'); return false;" data-section="operations"><i class="bi bi-people"></i> Operaciones</a>
+        <a href="#" onclick="showSection('ranking'); return false;" data-section="ranking"><i class="bi bi-trophy"></i> Ranking</a>
+        <a href="#" onclick="showSection('import'); return false;" data-section="import"><i class="bi bi-file-earmark-arrow-up"></i> Importar</a>
       </div>
 
       <!-- Main Content -->
@@ -200,76 +204,193 @@
         </button>
 
         <h6 class="date-display" id="current-date"></h6>
-        <h3 class="mb-4">Panel Administrador</h3>
 
-        <!-- KPIs -->
-        <div class="row row-cols-1 row-cols-md-4 mb-4">
-          <div class="col mb-3">
-            <div class="card kpi-admin p-4">
-              <p class="kpi-label">Ventas Hoy</p>
-              <h3 class="kpi-value" id="kpi-today">0 / 8</h3>
+        <!-- Dashboard Section -->
+        <div id="section-dashboard" class="section-content active">
+          <h3 class="mb-4">Panel Administrador - Dashboard</h3>
+
+          <!-- KPIs -->
+          <div class="row row-cols-1 row-cols-md-4 mb-4">
+            <div class="col mb-3">
+              <div class="card kpi-admin p-4">
+                <p class="kpi-label">Ventas Hoy</p>
+                <h3 class="kpi-value" id="kpi-today">0 / 8</h3>
+              </div>
+            </div>
+            <div class="col mb-3">
+              <div class="card kpi-admin p-4">
+                <p class="kpi-label">Ventas Semana</p>
+                <h3 class="kpi-value" id="kpi-week">0 / 40</h3>
+              </div>
+            </div>
+            <div class="col mb-3">
+              <div class="card kpi-admin p-4">
+                <p class="kpi-label">Ganancia</p>
+                <h3 class="kpi-value" id="kpi-revenue">0 €</h3>
+              </div>
+            </div>
+            <div class="col mb-3">
+              <div class="card kpi-admin p-4">
+                <p class="kpi-label">Conversión</p>
+                <h3 class="kpi-value" id="kpi-conversion">0%</h3>
+              </div>
             </div>
           </div>
-          <div class="col mb-3">
-            <div class="card kpi-admin p-4">
-              <p class="kpi-label">Ventas Semana</p>
-              <h3 class="kpi-value" id="kpi-week">0 / 40</h3>
+
+          <!-- Advisors Ranking -->
+          <div class="card mb-4">
+            <div class="card-header border-0">
+              <h5 class="mb-0"><i class="bi bi-trophy-fill text-warning"></i> Ranking de Asesores</h5>
+            </div>
+            <div class="card-body">
+              <div class="row row-cols-1 row-cols-md-3 g-4" id="ranking-cards">
+                <!-- Advisor ranking cards will be loaded here -->
+              </div>
             </div>
           </div>
-          <div class="col mb-3">
-            <div class="card kpi-admin p-4">
-              <p class="kpi-label">Ganancia</p>
-              <h3 class="kpi-value" id="kpi-revenue">0 €</h3>
+
+          <!-- Operations Table -->
+          <div class="card mb-4">
+            <div class="card-header border-0">
+              <h5 class="mb-0">Operaciones (Fichas de Asesores)</h5>
+              <small class="text-muted">Asesores suben fichas → Tú cambias estado y asignas importe</small>
             </div>
-          </div>
-          <div class="col mb-3">
-            <div class="card kpi-admin p-4">
-              <p class="kpi-label">Conversión</p>
-              <h3 class="kpi-value" id="kpi-conversion">0%</h3>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Fecha</th>
+                      <th>Asesor</th>
+                      <th>Cliente</th>
+                      <th>Compañía</th>
+                      <th>Servicio</th>
+                      <th>Mant.</th>
+                      <th>Estado</th>
+                      <th>Importe (€)</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="operations-table">
+                    <!-- Operations will be loaded here -->
+                  </tbody>
+                </table>
+                <div class="text-center py-4" id="no-operations" style="display: none;">
+                  <p class="text-muted">No hay operaciones registradas</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Advisors Ranking -->
-        <div class="card mb-4">
-          <div class="card-header border-0">
-            <h5 class="mb-0"><i class="bi bi-trophy-fill text-warning"></i> Ranking de Asesores</h5>
-          </div>
-          <div class="card-body">
-            <div class="row row-cols-1 row-cols-md-3 g-4" id="ranking-cards">
-              <!-- Advisor ranking cards will be loaded here -->
+        <!-- Operations Section -->
+        <div id="section-operations" class="section-content">
+          <h3 class="mb-4">Operaciones</h3>
+          <div class="card mb-4">
+            <div class="card-header border-0">
+              <h5 class="mb-0">Todas las Operaciones</h5>
+              <small class="text-muted">Fichas de todos los asesores</small>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Fecha</th>
+                      <th>Asesor</th>
+                      <th>Cliente</th>
+                      <th>Compañía</th>
+                      <th>Servicio</th>
+                      <th>Mant.</th>
+                      <th>Estado</th>
+                      <th>Importe (€)</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="operations-table-full">
+                    <!-- Operations will be loaded here -->
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Operations Table -->
-        <div class="card mb-4">
-          <div class="card-header border-0">
-            <h5 class="mb-0">Operaciones (Fichas de Asesores)</h5>
-            <small class="text-muted">Asesores suben fichas → Tú cambias estado y asignas importe</small>
+        <!-- Ranking Section -->
+        <div id="section-ranking" class="section-content">
+          <h3 class="mb-4">Ranking de Asesores</h3>
+          <div class="card mb-4">
+            <div class="card-header border-0">
+              <h5 class="mb-0"><i class="bi bi-trophy-fill text-warning"></i> Ranking Completo</h5>
+            </div>
+            <div class="card-body">
+              <div class="row row-cols-1 row-cols-md-3 g-4" id="ranking-cards-full">
+                <!-- Advisor ranking cards will be loaded here -->
+              </div>
+            </div>
           </div>
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table table-hover mb-0">
-                <thead>
-                  <tr>
-                    <th>Fecha</th>
-                    <th>Asesor</th>
-                    <th>Cliente</th>
-                    <th>Compañía</th>
-                    <th>Servicio</th>
-                    <th>Mant.</th>
-                    <th>Estado</th>
-                    <th>Importe (€)</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody id="operations-table">
-                  <!-- Operations will be loaded here -->
-                </tbody>
-              </table>
-              <div class="text-center py-4" id="no-operations" style="display: none;">
-                <p class="text-muted">No hay operaciones registradas</p>
+        </div>
+
+        <!-- Import Section -->
+        <div id="section-import" class="section-content">
+          <h3 class="mb-4">Importar / Liquidaciones</h3>
+          <div class="card">
+            <div class="card-header border-0">
+              <h5 class="mb-0">Filtros de Importación</h5>
+            </div>
+            <div class="card-body">
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="import-filter" class="form-label">Tipo de Importación</label>
+                  <select class="form-select" id="import-filter" onchange="updateImportPreview()">
+                    <option value="all">Todas las operaciones</option>
+                    <option value="advisor">Por asesor específico</option>
+                    <option value="active">Solo operaciones activas</option>
+                  </select>
+                </div>
+                <div class="col-md-6" id="advisor-select-container" style="display: none;">
+                  <label for="advisor-select" class="form-label">Seleccionar Asesor</label>
+                  <select class="form-select" id="advisor-select" onchange="updateImportPreview()">
+                    <option value="">-- Seleccionar asesor --</option>
+                    <!-- Advisor options will be loaded here -->
+                  </select>
+                </div>
+              </div>
+
+              <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i>
+                <strong>Info:</strong> Selecciona un filtro para ver el preview de importación. Luego puedes exportar o procesar las liquidaciones para los asesores.
+              </div>
+
+              <div id="import-preview">
+                <h6 class="mb-3">Preview de Importación</h6>
+                <div class="table-responsive mb-4">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Asesor</th>
+                        <th>Total Operaciones</th>
+                        <th>Activas</th>
+                        <th>Importe Total (€)</th>
+                        <th>Liquidación (35€/activo)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="import-preview-table">
+                      <tr>
+                        <td colspan="5" class="text-center">Selecciona un filtro para ver el preview</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <button class="btn btn-primary-custom" onclick="exportToCSV()">
+                  <i class="bi bi-file-earmark-excel"></i> Exportar CSV
+                </button>
+                <button class="btn btn-primary-custom" onclick="processLiquidations()">
+                  <i class="bi bi-cash-coin"></i> Procesar Liquidaciones
+                </button>
               </div>
             </div>
           </div>
@@ -386,13 +507,252 @@
     let currentUser = null;
     let operations = [];
     let editModal;
+    let advisors = {}; // Store advisors data for import
 
     // Initialize modal
     document.addEventListener('DOMContentLoaded', () => {
       editModal = new bootstrap.Modal(document.getElementById('editModal'));
       updateDateDisplay();
       checkAuth();
+      loadAdvisorsForImport();
     });
+
+    // Navigation functions
+    function showSection(sectionName) {
+      // Hide all sections
+      document.querySelectorAll('.section-content').forEach(section => {
+        section.classList.remove('active');
+      });
+
+      // Show selected section
+      const targetSection = document.getElementById(`section-${sectionName}`);
+      if (targetSection) {
+        targetSection.classList.add('active');
+      }
+
+      // Update sidebar active state
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.classList.remove('active');
+        if (link.dataset.section === sectionName) {
+          link.classList.add('active');
+        }
+      });
+
+      // Load data for specific sections
+      if (sectionName === 'operations') {
+        loadOperationsFull();
+      } else if (sectionName === 'ranking') {
+        loadRankingFull();
+      }
+    }
+
+    function loadAdvisorsForImport() {
+      db.ref('users').once('value').then(snapshot => {
+        const users = snapshot.val();
+        if (users) {
+          advisors = {};
+          Object.keys(users).forEach(uid => {
+            if (users[uid].role === 'asesor') {
+              const advisorName = users[uid].email.split('@')[0];
+              advisors[advisorName] = uid;
+            }
+          });
+
+          // Populate advisor select
+          const advisorSelect = document.getElementById('advisor-select');
+          advisorSelect.innerHTML = '<option value="">-- Seleccionar asesor --</option>';
+          Object.keys(advisors).forEach(name => {
+            advisorSelect.innerHTML += `<option value="${name}">${name}</option>`;
+          });
+        }
+      });
+    }
+
+    function updateImportPreview() {
+      const filter = document.getElementById('import-filter').value;
+
+      // Show/hide advisor select
+      const advisorSelectContainer = document.getElementById('advisor-select-container');
+      advisorSelectContainer.style.display = filter === 'advisor' ? 'block' : 'none';
+
+      // Calculate preview data
+      const previewData = {};
+
+      // Filter operations
+      operations.forEach(op => {
+        if (filter === 'all' || (filter === 'advisor' && op.asesorName === document.getElementById('advisor-select').value) || (filter === 'active' && op.status === 'Activa')) {
+          const advisor = op.asesorName;
+
+          if (!previewData[advisor]) {
+            previewData[advisor] = {
+              total: 0,
+              active: 0,
+              amount: 0,
+              liquidation: 0
+            };
+          }
+
+          previewData[advisor].total++;
+
+          if (op.status === 'Activa') {
+            previewData[advisor].active++;
+            previewData[advisor].amount += op.amount || 0;
+            previewData[advisor].liquidation += 35; // 35€ per active client
+          }
+        }
+      });
+
+      // Update preview table
+      const tbody = document.getElementById('import-preview-table');
+      const advisors_names = Object.keys(previewData);
+
+      if (advisors_names.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center">No hay datos que mostrar</td></tr>';
+        return;
+      }
+
+      let html = '';
+      advisors_names.forEach(name => {
+        const data = previewData[name];
+        html += `
+          <tr>
+            <td><strong>${name}</strong></td>
+            <td>${data.total}</td>
+            <td>${data.active}</td>
+            <td>${data.amount.toFixed(2)} €</td>
+            <td><strong>${data.liquidation.toFixed(2)} €</strong></td>
+          </tr>
+        `;
+      });
+
+      // Add total row
+      const totalOps = advisors_names.reduce((sum, name) => sum + previewData[name].total, 0);
+      const totalActive = advisors_names.reduce((sum, name) => sum + previewData[name].active, 0);
+      const totalAmount = advisors_names.reduce((sum, name) => sum + previewData[name].amount, 0);
+      const totalLiquidation = advisors_names.reduce((sum, name) => sum + previewData[name].liquidation, 0);
+
+      html += `
+        <tr style="background: #F2F7F8; font-weight: bold;">
+          <td><strong>TOTAL</strong></td>
+          <td><strong>${totalOps}</strong></td>
+          <td><strong>${totalActive}</strong></td>
+          <td><strong>${totalAmount.toFixed(2)} €</strong></td>
+          <td><strong>${totalLiquidation.toFixed(2)} €</strong></td>
+        </tr>
+      `;
+
+      tbody.innerHTML = html;
+    }
+
+    function exportToCSV() {
+      alert('Función de exportación CSV en desarrollo. Próximamente podrá exportar los datos para liquidaciones.');
+    }
+
+    function processLiquidations() {
+      alert('Función de procesamiento de liquidaciones en desarrollo. Próximamente podrá procesar y enviar liquidaciones a los asesores.');
+    }
+
+    function loadOperationsFull() {
+      // Operations are already loaded, populate the full table
+      const tbody = document.getElementById('operations-table-full');
+
+      if (operations.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center py-4">No hay operaciones registradas</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = operations.sort((a, b) => new Date(b.date) - new Date(a.date)).map(op => `
+        <tr>
+          <td>${formatDate(op.date)}</td>
+          <td>${op.asesorName}</td>
+          <td>${op.clientName}</td>
+          <td>${op.company}</td>
+          <td>${op.service}</td>
+          <td>${op.maintenance ? op.maintenanceType || 'Sí' : 'No'}</td>
+          <td><span class="status-badge status-${op.status.toLowerCase().replace(' ', '-')}">${op.status}</span></td>
+          <td>${op.amount ? op.amount.toFixed(2) + ' €' : '-'}</td>
+          <td>
+            <button class="btn btn-primary-custom btn-sm" onclick="editOperation('${op.id}')">
+              <i class="bi bi-pencil"></i> Editar
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function loadRankingFull() {
+      const rankingDiv = document.getElementById('ranking-cards-full');
+      const advisors = {};
+
+      operations.forEach(op => {
+        const name = op.asesorName;
+        if (!advisors[name]) {
+          advisors[name] = { total: 0, active: 0, revenue: 0 };
+        }
+        advisors[name].total++;
+        if (op.status === 'Activa') {
+          advisors[name].active++;
+          advisors[name].revenue += op.amount || 0;
+        }
+      });
+
+      const ranking = Object.keys(advisors).map(name => ({
+        name,
+        ...advisors[name]
+      })).sort((a, b) => b.revenue - a.revenue);
+
+      if (ranking.length === 0) {
+        rankingDiv.innerHTML = '<p class="text-muted">No hay datos de asesores aún</p>';
+        return;
+      }
+
+      rankingDiv.innerHTML = ranking.map((advisor, index) => {
+        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
+        const borderColor = index < 3 ? 'border-warning' : 'border-secondary';
+        const conversion = advisor.total > 0 ? ((advisor.active / advisor.total) * 100).toFixed(1) : '0';
+
+        return `
+          <div class="card ${borderColor}" style="border-left: 4px solid; background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFB 100%);">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <h5 class="mb-1">${medal} ${advisor.name}</h5>
+                  <small class="text-muted">Posición #${index + 1}</small>
+                </div>
+                <div class="text-end">
+                  <div class="text-primary fw-bold fs-4">${advisor.revenue.toFixed(2)} €</div>
+                  <small class="text-primary">Ganado</small>
+                </div>
+              </div>
+              <div class="row g-2">
+                <div class="col-6">
+                  <div class="text-primary fw-bold">${advisor.total}</div>
+                  <small class="text-muted">Total ventas</small>
+                </div>
+                <div class="col-6">
+                  <div class="text-primary fw-bold">${advisor.active}</div>
+                  <small class="text-muted">Activas</small>
+                </div>
+              </div>
+              <div class="mt-2">
+                <div class="d-flex justify-content-between">
+                  <small class="text-muted">Conversión</small>
+                  <small class="text-primary">${conversion}%</small>
+                </div>
+                <div class="progress" style="height: 6px; background: #E6F0F2;">
+                  <div class="progress-bar bg-primary" style="width: ${conversion}%"></div>
+                </div>
+              </div>
+              ${advisor.revenue > 0 ? `
+              <div class="mt-2 pt-2 border-top border-secondary">
+                <strong class="text-primary">💰 Premio motivación: ${advisor.revenue.toFixed(2)} €</strong>
+              </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
 
     function updateDateDisplay() {
       const now = new Date();

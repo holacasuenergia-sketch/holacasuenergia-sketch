@@ -243,6 +243,12 @@
         color: #1F2A2E;
       }
     }
+    .section-content {
+      display: none;
+    }
+    .section-content.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -254,10 +260,10 @@
           <img src="logo.png" alt="Enerlux Logo" class="logo-img px-3">
         </a>
         <h5 class="px-4">Enerlux</h5>
-        <a href="#" class="active"><i class="bi bi-speedometer2"></i> Mi Dashboard</a>
+        <a href="#" onclick="showSection('dashboard'); return false;" class="active" data-section="dashboard"><i class="bi bi-speedometer2"></i> Mi Dashboard</a>
+        <a href="#" onclick="showSection('clients'); return false;" data-section="clients"><i class="bi bi-people"></i> Mis Clientes</a>
+        <a href="#" onclick="showSection('progress'); return false;" data-section="progress"><i class="bi bi-graph-up"></i> Mi Progreso</a>
         <a href="#" onclick="showNewSaleModal(); return false;"><i class="bi bi-plus-lg"></i> Nueva Venta</a>
-        <a href="#"><i class="bi bi-people"></i> Mis Clientes</a>
-        <a href="#"><i class="bi bi-graph-up"></i> Mi Progreso</a>
       </div>
 
       <!-- Main Content -->
@@ -266,108 +272,218 @@
           <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
         </button>
 
-        <h3 class="mb-4">Hola, <span id="asesor-name">Asesor</span> 👋</h3>
+        <!-- Dashboard Section -->
+        <div id="section-dashboard" class="section-content active">
+          <h3 class="mb-4">Hola, <span id="asesor-name">Asesor</span> 👋</h3>
 
-        <!-- KPIs -->
-        <div class="row row-cols-1 row-cols-md-4 mb-4">
-          <div class="col mb-3">
-            <div class="card kpi-asesor p-4">
-              <p class="kpi-label">Ventas Hoy</p>
-              <h3 class="kpi-value" id="kpi-today">0 / 4</h3>
+          <!-- KPIs -->
+          <div class="row row-cols-1 row-cols-md-4 mb-4">
+            <div class="col mb-3">
+              <div class="card kpi-asesor p-4">
+                <p class="kpi-label">Ventas Hoy</p>
+                <h3 class="kpi-value" id="kpi-today">0 / 4</h3>
+              </div>
+            </div>
+            <div class="col mb-3">
+              <div class="card kpi-asesor p-4">
+                <p class="kpi-label">Ventas Semana</p>
+                <h3 class="kpi-value" id="kpi-week">0</h3>
+              </div>
+            </div>
+            <div class="col mb-3">
+              <div class="card kpi-asesor p-4">
+                <p class="kpi-label">Activo</p>
+                <h3 class="kpi-value" id="kpi-active">0 €</h3>
+              </div>
+            </div>
+            <div class="col mb-3">
+              <div class="card kpi-asesor p-4">
+                <p class="kpi-label">Pendiente</p>
+                <h3 class="kpi-value" id="kpi-pending">0 €</h3>
+              </div>
             </div>
           </div>
-          <div class="col mb-3">
-            <div class="card kpi-asesor p-4">
-              <p class="kpi-label">Ventas Semana</p>
-              <h3 class="kpi-value" id="kpi-week">0</h3>
-            </div>
-          </div>
-          <div class="col mb-3">
-            <div class="card kpi-asesor p-4">
-              <p class="kpi-label">Activo</p>
-              <h3 class="kpi-value" id="kpi-active">0 €</h3>
-            </div>
-          </div>
-          <div class="col mb-3">
-            <div class="card kpi-asesor p-4">
-              <p class="kpi-label">Pendiente</p>
-              <h3 class="kpi-value" id="kpi-pending">0 €</h3>
-            </div>
-          </div>
-        </div>
 
-        <!-- Mis Clientes Table -->
-        <div class="card mb-4">
-          <div class="card-header border-0 d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Mis Clientes</h5>
-            <button class="btn btn-success-custom" onclick="showNewSaleModal()">
-              <i class="bi bi-plus-lg"></i> Nueva Venta
-            </button>
+          <!-- Quick Clients Preview -->
+          <div class="card mb-4">
+            <div class="card-header border-0">
+              <h5 class="mb-0">Resumen de Clientes</h5>
+            </div>
+            <div class="card-body">
+              <div id="clients-summary" class="row text-center">
+                <div class="col-md-4 mb-3">
+                  <div class="p-3 bg-light rounded">
+                    <h4 id="summary-total">0</h4>
+                    <p class="mb-0 text-muted">Total</p>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="p-3 bg-light rounded">
+                    <h4 id="summary-active" class="text-primary">0</h4>
+                    <p class="mb-0 text-muted">Activas</p>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="p-3 bg-light rounded">
+                    <h4 id="summary-revenue" class="text-success">0 €</h4>
+                    <p class="mb-0 text-muted">Ganancia Total</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table table-hover mb-0">
-                <thead>
-                  <tr>
-                    <th>Cliente</th>
-                    <th>Compañía</th>
-                    <th>Fecha</th>
-                    <th>Servicio</th>
-                    <th>Mantenimiento</th>
-                    <th>Estado</th>
-                    <th>Importe</th>
-                  </tr>
-                </thead>
-                <tbody id="clients-table">
-                  <!-- Clients will be loaded here -->
-                </tbody>
-              </table>
-              <div class="text-center py-4" id="no-clients" style="display: none;">
-                <p class="text-muted">No tienes clientes registrados aún</p>
+
+          <!-- Contact Section -->
+          <div class="contact-section">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="mb-3"><i class="bi bi-headset"></i> Contacto de Ayuda</h5>
+                <p class="text-muted">¿Necesitas ayuda o tienes preguntas? Contáctanos:</p>
+
+                <div class="contact-card">
+                  <div class="row align-items-center">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                      <strong><i class="bi bi-whatsapp"></i> WhatsApp:</strong>
+                      <div class="mt-2">
+                        <a href="https://wa.me/34610243061" class="contact-link" target="_blank">
+                          610243061
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <strong><i class="bi bi-envelope"></i> Email:</strong>
+                      <div class="mt-2">
+                        <a href="mailto:enerlux.soluciones@gmail.com" class="contact-link">
+                          enerlux.soluciones@gmail.com
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mt-3">
+                    <div class="col-md-6 mb-2 mb-md-0">
+                      <a href="https://wa.me/34610243061" class="btn whatsapp-btn w-100" target="_blank">
+                        <i class="bi bi-whatsapp"></i> Contactar por WhatsApp
+                      </a>
+                    </div>
+                    <div class="col-md-6">
+                      <a href="mailto:enerlux.soluciones@gmail.com" class="btn email-btn w-100">
+                        <i class="bi bi-envelope"></i> Enviar Email
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Contact Section -->
-        <div class="contact-section">
-          <div class="card">
+        <!-- Clients Section -->
+        <div id="section-clients" class="section-content">
+          <h3 class="mb-4">Mis Clientes</h3>
+          <div class="card mb-4">
+            <div class="card-header border-0 d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Todos los Clientes</h5>
+              <button class="btn btn-success-custom" onclick="showNewSaleModal()">
+                <i class="bi bi-plus-lg"></i> Nueva Venta
+              </button>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Cliente</th>
+                      <th>Compañía</th>
+                      <th>Fecha</th>
+                      <th>Servicio</th>
+                      <th>Mantenimiento</th>
+                      <th>Estado</th>
+                      <th>Importe</th>
+                    </tr>
+                  </thead>
+                  <tbody id="clients-table">
+                    <!-- Clients will be loaded here -->
+                  </tbody>
+                </table>
+                <div class="text-center py-4" id="no-clients" style="display: none;">
+                  <p class="text-muted">No tienes clientes registrados aún</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div id="section-progress" class="section-content">
+          <h3 class="mb-4">Mi Progreso</h3>
+          <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="mb-3">Objetivo Diario</h5>
+                  <div class="progress mb-2" style="height: 20px; background: #E6F0F2;">
+                    <div class="progress-bar bg-primary" id="progress-daily-bar" style="width: 0%">0 / 4</div>
+                  </div>
+                  <p class="text-muted text-end"><small>Meta: 4 ventas/día</small></p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="mb-3">Objetivo Semanal</h5>
+                  <div class="progress mb-2" style="height: 20px; background: #E6F0F2;">
+                    <div class="progress-bar bg-primary" id="progress-weekly-bar" style="width: 0%">0 / 20</div>
+                  </div>
+                  <p class="text-muted text-end"><small>Meta: 20 ventas/semana</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-header border-0">
+              <h5 class="mb-0">Estadísticas del Mes</h5>
+            </div>
             <div class="card-body">
-              <h5 class="mb-3"><i class="bi bi-headset"></i> Contacto de Ayuda</h5>
-              <p class="text-muted">¿Necesitas ayuda o tienes preguntas? Contáctanos:</p>
-
-              <div class="contact-card">
-                <div class="row align-items-center">
-                  <div class="col-md-6 mb-3 mb-md-0">
-                    <strong><i class="bi bi-whatsapp"></i> WhatsApp:</strong>
-                    <div class="mt-2">
-                      <a href="https://wa.me/34610243061" class="contact-link" target="_blank">
-                        610243061
-                      </a>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <strong><i class="bi bi-envelope"></i> Email:</strong>
-                    <div class="mt-2">
-                      <a href="mailto:enerlux.soluciones@gmail.com" class="contact-link">
-                        enerlux.soluciones@gmail.com
-                      </a>
-                    </div>
+              <div class="row text-center">
+                <div class="col-md-3 mb-3">
+                  <div class="p-4 bg-light rounded">
+                    <h4 id="month-total-ops" class="mb-1">0</h4>
+                    <p class="mb-0 text-muted">Ventas Totales</p>
                   </div>
                 </div>
-
-                <div class="row mt-3">
-                  <div class="col-md-6 mb-2 mb-md-0">
-                    <a href="https://wa.me/34610243061" class="btn whatsapp-btn w-100" target="_blank">
-                      <i class="bi bi-whatsapp"></i> Contactar por WhatsApp
-                    </a>
-                  </div>
-                  <div class="col-md-6">
-                    <a href="mailto:enerlux.soluciones@gmail.com" class="btn email-btn w-100">
-                      <i class="bi bi-envelope"></i> Enviar Email
-                    </a>
+                <div class="col-md-3 mb-3">
+                  <div class="p-4 bg-light rounded">
+                    <h4 id="month-active-ops" class="mb-1 text-primary">0</h4>
+                    <p class="mb-0 text-muted">Ventas Activas</p>
                   </div>
                 </div>
+                <div class="col-md-3 mb-3">
+                  <div class="p-4 bg-light rounded">
+                    <h4 id="month-revenue" class="mb-1 text-success">0 €</h4>
+                    <p class="mb-0 text-muted">Ganancia Total</p>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="p-4 bg-light rounded">
+                    <h4 id="month-conversion" class="mb-1 text-warning">0%</h4>
+                    <p class="mb-0 text-muted">Conversión</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header border-0">
+              <h5 class="mb-0">Motivación</h5>
+            </div>
+            <div class="card-body">
+              <div id="motivation-message" class="alert alert-info mb-0">
+                <i class="bi bi-trophy-fill"></i>
+                <strong>¡A por ello!</strong> Tu esfuerzo vale oro. Sigue trabajando duro y verás los resultados.
               </div>
             </div>
           </div>
@@ -458,6 +574,122 @@
       newSaleModal = new bootstrap.Modal(document.getElementById('newSaleModal'));
       checkAuth();
     });
+
+    // Navigation functions
+    function showSection(sectionName) {
+      // Hide all sections
+      document.querySelectorAll('.section-content').forEach(section => {
+        section.classList.remove('active');
+      });
+
+      // Show selected section
+      const targetSection = document.getElementById(`section-${sectionName}`);
+      if (targetSection) {
+        targetSection.classList.add('active');
+      }
+
+      // Update sidebar active state
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.classList.remove('active');
+        if (link.dataset.section === sectionName) {
+          link.classList.add('active');
+        }
+      });
+
+      // Load data for specific sections
+      if (sectionName === 'clients') {
+        loadClients();
+      } else if (sectionName === 'progress') {
+        loadProgress();
+      } else if (sectionName === 'dashboard') {
+        updateKPIs();
+        updateSummary();
+      }
+    }
+
+    function loadClients() {
+      const tbody = document.getElementById('clients-table');
+
+      if (myOperations.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4">No tienes clientes registrados aún</td></tr>';
+        document.getElementById('no-clients').style.display = 'block';
+        return;
+      }
+
+      document.getElementById('no-clients').style.display = 'none';
+
+      tbody.innerHTML = myOperations.map(op => `
+        <tr>
+          <td><strong>${op.clientName}</strong></td>
+          <td>${op.company}</td>
+          <td>${formatDate(op.date)}</td>
+          <td>${op.service}</td>
+          <td>${op.maintenance ? op.maintenanceType || 'Sí' : 'No'}</td>
+          <td><span class="status-badge status-${op.status.toLowerCase().replace(' ', '-')}">${op.status}</span></td>
+          <td>${op.amount ? op.amount.toFixed(2) + ' €' : '-'}</td>
+        </tr>
+      `).join('');
+    }
+
+    function loadProgress() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const weekStart = new Date(today);
+      weekStart.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1));
+
+      const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+
+      // Daily progress
+      const todayOps = myOperations.filter(op => new Date(op.date) >= today).length;
+      const dailyPercent = Math.min((todayOps / 4) * 100, 100);
+      document.getElementById('progress-daily-bar').style.width = `${dailyPercent}%`;
+      document.getElementById('progress-daily-bar').textContent = `${todayOps} / 4`;
+
+      // Weekly progress
+      const weekOps = myOperations.filter(op => new Date(op.date) >= weekStart).length;
+      const weeklyPercent = Math.min((weekOps / 20) * 100, 100);
+      document.getElementById('progress-weekly-bar').style.width = `${weeklyPercent}%`;
+      document.getElementById('progress-weekly-bar').textContent = `${weekOps} / 20`;
+
+      // Month stats
+      const monthOps = myOperations.filter(op => new Date(op.date) >= monthStart);
+      const monthTotalOps = monthOps.length;
+      const monthActiveOps = monthOps.filter(op => op.status === 'Activa').length;
+      const monthRevenue = monthOps.reduce((sum, op) => sum + (op.amount || 0), 0);
+      const monthConversion = monthTotalOps > 0 ? ((monthActiveOps / monthTotalOps) * 100).toFixed(1) : '0';
+
+      document.getElementById('month-total-ops').textContent = monthTotalOps;
+      document.getElementById('month-active-ops').textContent = monthActiveOps;
+      document.getElementById('month-revenue').textContent = monthRevenue.toFixed(2) + ' €';
+      document.getElementById('month-conversion').textContent = monthConversion + '%';
+
+      // Motivation message
+      const motivationDiv = document.getElementById('motivation-message');
+      if (dailyPercent >= 100) {
+        motivationDiv.innerHTML = '<i class="bi bi-trophy-fill text-warning"></i> <strong>¡Objetivo cumplido!</strong> ¡Has alcanzado tu meta diaria! Gran trabajo.';
+        motivationDiv.className = 'alert alert-success mb-0';
+      } else if (dailyPercent >= 75) {
+        motivationDiv.innerHTML = '<i class="bi bi-stars text-info"></i> <strong>¡Muy bien!</strong> Casi llegas. ¡Un último esfuerzo para alcanzar tu meta!';
+        motivationDiv.className = 'alert alert-info mb-0';
+      } else if (dailyPercent >= 50) {
+        motivationDiv.innerHTML = '<i class="bi bi-graph-up text-primary"></i> <strong>¡Progreso constante!</strong> Vas por buen camino.¡Sigue así!';
+        motivationDiv.className = 'alert alert-info mb-0';
+      } else {
+        motivationDiv.innerHTML = '<i class="bi bi-lightbulb text-warning"></i> <strong>¡A por ello!</strong> Tu esfuerzo vale oro. Sigue trabajando duro y verás los resultados.';
+        motivationDiv.className = 'alert alert-info mb-0';
+      }
+    }
+
+    function updateSummary() {
+      const total = myOperations.length;
+      const active = myOperations.filter(op => op.status === 'Activa').length;
+      const revenue = myOperations.reduce((sum, op) => sum + (op.amount || 0), 0);
+
+      document.getElementById('summary-total').textContent = total;
+      document.getElementById('summary-active').textContent = active;
+      document.getElementById('summary-revenue').textContent = revenue.toFixed(2) + ' €';
+    }
 
     function checkAuth() {
       auth.onAuthStateChanged(async (user) => {
