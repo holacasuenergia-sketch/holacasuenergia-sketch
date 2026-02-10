@@ -198,27 +198,37 @@
           </div>
         </div>
 
+        <!-- Advisors Ranking -->
+        <div class="card mb-4">
+          <div class="card-header border-0">
+            <h5 class="mb-0"><i class="bi bi-trophy-fill text-warning"></i> Ranking de Asesores</h5>
+          </div>
+          <div class="card-body">
+            <div class="row row-cols-1 row-cols-md-3 g-4" id="ranking-cards">
+              <!-- Advisor ranking cards will be loaded here -->
+            </div>
+          </div>
+        </div>
+
         <!-- Operations Table -->
         <div class="card mb-4">
-          <div class="card-header border-0 d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Operaciones</h5>
-            <button class="btn btn-primary-custom" onclick="showAddModal()">
-              <i class="bi bi-plus-lg"></i> Nueva Operación
-            </button>
+          <div class="card-header border-0">
+            <h5 class="mb-0">Operaciones (Fichas de Asesores)</h5>
+            <small class="text-muted">Asesores suben fichas → Tú cambias estado y asignas importe</small>
           </div>
           <div class="card-body p-0">
             <div class="table-responsive">
               <table class="table table-hover mb-0">
                 <thead>
                   <tr>
-                    <th>Nº</th>
                     <th>Fecha</th>
                     <th>Asesor</th>
                     <th>Cliente</th>
                     <th>Compañía</th>
-                    <th>Mantenimiento</th>
+                    <th>Servicio</th>
+                    <th>Mant.</th>
                     <th>Estado</th>
-                    <th>Importe</th>
+                    <th>Importe (€)</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
@@ -241,30 +251,52 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Editar Operación</h5>
+          <h5 class="modal-title">Gestionar Ficha de Asesor</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <form id="edit-operation-form">
             <input type="hidden" id="edit-operation-id">
 
-            <div class="mb-3">
-              <label for="edit-client" class="form-label">Cliente</label>
-              <input type="text" class="form-control" id="edit-client" required>
+            <!-- Read-only fields -->
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label text-muted">Cliente</label>
+                <div class="form-control bg-dark border-0" id="edit-client-readonly"></div>
+              </div>
+              <div class="col-6">
+                <label class="form-label text-muted">Compañía</label>
+                <div class="form-control bg-dark border-0" id="edit-company-readonly"></div>
+              </div>
             </div>
 
-            <div class="mb-3">
-              <label for="edit-company" class="form-label">Compañía</label>
-              <input type="text" class="form-control" id="edit-company">
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label text-muted">Servicio</label>
+                <div class="form-control bg-dark border-0" id="edit-service-readonly"></div>
+              </div>
+              <div class="col-6">
+                <label class="form-label text-muted">Asesor</label>
+                <div class="form-control bg-dark border-0" id="edit-asesor-readonly"></div>
+              </div>
             </div>
 
-            <div class="mb-3">
-              <label for="edit-service" class="form-label">Servicio</label>
-              <input type="text" class="form-control" id="edit-service">
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label text-muted">Mantenimiento</label>
+                <div class="form-control bg-dark border-0" id="edit-maintenance-readonly"></div>
+              </div>
+              <div class="col-6">
+                <label class="form-label text-muted">Fecha</label>
+                <div class="form-control bg-dark border-0" id="edit-date-readonly"></div>
+              </div>
             </div>
 
+            <hr class="border-secondary mb-4">
+
+            <!-- Editable fields -->
             <div class="mb-3">
-              <label for="edit-status" class="form-label">Estado</label>
+              <label for="edit-status" class="form-label fw-bold">Estado</label>
               <select class="form-select" id="edit-status" required>
                 <option value="Enviada">Enviada</option>
                 <option value="En trámite">En trámite</option>
@@ -272,16 +304,22 @@
                 <option value="Activa">Activa</option>
                 <option value="Baja">Baja</option>
               </select>
+              <small class="text-muted">Cuando cambies a "Activa", el asesor verá su ganancia</small>
             </div>
 
             <div class="mb-3">
-              <label for="edit-amount" class="form-label">Importe (€)</label>
-              <input type="number" class="form-control" id="edit-amount" step="0.01">
+              <label for="edit-amount" class="form-label fw-bold">Importe (€)</label>
+              <input type="number" class="form-control" id="edit-amount" step="0.01" placeholder="Ej. 35">
+              <small class="text-muted">Este es el dinero que el asesor ganará cuando el contrato esté activo</small>
             </div>
 
-            <div class="mb-3">
-              <label for="edit-notes" class="form-label">Notas</label>
-              <textarea class="form-control" id="edit-notes" rows="3"></textarea>
+            <div class="alert alert-info bg-dark border-secondary">
+              <strong>💡 Info Liquidación:</strong>
+              <ul class="mb-0 mt-2">
+                <li>Asesor ganará este importe cuando el estado sea "Activa"</li>
+                <li>Importe típico: 35€ por contrato activo</li>
+                <li>Cuando activas, el asesor lo ve en su dashboard personal</li>
+              </ul>
             </div>
           </form>
         </div>
@@ -383,20 +421,17 @@
 
       tbody.innerHTML = operations.map((op, index) => `
         <tr>
-          <td>${index + 1}</td>
           <td>${formatDate(op.date)}</td>
           <td>${op.asesorName || '-'}</td>
           <td><strong>${op.clientName}</strong></td>
           <td>${op.company || '-'}</td>
+          <td>${op.service || '-'}</td>
           <td>${op.maintenance ? 'Sí' : 'No'}</td>
           <td><span class="status-badge status-${getStatusClass(op.status)}">${op.status}</span></td>
           <td>${op.amount ? op.amount + ' €' : '-'}</td>
           <td>
             <button class="btn btn-sm btn-primary-custom me-1" onclick="editOperation('${op.id}')">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btn btn-sm btn-danger-custom" onclick="deleteOperation('${op.id}')">
-              <i class="bi bi-trash"></i>
+              <i class="bi bi-pencil"></i> Editar
             </button>
           </td>
         </tr>
@@ -424,6 +459,65 @@
       document.getElementById('kpi-week').textContent = `${weekOperations.length} / 40`;
       document.getElementById('kpi-revenue').textContent = `${totalRevenue.toFixed(2)} €`;
       document.getElementById('kpi-conversion').textContent = `${conversionRate}%`;
+
+      loadRanking();
+    }
+
+    function loadRanking() {
+      const advisors = {};
+
+      // Group operations by advisor
+      operations.forEach(op => {
+        const asesorName = op.asesorName || 'Desconocido';
+        if (!advisors[asesorName]) {
+          advisors[asesorName] = {
+            total: 0,
+            active: 0,
+            revenue: 0
+          };
+        }
+
+        advisors[asesorName].total++;
+
+        if (op.status === 'Activa') {
+          advisors[asesorName].active++;
+          advisors[asesorName].revenue += parseFloat(op.amount) || 0;
+        }
+      });
+
+      // Convert to array and sort
+      const ranking = Object.keys(advisors).map(name => ({
+        name,
+        ...advisors[name]
+      })).sort((a, b) => b.revenue - a.revenue);
+
+      const rankingDiv = document.getElementById('ranking-cards');
+
+      if (ranking.length === 0) {
+        rankingDiv.innerHTML = '<p class="text-muted">No hay datos de asesores aún</p>';
+        return;
+      }
+
+      rankingDiv.innerHTML = ranking.map((advisor, index) => {
+        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
+        const borderColor = index < 3 ? 'border-warning' : 'border-secondary';
+
+        return `
+          <div class="card ${borderColor}" style="border-left: 4px solid;">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>${medal} ${advisor.name}</strong>
+                </div>
+                <div class="text-end">
+                  <div class="text-success fw-bold">${advisor.revenue.toFixed(2)} €</div>
+                  <small class="text-muted">${advisor.active}/${advisor.total} activas</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     function getStartOfWeek(date) {
@@ -449,72 +543,49 @@
       return statusMap[status] || '';
     }
 
-    function showAddModal() {
-      document.getElementById('edit-operation-form').reset();
-      document.getElementById('edit-operation-id').value = '';
-      document.querySelector('.modal-title').textContent = 'Nueva Operación';
-      editModal.show();
-    }
-
     function editOperation(opId) {
       const operation = operations.find(op => op.id === opId);
       if (!operation) return;
 
       document.getElementById('edit-operation-id').value = operation.id;
-      document.getElementById('edit-client').value = operation.clientName || '';
-      document.getElementById('edit-company').value = operation.company || '';
-      document.getElementById('edit-service').value = operation.service || '';
+
+      // Read-only fields
+      document.getElementById('edit-client-readonly').textContent = operation.clientName || '-';
+      document.getElementById('edit-company-readonly').textContent = operation.company || '-';
+      document.getElementById('edit-service-readonly').textContent = operation.service || '-';
+      document.getElementById('edit-asesor-readonly').textContent = operation.asesorName || '-';
+      document.getElementById('edit-maintenance-readonly').textContent = operation.maintenance ? 'Sí' : 'No';
+      document.getElementById('edit-date-readonly').textContent = formatDate(operation.date);
+
+      // Editable fields
       document.getElementById('edit-status').value = operation.status || 'Enviada';
       document.getElementById('edit-amount').value = operation.amount || '';
-      document.getElementById('edit-notes').value = operation.notes || '';
 
-      document.querySelector('.modal-title').textContent = 'Editar Operación';
+      document.querySelector('.modal-title').textContent = 'Gestionar Ficha de Asesor';
       editModal.show();
     }
 
     async function saveOperation() {
       const opId = document.getElementById('edit-operation-id').value;
       const operationData = {
-        clientName: document.getElementById('edit-client').value,
-        company: document.getElementById('edit-company').value,
-        service: document.getElementById('edit-service').value,
         status: document.getElementById('edit-status').value,
         amount: parseFloat(document.getElementById('edit-amount').value) || 0,
-        notes: document.getElementById('edit-notes').value,
         updatedAt: Date.now()
       };
 
       try {
         if (opId) {
           await db.ref(`operations/${opId}`).update(operationData);
-          alert('Operación actualizada correctamente');
+          alert('Ficha actualizada correctamente. Asesor verá cambios.');
         } else {
-          operationData.asesorId = currentUser.uid;
-          operationData.asesorName = currentUser.email.split('@')[0];
-          operationData.date = new Date().toISOString().split('T')[0];
-          operationData.createdAt = Date.now();
-          operationData.maintenance = false;
-          await db.ref('operations').push(operationData);
-          alert('Operación creada correctamente');
+          alert('No puedes crear nuevas fichas. Los asesores suben fichas, tú gestionas.');
+          return;
         }
         editModal.hide();
       } catch (error) {
         console.error('Error saving operation:', error);
-        alert('Error al guardar la operación');
+        alert('Error al guardar. Intenta nuevamente.');
       }
-    }
-
-    async function deleteOperation(opId) {
-      if (!confirm('¿Estás seguro de que quieres eliminar esta operación?')) return;
-
-      try {
-        await db.ref(`operations/${opId}`).remove();
-        alert('Operación eliminada correctamente');
-      } catch (error) {
-        console.error('Error deleting operation:', error);
-        alert('Error al eliminar la operación');
-      }
-    }
   </script>
 </body>
 </html>
