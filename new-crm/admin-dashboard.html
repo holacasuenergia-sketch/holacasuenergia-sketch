@@ -1,1009 +1,651 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enerlux CRM - Admin</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <style>
-    body {
-      background: #F2F7F8;
-      color: #1F2A2E;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .sidebar {
-      background: #0B3A78;
-      min-height: 100vh;
-      height: 100%;
-      padding: 20px 0;
-    }
-    .sidebar h5 {
-      color: #FFFFFF;
-      margin-bottom: 30px;
-    }
-    .sidebar a {
-      color: #E0EDF7;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      padding: 14px 24px;
-      transition: all 0.2s;
-      border-left: 3px solid transparent;
-    }
-    .sidebar a:hover, .sidebar a.active {
-      background: #1E5FA8;
-      color: #FFFFFF;
-      border-left-color: #6FA4D8;
-    }
-    .sidebar a i {
-      margin-right: 10px;
-      font-size: 18px;
-    }
-    .main-content {
-      padding: 24px;
-    }
-    .card {
-      background: #FFFFFF;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(11, 58, 120, 0.08);
-      border-top: 3px solid #6FA4D8;
-    }
-    .kpi-admin {
-      border-left: 4px solid #0B3A78;
-    }
-    .kpi-value {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 0;
-      color: #0B3A78;
-    }
-    .kpi-label {
-      color: #5F6F73;
-      font-size: 0.9rem;
-      margin: 0;
-    }
-    .table {
-      color: #1F2A2E;
-    }
-    .table thead th {
-      background: #0B3A78;
-      border-color: #E6F0F2;
-      color: #FFFFFF;
-      padding: 16px;
-    }
-    .table tbody td {
-      border-color: #E6F0F2;
-      padding: 16px;
-      vertical-align: middle;
-    }
-    .table tbody tr:hover {
-      background: #F8FAFB;
-    }
-    .status-badge {
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-    .status-enviada { background: rgba(111, 164, 216, 0.2); color: #0B3A78; }
-    .status-en-tramite { background: rgba(240, 180, 90, 0.2); color: #E6A64F; }
-    .status-completa { background: rgba(240, 180, 90, 0.2); color: #E6A64F; }
-    .status-activa { background: rgba(111, 164, 216, 0.2); color: #0B3A78; }
-    .status-baja { background: rgba(239, 68, 68, 0.2); color: #EF4444; }
-    .btn-primary-custom {
-      background: #0B3A78;
-      border: none;
-      padding: 10px 24px;
-      color: white;
-    }
-    .btn-primary-custom:hover {
-      background: #1E5FA8;
-      color: white;
-    }
-    .btn-danger-custom {
-      background: #EF4444;
-      border: none;
-    }
-    .btn-danger-custom:hover {
-      background: #DC2626;
-    }
-    .btn-success-custom {
-      background: #0B3A78;
-      border: none;
-    }
-    .btn-success-custom:hover {
-      background: #1E5FA8;
-    }
-    .logo-img {
-      max-height: 80px;
-      margin-bottom: 20px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .date-display {
-      color: #5F6F73;
-      font-size: 0.9rem;
-    }
-    .logout-btn {
-      position: absolute;
-      top: 24px;
-      right: 24px;
-    }
-    .modal-content {
-      background: #FFFFFF;
-      border: 1px solid #E6F0F2;
-      border-radius: 16px;
-    }
-    .modal-header {
-      border-color: #E6F0F2;
-      background: #F8FAFB;
-    }
-    .modal-footer {
-      border-color: #E6F0F2;
-    }
-    .form-control, .form-select {
-      background: #F8FAFB;
-      border-color: #E6F0F2;
-      color: #1F2A2E;
-    }
-    .form-control:focus, .form-select:focus {
-      background: #FFFFFF;
-      border-color: #6FA4D8;
-      color: #1F2A2E;
-      box-shadow: 0 0 0 0.2rem rgba(111, 164, 216, 0.25);
-    }
-    .form-label {
-      color: #1F2A2E;
-      font-weight: 600;
-    }
-    .text-muted {
-      color: #5F6F73 !important;
-    }
-    .text-success {
-      color: #0B3A78 !important;
-    }
-    .text-white {
-      color: #1F2A2E !important;
-    }
-    .text-warning {
-      color: #E6A64F !important;
-    }
-    .border-secondary {
-      border-color: #E6F0F2 !important;
-    }
-    .section-content {
-      display: none;
-    }
-    .section-content.active {
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>Enerlux CRM - Admin</title>
+    <link rel="icon" type="image/jpeg" href="../logo-enerlux.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #003366;
+            --primary-light: #004080;
+            --accent: #87CEEB;
+            --accent-gold: #F5A623;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gray-50: #F8FAFC;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-600: #475569;
+            --gray-800: #1E293B;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .loading-screen.hidden { display: none; }
+        
+        .loading-logo {
+            width: 80px;
+            height: auto;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Main Layout - Hidden until auth */
+        .main-wrapper { display: none; }
+        .main-wrapper.authenticated { display: flex; }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: var(--primary);
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .sidebar-logo img {
+            width: 40px;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        .sidebar-logo-text {
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .sidebar-logo-role {
+            color: var(--accent);
+            font-size: 12px;
+        }
+        
+        .sidebar-nav {
+            flex: 1;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-left-color: var(--accent);
+        }
+        
+        .nav-item i { font-size: 18px; }
+        
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            margin-bottom: 12px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .user-role {
+            font-size: 12px;
+            color: var(--accent);
+        }
+        
+        .btn-logout {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        
+        .btn-logout:hover { background: rgba(255,255,255,0.2); }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            padding: 24px;
+            min-height: 100vh;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .page-date {
+            color: var(--gray-600);
+            font-size: 14px;
+        }
+        
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .kpi-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .kpi-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+        
+        .kpi-icon.blue { background: rgba(0,51,102,0.1); color: var(--primary); }
+        .kpi-icon.green { background: rgba(16,185,129,0.1); color: var(--success); }
+        .kpi-icon.gold { background: rgba(245,166,35,0.1); color: var(--accent-gold); }
+        .kpi-icon.red { background: rgba(239,68,68,0.1); color: var(--danger); }
+        
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+        
+        .kpi-label {
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+        
+        /* Table */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+        }
+        
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .card-body { padding: 20px; }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th {
+            text-align: left;
+            padding: 12px;
+            background: var(--gray-50);
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--gray-600);
+            text-transform: uppercase;
+        }
+        
+        .table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-enviada { background: var(--gray-100); color: var(--gray-600); }
+        .status-en-tramite { background: rgba(245,166,35,0.2); color: #B45309; }
+        .status-completa { background: rgba(16,185,129,0.2); color: #059669; }
+        .status-activa { background: rgba(16,185,129,0.3); color: #047857; }
+        .status-baja { background: rgba(239,68,68,0.2); color: #DC2626; }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover { background: var(--primary-light); }
+        
+        .btn-sm { padding: 6px 12px; font-size: 13px; }
+        
+        /* Modal */
+        .modal-content {
+            border-radius: 16px;
+            border: none;
+        }
+        
+        .modal-header {
+            background: var(--primary);
+            color: white;
+            border-radius: 16px 16px 0 0;
+        }
+        
+        .modal-header .btn-close { filter: brightness(0) invert(1); }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .kpi-grid { grid-template-columns: 1fr; }
+            
+            .table { display: block; overflow-x: auto; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Sidebar -->
-      <div class="col-2 sidebar">
-        <a href="/new-crm/login.html" class="text-decoration-none">
-          <img src="logo.png" alt="Enerlux Logo" class="logo-img px-3">
-        </a>
-        <h5 class="px-4">Enerlux</h5>
-        <a href="#" onclick="showSection('dashboard'); return false;" class="active" data-section="dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
-        <a href="#" onclick="showSection('operations'); return false;" data-section="operations"><i class="bi bi-people"></i> Operaciones</a>
-        <a href="#" onclick="showSection('ranking'); return false;" data-section="ranking"><i class="bi bi-trophy"></i> Ranking</a>
-        <a href="#" onclick="showSection('import'); return false;" data-section="import"><i class="bi bi-file-earmark-arrow-up"></i> Importar</a>
-      </div>
-
-      <!-- Main Content -->
-      <div class="col-10 main-content">
-        <button class="btn btn-danger-custom btn-sm logout-btn" onclick="logout()">
-          <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
-        </button>
-
-        <h6 class="date-display" id="current-date"></h6>
-
-        <!-- Dashboard Section -->
-        <div id="section-dashboard" class="section-content active">
-          <h3 class="mb-4">Panel Administrador - Dashboard</h3>
-
-          <!-- KPIs -->
-          <div class="row row-cols-1 row-cols-md-4 mb-4">
-            <div class="col mb-3">
-              <div class="card kpi-admin p-4">
-                <p class="kpi-label">Ventas Hoy</p>
-                <h3 class="kpi-value" id="kpi-today">0 / 8</h3>
-              </div>
-            </div>
-            <div class="col mb-3">
-              <div class="card kpi-admin p-4">
-                <p class="kpi-label">Ventas Semana</p>
-                <h3 class="kpi-value" id="kpi-week">0 / 40</h3>
-              </div>
-            </div>
-            <div class="col mb-3">
-              <div class="card kpi-admin p-4">
-                <p class="kpi-label">Ganancia</p>
-                <h3 class="kpi-value" id="kpi-revenue">0 €</h3>
-              </div>
-            </div>
-            <div class="col mb-3">
-              <div class="card kpi-admin p-4">
-                <p class="kpi-label">Conversión</p>
-                <h3 class="kpi-value" id="kpi-conversion">0%</h3>
-              </div>
-            </div>
-          </div>
-
-          <!-- Advisors Ranking -->
-          <div class="card mb-4">
-            <div class="card-header border-0">
-              <h5 class="mb-0"><i class="bi bi-trophy-fill text-warning"></i> Ranking de Asesores</h5>
-            </div>
-            <div class="card-body">
-              <div class="row row-cols-1 row-cols-md-3 g-4" id="ranking-cards">
-                <!-- Advisor ranking cards will be loaded here -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Operations Table -->
-          <div class="card mb-4">
-            <div class="card-header border-0">
-              <h5 class="mb-0">Operaciones (Fichas de Asesores)</h5>
-              <small class="text-muted">Asesores suben fichas → Tú cambias estado y asignas importe</small>
-            </div>
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table table-hover mb-0">
-                  <thead>
-                    <tr>
-                      <th>Fecha</th>
-                      <th>Asesor</th>
-                      <th>Cliente</th>
-                      <th>Compañía</th>
-                      <th>Servicio</th>
-                      <th>Mant.</th>
-                      <th>Estado</th>
-                      <th>Importe (€)</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody id="operations-table">
-                    <!-- Operations will be loaded here -->
-                  </tbody>
-                </table>
-                <div class="text-center py-4" id="no-operations" style="display: none;">
-                  <p class="text-muted">No hay operaciones registradas</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Operations Section -->
-        <div id="section-operations" class="section-content">
-          <h3 class="mb-4">Operaciones</h3>
-          <div class="card mb-4">
-            <div class="card-header border-0">
-              <h5 class="mb-0">Todas las Operaciones</h5>
-              <small class="text-muted">Fichas de todos los asesores</small>
-            </div>
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table table-hover mb-0">
-                  <thead>
-                    <tr>
-                      <th>Fecha</th>
-                      <th>Asesor</th>
-                      <th>Cliente</th>
-                      <th>Compañía</th>
-                      <th>Servicio</th>
-                      <th>Mant.</th>
-                      <th>Estado</th>
-                      <th>Importe (€)</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody id="operations-table-full">
-                    <!-- Operations will be loaded here -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Ranking Section -->
-        <div id="section-ranking" class="section-content">
-          <h3 class="mb-4">Ranking de Asesores</h3>
-          <div class="card mb-4">
-            <div class="card-header border-0">
-              <h5 class="mb-0"><i class="bi bi-trophy-fill text-warning"></i> Ranking Completo</h5>
-            </div>
-            <div class="card-body">
-              <div class="row row-cols-1 row-cols-md-3 g-4" id="ranking-cards-full">
-                <!-- Advisor ranking cards will be loaded here -->
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Import Section -->
-        <div id="section-import" class="section-content">
-          <h3 class="mb-4">Importar / Liquidaciones</h3>
-          <div class="card">
-            <div class="card-header border-0">
-              <h5 class="mb-0">Filtros de Importación</h5>
-            </div>
-            <div class="card-body">
-              <div class="row mb-4">
-                <div class="col-md-6">
-                  <label for="import-filter" class="form-label">Tipo de Importación</label>
-                  <select class="form-select" id="import-filter" onchange="updateImportPreview()">
-                    <option value="all">Todas las operaciones</option>
-                    <option value="advisor">Por asesor específico</option>
-                    <option value="active">Solo operaciones activas</option>
-                  </select>
-                </div>
-                <div class="col-md-6" id="advisor-select-container" style="display: none;">
-                  <label for="advisor-select" class="form-label">Seleccionar Asesor</label>
-                  <select class="form-select" id="advisor-select" onchange="updateImportPreview()">
-                    <option value="">-- Seleccionar asesor --</option>
-                    <!-- Advisor options will be loaded here -->
-                  </select>
-                </div>
-              </div>
-
-              <div class="alert alert-info">
-                <i class="bi bi-info-circle"></i>
-                <strong>Info:</strong> Selecciona un filtro para ver el preview de importación. Luego puedes exportar o procesar las liquidaciones para los asesores.
-              </div>
-
-              <div id="import-preview">
-                <h6 class="mb-3">Preview de Importación</h6>
-                <div class="table-responsive mb-4">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Asesor</th>
-                        <th>Total Operaciones</th>
-                        <th>Activas</th>
-                        <th>Importe Total (€)</th>
-                        <th>Liquidación (35€/activo)</th>
-                      </tr>
-                    </thead>
-                    <tbody id="import-preview-table">
-                      <tr>
-                        <td colspan="5" class="text-center">Selecciona un filtro para ver el preview</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div class="d-flex gap-2">
-                <button class="btn btn-primary-custom" onclick="exportToCSV()">
-                  <i class="bi bi-file-earmark-excel"></i> Exportar CSV
-                </button>
-                <button class="btn btn-primary-custom" onclick="processLiquidations()">
-                  <i class="bi bi-cash-coin"></i> Procesar Liquidaciones
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <img src="../logo-enerlux.jpg" alt="Enerlux" class="loading-logo">
+        <div class="loading-text">Verificando acceso...</div>
+        <div class="spinner"></div>
     </div>
-  </div>
-
-  <!-- Edit Operation Modal -->
-  <div class="modal fade" id="editModal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Gestionar Ficha de Asesor</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form id="edit-operation-form">
-            <input type="hidden" id="edit-operation-id">
-
-            <!-- Read-only fields -->
-            <div class="row mb-3">
-              <div class="col-6">
-                <label class="form-label text-muted">Cliente</label>
-                <div class="form-control bg-dark border-0" id="edit-client-readonly"></div>
-              </div>
-              <div class="col-6">
-                <label class="form-label text-muted">Compañía</label>
-                <div class="form-control bg-dark border-0" id="edit-company-readonly"></div>
-              </div>
+    
+    <!-- Main App -->
+    <div class="main-wrapper" id="main-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="../logo-enerlux.jpg" alt="Enerlux">
+                    <div>
+                        <div class="sidebar-logo-text">Enerlux CRM</div>
+                        <div class="sidebar-logo-role">Administrador</div>
+                    </div>
+                </div>
             </div>
-
-            <div class="row mb-3">
-              <div class="col-6">
-                <label class="form-label text-muted">Servicio</label>
-                <div class="form-control bg-dark border-0" id="edit-service-readonly"></div>
-              </div>
-              <div class="col-6">
-                <label class="form-label text-muted">Asesor</label>
-                <div class="form-control bg-dark border-0" id="edit-asesor-readonly"></div>
-              </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="bi bi-people-fill"></i>
+                    Asesores
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    Operaciones
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    Estadísticas
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="user-avatar">A</div>
+                    <div>
+                        <div class="user-name" id="user-name">Admin</div>
+                        <div class="user-role">Administrador</div>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="bi bi-box-arrow-right"></i>
+                    Cerrar sesión
+                </button>
             </div>
-
-            <div class="row mb-3">
-              <div class="col-6">
-                <label class="form-label text-muted">Mantenimiento</label>
-                <div class="form-control bg-dark border-0" id="edit-maintenance-readonly"></div>
-              </div>
-              <div class="col-6">
-                <label class="form-label text-muted">Fecha</label>
-                <div class="form-control bg-dark border-0" id="edit-date-readonly"></div>
-              </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Dashboard</h1>
+                    <div class="page-date" id="current-date"></div>
+                </div>
             </div>
-
-            <hr class="border-secondary mb-4">
-
-            <!-- Editable fields -->
-            <div class="mb-3">
-              <label for="edit-status" class="form-label fw-bold">Estado</label>
-              <select class="form-select" id="edit-status" required>
-                <option value="Enviada">Enviada</option>
-                <option value="En trámite">En trámite</option>
-                <option value="Completa">Completa</option>
-                <option value="Activa">Activa</option>
-                <option value="Baja">Baja</option>
-              </select>
-              <small class="text-muted">Cuando cambies a "Activa", el asesor verá su ganancia</small>
+            
+            <!-- KPIs -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon blue"><i class="bi bi-file-earmark-plus"></i></div>
+                    <div class="kpi-value" id="kpi-hoy">0</div>
+                    <div class="kpi-label">Fichas Hoy</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon green"><i class="bi bi-calendar-week"></i></div>
+                    <div class="kpi-value" id="kpi-semana">0</div>
+                    <div class="kpi-label">Esta Semana</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon gold"><i class="bi bi-cash-stack"></i></div>
+                    <div class="kpi-value" id="kpi-ganancia">0 €</div>
+                    <div class="kpi-label">Ganancia Total</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon"><i class="bi bi-check-circle"></i></div>
+                    <div class="kpi-value" id="kpi-activas">0</div>
+                    <div class="kpi-label">Fichas Activas</div>
+                </div>
             </div>
-
-            <div class="mb-3">
-              <label for="edit-amount" class="form-label fw-bold">Importe (€)</label>
-              <input type="number" class="form-control" id="edit-amount" step="0.01" placeholder="Ej. 35">
-              <small class="text-muted">Este es el dinero que el asesor ganará cuando el contrato esté activo</small>
+            
+            <!-- Operations Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Últimas Operaciones</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Asesor</th>
+                                <th>Cliente</th>
+                                <th>Compañía</th>
+                                <th>Servicio</th>
+                                <th>Estado</th>
+                                <th>Importe</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="operations-table">
+                        </tbody>
+                    </table>
+                    <div id="no-operations" style="display: none; text-align: center; padding: 40px; color: var(--gray-600);">
+                        <i class="bi bi-inbox" style="font-size: 48px; opacity: 0.3;"></i>
+                        <p style="margin-top: 16px;">No hay operaciones todavía</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="alert alert-info bg-dark border-secondary">
-              <strong>💡 Info Liquidación:</strong>
-              <ul class="mb-0 mt-2">
-                <li>Asesor ganará este importe cuando el estado sea "Activa"</li>
-                <li>Importe típico: 35€ por contrato activo</li>
-                <li>Cuando activas, el asesor lo ve en su dashboard personal</li>
-              </ul>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success-custom" onclick="saveOperation()">Guardar</button>
-        </div>
-      </div>
+        </main>
     </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
-      authDomain: "enerlux-crm.firebaseapp.com",
-      databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "enerlux-crm",
-      storageBucket: "enerlux-crm.firebasestorage.app",
-      messagingSenderId: "84970919171",
-      appId: "1:84970919171:web:a9904b377254bb26884536",
-      measurementId: "G-LVY9D58L88"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
-
-    let currentUser = null;
-    let operations = [];
-    let editModal;
-    let advisors = {}; // Store advisors data for import
-
-    // Initialize modal
-    document.addEventListener('DOMContentLoaded', () => {
-      editModal = new bootstrap.Modal(document.getElementById('editModal'));
-      updateDateDisplay();
-      checkAuth();
-      loadAdvisorsForImport();
-    });
-
-    // Navigation functions
-    function showSection(sectionName) {
-      // Hide all sections
-      document.querySelectorAll('.section-content').forEach(section => {
-        section.classList.remove('active');
-      });
-
-      // Show selected section
-      const targetSection = document.getElementById(`section-${sectionName}`);
-      if (targetSection) {
-        targetSection.classList.add('active');
-      }
-
-      // Update sidebar active state
-      document.querySelectorAll('.sidebar a').forEach(link => {
-        link.classList.remove('active');
-        if (link.dataset.section === sectionName) {
-          link.classList.add('active');
-        }
-      });
-
-      // Load data for specific sections
-      if (sectionName === 'operations') {
-        loadOperationsFull();
-      } else if (sectionName === 'ranking') {
-        loadRankingFull();
-      }
-    }
-
-    function loadAdvisorsForImport() {
-      db.ref('users').once('value').then(snapshot => {
-        const users = snapshot.val();
-        if (users) {
-          advisors = {};
-          Object.keys(users).forEach(uid => {
-            if (users[uid].role === 'asesor') {
-              const advisorName = users[uid].email.split('@')[0];
-              advisors[advisorName] = uid;
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
+            authDomain: "enerlux-crm.firebaseapp.com",
+            databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "enerlux-crm",
+            storageBucket: "enerlux-crm.firebasestorage.app",
+            messagingSenderId: "84970919171",
+            appId: "1:84970919171:web:a9904b377254bb26884536"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+        
+        let operations = [];
+        let currentUser = null;
+        
+        // Auth check - MUST complete before showing content
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
             }
-          });
-
-          // Populate advisor select
-          const advisorSelect = document.getElementById('advisor-select');
-          advisorSelect.innerHTML = '<option value="">-- Seleccionar asesor --</option>';
-          Object.keys(advisors).forEach(name => {
-            advisorSelect.innerHTML += `<option value="${name}">${name}</option>`;
-          });
+            
+            try {
+                const roleSnapshot = await db.ref(`users/${user.uid}/role`).once('value');
+                const role = roleSnapshot.val();
+                
+                if (role !== 'admin') {
+                    alert('No tienes permisos de administrador.');
+                    window.location.href = 'asesor-dashboard.html';
+                    return;
+                }
+                
+                currentUser = user;
+                
+                // Update UI with user info
+                const email = user.email || 'Admin';
+                document.getElementById('user-name').textContent = email.split('@')[0];
+                document.getElementById('user-avatar').textContent = email.charAt(0).toUpperCase();
+                
+                // Load data
+                loadOperations();
+                
+                // Show app
+                document.getElementById('loading-screen').classList.add('hidden');
+                document.getElementById('main-wrapper').classList.add('authenticated');
+                
+            } catch (error) {
+                console.error('Auth error:', error);
+                window.location.href = 'login.html';
+            }
+        });
+        
+        // Set current date
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').textContent = now.toLocaleDateString('es-ES', options);
+        
+        function loadOperations() {
+            db.ref('operations').on('value', (snapshot) => {
+                const data = snapshot.val();
+                operations = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+                renderOperations();
+                updateKPIs();
+            });
         }
-      });
-    }
-
-    function updateImportPreview() {
-      const filter = document.getElementById('import-filter').value;
-
-      // Show/hide advisor select
-      const advisorSelectContainer = document.getElementById('advisor-select-container');
-      advisorSelectContainer.style.display = filter === 'advisor' ? 'block' : 'none';
-
-      // Calculate preview data
-      const previewData = {};
-
-      // Filter operations
-      operations.forEach(op => {
-        if (filter === 'all' || (filter === 'advisor' && op.asesorName === document.getElementById('advisor-select').value) || (filter === 'active' && op.status === 'Activa')) {
-          const advisor = op.asesorName;
-
-          if (!previewData[advisor]) {
-            previewData[advisor] = {
-              total: 0,
-              active: 0,
-              amount: 0,
-              liquidation: 0
+        
+        function renderOperations() {
+            const tbody = document.getElementById('operations-table');
+            const noOperations = document.getElementById('no-operations');
+            
+            if (operations.length === 0) {
+                tbody.innerHTML = '';
+                noOperations.style.display = 'block';
+                return;
+            }
+            
+            noOperations.style.display = 'none';
+            
+            // Sort by date descending
+            const sorted = [...operations].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            tbody.innerHTML = sorted.slice(0, 20).map(op => `
+                <tr>
+                    <td>${formatDate(op.date)}</td>
+                    <td>${op.asesorName || '-'}</td>
+                    <td><strong>${op.clientName || '-'}</strong></td>
+                    <td>${op.company || '-'}</td>
+                    <td>${op.service || '-'}</td>
+                    <td><span class="status-badge status-${getStatusClass(op.status)}">${op.status || 'Enviada'}</span></td>
+                    <td>${op.amount ? op.amount + ' €' : '-'}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" onclick="editOperation('${op.id}')">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function updateKPIs() {
+            const today = new Date().toDateString();
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            
+            const todayOps = operations.filter(op => new Date(op.date).toDateString() === today);
+            const weekOps = operations.filter(op => new Date(op.date) >= weekAgo);
+            const activeOps = operations.filter(op => op.status === 'Activa');
+            const totalRevenue = operations.reduce((sum, op) => sum + (op.amount || 0), 0);
+            
+            document.getElementById('kpi-hoy').textContent = todayOps.length;
+            document.getElementById('kpi-semana').textContent = weekOps.length;
+            document.getElementById('kpi-ganancia').textContent = totalRevenue.toFixed(2) + ' €';
+            document.getElementById('kpi-activas').textContent = activeOps.length;
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' });
+        }
+        
+        function getStatusClass(status) {
+            const map = {
+                'Enviada': 'enviada',
+                'En trámite': 'en-tramite',
+                'Completa': 'completa',
+                'Activa': 'activa',
+                'Baja': 'baja'
             };
-          }
-
-          previewData[advisor].total++;
-
-          if (op.status === 'Activa') {
-            previewData[advisor].active++;
-            previewData[advisor].amount += op.amount || 0;
-            previewData[advisor].liquidation += 35; // 35€ per active client
-          }
+            return map[status] || 'enviada';
         }
-      });
-
-      // Update preview table
-      const tbody = document.getElementById('import-preview-table');
-      const advisors_names = Object.keys(previewData);
-
-      if (advisors_names.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="text-center">No hay datos que mostrar</td></tr>';
-        return;
-      }
-
-      let html = '';
-      advisors_names.forEach(name => {
-        const data = previewData[name];
-        html += `
-          <tr>
-            <td><strong>${name}</strong></td>
-            <td>${data.total}</td>
-            <td>${data.active}</td>
-            <td>${data.amount.toFixed(2)} €</td>
-            <td><strong>${data.liquidation.toFixed(2)} €</strong></td>
-          </tr>
-        `;
-      });
-
-      // Add total row
-      const totalOps = advisors_names.reduce((sum, name) => sum + previewData[name].total, 0);
-      const totalActive = advisors_names.reduce((sum, name) => sum + previewData[name].active, 0);
-      const totalAmount = advisors_names.reduce((sum, name) => sum + previewData[name].amount, 0);
-      const totalLiquidation = advisors_names.reduce((sum, name) => sum + previewData[name].liquidation, 0);
-
-      html += `
-        <tr style="background: #F2F7F8; font-weight: bold;">
-          <td><strong>TOTAL</strong></td>
-          <td><strong>${totalOps}</strong></td>
-          <td><strong>${totalActive}</strong></td>
-          <td><strong>${totalAmount.toFixed(2)} €</strong></td>
-          <td><strong>${totalLiquidation.toFixed(2)} €</strong></td>
-        </tr>
-      `;
-
-      tbody.innerHTML = html;
-    }
-
-    function exportToCSV() {
-      alert('Función de exportación CSV en desarrollo. Próximamente podrá exportar los datos para liquidaciones.');
-    }
-
-    function processLiquidations() {
-      alert('Función de procesamiento de liquidaciones en desarrollo. Próximamente podrá procesar y enviar liquidaciones a los asesores.');
-    }
-
-    function loadOperationsFull() {
-      // Operations are already loaded, populate the full table
-      const tbody = document.getElementById('operations-table-full');
-
-      if (operations.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9" class="text-center py-4">No hay operaciones registradas</td></tr>';
-        return;
-      }
-
-      tbody.innerHTML = operations.sort((a, b) => new Date(b.date) - new Date(a.date)).map(op => `
-        <tr>
-          <td>${formatDate(op.date)}</td>
-          <td>${op.asesorName}</td>
-          <td>${op.clientName}</td>
-          <td>${op.company}</td>
-          <td>${op.service}</td>
-          <td>${op.maintenance ? op.maintenanceType || 'Sí' : 'No'}</td>
-          <td><span class="status-badge status-${op.status.toLowerCase().replace(' ', '-')}">${op.status}</span></td>
-          <td>${op.amount ? op.amount.toFixed(2) + ' €' : '-'}</td>
-          <td>
-            <button class="btn btn-primary-custom btn-sm" onclick="editOperation('${op.id}')">
-              <i class="bi bi-pencil"></i> Editar
-            </button>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function loadRankingFull() {
-      const rankingDiv = document.getElementById('ranking-cards-full');
-      const advisors = {};
-
-      operations.forEach(op => {
-        const name = op.asesorName;
-        if (!advisors[name]) {
-          advisors[name] = { total: 0, active: 0, revenue: 0 };
+        
+        function editOperation(id) {
+            const op = operations.find(o => o.id === id);
+            if (op) {
+                const newStatus = prompt('Nuevo estado (Enviada, En trámite, Completa, Activa, Baja):', op.status || 'Enviada');
+                if (newStatus) {
+                    db.ref(`operations/${id}`).update({ status: newStatus, updatedAt: Date.now() });
+                }
+            }
         }
-        advisors[name].total++;
-        if (op.status === 'Activa') {
-          advisors[name].active++;
-          advisors[name].revenue += op.amount || 0;
+        
+        function logout() {
+            auth.signOut();
+            window.location.href = 'login.html';
         }
-      });
-
-      const ranking = Object.keys(advisors).map(name => ({
-        name,
-        ...advisors[name]
-      })).sort((a, b) => b.revenue - a.revenue);
-
-      if (ranking.length === 0) {
-        rankingDiv.innerHTML = '<p class="text-muted">No hay datos de asesores aún</p>';
-        return;
-      }
-
-      rankingDiv.innerHTML = ranking.map((advisor, index) => {
-        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
-        const borderColor = index < 3 ? 'border-warning' : 'border-secondary';
-        const conversion = advisor.total > 0 ? ((advisor.active / advisor.total) * 100).toFixed(1) : '0';
-
-        return `
-          <div class="card ${borderColor}" style="border-left: 4px solid; background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFB 100%);">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-start mb-2">
-                <div>
-                  <h5 class="mb-1">${medal} ${advisor.name}</h5>
-                  <small class="text-muted">Posición #${index + 1}</small>
-                </div>
-                <div class="text-end">
-                  <div class="text-primary fw-bold fs-4">${advisor.revenue.toFixed(2)} €</div>
-                  <small class="text-primary">Ganado</small>
-                </div>
-              </div>
-              <div class="row g-2">
-                <div class="col-6">
-                  <div class="text-primary fw-bold">${advisor.total}</div>
-                  <small class="text-muted">Total ventas</small>
-                </div>
-                <div class="col-6">
-                  <div class="text-primary fw-bold">${advisor.active}</div>
-                  <small class="text-muted">Activas</small>
-                </div>
-              </div>
-              <div class="mt-2">
-                <div class="d-flex justify-content-between">
-                  <small class="text-muted">Conversión</small>
-                  <small class="text-primary">${conversion}%</small>
-                </div>
-                <div class="progress" style="height: 6px; background: #E6F0F2;">
-                  <div class="progress-bar bg-primary" style="width: ${conversion}%"></div>
-                </div>
-              </div>
-              ${advisor.revenue > 0 ? `
-              <div class="mt-2 pt-2 border-top border-secondary">
-                <strong class="text-primary">💰 Premio motivación: ${advisor.revenue.toFixed(2)} €</strong>
-              </div>
-              ` : ''}
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function updateDateDisplay() {
-      const now = new Date();
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('current-date').textContent = now.toLocaleDateString('es-ES', options);
-    }
-
-    function checkAuth() {
-      auth.onAuthStateChanged(async (user) => {
-        if (!user) {
-          window.location.href = 'login.html';
-          return;
-        }
-
-        currentUser = user;
-
-        // Verify admin role
-        const roleSnapshot = await db.ref(`users/${user.uid}/role`).once('value');
-        const role = roleSnapshot.val();
-
-        if (role !== 'admin') {
-          alert('No tienes permisos para acceder a esta página.');
-          window.location.href = 'asesor-dashboard.html';
-          return;
-        }
-
-        // Load data
-        loadOperations();
-        loadKPIs();
-      });
-    }
-
-    function logout() {
-      auth.signOut().then(() => {
-        window.location.href = 'login.html';
-      });
-    }
-
-    function loadOperations() {
-      db.ref('operations').on('value', (snapshot) => {
-        const data = snapshot.val();
-        operations = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
-        renderOperations();
-      });
-    }
-
-    function renderOperations() {
-      const tbody = document.getElementById('operations-table');
-      const noOperations = document.getElementById('no-operations');
-
-      if (operations.length === 0) {
-        tbody.innerHTML = '';
-        noOperations.style.display = 'block';
-        return;
-      }
-
-      noOperations.style.display = 'none';
-
-      tbody.innerHTML = operations.map((op, index) => `
-        <tr>
-          <td>${formatDate(op.date)}</td>
-          <td>${op.asesorName || '-'}</td>
-          <td><strong>${op.clientName}</strong></td>
-          <td>${op.company || '-'}</td>
-          <td>${op.service || '-'}</td>
-          <td>${op.maintenance ? 'Sí' : 'No'}</td>
-          <td><span class="status-badge status-${getStatusClass(op.status)}">${op.status}</span></td>
-          <td>${op.amount ? op.amount + ' €' : '-'}</td>
-          <td>
-            <button class="btn btn-sm btn-primary-custom me-1" onclick="editOperation('${op.id}')">
-              <i class="bi bi-pencil"></i> Editar
-            </button>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function loadKPIs() {
-      // Calculate today's operations
-      const today = new Date().toDateString();
-      const todayOperations = operations.filter(op => {
-        const opDate = new Date(op.date).toDateString();
-        return opDate === today;
-      });
-
-      const weekStart = getStartOfWeek(new Date());
-      const weekOperations = operations.filter(op => new Date(op.date) >= weekStart);
-
-      const activeOperations = operations.filter(op => op.status === 'Activa');
-      const totalRevenue = activeOperations.reduce((sum, op) => sum + (parseFloat(op.amount) || 0), 0);
-      const conversionRate = operations.length > 0
-        ? ((activeOperations.length / operations.length) * 100).toFixed(1)
-        : '0';
-
-      document.getElementById('kpi-today').textContent = `${todayOperations.length} / 8`;
-      document.getElementById('kpi-week').textContent = `${weekOperations.length} / 40`;
-      document.getElementById('kpi-revenue').textContent = `${totalRevenue.toFixed(2)} €`;
-      document.getElementById('kpi-conversion').textContent = `${conversionRate}%`;
-
-      loadRanking();
-    }
-
-    function loadRanking() {
-      const advisors = {};
-
-      // Group operations by advisor
-      operations.forEach(op => {
-        const asesorName = op.asesorName || 'Desconocido';
-        if (!advisors[asesorName]) {
-          advisors[asesorName] = {
-            total: 0,
-            active: 0,
-            revenue: 0
-          };
-        }
-
-        advisors[asesorName].total++;
-
-        if (op.status === 'Activa') {
-          advisors[asesorName].active++;
-          advisors[asesorName].revenue += parseFloat(op.amount) || 0;
-        }
-      });
-
-      // Convert to array and sort
-      const ranking = Object.keys(advisors).map(name => ({
-        name,
-        ...advisors[name]
-      })).sort((a, b) => b.revenue - a.revenue);
-
-      const rankingDiv = document.getElementById('ranking-cards');
-
-      if (ranking.length === 0) {
-        rankingDiv.innerHTML = '<p class="text-muted">No hay datos de asesores aún</p>';
-        return;
-      }
-
-      rankingDiv.innerHTML = ranking.map((advisor, index) => {
-        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '';
-        const borderColor = index < 3 ? 'border-warning' : 'border-secondary';
-        const conversion = advisor.total > 0 ? ((advisor.active / advisor.total) * 100).toFixed(1) : '0';
-
-        return `
-          <div class="card ${borderColor}" style="border-left: 4px solid; background: linear-gradient(135deg, #111827 0%, #1F2933 100%);">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-start mb-2">
-                <div>
-                  <h5 class="mb-1">${medal} ${advisor.name}</h5>
-                  <small class="text-muted">Posición #${index + 1}</small>
-                </div>
-                <div class="text-end">
-                  <div class="text-success fw-bold fs-4">${advisor.revenue.toFixed(2)} €</div>
-                  <small class="text-success">Ganado</small>
-                </div>
-              </div>
-              <div class="row g-2">
-                <div class="col-6">
-                  <div class="text-white fw-bold">${advisor.total}</div>
-                  <small class="text-muted">Total ventas</small>
-                </div>
-                <div class="col-6">
-                  <div class="text-white fw-bold">${advisor.active}</div>
-                  <small class="text-muted">Activas</small>
-                </div>
-              </div>
-              <div class="mt-2">
-                <div class="d-flex justify-content-between">
-                  <small class="text-muted">Conversión</small>
-                  <small class="text-white">${conversion}%</small>
-                </div>
-                <div class="progress" style="height: 6px; background: #374151;">
-                  <div class="progress-bar bg-success" style="width: ${conversion}%"></div>
-                </div>
-              </div>
-              ${advisor.revenue > 0 ? `
-              <div class="mt-2 pt-2 border-top border-secondary">
-                <strong class="text-warning">💰 Premio motivación: ${advisor.revenue.toFixed(2)} €</strong>
-              </div>
-              ` : ''}
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function getStartOfWeek(date) {
-      const d = new Date(date);
-      const day = d.getDay();
-      const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-      return new Date(d.setDate(diff));
-    }
-
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' });
-    }
-
-    function getStatusClass(status) {
-      const statusMap = {
-        'Enviada': 'enviada',
-        'En trámite': 'en-tramite',
-        'Completa': 'completa',
-        'Activa': 'activa',
-        'Baja': 'baja'
-      };
-      return statusMap[status] || '';
-    }
-
-    function editOperation(opId) {
-      const operation = operations.find(op => op.id === opId);
-      if (!operation) return;
-
-      document.getElementById('edit-operation-id').value = operation.id;
-
-      // Read-only fields
-      document.getElementById('edit-client-readonly').textContent = operation.clientName || '-';
-      document.getElementById('edit-company-readonly').textContent = operation.company || '-';
-      document.getElementById('edit-service-readonly').textContent = operation.service || '-';
-      document.getElementById('edit-asesor-readonly').textContent = operation.asesorName || '-';
-      document.getElementById('edit-maintenance-readonly').textContent = operation.maintenance ? 'Sí' : 'No';
-      document.getElementById('edit-date-readonly').textContent = formatDate(operation.date);
-
-      // Editable fields
-      document.getElementById('edit-status').value = operation.status || 'Enviada';
-      document.getElementById('edit-amount').value = operation.amount || '';
-
-      document.querySelector('.modal-title').textContent = 'Gestionar Ficha de Asesor';
-      editModal.show();
-    }
-
-    async function saveOperation() {
-      const opId = document.getElementById('edit-operation-id').value;
-      const operationData = {
-        status: document.getElementById('edit-status').value,
-        amount: parseFloat(document.getElementById('edit-amount').value) || 0,
-        updatedAt: Date.now()
-      };
-
-      try {
-        if (opId) {
-          await db.ref(`operations/${opId}`).update(operationData);
-          alert('Ficha actualizada correctamente. Asesor verá cambios.');
-        } else {
-          alert('No puedes crear nuevas fichas. Los asesores suben fichas, tú gestionas.');
-          return;
-        }
-        editModal.hide();
-      } catch (error) {
-        console.error('Error saving operation:', error);
-        alert('Error al guardar. Intenta nuevamente.');
-      }
-  </script>
+    </script>
 </body>
 </html>
