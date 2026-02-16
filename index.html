@@ -1416,81 +1416,74 @@
         <div class="section-container">
             <div class="calculator-card">
                 <h2 class="calculator-title">📊 Calcula tu ahorro</h2>
-                <p class="calculator-subtitle">Introduce tus datos para ver cuánto pagarías con cada tarifa</p>
+                <p class="calculator-subtitle">Compara todas las tarifas y elige la mejor para ti</p>
                 
                 <div class="manual-input">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Consumo mensual (kWh) *</label>
-                            <input type="number" class="form-input" id="consumo" placeholder="ej: 250 kWh" min="1">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Potencia contratada (kW) *</label>
-                            <select class="form-input" id="potencia">
-                                <option value="2.3">2,3 kW</option>
-                                <option value="3.45">3,45 kW</option>
-                                <option value="4.6" selected>4,6 kW</option>
-                                <option value="5.75">5,75 kW</option>
-                                <option value="6.9">6,9 kW</option>
-                                <option value="8.05">8,05 kW</option>
-                                <option value="9.2">9,2 kW</option>
-                                <option value="10.35">10,35 kW</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row" style="margin-top: 12px;">
-                        <div class="form-group">
-                            <label class="form-label">Tipo de suministro</label>
-                            <select class="form-input" id="suministro">
-                                <option value="luz">Solo Luz</option>
-                                <option value="gas">Solo Gas</option>
-                                <option value="luz-gas">Luz + Gas</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">CUPS (opcional)</label>
-                            <input type="text" class="form-input" id="cups-input" placeholder="ES00..." maxlength="22">
+                    <!-- Luz -->
+                    <div style="background: var(--gray-50); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--accent-dark);">⚡ LUZ</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Consumo luz (kWh/mes)</label>
+                                <input type="number" class="form-input" id="consumo-luz" placeholder="ej: 250 kWh" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Potencia (kW)</label>
+                                <select class="form-input" id="potencia">
+                                    <option value="2.3">2,3 kW</option>
+                                    <option value="3.45">3,45 kW</option>
+                                    <option value="4.6" selected>4,6 kW</option>
+                                    <option value="5.75">5,75 kW</option>
+                                    <option value="6.9">6,9 kW</option>
+                                    <option value="8.05">8,05 kW</option>
+                                    <option value="9.2">9,2 kW</option>
+                                    <option value="10.35">10,35 kW</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     
-                    <button class="btn btn-gold btn-block" onclick="calculateManual()" style="margin-top: 16px;">
-                        🔍 Calcular mi tarifa ideal
+                    <!-- Gas -->
+                    <div style="background: var(--gray-50); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--accent-dark);">🔥 GAS (opcional)</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Consumo gas (kWh/mes)</label>
+                                <input type="number" class="form-input" id="consumo-gas" placeholder="ej: 150 kWh" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">CUPS (opcional)</label>
+                                <input type="text" class="form-input" id="cups-input" placeholder="ES00..." maxlength="22">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-gold btn-block" onclick="calculateTarifas()" style="margin-top: 8px;">
+                        🔍 Comparar todas las tarifas
                     </button>
                 </div>
                 
-                <div class="result-card" id="result-card">
-                    <div class="result-title">📊 Tu factura actual vs. nuevas tarifas:</div>
+                <!-- Resultados -->
+                <div class="result-card" id="result-card" style="display: none;">
+                    <div class="result-title">📊 Tu factura actual vs. tarifas Enerlux:</div>
                     
                     <!-- Factura actual -->
-                    <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; margin-bottom: 16px;">
-                        <div style="font-size: 14px; opacity: 0.8; margin-bottom: 8px;">💭 Pagas ahora (estimado):</div>
-                        <div style="font-size: 28px; font-weight: 700;" id="result-actual">-- €/mes</div>
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; margin: 16px 0;">
+                        <div style="font-size: 14px; opacity: 0.8; margin-bottom: 4px;">💭 Pagas ahora (estimado):</div>
+                        <div style="font-size: 32px; font-weight: 700;" id="result-actual">-- €/mes</div>
                     </div>
                     
-                    <!-- Mejor tarifa -->
-                    <div class="result-tariff">
-                        <div class="result-tariff-name" id="result-name">Calcula para ver tu tarifa ideal</div>
-                        <div class="result-tariff-price"><span id="result-price">-- €</span><span id="result-price-unit">/mes</span></div>
-                    </div>
+                    <!-- Tabla comparativa -->
+                    <div id="tarifas-table" style="margin-top: 16px;"></div>
                     
-                    <div class="result-savings" id="result-savings">
-                        Introduce tu consumo y potencia
-                    </div>
-                    
-                    <!-- Detalles -->
-                    <div id="result-details" style="margin-top: 16px; font-size: 13px; opacity: 0.9; display: none;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span>Consumo:</span>
-                            <span id="detail-consumo">-- kWh/mes</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span>Potencia:</span>
-                            <span id="detail-potencia">-- kW</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span>Precio tarifa:</span>
-                            <span id="detail-precio">-- €/kWh</span>
+                    <!-- Botón WhatsApp -->
+                    <a id="contact-btn" class="btn btn-gold btn-block" style="margin-top: 20px; display: none;" target="_blank">
+                        💬 Contactar para contratar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
                         </div>
                     </div>
                 </div>
@@ -1705,175 +1698,184 @@
             }
         });
         
-        // Calculator functions - CÁLCULO REAL MENSUAL
-        function calculateManual() {
-            const consumo = parseFloat(document.getElementById('consumo').value);
+        // Calculator - Comparativa de TODAS las tarifas
+        function calculateTarifas() {
+            const consumoLuz = parseFloat(document.getElementById('consumo-luz').value) || 0;
+            const consumoGas = parseFloat(document.getElementById('consumo-gas').value) || 0;
             const potencia = parseFloat(document.getElementById('potencia').value);
-            const suministro = document.getElementById('suministro').value;
             const cups = document.getElementById('cups-input').value.trim();
             
-            if (!consumo || consumo <= 0) {
-                alert('Por favor, introduce tu consumo mensual en kWh');
+            if (consumoLuz === 0 && consumoGas === 0) {
+                alert('Por favor, introduce al menos un consumo (luz o gas)');
                 return;
             }
             
+            // === PRECIOS ACTUALES DEL MERCADO ===
+            const precioActualLuz = 0.15; // €/kWh
+            const precioActualGas = 0.08; // €/kWh
+            const precioPotenciaActual = 13.5; // €/kW/año
+            
+            // === TARIFAS ENERLUX ===
+            const precioTarifa011 = 0.11; // €/kWh luz
+            const precioTarifaVerde = 0.12; // €/kWh luz
+            const precioGas = 0.06; // €/kWh gas
+            const precioPotenciaNuevo = 11.5; // €/kW/año
+            
             // === CÁLCULOS ===
             
-            // Precio actual medio del mercado (PVPC aproximado)
-            const precioActualMedio = 0.15; // €/kWh
-            const precioPotenciaActual = 13.5; // €/kW/año → mensual = *kW / 12 * 12 = kW * 13.5 / 12 ≈ precio mensual
+            // Coste potencia mensual
+            const costePotenciaActual = (potencia * precioPotenciaActual) / 12;
+            const costePotenciaNuevo = (potencia * precioPotenciaNuevo) / 12;
             
-            // Coste actual estimado por el usuario
-            const costePotenciaMensual = (potencia * precioPotenciaActual) / 12;
-            const costeEnergiaActual = consumo * precioActualMedio;
-            const costeActualMensual = costeEnergiaActual + costePotenciaMensual;
+            // Factura ACTUAL (estimado)
+            const costeActualLuz = consumoLuz * precioActualLuz + costePotenciaActual;
+            const costeActualGas = consumoGas * precioActualGas;
+            const costeActualTotal = costeActualLuz + costeActualGas;
             
             // === TARIFAS DISPONIBLES ===
+            const tarifas = [];
             
-            // Tarifa 0,11€/kWh
-            const precioTarifa011 = 0.11; // €/kWh
-            const precioPotencia011 = 11.5; // €/kW/año
-            const costePotencia011 = (potencia * precioPotencia011) / 12;
-            const costeEnergia011 = consumo * precioTarifa011;
-            const costeMensual011 = costeEnergia011 + costePotencia011;
-            const ahorro011 = costeActualMensual - costeMensual011;
-            
-            // Tarifa Verde 0,12€/kWh
-            const precioVerde = 0.12;
-            const precioPotenciaVerde = 11.5;
-            const costeMensualVerde = (consumo * precioVerde) + ((potencia * precioPotenciaVerde) / 12);
-            const ahorroVerde = costeActualMensual - costeMensualVerde;
-            
-            // Tarifa Eficiente 0,115€/kWh
-            const precioEficiente = 0.115;
-            const precioPotenciaEficiente = 10.5;
-            const costeMensualEficiente = (consumo * precioEficiente) + ((potencia * precioPotenciaEficiente) / 12);
-            const ahorroEficiente = costeActualMensual - costeMensualEficiente;
-            
-            // === RECOMENDACIÓN ===
-            let tarifaRecomendada, precioMostrar, ahorroMostrar, compania, necesitaCalculadora = false, costeMensualMostrar;
-            
-            if (consumo >= 350) {
-                // Consumo alto → Tarifa Plana (precio personalizado)
-                tarifaRecomendada = 'Tarifa Plana Zen';
-                compania = 'Naturgy';
-                necesitaCalculadora = true;
-                // Estimación aproximada: con tarifa plana suelen pagar unos 60-120€ según consumo
-                // Pero no mostramos precio fijo, enviamos a WhatsApp
-                precioMostrar = 'Personalizado';
-                costeMensualMostrar = null;
-                ahorroMostrar = Math.round(costeActualMensual * 0.25); // ~25% ahorro estimado
-            } else if (consumo >= 200) {
-                // Consumo medio-alto → Tarifa 0,11€
-                tarifaRecomendada = 'Tarifa Online';
-                compania = 'Varias compañías';
-                precioMostrar = '0,11 €/kWh';
-                costeMensualMostrar = costeMensual011;
-                ahorroMostrar = ahorro011;
-            } else if (consumo >= 100) {
-                // Consumo medio → Tarifa Verde
-                tarifaRecomendada = 'Tarifa Verde';
-                compania = 'Holaluz';
-                precioMostrar = '0,12 €/kWh';
-                costeMensualMostrar = costeMensualVerde;
-                ahorroMostrar = ahorroVerde;
-            } else {
-                // Consumo bajo → Tarifa Eficiente
-                tarifaRecomendada = 'Tarifa Eficiente';
-                compania = 'Gana Energía';
-                precioMostrar = '0,115 €/kWh';
-                costeMensualMostrar = costeMensualEficiente;
-                ahorroMostrar = ahorroEficiente;
+            // 1. Tarifa 0,11€/kWh Luz
+            if (consumoLuz > 0) {
+                const coste011 = (consumoLuz * precioTarifa011) + costePotenciaNuevo + (consumoGas * precioGas);
+                const ahorro011 = costeActualTotal - coste011;
+                tarifas.push({
+                    nombre: 'Tarifa 0,11€/kWh',
+                    compania: 'Varias',
+                    precio: '0,11 €/kWh luz · 0,06 €/kWh gas',
+                    mensual: coste011,
+                    ahorro: ahorro011,
+                    recomendar: consumoLuz >= 150 && consumoLuz < 350
+                });
             }
             
-            // Asegurar ahorro positivo
-            if (ahorroMostrar < 5) {
-                ahorroMostrar = Math.round(consumo * 0.08);
+            // 2. Tarifa Verde 0,12€/kWh
+            if (consumoLuz > 0) {
+                const costeVerde = (consumoLuz * precioTarifaVerde) + costePotenciaNuevo + (consumoGas * precioGas);
+                const ahorroVerde = costeActualTotal - costeVerde;
+                tarifas.push({
+                    nombre: 'Tarifa Verde',
+                    compania: 'Holaluz',
+                    precio: '0,12 €/kWh luz · 0,06 €/kWh gas',
+                    mensual: costeVerde,
+                    ahorro: ahorroVerde,
+                    recomendar: consumoLuz < 150
+                });
             }
+            
+            // 3. Tarifa Plana Naturgy
+            if (consumoLuz >= 350) {
+                // Para tarifa plana, el precio se calcula con Naturgy - no mostramos precio fijo
+                const estimacionPlana = costeActualTotal * 0.75; // Estimación ~25% ahorro
+                tarifas.push({
+                    nombre: 'Tarifa Plana Zen',
+                    compania: 'Naturgy',
+                    precio: 'Precio fijo mensual (personalizado)',
+                    mensual: null, // Se calcula con Naturgy
+                    ahorro: costeActualTotal * 0.25,
+                    recomendar: true,
+                    plana: true
+                });
+            }
+            
+            // 4. Solo Gas 0,06€/kWh
+            if (consumoGas > 0 && consumoLuz === 0) {
+                const costeSoloGas = consumoGas * precioGas;
+                const ahorroSoloGas = costeActualTotal - costeSoloGas;
+                tarifas.push({
+                    nombre: 'Gas 0,06€/kWh',
+                    compania: 'Varias',
+                    precio: '0,06 €/kWh gas',
+                    mensual: costeSoloGas,
+                    ahorro: ahorroSoloGas,
+                    recomendar: true
+                });
+            }
+            
+            // Ordenar por ahorro
+            tarifas.sort((a, b) => (b.ahorro || 0) - (a.ahorro || 0));
             
             // === MOSTRAR RESULTADOS ===
             
-            // Coste actual
-            document.getElementById('result-actual').textContent = costeActualMensual.toFixed(2) + ' €/mes';
+            // Factura actual
+            document.getElementById('result-actual').textContent = costeActualTotal.toFixed(2) + ' €/mes';
             
-            // Tarifa recomendada
-            document.getElementById('result-name').textContent = tarifaRecomendada + ' (' + compania + ')';
+            // Tabla comparativa
+            let tableHTML = `
+                <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9;">
+                    💡 Tarifas disponibles para ti:
+                </div>
+                <div style="background: rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden;">
+            `;
             
-            if (necesitaCalculadora) {
-                document.getElementById('result-price').textContent = 'Precio';
-                document.getElementById('result-price-unit').textContent = ' personalizado';
-            } else {
-                document.getElementById('result-price').textContent = costeMensualMostrar.toFixed(2);
-                document.getElementById('result-price-unit').textContent = ' €/mes';
-            }
+            tarifas.forEach((tarifa, index) => {
+                const esMejor = index === 0;
+                const style = esMejor 
+                    ? 'background: rgba(16, 185, 129, 0.2); border-left: 3px solid #10B981;' 
+                    : 'border-left: 3px solid transparent;';
+                const badge = esMejor ? '<span style="background: #10B981; color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">MEJOR OPCIÓN</span>' : '';
+                const badgePlana = tarifa.plana ? '<span style="background: #F5A623; color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">PRECIO PERSONALIZADO</span>' : '';
+                
+                tableHTML += `
+                    <div style="${style} padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 6px;">
+                            <div>
+                                <div style="font-weight: 600; font-size: 15px;">${tarifa.nombre}${badge}${badgePlana}</div>
+                                <div style="font-size: 12px; opacity: 0.7;">${tarifa.compania}</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 20px; font-weight: 700;">${tarifa.mensual ? tarifa.mensual.toFixed(2) + '€' : 'Consultar'}</div>
+                                <div style="font-size: 11px; opacity: 0.7;">${tarifa.mensual ? '/mes' : 'con Naturgy'}</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 12px; opacity: 0.6; margin-bottom: 6px;">${tarifa.precio}</div>
+                        ${tarifa.ahorro > 0 ? `<div style="color: #10B981; font-size: 13px; font-weight: 600;">💰 Ahorras ${tarifa.ahorro.toFixed(0)}€/mes</div>` : ''}
+                    </div>
+                `;
+            });
             
-            // Ahorro
-            const porcentajeAhorro = Math.round((ahorroMostrar / costeActualMensual) * 100);
-            document.getElementById('result-savings').innerHTML = '💰 Ahorro estimado: <strong>' + ahorroMostrar.toFixed(0) + ' €/mes</strong> (' + porcentajeAhorro + '% menos)';
+            tableHTML += '</div>';
             
-            // Detalles
-            document.getElementById('detail-consumo').textContent = consumo + ' kWh/mes';
-            document.getElementById('detail-potencia').textContent = potencia.toFixed(2).replace('.', ',') + ' kW';
-            document.getElementById('detail-precio').textContent = necesitaCalculadora ? 'Según Naturgy' : precioMostrar;
-            document.getElementById('result-details').style.display = 'block';
+            // Detalles del consumo
+            tableHTML += `
+                <div style="margin-top: 16px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 12px; opacity: 0.8;">
+                    <div style="font-weight: 600; margin-bottom: 8px;">📋 Tu consumo:</div>
+                    ${consumoLuz > 0 ? `<div>⚡ Luz: ${consumoLuz} kWh/mes · ${potencia.toFixed(2).replace('.', ',')} kW</div>` : ''}
+                    ${consumoGas > 0 ? `<div>🔥 Gas: ${consumoGas} kWh/mes</div>` : ''}
+                </div>
+            `;
             
-            // Mostrar tarjeta
+            document.getElementById('tarifas-table').innerHTML = tableHTML;
+            
+            // Mostrar resultados
+            document.getElementById('result-card').style.display = 'block';
             document.getElementById('result-card').classList.add('active');
             
             // Botón WhatsApp
-            const existingBtn = document.getElementById('contact-btn');
-            let mensajeWhatsapp;
+            const mejorTarifa = tarifas[0];
+            const consumoTexto = [];
+            if (consumoLuz > 0) consumoTexto.push(`Luz: ${consumoLuz} kWh/mes (${potencia} kW)`);
+            if (consumoGas > 0) consumoTexto.push(`Gas: ${consumoGas} kWh/mes`);
             
-            if (necesitaCalculadora) {
-                mensajeWhatsapp = 'Hola! Mi consumo es de ' + consumo + ' kWh/mes con potencia de ' + potencia + ' kW (' + suministro + '). Pago aprox ' + costeActualMensual.toFixed(2) + '€/mes. Me interesa la Tarifa Plana Zen de Naturgy. ¿Podéis calcularme el precio exacto?';
+            let mensaje;
+            if (mejorTarifa.plana) {
+                mensaje = `Hola! Quiero calcular la Tarifa Plana Zen de Naturgy.%0AMi consumo:%0A- ${consumoTexto.join('%0A- ')}%0APago aprox ${costeActualTotal.toFixed(2)}€/mes.%0A¿Cuál sería mi precio fijo mensual?`;
             } else {
-                mensajeWhatsapp = 'Hola! Mi consumo es de ' + consumo + ' kWh/mes con potencia de ' + potencia + ' kW (' + suministro + '). Pago aprox ' + costeActualMensual.toFixed(2) + '€/mes. Me interesa la ' + tarifaRecomendada + ' - pagaría ' + costeMensualMostrar.toFixed(2) + '€/mes. ¿Podemos continuar?';
+                mensaje = `Hola! Me interesa la ${mejorTarifa.nombre}.%0AMi consumo:%0A- ${consumoTexto.join('%0A- ')}%0APago aprox ${costeActualTotal.toFixed(2)}€/mes.%0A¿Podemos continuar con el cambio?`;
             }
             
-            if (!existingBtn) {
-                const btn = document.createElement('a');
-                btn.id = 'contact-btn';
-                btn.className = 'btn btn-gold btn-block';
-                btn.style.marginTop = '16px';
-                btn.href = 'https://wa.me/34610243061?text=' + encodeURIComponent(mensajeWhatsapp);
-                btn.target = '_blank';
-                btn.innerHTML = necesitaCalculadora ? '📊 Calcular mi tarifa plana' : '💬 Contactar y contratar';
-                document.getElementById('result-card').appendChild(btn);
-            } else {
-                existingBtn.href = 'https://wa.me/34610243061?text=' + encodeURIComponent(mensajeWhatsapp);
-                existingBtn.innerHTML = necesitaCalculadora ? '📊 Calcular mi tarifa plana' : '💬 Contactar y contratar';
-            }
+            const btn = document.getElementById('contact-btn');
+            btn.href = `https://wa.me/34610243061?text=${mensaje}`;
+            btn.style.display = 'block';
+            btn.innerHTML = mejorTarifa.plana ? '📊 Calcular mi Tarifa Plana' : '💬 Contactar para contratar';
             
             // Scroll al resultado
             document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
         
-        function calculateCUPS() {
-            // Si hay CUPS, usar calculateManual pero con mensaje personalizado
-            const cups = document.getElementById('cups-input').value.trim().toUpperCase();
-            if (cups && cups.length >= 20) {
-                const consumo = document.getElementById('consumo').value;
-                const potencia = document.getElementById('potencia').value;
-                
-                if (!consumo) {
-                    alert('Por favor, también introduce tu consumo mensual para el cálculo');
-                    return;
-                }
-                
-                // Calcular normalmente
-                calculateManual();
-                
-                // Añadir CUPS al mensaje de WhatsApp
-                setTimeout(() => {
-                    const btn = document.getElementById('contact-btn');
-                    if (btn) {
-                        const currentHref = btn.href;
-                        btn.href = currentHref + encodeURIComponent(' CUPS: ' + cups);
-                    }
-                }, 100);
-            } else {
-                calculateManual();
-            }
+        // Función antigua renombrada para compatibilidad
+        function calculateManual() {
+            calculateTarifas();
         }
         
         // Form submission
