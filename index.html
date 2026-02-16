@@ -1415,8 +1415,8 @@
     <section class="calculator" id="calculadora">
         <div class="section-container">
             <div class="calculator-card">
-                <h2 class="calculator-title">📊 Calcula tu ahorro</h2>
-                <p class="calculator-subtitle">¿Qué servicios tienes actualmente?</p>
+                <h2 class="calculator-title">📊 Calcula tu cuota</h2>
+                <p class="calculator-subtitle">Introduce tu CUPS y te calculamos tu tarifa personalizada</p>
                 
                 <div class="manual-input">
                     <!-- Selector de servicios -->
@@ -1433,82 +1433,29 @@
                     </div>
                     
                     <!-- CUPS Luz -->
-                    <div class="form-group" style="margin-bottom: 12px;">
-                        <label class="form-label">CUPS Luz</label>
-                        <input type="text" class="form-input" id="cups-luz" placeholder="ES00..." maxlength="22">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label class="form-label">CUPS Luz *</label>
+                        <input type="text" class="form-input" id="cups-luz" placeholder="ES00..." maxlength="22" style="text-transform: uppercase;">
+                        <p style="font-size: 12px; color: var(--gray-500); margin-top: 4px;">Lo encuentras en tu factura de luz</p>
                     </div>
                     
-                    <!-- CUPS Gas (oculto por defecto) -->
-                    <div class="form-group" id="cups-gas-group" style="margin-bottom: 12px; display: none;">
+                    <!-- CUPS Gas -->
+                    <div class="form-group" id="cups-gas-group" style="margin-bottom: 16px; display: none;">
                         <label class="form-label">CUPS Gas</label>
-                        <input type="text" class="form-input" id="cups-gas" placeholder="ES00..." maxlength="22">
-                    </div>
-                    
-                    <!-- Consumo Luz -->
-                    <div style="background: var(--gray-50); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
-                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--primary);">⚡ Consumo Luz</div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">kWh/mes</label>
-                                <input type="number" class="form-input" id="consumo-luz" placeholder="ej: 250" min="0">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Potencia (kW)</label>
-                                <select class="form-input" id="potencia">
-                                    <option value="2.3">2,3 kW</option>
-                                    <option value="3.45">3,45 kW</option>
-                                    <option value="4.6" selected>4,6 kW</option>
-                                    <option value="5.75">5,75 kW</option>
-                                    <option value="6.9">6,9 kW</option>
-                                    <option value="8.05">8,05 kW</option>
-                                    <option value="9.2">9,2 kW</option>
-                                    <option value="10.35">10,35 kW</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Consumo Gas (oculto por defecto) -->
-                    <div id="gas-group" style="background: var(--gray-50); border-radius: 12px; padding: 16px; margin-bottom: 12px; display: none;">
-                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--primary);">🔥 Consumo Gas</div>
-                        <div class="form-group">
-                            <label class="form-label">kWh/mes</label>
-                            <input type="number" class="form-input" id="consumo-gas" placeholder="ej: 150" min="0">
-                        </div>
+                        <input type="text" class="form-input" id="cups-gas" placeholder="ES00..." maxlength="22" style="text-transform: uppercase;">
+                        <p style="font-size: 12px; color: var(--gray-500); margin-top: 4px;">Lo encuentras en tu factura de gas</p>
                     </div>
                     
                     <button class="btn btn-gold btn-block" onclick="calculateTarifas()" style="margin-top: 8px;">
-                        🔍 Calcular mi ahorro
+                        🔍 Calcular mi cuota
                     </button>
                 </div>
                 
                 <!-- Resultados -->
                 <div class="result-card" id="result-card" style="display: none;">
-                    <div class="result-title">📊 Tu comparativa de tarifas:</div>
+                    <div class="result-title">📊 Calculando tu tarifa...</div>
                     
-                    <!-- Factura actual -->
-                    <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; margin: 16px 0;">
-                        <div style="font-size: 14px; opacity: 0.8; margin-bottom: 4px;">💭 Pagas ahora (estimado):</div>
-                        <div style="font-size: 32px; font-weight: 700;" id="result-actual">-- €/mes</div>
-                    </div>
-                    
-                    <!-- Tabla comparativa -->
-                    <div id="tarifas-table" style="margin-top: 16px;"></div>
-                    
-                    <!-- Opciones de contacto -->
-                    <div id="contact-options" style="margin-top: 20px; display: none;">
-                        <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9; text-align: center;">
-                            ¿Te interesa alguna tarifa?
-                        </div>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <a id="btn-whatsapp" class="btn btn-gold" style="flex: 1; text-align: center;" target="_blank">
-                                💬 WhatsApp
-                            </a>
-                            <a href="activar-contrato.html" class="btn btn-outline" style="flex: 1; text-align: center;">
-                                📝 Formulario
-                            </a>
-                        </div>
-                    </div>
+                    <div id="result-content" style="margin-top: 16px;"></div>
                 </div>
             </div>
         </div>
@@ -1760,155 +1707,70 @@
             document.getElementById('btn-solo-luz').classList.toggle('active', tipo === 'luz');
             document.getElementById('btn-luz-gas').classList.toggle('active', tipo === 'luz-gas');
             
-            // Mostrar/ocultar campos de gas
+            // Mostrar/ocultar CUPS Gas
             document.getElementById('cups-gas-group').style.display = tipo === 'luz-gas' ? 'block' : 'none';
-            document.getElementById('gas-group').style.display = tipo === 'luz-gas' ? 'block' : 'none';
+            
+            // Limpiar campo gas si no es necesario
+            if (tipo === 'luz') {
+                document.getElementById('cups-gas').value = '';
+            }
         }
         
-        // Calculator - Comparativa de tarifas
+        // Calculator - Enviar a WhatsApp para cálculo
         function calculateTarifas() {
-            const consumoLuz = parseFloat(document.getElementById('consumo-luz').value) || 0;
-            const consumoGas = tipoServicio === 'luz-gas' ? (parseFloat(document.getElementById('consumo-gas').value) || 0) : 0;
-            const potencia = parseFloat(document.getElementById('potencia').value);
-            const cupsLuz = document.getElementById('cups-luz').value.trim();
-            const cupsGas = document.getElementById('cups-gas').value.trim();
+            const cupsLuz = document.getElementById('cups-luz').value.trim().toUpperCase();
+            const cupsGas = document.getElementById('cups-gas').value.trim().toUpperCase();
             
-            if (consumoLuz === 0 && consumoGas === 0) {
-                alert('Por favor, introduce al menos un consumo');
+            if (!cupsLuz || cupsLuz.length < 20) {
+                alert('Por favor, introduce tu CUPS de luz (empieza por ES y tiene 20-22 caracteres)');
                 return;
             }
             
-            // === PRECIOS ACTUALES DEL MERCADO ===
-            const precioActualLuz = 0.15; // €/kWh
-            const precioActualGas = 0.08; // €/kWh
-            const precioPotenciaActual = 13.5; // €/kW/año
-            
-            // === TARIFAS ENERLUX ===
-            const precioTarifa011 = 0.11; // €/kWh luz
-            const precioGas = 0.06; // €/kWh gas
-            const precioPotenciaNuevo = 11.5; // €/kW/año
-            
-            // === CÁLCULOS ===
-            
-            // Coste potencia mensual
-            const costePotenciaActual = (potencia * precioPotenciaActual) / 12;
-            const costePotenciaNuevo = (potencia * precioPotenciaNuevo) / 12;
-            
-            // Factura ACTUAL (estimado)
-            const costeActualLuz = consumoLuz * precioActualLuz + costePotenciaActual;
-            const costeActualGas = consumoGas * precioActualGas;
-            const costeActualTotal = costeActualLuz + costeActualGas;
-            
-            // === TARIFAS A MOSTRAR ===
-            const tarifas = [];
-            
-            // 1. Tarifa Plana Naturgy (para alto consumo)
-            if (consumoLuz >= 250) {
-                const estimacionAhorro = costeActualTotal * 0.25;
-                tarifas.push({
-                    nombre: 'Tarifa Plana Zen',
-                    compania: 'Naturgy',
-                    precio: 'Precio fijo mensual personalizado',
-                    mensual: null,
-                    ahorro: estimacionAhorro,
-                    plana: true,
-                    descripcion: 'El mismo precio cada mes, consumas lo que consumas'
-                });
+            // Validar CUPS Gas si es luz+gas
+            if (tipoServicio === 'luz-gas' && (!cupsGas || cupsGas.length < 20)) {
+                alert('Por favor, introduce también tu CUPS de gas');
+                return;
             }
             
-            // 2. Tarifa 0,11€/kWh (siempre disponible)
-            const coste011 = (consumoLuz * precioTarifa011) + costePotenciaNuevo + (consumoGas * precioGas);
-            const ahorro011 = costeActualTotal - coste011;
-            tarifas.push({
-                nombre: 'Tarifa por Uso 0,11€/kWh',
-                compania: 'Varias compañías',
-                precio: `Luz: 0,11 €/kWh${consumoGas > 0 ? ' · Gas: 0,06 €/kWh' : ''}`,
-                mensual: coste011,
-                ahorro: ahorro011,
-                descripcion: 'Sin permanencia · Precio estable 24h'
-            });
+            // Construir mensaje WhatsApp
+            let mensaje;
+            if (tipoServicio === 'luz-gas') {
+                mensaje = `Hola! Quiero calcular mi tarifa personalizada.%0A%0A⚡ CUPS Luz: ${cupsLuz}%0A🔥 CUPS Gas: ${cupsGas}%0A%0A¿Podéis calcularme la cuota mensual para Luz + Gas?`;
+            } else {
+                mensaje = `Hola! Quiero calcular mi tarifa personalizada.%0A%0A⚡ CUPS Luz: ${cupsLuz}%0A%0A¿Podéis calcularme la cuota mensual?`;
+            }
             
-            // Ordenar por ahorro
-            tarifas.sort((a, b) => (b.ahorro || 0) - (a.ahorro || 0));
-            
-            // === MOSTRAR RESULTADOS ===
-            
-            // Factura actual
-            document.getElementById('result-actual').textContent = costeActualTotal.toFixed(2) + ' €/mes';
-            
-            // Tabla comparativa
-            let tableHTML = `
-                <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9;">
-                    💡 Tus opciones:
-                </div>
-                <div style="background: rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden;">
-            `;
-            
-            tarifas.forEach((tarifa, index) => {
-                const esMejor = index === 0;
-                const style = esMejor 
-                    ? 'background: rgba(16, 185, 129, 0.2); border-left: 3px solid #10B981;' 
-                    : 'border-left: 3px solid transparent;';
-                const badge = esMejor ? '<span style="background: #10B981; color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">RECOMENDADA</span>' : '';
-                const badgePlana = tarifa.plana ? '<span style="background: #F5A623; color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">CONSULTAR</span>' : '';
-                
-                tableHTML += `
-                    <div style="${style} padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 6px;">
-                            <div>
-                                <div style="font-weight: 600; font-size: 15px;">${tarifa.nombre}${badge}${badgePlana}</div>
-                                <div style="font-size: 12px; opacity: 0.7;">${tarifa.compania}</div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div style="font-size: 20px; font-weight: 700;">${tarifa.mensual ? tarifa.mensual.toFixed(2) + '€' : 'A calcular'}</div>
-                                <div style="font-size: 11px; opacity: 0.7;">${tarifa.mensual ? '/mes' : 'con Naturgy'}</div>
-                            </div>
-                        </div>
-                        <div style="font-size: 12px; opacity: 0.6; margin-bottom: 6px;">${tarifa.precio}</div>
-                        <div style="font-size: 11px; opacity: 0.5; margin-bottom: 4px;">${tarifa.descripcion}</div>
-                        ${tarifa.ahorro > 0 ? `<div style="color: #10B981; font-size: 13px; font-weight: 600;">💰 Ahorras aprox ${tarifa.ahorro.toFixed(0)}€/mes</div>` : ''}
+            // Mostrar resultado con enlace a WhatsApp
+            const resultContent = `
+                <div style="text-align: center; padding: 20px 0;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">CUPS verificado</div>
+                    <div style="font-size: 14px; opacity: 0.8; margin-bottom: 20px;">
+                        ${tipoServicio === 'luz-gas' ? 'Luz + Gas' : 'Solo Luz'}
                     </div>
-                `;
-            });
-            
-            tableHTML += '</div>';
-            
-            // Detalles del consumo
-            let consumoTexto = [];
-            if (consumoLuz > 0) consumoTexto.push(`Luz: ${consumoLuz} kWh/mes (${potencia} kW)`);
-            if (consumoGas > 0) consumoTexto.push(`Gas: ${consumoGas} kWh/mes`);
-            
-            tableHTML += `
-                <div style="margin-top: 16px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 12px; opacity: 0.8;">
-                    <div style="font-weight: 600; margin-bottom: 8px;">📋 Tu consumo:</div>
-                    ${consumoTexto.map(t => `<div>${t}</div>`).join('')}
-                    ${cupsLuz ? `<div style="margin-top: 4px;">CUPS Luz: ${cupsLuz}</div>` : ''}
-                    ${cupsGas ? `<div>CUPS Gas: ${cupsGas}</div>` : ''}
+                    
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; margin-bottom: 20px; text-align: left;">
+                        ${cupsLuz ? `<div style="font-size: 13px; margin-bottom: 8px;"><span style="opacity: 0.7;">⚡ CUPS Luz:</span><br><strong>${cupsLuz}</strong></div>` : ''}
+                        ${cupsGas ? `<div style="font-size: 13px;"><span style="opacity: 0.7;">🔥 CUPS Gas:</span><br><strong>${cupsGas}</strong></div>` : ''}
+                    </div>
+                    
+                    <div style="font-size: 14px; opacity: 0.9; margin-bottom: 16px;">
+                        Te calculamos tu tarifa personalizada ahora mismo
+                    </div>
+                    
+                    <a href="https://wa.me/34610243061?text=${mensaje}" target="_blank" class="btn btn-gold btn-block" style="margin-bottom: 12px;">
+                        💬 Calcular por WhatsApp
+                    </a>
+                    
+                    <a href="activar-contrato.html" class="btn btn-outline btn-block">
+                        📝 Rellenar formulario
+                    </a>
                 </div>
             `;
             
-            document.getElementById('tarifas-table').innerHTML = tableHTML;
-            
-            // Mostrar resultados
+            document.getElementById('result-content').innerHTML = resultContent;
             document.getElementById('result-card').style.display = 'block';
             document.getElementById('result-card').classList.add('active');
-            document.getElementById('contact-options').style.display = 'block';
-            
-            // Botón WhatsApp con mensaje personalizado
-            const mejorTarifa = tarifas[0];
-            let mensaje;
-            
-            if (mejorTarifa.plana) {
-                mensaje = `Hola! Quiero calcular la Tarifa Plana Zen de Naturgy.%0A%0A📦 Mi consumo:%0A- ${consumoTexto.join('%0A- ')}%0A%0A💰 Pago aprox: ${costeActualTotal.toFixed(2)}€/mes%0A%0A¿Cuál sería mi precio fijo mensual?`;
-            } else {
-                mensaje = `Hola! Me interesa la ${mejorTarifa.nombre}.%0A%0A📦 Mi consumo:%0A- ${consumoTexto.join('%0A- ')}%0A%0A💰 Pago ahora: ${costeActualTotal.toFixed(2)}€/mes%0A📄 Con vosotros: ${mejorTarifa.mensual.toFixed(2)}€/mes%0A📉 Ahorro: ${mejorTarifa.ahorro.toFixed(0)}€/mes`;
-            }
-            
-            // Añadir CUPS si existen
-            if (cupsLuz) mensaje += `%0A%0ACUPS Luz: ${cupsLuz}`;
-            if (cupsGas) mensaje += `%0ACUPS Gas: ${cupsGas}`;
-            
-            document.getElementById('btn-whatsapp').href = `https://wa.me/34610243061?text=${mensaje}`;
             
             // Scroll al resultado
             document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
