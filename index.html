@@ -7,8 +7,8 @@
     
     <!-- SEO Meta Tags -->
     <title>Enerlux Soluciones | Ahorra hasta 30% en Luz y Gas | Energía Verde</title>
-    <meta name="description" content="Compara tarifas de luz y gas de 50+ comercializadoras gratis. Ahorra desde el primer día. Energía 100% verde disponible. Asesoría personalizada sin compromiso.">
-    <meta name="keywords" content="comparador luz, comparador gas, ahorro energía, tarifas luz España, cambiar compañía luz, energía verde, asesor energético, Endesa, Iberdrola, Naturgy">
+    <meta name="description" content="Compara tarifas de luz y gas de las mejores comercializadoras de España. Ahorra desde el primer día. Energía 100% verde. Tarifa Plana disponible.">
+    <meta name="keywords" content="comparador luz, comparador gas, ahorro energía, tarifas luz España, cambiar compañía luz, energía verde, tarifa plana, Naturgy, Endesa, Iberdrola">
     <meta name="author" content="Enerlux Soluciones">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.pagomenosluzygas.es/">
@@ -17,7 +17,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.pagomenosluzygas.es/">
     <meta property="og:title" content="Enerlux Soluciones | Ahorra hasta 30% en Luz y Gas">
-    <meta property="og:description" content="Compara tarifas de 50+ comercializadoras gratis. Energía 100% verde disponible. Sin compromiso.">
+    <meta property="og:description" content="Compara tarifas de luz y gas. Tarifa Plana disponible. Sin compromiso.">
     <meta property="og:image" content="https://www.pagomenosluzygas.es/logo-enerlux.jpg">
     <meta property="og:locale" content="es_ES">
     <meta property="og:site_name" content="Enerlux Soluciones">
@@ -26,29 +26,34 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://www.pagomenosluzygas.es/">
     <meta name="twitter:title" content="Enerlux Soluciones | Ahorra hasta 30% en Luz y Gas">
-    <meta name="twitter:description" content="Compara tarifas de 50+ comercializadoras gratis. Energía 100% verde disponible.">
+    <meta name="twitter:description" content="Compara tarifas de luz y gas. Tarifa Plana disponible.">
     <meta name="twitter:image" content="https://www.pagomenosluzygas.es/logo-enerlux.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="logo-enerlux.jpg">
+    <link rel="apple-touch-icon" href="logo-enerlux.jpg">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Schema.org Structured Data -->
+    <!-- Schema.org for Google Logo -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "EnergyService",
+      "@type": "Organization",
       "name": "Enerlux Soluciones",
-      "description": "Asesoría energética independiente especializada en comparación de tarifas de luz y gas",
       "url": "https://www.pagomenosluzygas.es/",
+      "logo": "https://www.pagomenosluzygas.es/logo-enerlux.jpg",
+      "description": "Asesoría energética independiente especializada en comparación de tarifas de luz y gas",
       "telephone": "+34610243061",
       "email": "enerlux.soluciones@gmail.com",
-      "priceRange": "Gratis",
-      "areaServed": {
-        "@type": "Country",
-        "name": "España"
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ES"
       },
+      "sameAs": [],
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
@@ -59,18 +64,17 @@
     </script>
     
     <style>
-        /* ========================================
-           VARIABLES - COLORES DEL LOGO
-           ======================================== */
         :root {
-            /* Colores basados en el logo Enerlux */
-            --primary: #003366;
-            --primary-light: #004080;
-            --primary-dark: #002244;
+            /* Colores del logo Enerlux - Celeste claro */
+            --primary: #87CEEB;
+            --primary-dark: #5BA3C6;
+            --primary-darker: #3D8BAC;
             --accent-gold: #F5A623;
-            --accent-gold-light: #FFD700;
+            --accent-dark: #003366;
             --accent-green: #2E8B57;
-            --accent-turquoise: #00B4D8;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
             
             --white: #FFFFFF;
             --gray-50: #F8FAFC;
@@ -83,10 +87,6 @@
             --gray-700: #334155;
             --gray-800: #1E293B;
             --gray-900: #0F172A;
-            
-            --success: #10B981;
-            --warning: #F59E0B;
-            --error: #EF4444;
             
             --font-display: 'Playfair Display', Georgia, serif;
             --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -116,7 +116,7 @@
         }
         
         /* ========================================
-           HEADER UNIFICADO CON LOGO
+           HEADER - COLOR CELESTE DEL LOGO
            ======================================== */
         .header {
             position: fixed;
@@ -125,26 +125,24 @@
             right: 0;
             z-index: 1000;
             background: var(--primary);
-            padding: 0;
             transition: all 0.3s ease;
         }
         
-        .header-inner {
-            background: var(--primary);
-            padding: 8px 0;
+        .header.scrolled {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
         
         .header-top {
             background: var(--primary-dark);
             padding: 6px 0;
             font-size: 13px;
-            color: var(--gray-300);
+            color: var(--gray-800);
         }
         
         .header-top-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -153,11 +151,11 @@
         .header-top-contact {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
         }
         
         .header-top-contact a {
-            color: var(--gray-300);
+            color: var(--gray-800);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -165,29 +163,23 @@
         }
         
         .header-top-contact a:hover {
-            color: var(--white);
-        }
-        
-        .header-top-links {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+            color: var(--accent-dark);
         }
         
         .header-top-links a {
-            color: var(--gray-300);
+            color: var(--gray-800);
             text-decoration: none;
-            font-size: 13px;
+            font-weight: 500;
         }
         
         .header-top-links a:hover {
-            color: var(--accent-gold);
+            color: var(--accent-dark);
         }
         
         .header-main {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 12px 24px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -196,25 +188,25 @@
         .logo {
             display: flex;
             align-items: center;
-            text-decoration: none;
         }
         
         .logo img {
-            height: 50px;
+            height: 55px;
             width: auto;
+            border-radius: 8px;
         }
         
         .nav-desktop {
             display: flex;
             align-items: center;
-            gap: 32px;
+            gap: 28px;
         }
         
         .nav-link {
-            color: var(--gray-200);
+            color: var(--gray-800);
             text-decoration: none;
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 600;
             transition: color 0.3s ease;
             position: relative;
         }
@@ -226,12 +218,12 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--accent-gold);
+            background: var(--accent-dark);
             transition: width 0.3s ease;
         }
         
         .nav-link:hover {
-            color: var(--white);
+            color: var(--accent-dark);
         }
         
         .nav-link:hover::after {
@@ -241,7 +233,7 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         
         .btn {
@@ -249,9 +241,10 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 12px 24px;
+            padding: 12px 22px;
             font-size: 14px;
             font-weight: 600;
+            font-family: var(--font-body);
             text-decoration: none;
             border-radius: 8px;
             transition: all 0.3s ease;
@@ -261,25 +254,23 @@
         }
         
         .btn-primary {
-            background: var(--accent-gold);
-            color: var(--primary-dark);
+            background: var(--accent-dark);
+            color: var(--white);
         }
         
         .btn-primary:hover {
-            background: var(--accent-gold-light);
+            background: #004080;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3);
         }
         
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid rgba(255,255,255,0.3);
+        .btn-gold {
+            background: var(--accent-gold);
+            color: var(--gray-900);
         }
         
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--accent-gold);
+        .btn-gold:hover {
+            background: #FFD700;
+            transform: translateY(-2px);
         }
         
         .btn-success {
@@ -294,22 +285,25 @@
         
         .btn-outline {
             background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            color: var(--accent-dark);
+            border: 2px solid var(--accent-dark);
         }
         
         .btn-outline:hover {
-            background: var(--primary);
+            background: var(--accent-dark);
             color: var(--white);
         }
         
-        /* Mobile Menu */
+        .btn-block {
+            width: 100%;
+        }
+        
         .mobile-menu-toggle {
             display: none;
             background: none;
             border: none;
-            color: var(--white);
-            font-size: 24px;
+            color: var(--gray-800);
+            font-size: 26px;
             cursor: pointer;
             padding: 8px;
         }
@@ -323,7 +317,8 @@
             bottom: 0;
             background: var(--primary);
             z-index: 1001;
-            padding: 80px 24px 24px;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
         }
         
         .mobile-menu.active {
@@ -332,11 +327,11 @@
         
         .mobile-menu-close {
             position: absolute;
-            top: 20px;
-            right: 24px;
+            top: 15px;
+            right: 20px;
             background: none;
             border: none;
-            color: var(--white);
+            color: var(--gray-800);
             font-size: 28px;
             cursor: pointer;
         }
@@ -344,24 +339,20 @@
         .mobile-nav {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 0;
         }
         
         .mobile-nav a {
-            color: var(--gray-200);
+            color: var(--gray-800);
             text-decoration: none;
             font-size: 18px;
-            font-weight: 500;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .mobile-nav a:hover {
-            color: var(--accent-gold);
+            font-weight: 600;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
         
         .mobile-actions {
-            margin-top: 32px;
+            margin-top: 24px;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -375,8 +366,8 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
-            padding-top: 130px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 50%, var(--primary-darker) 100%);
+            padding-top: 100px;
             overflow: hidden;
         }
         
@@ -384,15 +375,7 @@
             position: absolute;
             inset: 0;
             background: url('hero-family.jpg') center/cover no-repeat;
-            opacity: 0.1;
-        }
-        
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, 
-                rgba(0, 51, 102, 0.85) 0%, 
-                rgba(0, 34, 68, 0.95) 100%);
+            opacity: 0.08;
         }
         
         .hero-container {
@@ -400,15 +383,15 @@
             z-index: 1;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 24px 80px;
+            padding: 40px 20px 60px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 50px;
             align-items: center;
         }
         
         .hero-content {
-            color: var(--white);
+            color: var(--gray-800);
         }
         
         .hero-badge {
@@ -416,61 +399,62 @@
             align-items: center;
             gap: 8px;
             padding: 8px 16px;
-            background: rgba(245, 166, 35, 0.15);
-            border: 1px solid rgba(245, 166, 35, 0.3);
+            background: rgba(0, 51, 102, 0.1);
+            border: 1px solid rgba(0, 51, 102, 0.2);
             border-radius: 50px;
             font-size: 13px;
             font-weight: 600;
-            color: var(--accent-gold);
+            color: var(--accent-dark);
             margin-bottom: 20px;
         }
         
         .hero-title {
             font-family: var(--font-display);
-            font-size: clamp(36px, 5vw, 56px);
+            font-size: clamp(32px, 5vw, 52px);
             font-weight: 700;
             line-height: 1.15;
             margin-bottom: 20px;
+            color: var(--gray-900);
         }
         
         .hero-title span {
-            color: var(--accent-gold);
+            color: var(--accent-dark);
         }
         
         .hero-subtitle {
-            font-size: clamp(16px, 2vw, 20px);
+            font-size: clamp(15px, 2vw, 18px);
             line-height: 1.6;
-            color: var(--gray-300);
-            margin-bottom: 32px;
-            max-width: 500px;
+            color: var(--gray-600);
+            margin-bottom: 28px;
+            max-width: 480px;
         }
         
         .hero-cta {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 40px;
+            margin-bottom: 36px;
         }
         
         .hero-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            padding-top: 32px;
-            border-top: 1px solid rgba(255,255,255,0.15);
+            gap: 20px;
+            padding-top: 28px;
+            border-top: 1px solid rgba(0,0,0,0.1);
         }
         
         .hero-stat-value {
             font-family: var(--font-display);
-            font-size: clamp(28px, 4vw, 40px);
+            font-size: clamp(26px, 4vw, 36px);
             font-weight: 700;
-            color: var(--accent-gold);
+            color: var(--accent-dark);
             line-height: 1;
         }
         
         .hero-stat-label {
-            font-size: 14px;
-            color: var(--gray-400);
+            font-size: 13px;
+            color: var(--gray-600);
             margin-top: 4px;
         }
         
@@ -478,21 +462,21 @@
         .hero-form-card {
             background: var(--white);
             border-radius: 20px;
-            padding: 32px;
+            padding: 28px;
             box-shadow: var(--shadow-xl);
         }
         
         .form-card-header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .form-card-title {
             font-family: var(--font-display);
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
+            color: var(--gray-900);
+            margin-bottom: 6px;
         }
         
         .form-card-subtitle {
@@ -501,21 +485,22 @@
         }
         
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         
         .form-label {
             display: block;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--gray-700);
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
         
         .form-input {
             width: 100%;
-            padding: 12px 16px;
-            font-size: 15px;
+            padding: 11px 14px;
+            font-size: 14px;
+            font-family: var(--font-body);
             color: var(--gray-800);
             background: var(--gray-50);
             border: 2px solid var(--gray-200);
@@ -525,9 +510,9 @@
         
         .form-input:focus {
             outline: none;
-            border-color: var(--accent-gold);
+            border-color: var(--primary-dark);
             background: var(--white);
-            box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.1);
+            box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.2);
         }
         
         .form-input::placeholder {
@@ -537,14 +522,14 @@
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
         
         .form-upload {
             position: relative;
             border: 2px dashed var(--gray-300);
             border-radius: 10px;
-            padding: 24px;
+            padding: 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -552,8 +537,8 @@
         }
         
         .form-upload:hover {
-            border-color: var(--accent-gold);
-            background: rgba(245, 166, 35, 0.05);
+            border-color: var(--primary-dark);
+            background: rgba(135, 206, 235, 0.05);
         }
         
         .form-upload input {
@@ -564,136 +549,306 @@
         }
         
         .form-upload-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
+            font-size: 28px;
+            margin-bottom: 6px;
         }
         
         .form-upload-text {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--gray-500);
         }
         
         .form-upload-text strong {
-            color: var(--primary);
-        }
-        
-        .btn-block {
-            width: 100%;
-            padding: 14px 24px;
-            font-size: 16px;
+            color: var(--accent-dark);
         }
         
         .form-note {
             text-align: center;
             font-size: 12px;
             color: var(--gray-400);
-            margin-top: 16px;
+            margin-top: 12px;
+        }
+        
+        .file-list {
+            margin-top: 10px;
+        }
+        
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--gray-50);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+        
+        .file-item span {
+            color: var(--gray-600);
+        }
+        
+        .file-item button {
+            background: none;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+            font-size: 16px;
         }
         
         /* ========================================
-           COMPARADOR SECTION
+           COMPANIES SECTION
            ======================================== */
-        .comparador {
-            padding: 100px 0;
-            background: var(--gray-50);
+        .companies {
+            padding: 60px 0;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-100);
         }
         
         .section-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
         }
         
-        .section-header {
+        .companies-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
         
-        .section-eyebrow {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-        }
-        
-        .section-title {
+        .companies-title {
             font-family: var(--font-display);
-            font-size: clamp(28px, 4vw, 40px);
+            font-size: clamp(24px, 3vw, 32px);
             font-weight: 700;
-            color: var(--primary);
-            line-height: 1.2;
-            margin-bottom: 12px;
+            color: var(--gray-900);
+            margin-bottom: 10px;
         }
         
-        .section-subtitle {
-            font-size: 17px;
+        .companies-subtitle {
+            font-size: 16px;
             color: var(--gray-500);
-            max-width: 600px;
+        }
+        
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
-        .companias-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-        }
-        
-        .compania-card {
-            background: var(--white);
+        .company-card {
+            background: var(--gray-50);
             border-radius: 12px;
             padding: 20px;
             text-align: center;
-            box-shadow: var(--shadow-sm);
             border: 2px solid transparent;
             transition: all 0.3s ease;
         }
         
-        .compania-card:hover {
-            border-color: var(--accent-gold);
+        .company-card:hover {
+            border-color: var(--primary);
             transform: translateY(-4px);
             box-shadow: var(--shadow-lg);
         }
         
-        .compania-logo {
-            height: 40px;
-            width: auto;
-            margin: 0 auto 12px;
+        .company-name {
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+        
+        .company-type {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+        
+        /* ========================================
+           CALCULATOR SECTION
+           ======================================== */
+        .calculator {
+            padding: 80px 0;
+            background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+        }
+        
+        .calculator-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-xl);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .calculator-title {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-900);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .calculator-subtitle {
+            font-size: 15px;
+            color: var(--gray-500);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .calculator-input {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .calculator-input input {
+            flex: 1;
+            padding: 16px 20px;
+            font-size: 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .calculator-input input:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 4px rgba(135, 206, 235, 0.2);
+        }
+        
+        .or-divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .or-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gray-200);
+        }
+        
+        .or-divider span {
+            background: var(--white);
+            padding: 0 16px;
+            color: var(--gray-400);
+            font-size: 14px;
+            position: relative;
+        }
+        
+        .manual-input {
+            display: grid;
+            gap: 14px;
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, var(--accent-dark) 0%, #004080 100%);
+            border-radius: 16px;
+            padding: 30px;
+            color: var(--white);
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .result-card.active {
             display: block;
         }
         
-        .compania-name {
+        .result-title {
+            font-size: 18px;
             font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 4px;
+            margin-bottom: 20px;
         }
         
-        .compania-type {
-            font-size: 13px;
-            color: var(--gray-500);
+        .result-tariff {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .result-tariff-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .result-tariff-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .result-tariff-price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--gray-300);
+        }
+        
+        .result-savings {
+            background: var(--accent-green);
+            border-radius: 8px;
+            padding: 12px 16px;
+            text-align: center;
+            font-weight: 600;
         }
         
         /* ========================================
            TARIFAS SECTION
            ======================================== */
         .tarifas {
-            padding: 100px 0;
+            padding: 80px 0;
             background: var(--white);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-eyebrow {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(26px, 4vw, 38px);
+            font-weight: 700;
+            color: var(--gray-900);
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+        
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--gray-500);
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .tarifas-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         
         .tarifa-card {
             background: var(--white);
             border-radius: 20px;
-            padding: 32px;
+            padding: 30px;
             box-shadow: var(--shadow-lg);
             border: 2px solid var(--gray-100);
             transition: all 0.4s ease;
@@ -704,7 +859,7 @@
         .tarifa-card:hover {
             transform: translateY(-8px);
             box-shadow: var(--shadow-xl);
-            border-color: var(--accent-gold);
+            border-color: var(--primary);
         }
         
         .tarifa-card.featured {
@@ -715,13 +870,13 @@
         .tarifa-card.featured::before {
             content: 'RECOMENDADO';
             position: absolute;
-            top: 16px;
-            right: -30px;
+            top: 14px;
+            right: -26px;
             background: var(--accent-gold);
-            color: var(--primary-dark);
+            color: var(--gray-900);
             font-size: 10px;
             font-weight: 700;
-            padding: 4px 36px;
+            padding: 4px 32px;
             transform: rotate(45deg);
         }
         
@@ -733,43 +888,54 @@
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
+        }
+        
+        .tarifa-badge.gold {
+            background: rgba(245, 166, 35, 0.1);
+            color: #D97706;
         }
         
         .tarifa-name {
             font-family: var(--font-display);
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
+            color: var(--gray-900);
+            margin-bottom: 6px;
         }
         
-        .tarifa-description {
+        .tarifa-company {
             font-size: 14px;
             color: var(--gray-500);
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .tarifa-price {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .tarifa-price-value {
             font-family: var(--font-display);
-            font-size: 42px;
+            font-size: 38px;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--accent-dark);
             line-height: 1;
         }
         
         .tarifa-price-unit {
-            font-size: 16px;
+            font-size: 15px;
             color: var(--gray-500);
+        }
+        
+        .tarifa-price-note {
+            font-size: 13px;
+            color: var(--gray-400);
+            margin-top: 4px;
         }
         
         .tarifa-features {
             list-style: none;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .tarifa-feature {
@@ -795,171 +961,26 @@
         }
         
         /* ========================================
-           COMO FUNCIONA
-           ======================================== */
-        .como-funciona {
-            padding: 100px 0;
-            background: var(--primary);
-            color: var(--white);
-        }
-        
-        .como-funciona .section-eyebrow {
-            color: var(--accent-gold);
-        }
-        
-        .como-funciona .section-title {
-            color: var(--white);
-        }
-        
-        .como-funciona .section-subtitle {
-            color: var(--gray-400);
-        }
-        
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            position: relative;
-        }
-        
-        .steps-line {
-            position: absolute;
-            top: 50px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent-turquoise));
-            z-index: 0;
-        }
-        
-        .step-card {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 24px;
-        }
-        
-        .step-number {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-display);
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin: 0 auto 20px;
-            box-shadow: 0 4px 20px rgba(245, 166, 35, 0.3);
-        }
-        
-        .step-title {
-            font-family: var(--font-display);
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .step-text {
-            font-size: 14px;
-            color: var(--gray-400);
-            line-height: 1.6;
-        }
-        
-        /* ========================================
-           TESTIMONIOS
-           ======================================== */
-        .testimonios {
-            padding: 100px 0;
-            background: var(--gray-50);
-        }
-        
-        .testimonios-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-        }
-        
-        .testimonial-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 28px;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .testimonial-stars {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 16px;
-            color: var(--accent-gold);
-            font-size: 16px;
-        }
-        
-        .testimonial-text {
-            font-size: 15px;
-            line-height: 1.7;
-            color: var(--gray-600);
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .testimonial-avatar {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-            color: var(--white);
-        }
-        
-        .testimonial-name {
-            font-weight: 600;
-            color: var(--gray-800);
-        }
-        
-        .testimonial-location {
-            font-size: 13px;
-            color: var(--gray-500);
-        }
-        
-        /* ========================================
            CTA FINAL
            ======================================== */
         .cta-final {
-            padding: 80px 0;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 70px 0;
+            background: linear-gradient(135deg, var(--accent-dark) 0%, var(--primary-darker) 100%);
             text-align: center;
-        }
-        
-        .cta-content {
-            max-width: 600px;
-            margin: 0 auto;
-            color: var(--white);
         }
         
         .cta-title {
             font-family: var(--font-display);
             font-size: clamp(24px, 4vw, 36px);
             font-weight: 700;
-            margin-bottom: 16px;
+            color: var(--white);
+            margin-bottom: 14px;
         }
         
         .cta-text {
             font-size: 17px;
-            color: var(--gray-400);
-            margin-bottom: 32px;
+            color: var(--gray-300);
+            margin-bottom: 28px;
         }
         
         .cta-buttons {
@@ -973,9 +994,9 @@
            FOOTER
            ======================================== */
         .footer {
-            background: var(--primary-dark);
+            background: var(--gray-900);
             color: var(--gray-400);
-            padding: 60px 0 30px;
+            padding: 50px 0 30px;
         }
         
         .footer-grid {
@@ -993,29 +1014,29 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         
         .footer-logo img {
             height: 36px;
-            opacity: 0.9;
+            border-radius: 6px;
         }
         
         .footer-description {
             font-size: 14px;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         
         .footer-social {
             display: flex;
-            gap: 12px;
+            gap: 10px;
         }
         
         .footer-social a {
-            width: 36px;
-            height: 36px;
-            background: rgba(255,255,255,0.1);
+            width: 34px;
+            height: 34px;
+            background: var(--gray-800);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1026,8 +1047,8 @@
         }
         
         .footer-social a:hover {
-            background: var(--accent-gold);
-            color: var(--primary-dark);
+            background: var(--primary);
+            color: var(--gray-900);
         }
         
         .footer-column h4 {
@@ -1035,7 +1056,7 @@
             font-size: 16px;
             font-weight: 600;
             color: var(--white);
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         
         .footer-links {
@@ -1054,21 +1075,23 @@
         }
         
         .footer-links a:hover {
-            color: var(--accent-gold);
+            color: var(--primary);
         }
         
         .footer-bottom {
             padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid var(--gray-800);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 13px;
+            flex-wrap: wrap;
+            gap: 16px;
         }
         
         .footer-legal {
             display: flex;
-            gap: 24px;
+            gap: 20px;
         }
         
         .footer-legal a {
@@ -1095,15 +1118,6 @@
                 margin: 0 auto;
             }
             
-            .steps-grid {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-            
-            .steps-line {
-                display: none;
-            }
-            
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 30px;
@@ -1111,7 +1125,6 @@
         }
         
         @media (max-width: 768px) {
-            /* Header Mobile */
             .header-top {
                 display: none;
             }
@@ -1128,72 +1141,52 @@
                 display: block;
             }
             
-            .header-main {
-                padding: 12px 16px;
-            }
-            
-            .logo img {
-                height: 40px;
-            }
-            
-            /* Hero Mobile */
             .hero {
-                padding-top: 80px;
                 min-height: auto;
+                padding-top: 80px;
                 padding-bottom: 40px;
             }
             
             .hero-container {
-                padding: 20px 16px 40px;
+                padding: 30px 16px 40px;
             }
             
             .hero-title {
-                font-size: 32px;
+                font-size: 28px;
             }
             
             .hero-stats {
-                grid-template-columns: repeat(3, 1fr);
                 gap: 16px;
             }
             
             .hero-stat-value {
-                font-size: 28px;
-            }
-            
-            .hero-stat-label {
-                font-size: 12px;
+                font-size: 26px;
             }
             
             .hero-form-card {
-                padding: 24px 20px;
+                padding: 22px 18px;
             }
             
             .form-row {
                 grid-template-columns: 1fr;
             }
             
-            /* Sections Mobile */
-            .section-header {
-                margin-bottom: 40px;
+            .calculator-card {
+                padding: 28px 20px;
             }
             
-            .section-title {
-                font-size: 28px;
+            .calculator-input {
+                flex-direction: column;
             }
             
             .tarifas-grid {
                 grid-template-columns: 1fr;
             }
             
-            .tarifa-card {
-                padding: 24px;
+            .companies-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            .tarifa-price-value {
-                font-size: 36px;
-            }
-            
-            /* Footer Mobile */
             .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 24px;
@@ -1201,7 +1194,6 @@
             
             .footer-bottom {
                 flex-direction: column;
-                gap: 16px;
                 text-align: center;
             }
             
@@ -1235,7 +1227,7 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
+    <header class="header" id="header">
         <div class="header-top">
             <div class="header-top-container">
                 <div class="header-top-contact">
@@ -1247,30 +1239,27 @@
                 </div>
             </div>
         </div>
-        <div class="header-inner">
-            <div class="header-main">
-                <a href="/" class="logo">
-                    <img src="logo-enerlux.jpg" alt="Enerlux Soluciones">
+        <div class="header-main">
+            <a href="/" class="logo">
+                <img src="logo-enerlux.jpg" alt="Enerlux Soluciones">
+            </a>
+            
+            <nav class="nav-desktop">
+                <a href="#calculadora" class="nav-link">Calculadora</a>
+                <a href="#tarifas" class="nav-link">Tarifas</a>
+                <a href="activar-contrato.html" class="nav-link">Activar Contrato</a>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="https://wa.me/34610243061?text=Hola,%20quiero%20comparar%20tarifas" class="btn btn-success">
+                    💬 WhatsApp
                 </a>
-                
-                <nav class="nav-desktop">
-                    <a href="#comparador" class="nav-link">Comparador</a>
-                    <a href="#tarifas" class="nav-link">Tarifas</a>
-                    <a href="#como-funciona" class="nav-link">Cómo Funciona</a>
-                    <a href="activar-contrato.html" class="nav-link">Activar Contrato</a>
-                </nav>
-                
-                <div class="header-actions">
-                    <a href="https://wa.me/34610243061?text=Hola,%20quiero%20comparar%20tarifas" class="btn btn-success">
-                        💬 WhatsApp
-                    </a>
-                    <a href="tel:+34610243061" class="btn btn-secondary">
-                        📞 Llamar
-                    </a>
-                </div>
-                
-                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+                <a href="tel:+34610243061" class="btn btn-primary">
+                    📞 Llamar
+                </a>
             </div>
+            
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
         </div>
     </header>
     
@@ -1278,22 +1267,20 @@
     <div class="mobile-menu" id="mobileMenu">
         <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
         <nav class="mobile-nav">
-            <a href="#comparador" onclick="toggleMobileMenu()">Comparador</a>
-            <a href="#tarifas" onclick="toggleMobileMenu()">Tarifas</a>
-            <a href="#como-funciona" onclick="toggleMobileMenu()">Cómo Funciona</a>
-            <a href="activar-contrato.html">Activar Contrato</a>
+            <a href="#calculadora" onclick="toggleMobileMenu()">📊 Calculadora</a>
+            <a href="#tarifas" onclick="toggleMobileMenu()">💼 Tarifas</a>
+            <a href="activar-contrato.html">📝 Activar Contrato</a>
             <a href="new-crm/login.html">🔐 Acceso Asesores</a>
         </nav>
         <div class="mobile-actions">
             <a href="https://wa.me/34610243061" class="btn btn-success btn-block">💬 WhatsApp</a>
-            <a href="tel:+34610243061" class="btn btn-secondary btn-block">📞 Llamar</a>
+            <a href="tel:+34610243061" class="btn btn-primary btn-block">📞 Llamar</a>
         </div>
     </div>
     
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
         
         <div class="hero-container">
             <div class="hero-content">
@@ -1306,14 +1293,14 @@
                 </h1>
                 
                 <p class="hero-subtitle">
-                    Comparamos tarifas de más de 50 comercializadoras para encontrar la mejor opción para ti. Energía 100% verde disponible.
+                    Comparamos tarifas de las mejores comercializadoras de España para encontrar la mejor opción para ti.
                 </p>
                 
                 <div class="hero-cta">
-                    <a href="https://wa.me/34610243061?text=Hola,%20quiero%20comparar%20mis%20tarifas" class="btn btn-primary">
+                    <a href="https://wa.me/34610243061?text=Hola,%20quiero%20comparar%20mis%20tarifas" class="btn btn-gold">
                         💬 Comparar Gratis
                     </a>
-                    <a href="activar-contrato.html" class="btn btn-secondary">
+                    <a href="activar-contrato.html" class="btn btn-primary">
                         Activar Contrato →
                     </a>
                 </div>
@@ -1324,7 +1311,7 @@
                         <div class="hero-stat-label">Clientes</div>
                     </div>
                     <div>
-                        <div class="hero-stat-value">50+</div>
+                        <div class="hero-stat-value">7</div>
                         <div class="hero-stat-label">Compañías</div>
                     </div>
                     <div>
@@ -1341,7 +1328,7 @@
                     <p class="form-card-subtitle">Te enviamos la mejor oferta en menos de 24h</p>
                 </div>
                 
-                <form id="factura-form" action="https://formspree.io/f/enerlux" method="POST" enctype="multipart/form-data">
+                <form id="factura-form" action="https://formspree.io/f/xnnnnnnn" method="POST">
                     <div class="form-group">
                         <label class="form-label">Nombre completo</label>
                         <input type="text" name="nombre" class="form-input" placeholder="Tu nombre" required>
@@ -1361,14 +1348,14 @@
                     <div class="form-group">
                         <label class="form-label">Adjuntar factura (PDF/JPG)</label>
                         <div class="form-upload">
-                            <input type="file" name="factura" accept=".pdf,.jpg,.jpeg,.png" id="file-input">
+                            <input type="file" name="factura" accept=".pdf,.jpg,.jpeg,.png" id="file-input" onchange="updateFileName(this)">
                             <div class="form-upload-icon">📄</div>
                             <div class="form-upload-text">
                                 <strong>Haz clic o arrastra</strong><br>
                                 tu factura de luz o gas
                             </div>
                         </div>
-                        <div id="file-name" style="display:none; font-size: 13px; color: var(--success); margin-top: 8px;"></div>
+                        <div id="file-list" class="file-list"></div>
                     </div>
                     
                     <button type="submit" class="btn btn-primary btn-block">
@@ -1376,84 +1363,97 @@
                     </button>
                     
                     <p class="form-note">
-                        🔒 Tus datos están seguros. Sin spam ni llamadas molestas.
+                        🔒 Tus datos están protegidos. Sin spam.
                     </p>
                 </form>
             </div>
         </div>
     </section>
     
-    <!-- Comparador Section -->
-    <section class="comparador" id="comparador">
+    <!-- Companies Section -->
+    <section class="companies">
         <div class="section-container">
-            <div class="section-header">
-                <div class="section-eyebrow">Comparador Real</div>
-                <h2 class="section-title">Compañías con las que trabajamos</h2>
-                <p class="section-subtitle">
-                    Comparamos tarifas de las principales comercializadoras de España
-                </p>
+            <div class="companies-header">
+                <h2 class="companies-title">Compañías con las que trabajamos</h2>
+                <p class="companies-subtitle">Comparamos tarifas de las mejores comercializadoras de España</p>
             </div>
             
-            <div class="companias-grid">
-                <div class="compania-card">
-                    <div class="compania-name">Endesa</div>
-                    <div class="compania-type">⚡ Luz · 🔥 Gas</div>
+            <div class="companies-grid">
+                <div class="company-card">
+                    <div class="company-name">Endesa</div>
+                    <div class="company-type">⚡ Luz · 🔥 Gas</div>
                 </div>
-                <div class="compania-card">
-                    <div class="compania-name">Iberdrola</div>
-                    <div class="compania-type">⚡ Luz · 🔥 Gas</div>
+                <div class="company-card">
+                    <div class="company-name">Iberdrola</div>
+                    <div class="company-type">⚡ Luz · 🔥 Gas</div>
                 </div>
-                <div class="compania-card">
-                    <div class="compania-name">Naturgy</div>
-                    <div class="compania-type">⚡ Luz · 🔥 Gas</div>
+                <div class="company-card">
+                    <div class="company-name">Naturgy</div>
+                    <div class="company-type">⚡ Luz · 🔥 Gas</div>
                 </div>
-                <div class="compania-card">
-                    <div class="compania-name">Repsol</div>
-                    <div class="compania-type">⚡ Luz · 🔥 Gas</div>
+                <div class="company-card">
+                    <div class="company-name">Holaluz</div>
+                    <div class="company-type">⚡ Luz 100% Verde</div>
                 </div>
-                <div class="compania-card">
-                    <div class="compania-name">Holaluz</div>
-                    <div class="compania-type">⚡ Luz 100% Verde</div>
+                <div class="company-card">
+                    <div class="company-name">Gana Energía</div>
+                    <div class="company-type">⚡ Luz · 🔥 Gas</div>
                 </div>
-                <div class="compania-card">
-                    <div class="compania-name">Gana Energía</div>
-                    <div class="compania-type">⚡ Luz · 🔥 Gas</div>
+                <div class="company-card">
+                    <div class="company-name">TotalEnergies</div>
+                    <div class="company-type">⚡ Luz · 🔥 Gas</div>
                 </div>
-                <div class="compania-card">
-                    <div class="compania-name">TotalEnergies</div>
-                    <div class="compania-type">⚡ Luz · 🔥 Gas</div>
+                <div class="company-card">
+                    <div class="company-name">EDP</div>
+                    <div class="company-type">⚡ Luz · 🔥 Gas</div>
                 </div>
-                <div class="compania-card">
-                    <div class="compania-name">EDP</div>
-                    <div class="compania-type">⚡ Luz · 🔥 Gas</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Calculator Section -->
+    <section class="calculator" id="calculadora">
+        <div class="section-container">
+            <div class="calculator-card">
+                <h2 class="calculator-title">Calcula tu ahorro</h2>
+                <p class="calculator-subtitle">Introduce tu CUPS o tus datos de consumo para ver la mejor tarifa</p>
+                
+                <div class="calculator-input">
+                    <input type="text" id="cups-input" placeholder="Introduce tu CUPS (ES00XXXXXXXXXXXXXX)" maxlength="22">
+                    <button class="btn btn-primary" onclick="calculateCUPS()">Calcular</button>
                 </div>
-                <div class="compania-card">
-                    <div class="compania-name">Factor Energía</div>
-                    <div class="compania-type">⚡ Luz Verde</div>
+                
+                <div class="or-divider"><span>o rellena manualmente</span></div>
+                
+                <div class="manual-input">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Consumo mensual (kWh)</label>
+                            <input type="number" class="form-input" id="consumo" placeholder="ej: 250">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Potencia (kW)</label>
+                            <select class="form-input" id="potencia">
+                                <option value="3.45">3,45 kW</option>
+                                <option value="4.6" selected>4,6 kW</option>
+                                <option value="5.75">5,75 kW</option>
+                                <option value="6.9">6,9 kW</option>
+                                <option value="8.05">8,05 kW</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-gold btn-block" onclick="calculateManual()">Ver mejores tarifas</button>
                 </div>
-                <div class="compania-card">
-                    <div class="compania-name">Podo</div>
-                    <div class="compania-type">⚡ Luz · 🔥 Gas</div>
-                </div>
-                <div class="compania-card">
-                    <div class="compania-name">Nueva Energía</div>
-                    <div class="compania-type">⚡ Luz</div>
-                </div>
-                <div class="compania-card">
-                    <div class="compania-name">Ion Energy</div>
-                    <div class="compania-type">⚡ Luz</div>
-                </div>
-                <div class="compania-card">
-                    <div class="compania-name">Ørsted</div>
-                    <div class="compania-type">⚡ Luz 100% Verde</div>
-                </div>
-                <div class="compania-card">
-                    <div class="compania-name">Fenosa Energía</div>
-                    <div class="compania-type">⚡ Luz · 🔥 Gas</div>
-                </div>
-                <div class="compania-card">
-                    <div class="compania-name">Cleanergy</div>
-                    <div class="compania-type">⚡ Luz Verde</div>
+                
+                <div class="result-card" id="result-card">
+                    <div class="result-title">📈 Tu mejor tarifa:</div>
+                    <div class="result-tariff">
+                        <div class="result-tariff-name" id="result-name">Tarifa Online</div>
+                        <div class="result-tariff-price"><span id="result-price">0,11</span>€<span>/kWh</span></div>
+                    </div>
+                    <div class="result-savings" id="result-savings">
+                        💰 Ahorro estimado: 40€/mes
+                    </div>
                 </div>
             </div>
         </div>
@@ -1464,21 +1464,22 @@
         <div class="section-container">
             <div class="section-header">
                 <div class="section-eyebrow">Tarifas Destacadas</div>
-                <h2 class="section-title">Planes pensados para ti</h2>
+                <h2 class="section-title">Tarifas desde 0,11€/kWh</h2>
                 <p class="section-subtitle">
-                    Elige la tarifa que mejor se adapte a tu consumo
+                    Encuentra la tarifa perfecta para ti
                 </p>
             </div>
             
             <div class="tarifas-grid">
                 <div class="tarifa-card">
-                    <span class="tarifa-badge">Precio Estable</span>
-                    <h3 class="tarifa-name">Plan Online</h3>
-                    <p class="tarifa-description">Precio fijo las 24 horas, los 365 días</p>
+                    <span class="tarifa-badge">⚡ Precio Estable</span>
+                    <h3 class="tarifa-name">Tarifa Online</h3>
+                    <p class="tarifa-company">Varias compañías</p>
                     <div class="tarifa-price">
                         <span class="tarifa-price-value">0,11€</span>
                         <span class="tarifa-price-unit">/kWh</span>
                     </div>
+                    <p class="tarifa-price-note">Precio fijo 24h · Sin permanencia</p>
                     <ul class="tarifa-features">
                         <li class="tarifa-feature">
                             <span class="tarifa-feature-icon">✓</span>
@@ -1486,165 +1487,72 @@
                         </li>
                         <li class="tarifa-feature">
                             <span class="tarifa-feature-icon">✓</span>
-                            Sin permanencia
+                            Facturación mensual clara
                         </li>
                         <li class="tarifa-feature">
                             <span class="tarifa-feature-icon">✓</span>
-                            Facturación mensual clara
+                            Sin letra pequeña
                         </li>
                     </ul>
-                    <a href="https://wa.me/34610243061?text=Quiero%20información%20sobre%20el%20Plan%20Online" class="btn btn-outline btn-block">
+                    <a href="https://wa.me/34610243061?text=Quiero%20información%20sobre%20la%20Tarifa%20Online%200,11€" class="btn btn-outline btn-block">
                         Me interesa
                     </a>
                 </div>
                 
                 <div class="tarifa-card featured">
-                    <span class="tarifa-badge">🌱 Energía Verde</span>
-                    <h3 class="tarifa-name">Plan Verde</h3>
-                    <p class="tarifa-description">100% energía renovable certificada</p>
+                    <span class="tarifa-badge gold">💰 Precio Fijo</span>
+                    <h3 class="tarifa-name">Tarifa Plana Zen</h3>
+                    <p class="tarifa-company">Naturgy</p>
+                    <div class="tarifa-price">
+                        <span class="tarifa-price-value">79€</span>
+                        <span class="tarifa-price-unit">/mes</span>
+                    </div>
+                    <p class="tarifa-price-note">Paga lo mismo consuma lo que consuma</p>
+                    <ul class="tarifa-features">
+                        <li class="tarifa-feature">
+                            <span class="tarifa-feature-icon">✓</span>
+                            Factura fija todos los meses
+                        </li>
+                        <li class="tarifa-feature">
+                            <span class="tarifa-feature-icon">✓</span>
+                            Sin sorpresas ni sorpresas
+                        </li>
+                        <li class="tarifa-feature">
+                            <span class="tarifa-feature-icon">✓</span>
+                            Ideal para controlar gastos
+                        </li>
+                    </ul>
+                    <a href="https://wa.me/34610243061?text=Quiero%20información%20sobre%20la%20Tarifa%20Plana%20Zen%20de%20Naturgy" class="btn btn-gold btn-block">
+                        Elegir Tarifa Plana
+                    </a>
+                </div>
+                
+                <div class="tarifa-card">
+                    <span class="tarifa-badge">🌱 100% Verde</span>
+                    <h3 class="tarifa-name">Tarifa Verde</h3>
+                    <p class="tarifa-company">Holaluz</p>
                     <div class="tarifa-price">
                         <span class="tarifa-price-value">0,12€</span>
                         <span class="tarifa-price-unit">/kWh</span>
                     </div>
+                    <p class="tarifa-price-note">Energía renovable certificada</p>
                     <ul class="tarifa-features">
                         <li class="tarifa-feature">
                             <span class="tarifa-feature-icon">✓</span>
-                            Energía limpia certificada
-                        </li>
-                        <li class="tarifa-feature">
-                            <span class="tarifa-feature-icon">✓</span>
-                            Reduce tu huella de CO₂
+                            100% energía renovable
                         </li>
                         <li class="tarifa-feature">
                             <span class="tarifa-feature-icon">✓</span>
                             Certificado de origen
                         </li>
-                    </ul>
-                    <a href="https://wa.me/34610243061?text=Quiero%20información%20sobre%20el%20Plan%20Verde" class="btn btn-primary btn-block">
-                        Elegir Plan Verde
-                    </a>
-                </div>
-                
-                <div class="tarifa-card">
-                    <span class="tarifa-badge">🌙 Máximo Ahorro</span>
-                    <h3 class="tarifa-name">Plan Nocturno</h3>
-                    <p class="tarifa-description">Super ahorro en horas valle</p>
-                    <div class="tarifa-price">
-                        <span class="tarifa-price-value">0,06€</span>
-                        <span class="tarifa-price-unit">/kWh nocturno</span>
-                    </div>
-                    <ul class="tarifa-features">
                         <li class="tarifa-feature">
                             <span class="tarifa-feature-icon">✓</span>
-                            Ideal para cargas nocturnas
-                        </li>
-                        <li class="tarifa-feature">
-                            <span class="tarifa-feature-icon">✓</span>
-                            Fines de semana incluidos
-                        </li>
-                        <li class="tarifa-feature">
-                            <span class="tarifa-feature-icon">✓</span>
-                            Perfecto para coche eléctrico
+                            Reduce tu huella de CO₂
                         </li>
                     </ul>
-                    <a href="https://wa.me/34610243061?text=Quiero%20información%20sobre%20el%20Plan%20Nocturno" class="btn btn-outline btn-block">
+                    <a href="https://wa.me/34610243061?text=Quiero%20información%20sobre%20la%20Tarifa%20Verde" class="btn btn-outline btn-block">
                         Me interesa
                     </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Cómo Funciona -->
-    <section class="como-funciona" id="como-funciona">
-        <div class="section-container">
-            <div class="section-header">
-                <div class="section-eyebrow">Proceso Sencillo</div>
-                <h2 class="section-title">En 3 pasos empiezas a ahorrar</h2>
-                <p class="section-subtitle">
-                    Sin complicaciones, sin permanencia, sin letra pequeña
-                </p>
-            </div>
-            
-            <div class="steps-grid">
-                <div class="steps-line"></div>
-                
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h3 class="step-title">Contactas</h3>
-                    <p class="step-text">
-                        Llámanos o escríbenos por WhatsApp con tu factura actual. Respuesta en menos de 1 hora.
-                    </p>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h3 class="step-title">Comparamos</h3>
-                    <p class="step-text">
-                        Analizamos más de 50 comercializadoras y te presentamos las mejores opciones.
-                    </p>
-                </div>
-                
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h3 class="step-title">Ahorras</h3>
-                    <p class="step-text">
-                        Gestionamos el cambio de compañía. Disfruta del ahorro desde el primer día.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Testimonios -->
-    <section class="testimonios">
-        <div class="section-container">
-            <div class="section-header">
-                <div class="section-eyebrow">Testimonios Reales</div>
-                <h2 class="section-title">Lo que dicen nuestros clientes</h2>
-            </div>
-            
-            <div class="testimonios-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">
-                        "Llevaba años pagando de más sin saberlo. Enerlux me encontró una tarifa que me ahorra €45 al mes. ¡Increíble!"
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">MG</div>
-                        <div>
-                            <div class="testimonial-name">María García</div>
-                            <div class="testimonial-location">Madrid</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">
-                        "Atención personalizada y rápida. Me explicaron todo con paciencia. Ahora consumo energía verde y pago menos."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">CR</div>
-                        <div>
-                            <div class="testimonial-name">Carlos Rodríguez</div>
-                            <div class="testimonial-location">Barcelona</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">
-                        "Tenía dudas sobre cambiar de compañía. El equipo de Enerlux me resolvió todas. El cambio fue súper fácil."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">LP</div>
-                        <div>
-                            <div class="testimonial-name">Laura Pérez</div>
-                            <div class="testimonial-location">Valencia</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1653,19 +1561,17 @@
     <!-- CTA Final -->
     <section class="cta-final">
         <div class="section-container">
-            <div class="cta-content">
-                <h2 class="cta-title">¿Listo para empezar a ahorrar?</h2>
-                <p class="cta-text">
-                    Comparación gratuita en menos de 24 horas. Sin compromiso, sin permanencia.
-                </p>
-                <div class="cta-buttons">
-                    <a href="https://wa.me/34610243061?text=Hola,%20quiero%20comparar%20mis%20tarifas" class="btn btn-primary">
-                        💬 WhatsApp
-                    </a>
-                    <a href="tel:+34610243061" class="btn btn-secondary">
-                        📞 Llamar +34 610 243 061
-                    </a>
-                </div>
+            <h2 class="cta-title">¿Listo para ahorrar?</h2>
+            <p class="cta-text">
+                Sin compromiso · Sin permanencia · Ahorro garantizado
+            </p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/34610243061?text=Hola,%20quiero%20comparar%20mis%20tarifas" class="btn btn-gold">
+                    💬 WhatsApp
+                </a>
+                <a href="tel:+34610243061" class="btn btn-primary">
+                    📞 +34 610 243 061
+                </a>
             </div>
         </div>
     </section>
@@ -1679,7 +1585,7 @@
                         <img src="logo-enerlux.jpg" alt="Enerlux">
                     </div>
                     <p class="footer-description">
-                        Tu asesor energético de confianza. Comparamos las mejores tarifas de luz y gas para que ahorres desde el primer día.
+                        Tu asesor energético de confianza. Comparamos las mejores tarifas para que ahorres desde el primer día.
                     </p>
                     <div class="footer-social">
                         <a href="#">📘</a>
@@ -1691,18 +1597,16 @@
                 <div class="footer-column">
                     <h4>Servicios</h4>
                     <ul class="footer-links">
-                        <li><a href="#comparador">Comparador de luz</a></li>
-                        <li><a href="#comparador">Comparador de gas</a></li>
+                        <li><a href="#calculadora">Calculadora</a></li>
+                        <li><a href="#tarifas">Tarifas</a></li>
                         <li><a href="activar-contrato.html">Activar contrato</a></li>
-                        <li><a href="#">Energía verde</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-column">
                     <h4>Empresa</h4>
                     <ul class="footer-links">
-                        <li><a href="#como-funciona">Cómo funciona</a></li>
-                        <li><a href="#testimonios">Testimonios</a></li>
+                        <li><a href="#">Sobre nosotros</a></li>
                         <li><a href="new-crm/login.html">Acceso Asesores</a></li>
                         <li><a href="mailto:enerlux.soluciones@gmail.com">Contacto</a></li>
                     </ul>
@@ -1714,7 +1618,6 @@
                         <li>📞 +34 610 243 061</li>
                         <li>📧 enerlux.soluciones@gmail.com</li>
                         <li>💬 WhatsApp disponible</li>
-                        <li>🕐 L-V: 9h - 20h</li>
                     </ul>
                 </div>
             </div>
@@ -1730,7 +1633,6 @@
         </div>
     </footer>
     
-    <!-- Scripts -->
     <script>
         // Mobile menu toggle
         function toggleMobileMenu() {
@@ -1739,23 +1641,84 @@
         }
         
         // File upload display
-        document.getElementById('file-input').addEventListener('change', function(e) {
-            const fileName = document.getElementById('file-name');
-            if (this.files && this.files[0]) {
-                fileName.textContent = '✓ Archivo seleccionado: ' + this.files[0].name;
-                fileName.style.display = 'block';
+        function updateFileName(input) {
+            const fileList = document.getElementById('file-list');
+            fileList.innerHTML = '';
+            if (input.files && input.files[0]) {
+                const div = document.createElement('div');
+                div.className = 'file-item';
+                div.innerHTML = `<span>📄 ${input.files[0].name}</span><button type="button" onclick="clearFile()">✕</button>`;
+                fileList.appendChild(div);
             }
-        });
+        }
+        
+        function clearFile() {
+            document.getElementById('file-input').value = '';
+            document.getElementById('file-list').innerHTML = '';
+        }
         
         // Header scroll effect
         window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
+            const header = document.getElementById('header');
             if (window.scrollY > 50) {
-                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+                header.classList.add('scrolled');
             } else {
-                header.style.boxShadow = 'none';
+                header.classList.remove('scrolled');
             }
         });
+        
+        // Calculator functions
+        function calculateCUPS() {
+            const cups = document.getElementById('cups-input').value.trim();
+            if (!cups || cups.length < 20) {
+                alert('Por favor, introduce un CUPS válido');
+                return;
+            }
+            
+            // Simulate calculation
+            document.getElementById('result-name').textContent = 'Tarifa Plana Zen';
+            document.getElementById('result-price').textContent = '79€/mes';
+            document.getElementById('result-savings').textContent = '💰 Ahorro estimado: 35€/mes';
+            document.getElementById('result-card').classList.add('active');
+            
+            // Scroll to result
+            document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function calculateManual() {
+            const consumo = document.getElementById('consumo').value;
+            const potencia = document.getElementById('potencia').value;
+            
+            if (!consumo) {
+                alert('Por favor, introduce tu consumo mensual');
+                return;
+            }
+            
+            // Calculate best option
+            const consumoNum = parseFloat(consumo);
+            let tarifa, precio, ahorro;
+            
+            if (consumoNum > 400) {
+                tarifa = 'Tarifa Plana Zen';
+                precio = '79€/mes';
+                ahorro = '45€/mes';
+            } else if (consumoNum > 200) {
+                tarifa = 'Tarifa Online';
+                precio = '0,11€';
+                ahorro = '35€/mes';
+            } else {
+                tarifa = 'Tarifa Verde';
+                precio = '0,12€';
+                ahorro = '25€/mes';
+            }
+            
+            document.getElementById('result-name').textContent = tarifa;
+            document.getElementById('result-price').textContent = precio;
+            document.getElementById('result-savings').textContent = '💰 Ahorro estimado: ' + ahorro;
+            document.getElementById('result-card').classList.add('active');
+            
+            document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         
         // Form submission
         document.getElementById('factura-form').addEventListener('submit', function(e) {
