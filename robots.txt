@@ -1,0 +1,15 @@
+# robots.txt for pagomenosluzygas.es
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.pagomenosluzygas.es/sitemap.xml
+
+# Disallow admin/private areas
+Disallow: /crm/
+Disallow: /new-crm/
+Disallow: /backend/
+Disallow: /auth-debug-v2.html
+Disallow: /auth-test-simple.html
+Disallow: /test-login.html
