@@ -1511,10 +1511,9 @@
                     <h3 class="tarifa-name">Tarifa Plana Zen</h3>
                     <p class="tarifa-company">Naturgy</p>
                     <div class="tarifa-price">
-                        <span class="tarifa-price-value">79€</span>
-                        <span class="tarifa-price-unit">/mes</span>
+                        <span class="tarifa-price-value">Personalizado</span>
                     </div>
-                    <p class="tarifa-price-note">Paga lo mismo consuma lo que consuma</p>
+                    <p class="tarifa-price-note">El mismo precio cada mes, consumas lo que consumas</p>
                     <ul class="tarifa-features">
                         <li class="tarifa-feature">
                             <span class="tarifa-feature-icon">✓</span>
@@ -1522,15 +1521,15 @@
                         </li>
                         <li class="tarifa-feature">
                             <span class="tarifa-feature-icon">✓</span>
-                            Sin sorpresas ni sorpresas
+                            Sin sorpresas ni letra pequeña
                         </li>
                         <li class="tarifa-feature">
                             <span class="tarifa-feature-icon">✓</span>
                             Ideal para controlar gastos
                         </li>
                     </ul>
-                    <a href="https://wa.me/34610243061?text=Quiero%20información%20sobre%20la%20Tarifa%20Plana%20Zen%20de%20Naturgy" class="btn btn-gold btn-block">
-                        Elegir Tarifa Plana
+                    <a href="https://wa.me/34610243061?text=Hola,%20quiero%20saber%20el%20precio%20de%20la%20Tarifa%20Plana%20Zen%20para%20mi%20caso" class="btn btn-gold btn-block">
+                        📊 Calcular mi precio
                     </a>
                 </div>
                 
@@ -1716,15 +1715,17 @@
             let tipoPrecio = '';
             let ahorroMensual = 0;
             let compania = '';
+            let necesitaCalculadora = false;
             
             // Lógica de recomendación basada en consumo
             if (consumo >= 350) {
-                // Consumo alto - Tarifa Plana
+                // Consumo alto - Tarifa Plana (precio variable, se calcula con Naturgy)
                 tarifaRecomendada = 'Tarifa Plana Zen';
-                precioNuevo = 79;
-                tipoPrecio = '€/mes fijo';
+                precioNuevo = 0;
+                tipoPrecio = 'calculo';
                 compania = 'Naturgy';
-                ahorroMensual = Math.round(costeActual - precioNuevo);
+                necesitaCalculadora = true;
+                ahorroMensual = Math.round(costeActual * 0.25); // ~25% ahorro estimado
             } else if (consumo >= 200) {
                 // Consumo medio-alto - Tarifa 0,11€
                 tarifaRecomendada = 'Tarifa Online';
@@ -1759,8 +1760,9 @@
             // Mostrar resultado
             document.getElementById('result-name').textContent = tarifaRecomendada + ' (' + compania + ')';
             
-            if (tipoPrecio === '€/mes fijo') {
-                document.getElementById('result-price').innerHTML = precioNuevo + '<span>' + tipoPrecio + '</span>';
+            if (necesitaCalculadora) {
+                // Tarifa Plana - precio variable según Naturgy
+                document.getElementById('result-price').innerHTML = '<span style="font-size: 16px;">Precio personalizado</span>';
             } else {
                 document.getElementById('result-price').innerHTML = precioNuevo.toFixed(3).replace('.', ',') + '<span>' + tipoPrecio + '</span>';
             }
@@ -1770,17 +1772,26 @@
             
             // Añadir botón de contacto
             const existingBtn = document.getElementById('contact-btn');
+            let mensajeWhatsapp = '';
+            
+            if (necesitaCalculadora) {
+                mensajeWhatsapp = 'Hola, me interesa la ' + tarifaRecomendada + ' de Naturgy. Consumo: ' + consumo + ' kWh/mes, Potencia: ' + potencia + ' kW. ¿Podéis calcularme el precio exacto de la tarifa plana?';
+            } else {
+                mensajeWhatsapp = 'Hola, me interesa la ' + tarifaRecomendada + '. Consumo: ' + consumo + ' kWh/mes, Potencia: ' + potencia + ' kW. Ahorro estimado: ' + ahorroMensual + '€/mes';
+            }
+            
             if (!existingBtn) {
                 const btn = document.createElement('a');
                 btn.id = 'contact-btn';
                 btn.className = 'btn btn-gold btn-block';
                 btn.style.marginTop = '16px';
-                btn.href = `https://wa.me/34610243061?text=${encodeURIComponent('Hola, me interesa la ' + tarifaRecomendada + '. Consumo: ' + consumo + ' kWh/mes, Potencia: ' + potencia + ' kW. Ahorro estimado: ' + ahorroMensual + '€/mes')}`;
+                btn.href = `https://wa.me/34610243061?text=${encodeURIComponent(mensajeWhatsapp)}`;
                 btn.target = '_blank';
-                btn.innerHTML = '💬 Contactar por WhatsApp';
+                btn.innerHTML = necesitaCalculadora ? '📊 Calcular mi tarifa plana' : '💬 Contactar por WhatsApp';
                 document.getElementById('result-card').appendChild(btn);
             } else {
-                existingBtn.href = `https://wa.me/34610243061?text=${encodeURIComponent('Hola, me interesa la ' + tarifaRecomendada + '. Consumo: ' + consumo + ' kWh/mes, Potencia: ' + potencia + ' kW. Ahorro estimado: ' + ahorroMensual + '€/mes')}`;
+                existingBtn.href = `https://wa.me/34610243061?text=${encodeURIComponent(mensajeWhatsapp)}`;
+                existingBtn.innerHTML = necesitaCalculadora ? '📊 Calcular mi tarifa plana' : '💬 Contactar por WhatsApp';
             }
             
             document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
