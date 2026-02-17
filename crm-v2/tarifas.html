@@ -225,7 +225,7 @@
         
         .link-oficial:hover { background: var(--gray-100); }
         
-        . verified {
+        .verified {
             display: inline-flex;
             align-items: center;
             gap: 4px;
@@ -270,7 +270,6 @@
             <div class="company-tab" onclick="showCompany('holaluz')">☀️ Holaluz</div>
             <div class="company-tab" onclick="showCompany('gana')">💰 Gana Energía</div>
             <div class="company-tab" onclick="showCompany('total')">⛽ TotalEnergies</div>
-            <div class="company-tab" onclick="showCompany('edp')">🔌 EDP</div>
         </div>
         
         <!-- ENDESA -->
@@ -306,32 +305,22 @@
                 </div>
                 
                 <div class="card">
-                    <div class="card-header mant">🔧 Mantenimientos</div>
+                    <div class="card-header mant">🔧 Mantenimientos <span class="verified">✓</span></div>
                     <div class="card-body">
                         <div class="mant-item">
                             <div class="mant-name">Protección 360 Plus</div>
-                            <div class="mant-price">Consultar</div>
+                            <div class="mant-price">Consultar portal</div>
                             <div class="mant-info">Protección completa hogar</div>
                         </div>
                         <div class="mant-item">
                             <div class="mant-name">Mantenimiento Aire Completo</div>
-                            <div class="mant-price">Consultar</div>
+                            <div class="mant-price">Consultar portal</div>
                             <div class="mant-info">Aire acondicionado</div>
                         </div>
                         <div class="mant-item">
                             <div class="mant-name">Mantenimiento Gas Completo</div>
-                            <div class="mant-price">Consultar</div>
+                            <div class="mant-price">Consultar portal</div>
                             <div class="mant-info">Caldera y calefacción gas</div>
-                        </div>
-                        <div class="mant-item">
-                            <div class="mant-name">Luz Esencial</div>
-                            <div class="mant-price">7,59 €/mes</div>
-                            <div class="mant-info">Reparación eléctrica básica</div>
-                        </div>
-                        <div class="mant-item">
-                            <div class="mant-name">Luz Total</div>
-                            <div class="mant-price">13,99 €/mes</div>
-                            <div class="mant-info">Reparación + electrodomésticos</div>
                         </div>
                     </div>
                 </div>
@@ -476,19 +465,19 @@
                     <div class="card-header mant">🔧 Mantenimientos</div>
                     <div class="card-body">
                         <div class="mant-item">
-                            <div class="mant-name">Luz 24h</div>
-                            <div class="mant-price">8,99 €/mes</div>
-                            <div class="mant-info">Reparación eléctrica 24h</div>
+                            <div class="mant-name">Servielectric Express</div>
+                            <div class="mant-price">Consultar portal</div>
+                            <div class="mant-info">Reparación eléctrica urgente</div>
                         </div>
                         <div class="mant-item">
-                            <div class="mant-name">Gas 24h</div>
-                            <div class="mant-price">9,99 €/mes</div>
-                            <div class="mant-info">Reparación gas y calefacción</div>
+                            <div class="mant-name">Servielectric Express Piezas</div>
+                            <div class="mant-price">Consultar portal</div>
+                            <div class="mant-info">Reparación eléctrica + piezas incluidas</div>
                         </div>
                         <div class="mant-item">
-                            <div class="mant-name">Hogar 360</div>
-                            <div class="mant-price">19,99 €/mes</div>
-                            <div class="mant-info">Electricidad + Gas + Fontanería + Electrod.</div>
+                            <div class="mant-name">Servigas Complet</div>
+                            <div class="mant-price">Consultar portal</div>
+                            <div class="mant-info">Mantenimiento gas y calefacción completo</div>
                         </div>
                     </div>
                 </div>
@@ -592,7 +581,7 @@
                     <div class="card-header luz">⚡ Luz - Por Uso</div>
                     <div class="card-body">
                         <div class="price-row"><span class="price-label">Potencia P1</span><span class="price-value">0,1032 €/kW día</span></div>
-                        <div class="price-row"><span class="price-label">Potencia P2</span><span class="price-value">0,0297 €/kW día</span></div>
+                        <div class="price-row"><span class="price-label">Potencia P2</span><span class="price-value">0,0297 €/kW dia</span></div>
                         <div class="price-row"><span class="price-label">Energía</span><span class="price-value highlight">0,095 €/kWh</span></div>
                     </div>
                 </div>
@@ -718,68 +707,6 @@
             </div>
             <div class="source-box">📋 Fuente: Portal colaboradores.processus.es - TotalEnergies</div>
             <a href="https://www.totalenergies.es/clientes/luz-y-gas" target="_blank" class="link-oficial">🔗 Ver web oficial totalenergies.es</a>
-        </div>
-        
-        <!-- EDP -->
-        <div class="company-panel" id="panel-edp">
-            <div class="tarifas-grid">
-                <div class="card">
-                    <div class="card-header luz">⚡ Luz - Por Uso</div>
-                    <div class="card-body">
-                        <div class="price-row"><span class="price-label">Potencia P1</span><span class="price-value">0,1130 €/kW día</span></div>
-                        <div class="price-row"><span class="price-label">Potencia P2</span><span class="price-value">0,0330 €/kW día</span></div>
-                        <div class="price-row"><span class="price-label">Energía</span><span class="price-value">0,120 €/kWh</span></div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header gas">🔥 Gas - Por Uso</div>
-                    <div class="card-body">
-                        <div class="price-row"><span class="price-label">Término fijo (RL1)</span><span class="price-value">4,50 €/mes</span></div>
-                        <div class="price-row"><span class="price-label">Término variable</span><span class="price-value">0,056 €/kWh</span></div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header mant">🔧 Mantenimientos</div>
-                    <div class="card-body">
-                        <div class="mant-item">
-                            <div class="mant-name">EDP Luz</div>
-                            <div class="mant-price">6,25 €/mes</div>
-                            <div class="mant-info">Reparación instalaciones eléctricas</div>
-                        </div>
-                        <div class="mant-item">
-                            <div class="mant-name">EDP Gas</div>
-                            <div class="mant-price">7,50 €/mes</div>
-                            <div class="mant-info">Reparación gas y calefacción</div>
-                        </div>
-                        <div class="mant-item">
-                            <div class="mant-name">EDP Hogar</div>
-                            <div class="mant-price">14,99 €/mes</div>
-                            <div class="mant-info">Electricidad + Gas + Fontanería</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header desc">🎁 Descuentos</div>
-                    <div class="card-body">
-                        <div class="desc-item">
-                            <span class="desc-badge">10%</span>
-                            <div>
-                                <div class="desc-text">Descuento con mantenimiento</div>
-                            </div>
-                        </div>
-                        <div class="desc-item">
-                            <span class="desc-badge">☀️</span>
-                            <div>
-                                <div class="desc-text">Soluciones de autoconsumo solar</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a href="https://www.edp.es/particulares/luz-y-gas" target="_blank" class="link-oficial">🔗 Ver web oficial edp.es</a>
         </div>
         
     </div>
