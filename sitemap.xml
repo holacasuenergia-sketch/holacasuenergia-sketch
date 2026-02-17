@@ -2,31 +2,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.pagomenosluzygas.es/</loc>
-        <lastmod>2026-02-16</lastmod>
+        <lastmod>2026-02-17</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://www.pagomenosluzygas.es/activar-contrato.html</loc>
-        <lastmod>2026-02-16</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>https://www.pagomenosluzygas.es/tarifas-luz.html</loc>
+        <lastmod>2026-02-17</lastmod>
+        <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>https://www.pagomenosluzygas.es/tarifas-gas.html</loc>
+        <lastmod>2026-02-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.pagomenosluzygas.es/comparador.html</loc>
+        <lastmod>2026-02-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://www.pagomenosluzygas.es/activar-contrato.html</loc>
+        <lastmod>2026-02-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://www.pagomenosluzygas.es/aviso-legal.html</loc>
-        <lastmod>2026-02-16</lastmod>
+        <lastmod>2026-02-17</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
     <url>
         <loc>https://www.pagomenosluzygas.es/politica-privacidad.html</loc>
-        <lastmod>2026-02-16</lastmod>
+        <lastmod>2026-02-17</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
     <url>
         <loc>https://www.pagomenosluzygas.es/politica-cookies.html</loc>
-        <lastmod>2026-02-16</lastmod>
+        <lastmod>2026-02-17</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
