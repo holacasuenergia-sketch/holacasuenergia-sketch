@@ -673,7 +673,7 @@
                             <div class="form-upload-text">
                                 <strong>Haz clic o arrastra</strong><br>
                                 Foto delantera y trasera del DNI<br>
-                                <small>Puedes subir hasta 2 archivos (JPG, PNG, PDF)</small>
+                                <small>Puedes subir los archivos uno a uno</small>
                             </div>
                         </div>
                         <div class="file-list" id="dni-list"></div>
@@ -857,6 +857,13 @@
     </footer>
     
     <script>
+        // Almacenamiento de archivos acumulados por tipo
+        const accumulatedFiles = {
+            'dni': [],
+            'factura-luz': [],
+            'factura-gas': []
+        };
+        
         // Toggle potencia select
         function togglePotencia() {
             const opcion = document.getElementById('potencia-opcion').value;
@@ -867,36 +874,56 @@
             }
         }
         
-        // File upload handlers
+        // File upload handlers - ACUMULATIVO
         function updateFiles(type) {
             const input = document.getElementById(type + '-input');
+            
+            // Añadir nuevos archivos a los acumulados (sin duplicados)
+            for (let i = 0; i < input.files.length; i++) {
+                const newFile = input.files[i];
+                // Verificar si ya existe un archivo con el mismo nombre
+                const exists = accumulatedFiles[type].some(f => f.name === newFile.name);
+                if (!exists) {
+                    accumulatedFiles[type].push(newFile);
+                }
+            }
+            
+            // Actualizar el input file con todos los archivos acumulados
+            const dt = new DataTransfer();
+            accumulatedFiles[type].forEach(file => dt.items.add(file));
+            input.files = dt.files;
+            
+            // Mostrar lista visual
+            renderFileList(type);
+        }
+        
+        function renderFileList(type) {
             const list = document.getElementById(type + '-list');
             list.innerHTML = '';
             
-            for (let i = 0; i < input.files.length; i++) {
-                const file = input.files[i];
+            accumulatedFiles[type].forEach((file, index) => {
                 const div = document.createElement('div');
                 div.className = 'file-item';
                 div.innerHTML = `
                     <span>📄 ${file.name}</span>
-                    <button type="button" onclick="removeFile('${type}', ${i})">✕</button>
+                    <button type="button" onclick="removeFile('${type}', ${index})">✕</button>
                 `;
                 list.appendChild(div);
-            }
+            });
         }
         
         function removeFile(type, index) {
+            // Eliminar del array acumulado
+            accumulatedFiles[type].splice(index, 1);
+            
+            // Actualizar el input file
             const input = document.getElementById(type + '-input');
             const dt = new DataTransfer();
-            
-            for (let i = 0; i < input.files.length; i++) {
-                if (i !== index) {
-                    dt.items.add(input.files[i]);
-                }
-            }
-            
+            accumulatedFiles[type].forEach(file => dt.items.add(file));
             input.files = dt.files;
-            updateFiles(type);
+            
+            // Actualizar la lista visual
+            renderFileList(type);
         }
         
         // Form submission
