@@ -1474,7 +1474,7 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-gold btn-block" onclick="calculateTarifas()">
+                    <button type="button" class="btn btn-gold btn-block" onclick="calculateTarifas()">
                         🔍 Calcular mi tarifa
                     </button>
                 </div>
@@ -1747,6 +1747,9 @@
         
         // Calculator - Calcular tarifa Naturgy
         function calculateTarifas() {
+            console.log('=== CALCULADORA INICIADA ===');
+            alert('Calculando...');
+            
             // Obtener valores de forma segura
             const consumoLuzEl = document.getElementById('consumo-luz');
             const p1El = document.getElementById('potencia-p1');
@@ -1754,6 +1757,13 @@
             const consumoGasEl = document.getElementById('consumo-gas');
             const cupsLuzEl = document.getElementById('cups-luz');
             const cupsGasEl = document.getElementById('cups-gas');
+            
+            console.log('Elementos encontrados:', {
+                consumoLuzEl: !!consumoLuzEl,
+                p1El: !!p1El,
+                p2El: !!p2El,
+                consumoGasEl: !!consumoGasEl
+            });
             
             // Convertir coma a punto y parsear
             const consumoLuzVal = consumoLuzEl ? consumoLuzEl.value.replace(',', '.') : '0';
