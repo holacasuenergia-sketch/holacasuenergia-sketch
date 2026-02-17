@@ -731,19 +731,19 @@
         const auth = firebase.auth();
         const db = firebase.database();
         
-        // Compañías SIN Enerlux - Precios Febrero 2026 (verificar en web oficial)
+        // Compañías - Precios Febrero 2026 (Portal colaboradores.processus.es)
         const COMPANIAS = [
             { 
                 nombre: 'Endesa', 
-                luz: { p1: '0,1186 €/kW día', p2: '0,0345 €/kW día', energia: '0,152 €/kWh (P2: 0,081)' },
+                luz: { p1: '0,094 €/kW', p2: '-', energia: '0,1212 €/kWh (precio único)' },
                 gas: { fijo: '4,29 €/mes', variable: '0,0579 €/kWh' },
                 mantenimiento: 'Desde 7,59 €/mes',
-                badge: '20% dto. primer año'
+                badge: '10% dto + 1 mes gratis'
             },
             { 
                 nombre: 'Iberdrola', 
-                luz: { p1: '0,1196 €/kW día', p2: '0,0356 €/kW día', energia: '0,145 €/kWh (P2: 0,095)' },
-                gas: { fijo: '4,45 €/mes', variable: '0,0529 €/kWh' },
+                luz: { p1: '0,108 €/kW', p2: '-', energia: '0,138 €/kWh (15% dto incluido)' },
+                gas: { fijo: '5,57 €/mes', variable: '0,085 €/kWh' },
                 mantenimiento: 'Desde 9,99 €/mes',
                 badge: '100% Verde'
             },
@@ -756,8 +756,8 @@
             },
             { 
                 nombre: 'Holaluz', 
-                luz: { p1: 'Precio mercado', p2: 'Precio mercado', energia: '~0,108 €/kWh' },
-                gas: null,
+                luz: { p1: '0,082 €/kW', p2: '-', energia: '0,121 €/kWh (precio único)' },
+                gas: { fijo: '5,99 €/mes', variable: '0,07 €/kWh' },
                 mantenimiento: 'Desde 5,99 €/mes',
                 badge: '100% Verde'
             },
@@ -770,9 +770,10 @@
             },
             { 
                 nombre: 'TotalEnergies', 
-                luz: { p1: '0,1095 €/kW día', p2: '0,0324 €/kW día', energia: '0,112 €/kWh' },
-                gas: { fijo: '4,20 €/mes', variable: '0,049 €/kWh' },
-                mantenimiento: 'Desde 5,75 €/mes'
+                luz: { p1: '0,078 €/kW', p2: '-', energia: '0,135 €/kWh (precio único 24h)' },
+                gas: { fijo: '5,00 €/mes (DUAL)', variable: '0,069 €/kWh' },
+                mantenimiento: 'Desde 5,75 €/mes',
+                badge: '100% Renovable'
             },
             { 
                 nombre: 'EDP', 

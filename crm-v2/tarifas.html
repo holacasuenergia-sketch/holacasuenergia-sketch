@@ -225,6 +225,18 @@
         
         .link-oficial:hover { background: var(--gray-100); }
         
+        . verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: #059669;
+            background: #D1FAE5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        
         @media (max-width: 768px) {
             .tarifas-grid { grid-template-columns: 1fr; }
         }
@@ -245,7 +257,7 @@
             <p class="page-subtitle">Información del portal de colaboradores para orientar a los clientes</p>
         </div>
         
-        <div class="update-badge">📅 Febrero 2026 - Fuente: Portal colaboradores + webs oficiales</div>
+        <div class="update-badge">📅 Febrero 2026 - Fuente: Portal colaboradores.processus.es <span class="verified">✓ Verificado</span></div>
         
         <div class="warning-box">
             <p>⚠️ <strong>Importante:</strong> Las tarifas pueden cambiar. La <strong>Tarifa Plana de Naturgy</strong> es personalizada según consumo (usar su calculadora online). Siempre verificar en el portal de colaboradores antes de hacer una propuesta.</p>
@@ -265,9 +277,9 @@
         <div class="company-panel active" id="panel-endesa">
             <div class="tarifas-grid">
                 <div class="card">
-                    <div class="card-header luz">⚡ Luz - Tarifa Libre</div>
+                    <div class="card-header luz">⚡ Luz - Tarifa Libre <span class="verified">✓</span></div>
                     <div class="card-body">
-                        <div class="price-row"><span class="price-label">Potencia</span><span class="price-value">0,094 €/kW</span></div>
+                        <div class="price-row"><span class="price-label">Término de potencia</span><span class="price-value highlight">0,094 €/kW</span></div>
                         <div class="price-row"><span class="price-label">Energía P1/P2/P3</span><span class="price-value highlight">0,1212 €/kWh</span></div>
                         <div class="price-row"><span class="price-label">Precio base energía</span><span class="price-value">0,134692 €/kWh</span></div>
                         <div class="info-box">💡 Precio único las 24 horas, sin discriminación horaria</div>
@@ -275,7 +287,7 @@
                 </div>
                 
                 <div class="card">
-                    <div class="card-header gas">🔥 Gas - DUAL con Luz</div>
+                    <div class="card-header gas">🔥 Gas - DUAL con Luz <span class="verified">✓</span></div>
                     <div class="card-body">
                         <div class="price-row"><span class="price-label">Término fijo (RL1)</span><span class="price-value">4,29 €/mes</span></div>
                         <div class="price-row"><span class="price-label">Término variable</span><span class="price-value">0,0579 €/kWh</span></div>
@@ -284,7 +296,7 @@
                 </div>
                 
                 <div class="card">
-                    <div class="card-header solar">☀️ Solar Plus & Batería Virtual</div>
+                    <div class="card-header solar">☀️ Solar Plus & Batería Virtual <span class="verified">✓</span></div>
                     <div class="card-body">
                         <div class="price-row"><span class="price-label">Potencia</span><span class="price-value">0,09 €/kW</span></div>
                         <div class="price-row"><span class="price-label">Energía P1-P3</span><span class="price-value">0,148828 €/kWh</span></div>
@@ -325,7 +337,7 @@
                 </div>
                 
                 <div class="card">
-                    <div class="card-header desc">🎁 Descuentos y Promociones</div>
+                    <div class="card-header desc">🎁 Descuentos y Promociones <span class="verified">✓</span></div>
                     <div class="card-body">
                         <div class="desc-item">
                             <span class="desc-badge">10%</span>
@@ -355,9 +367,7 @@
                     </div>
                 </div>
             </div>
-            <div class="source-box">
-                📋 Fuente: Portal colaboradores.processus.es - Tarifa Libre Endesa
-            </div>
+            <div class="source-box">📋 Fuente: Portal colaboradores.processus.es - Tarifa Libre Endesa</div>
             <a href="https://www.endesa.es/es/tarifas-luz-gas" target="_blank" class="link-oficial">🔗 Ver web oficial endesa.es</a>
         </div>
         
@@ -365,21 +375,21 @@
         <div class="company-panel" id="panel-iberdrola">
             <div class="tarifas-grid">
                 <div class="card">
-                    <div class="card-header luz">⚡ Luz - Por Uso</div>
+                    <div class="card-header luz">⚡ Luz - Plan Estable (<15kW) <span class="verified">✓</span></div>
                     <div class="card-body">
-                        <div class="price-row"><span class="price-label">Potencia P1 (Punta)</span><span class="price-value">0,1196 €/kW día</span></div>
-                        <div class="price-row"><span class="price-label">Potencia P2 (Valle)</span><span class="price-value">0,0356 €/kW día</span></div>
-                        <div class="price-row"><span class="price-label">Energía P1 (Punta)</span><span class="price-value">0,3150 €/kWh</span></div>
-                        <div class="price-row"><span class="price-label">Energía P2 (Valle)</span><span class="price-value">0,0950 €/kWh</span></div>
-                        <div class="price-row"><span class="price-label">Energía P3 (Llano)</span><span class="price-value">0,1450 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">Término de potencia</span><span class="price-value highlight">0,108 €/kW</span></div>
+                        <div class="price-row"><span class="price-label">Término de energía</span><span class="price-value highlight">0,138 €/kWh</span></div>
+                        <div class="info-box">💡 15% descuento en término de energía ya incluido en el precio</div>
                     </div>
                 </div>
                 
                 <div class="card">
-                    <div class="card-header gas">🔥 Gas - Por Uso</div>
+                    <div class="card-header gas">🔥 Gas - Por Uso <span class="verified">✓</span></div>
                     <div class="card-body">
-                        <div class="price-row"><span class="price-label">Término fijo (RL1)</span><span class="price-value">4,45 €/mes</span></div>
-                        <div class="price-row"><span class="price-label">Término variable</span><span class="price-value">0,0529 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">Opción 1 - Término fijo</span><span class="price-value">5,57 €/mes</span></div>
+                        <div class="price-row"><span class="price-label">Opción 1 - Variable</span><span class="price-value">0,085 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">Opción 2 - Término fijo</span><span class="price-value">5,90 €/mes</span></div>
+                        <div class="price-row"><span class="price-label">Opción 2 - Variable</span><span class="price-value">0,091 €/kWh</span></div>
                     </div>
                 </div>
                 
@@ -410,18 +420,13 @@
                 </div>
                 
                 <div class="card">
-                    <div class="card-header desc">🎁 Descuentos y Ventajas</div>
+                    <div class="card-header desc">🎁 Descuentos</div>
                     <div class="card-body">
                         <div class="desc-item">
                             <span class="desc-badge">15%</span>
                             <div>
-                                <div class="desc-text">Descuento en energía primer año</div>
-                            </div>
-                        </div>
-                        <div class="desc-item">
-                            <span class="desc-badge">5%</span>
-                            <div>
-                                <div class="desc-text">Descuento adicional con mantenimiento</div>
+                                <div class="desc-text">Descuento en término de energía</div>
+                                <div class="desc-cond">Ya incluido en el precio</div>
                             </div>
                         </div>
                         <div class="desc-item">
@@ -433,6 +438,7 @@
                     </div>
                 </div>
             </div>
+            <div class="source-box">📋 Fuente: Portal colaboradores.processus.es - Plan Estable Iberdrola</div>
             <a href="https://www.iberdrola.es/luz-y-gas/tarifas-luz" target="_blank" class="link-oficial">🔗 Ver web oficial iberdrola.es</a>
         </div>
         
@@ -519,11 +525,19 @@
         <div class="company-panel" id="panel-holaluz">
             <div class="tarifas-grid">
                 <div class="card">
-                    <div class="card-header luz">⚡ Luz - Indexada</div>
+                    <div class="card-header luz">⚡ Luz - Clásica 1 Precio Especial <span class="verified">✓</span></div>
                     <div class="card-body">
-                        <div class="price-row"><span class="price-label">Potencia</span><span class="price-value">Precio mercado + peaje</span></div>
-                        <div class="price-row"><span class="price-label">Energía</span><span class="price-value">PVPC + pequeño margen</span></div>
-                        <div class="price-row"><span class="price-label">Energía (aprox.)</span><span class="price-value highlight">~0,108 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">Término de potencia</span><span class="price-value highlight">0,082 €/kW</span></div>
+                        <div class="price-row"><span class="price-label">Energía P1-P3</span><span class="price-value highlight">0,121 €/kWh</span></div>
+                        <div class="info-box">💡 Precio único 24h - Sin permanencia</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header gas">🔥 Gas RL.1 <span class="verified">✓</span></div>
+                    <div class="card-body">
+                        <div class="price-row"><span class="price-label">Término fijo</span><span class="price-value">5,99 €/mes</span></div>
+                        <div class="price-row"><span class="price-label">Término variable</span><span class="price-value highlight">0,07 €/kWh</span></div>
                     </div>
                 </div>
                 
@@ -553,9 +567,9 @@
                             </div>
                         </div>
                         <div class="desc-item">
-                            <span class="desc-badge">CO2</span>
+                            <span class="desc-badge">Sin permanencia</span>
                             <div>
-                                <div class="desc-text">Compensación huella carbono incluida</div>
+                                <div class="desc-text">Puedes cambiar cuando quieras</div>
                             </div>
                         </div>
                         <div class="desc-item">
@@ -567,9 +581,7 @@
                     </div>
                 </div>
             </div>
-            <div class="info-box" style="margin-top: 20px;">
-                ⚠️ <strong>Holaluz NO ofrece servicio de gas natural.</strong> Solo comercializa energía eléctrica 100% renovable.
-            </div>
+            <div class="source-box">📋 Fuente: Portal colaboradores.processus.es - Holaluz</div>
             <a href="https://www.holaluz.com/tarifas-luz/" target="_blank" class="link-oficial">🔗 Ver web oficial holaluz.com</a>
         </div>
         
@@ -645,19 +657,22 @@
         <div class="company-panel" id="panel-total">
             <div class="tarifas-grid">
                 <div class="card">
-                    <div class="card-header luz">⚡ Luz - Por Uso</div>
+                    <div class="card-header luz">⚡ Luz - A Tu Aire Luz Siempre <span class="verified">✓</span></div>
                     <div class="card-body">
-                        <div class="price-row"><span class="price-label">Potencia P1</span><span class="price-value">0,1095 €/kW día</span></div>
-                        <div class="price-row"><span class="price-label">Potencia P2</span><span class="price-value">0,0324 €/kW día</span></div>
-                        <div class="price-row"><span class="price-label">Energía</span><span class="price-value">0,112 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">Término de potencia (2.0TD)</span><span class="price-value highlight">0,078 €/kW</span></div>
+                        <div class="price-row"><span class="price-label">Energía</span><span class="price-value highlight">0,135 €/kWh</span></div>
+                        <div class="info-box">💡 Precio fijo único 24h - Sin permanencia - 100% renovable</div>
                     </div>
                 </div>
                 
                 <div class="card">
-                    <div class="card-header gas">🔥 Gas - Por Uso</div>
+                    <div class="card-header gas">🔥 Gas - Por Uso <span class="verified">✓</span></div>
                     <div class="card-body">
-                        <div class="price-row"><span class="price-label">Término fijo (RL1)</span><span class="price-value">4,20 €/mes</span></div>
-                        <div class="price-row"><span class="price-label">Término variable</span><span class="price-value">0,049 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">Individual - Término fijo</span><span class="price-value">6,00 €/mes</span></div>
+                        <div class="price-row"><span class="price-label">Individual - Variable</span><span class="price-value">0,074 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">DUAL - Término fijo</span><span class="price-value highlight">5,00 €/mes</span></div>
+                        <div class="price-row"><span class="price-label">DUAL - Variable</span><span class="price-value highlight">0,069 €/kWh</span></div>
+                        <div class="info-box">💡 DUAL = Gas + Luz juntos = mejor precio</div>
                     </div>
                 </div>
                 
@@ -687,14 +702,21 @@
                             </div>
                         </div>
                         <div class="desc-item">
-                            <span class="desc-badge">15%</span>
+                            <span class="desc-badge">DUAL</span>
                             <div>
-                                <div class="desc-text">Descuento primer año</div>
+                                <div class="desc-text">Mejor precio contratando luz + gas</div>
+                            </div>
+                        </div>
+                        <div class="desc-item">
+                            <span class="desc-badge">100% Renovable</span>
+                            <div>
+                                <div class="desc-text">Energía verde certificada</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="source-box">📋 Fuente: Portal colaboradores.processus.es - TotalEnergies</div>
             <a href="https://www.totalenergies.es/clientes/luz-y-gas" target="_blank" class="link-oficial">🔗 Ver web oficial totalenergies.es</a>
         </div>
         
