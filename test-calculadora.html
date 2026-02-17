@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Calculadora</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .card { background: white; padding: 20px; border-radius: 10px; max-width: 400px; margin: 0 auto; }
+        input { width: 100%; padding: 10px; margin: 5px 0 15px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: #87CEEB; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        button:hover { background: #5BA3C6; }
+        #result { margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 5px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>📊 Test Calculadora</h2>
+        
+        <label>Potencia P1 (kW):</label>
+        <input type="text" id="potencia-p1" placeholder="ej: 4.6" value="4.6">
+        
+        <label>Potencia P2 (kW):</label>
+        <input type="text" id="potencia-p2" placeholder="ej: 4.6" value="4.6">
+        
+        <label>Consumo (kWh):</label>
+        <input type="text" id="consumo-luz" placeholder="ej: 250" value="250">
+        
+        <button onclick="calculateTarifas()">🔍 Calcular</button>
+        
+        <div id="result-card">
+            <div id="result-content"></div>
+        </div>
+    </div>
+    
+    <script>
+        function calculateTarifas() {
+            alert('¡Funciona! El botón responde.');
+            
+            const p1Val = document.getElementById('potencia-p1').value.replace(',', '.');
+            const p2Val = document.getElementById('potencia-p2').value.replace(',', '.');
+            const consumoVal = document.getElementById('consumo-luz').value.replace(',', '.');
+            
+            const p1 = parseFloat(p1Val) || 0;
+            const p2 = parseFloat(p2Val) || 0;
+            const consumo = parseFloat(consumoVal) || 0;
+            
+            if (consumo === 0) {
+                alert('Introduce un consumo');
+                return;
+            }
+            
+            // Cálculo simple
+            const precioEnergia = 0.10;
+            const precioPotencia = 0.10;
+            const dias = 30;
+            
+            const costePotencia = (p1 + p2) / 2 * precioPotencia * dias;
+            const costeEnergia = consumo * precioEnergia;
+            const total = costePotencia + costeEnergia;
+            
+            document.getElementById('result-content').innerHTML = 
+                '<strong>Total: ' + total.toFixed(2) + ' €/mes</strong><br>' +
+                '<small>Potencia: ' + costePotencia.toFixed(2) + '€ | Energía: ' + costeEnergia.toFixed(2) + '€</small>';
+            document.getElementById('result-card').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
