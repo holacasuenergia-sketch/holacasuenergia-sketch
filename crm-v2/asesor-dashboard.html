@@ -1076,7 +1076,9 @@
         
         // Logout
         function logout() {
-            auth.signOut();
+            auth.signOut().then(() => {
+                window.location.href = 'login.html';
+            });
         }
         
         // Load Dashboard
