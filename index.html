@@ -1434,42 +1434,42 @@
                     
                     <!-- CUPS Luz -->
                     <div class="form-group" style="margin-bottom: 12px;">
-                        <label class="form-label">CUPS Luz *</label>
+                        <label class="form-label">CUPS Luz (opcional)</label>
                         <input type="text" class="form-input" id="cups-luz" placeholder="ES00... (lo encuentras en tu factura)" maxlength="22" style="text-transform: uppercase;">
                     </div>
                     
                     <!-- CUPS Gas -->
                     <div class="form-group" id="cups-gas-group" style="margin-bottom: 12px; display: none;">
-                        <label class="form-label">CUPS Gas</label>
+                        <label class="form-label">CUPS Gas (opcional)</label>
                         <input type="text" class="form-input" id="cups-gas" placeholder="ES00... (lo encuentras en tu factura)" maxlength="22" style="text-transform: uppercase;">
                     </div>
                     
                     <!-- Datos según factura -->
                     <div style="background: var(--gray-50); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
-                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--primary); font-size: 14px;">📋 Datos de tu factura:</div>
+                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--primary); font-size: 14px;">⚡ Datos de luz:</div>
                         
                         <div class="form-row" style="margin-bottom: 10px;">
                             <div class="form-group">
-                                <label class="form-label">Potencia (kW)</label>
-                                <select class="form-input" id="potencia">
-                                    <option value="2.3">2,3 kW</option>
-                                    <option value="3.45">3,45 kW</option>
-                                    <option value="4.6" selected>4,6 kW</option>
-                                    <option value="5.75">5,75 kW</option>
-                                    <option value="6.9">6,9 kW</option>
-                                    <option value="8.05">8,05 kW</option>
-                                    <option value="9.2">9,2 kW</option>
-                                    <option value="10.35">10,35 kW</option>
-                                </select>
+                                <label class="form-label">Potencia P1 (kW)</label>
+                                <input type="number" step="0.01" class="form-input" id="potencia-p1" placeholder="ej: 4,6" min="0">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Consumo luz (kWh/mes)</label>
-                                <input type="number" class="form-input" id="consumo-luz" placeholder="ej: 250" min="0">
+                                <label class="form-label">Potencia P2 (kW)</label>
+                                <input type="number" step="0.01" class="form-input" id="potencia-p2" placeholder="ej: 4,6" min="0">
                             </div>
                         </div>
                         
-                        <div class="form-group" id="consumo-gas-group" style="display: none;">
-                            <label class="form-label">Consumo gas (kWh/mes)</label>
+                        <div class="form-group">
+                            <label class="form-label">Consumo mensual (kWh)</label>
+                            <input type="number" class="form-input" id="consumo-luz" placeholder="ej: 250" min="0">
+                        </div>
+                    </div>
+                    
+                    <!-- Gas -->
+                    <div id="gas-group" style="background: var(--gray-50); border-radius: 12px; padding: 16px; margin-bottom: 12px; display: none;">
+                        <div style="font-weight: 600; margin-bottom: 12px; color: var(--primary); font-size: 14px;">🔥 Datos de gas:</div>
+                        <div class="form-group">
+                            <label class="form-label">Consumo mensual (kWh)</label>
                             <input type="number" class="form-input" id="consumo-gas" placeholder="ej: 150" min="0">
                         </div>
                     </div>
@@ -1736,7 +1736,7 @@
             
             // Mostrar/ocultar campos de gas
             document.getElementById('cups-gas-group').style.display = tipo === 'luz-gas' ? 'block' : 'none';
-            document.getElementById('consumo-gas-group').style.display = tipo === 'luz-gas' ? 'block' : 'none';
+            document.getElementById('gas-group').style.display = tipo === 'luz-gas' ? 'block' : 'none';
             
             // Limpiar campo gas si no es necesario
             if (tipo === 'luz') {
@@ -1745,37 +1745,53 @@
             }
         }
         
-        // Calculator - Calcular tarifa
+        // Calculator - Calcular tarifa Naturgy
         function calculateTarifas() {
             const consumoLuz = parseFloat(document.getElementById('consumo-luz').value) || 0;
             const consumoGas = tipoServicio === 'luz-gas' ? (parseFloat(document.getElementById('consumo-gas').value) || 0) : 0;
-            const potencia = parseFloat(document.getElementById('potencia').value);
+            const p1 = parseFloat(document.getElementById('potencia-p1').value) || 0;
+            const p2 = parseFloat(document.getElementById('potencia-p2').value) || 0;
             const cupsLuz = document.getElementById('cups-luz').value.trim().toUpperCase();
             const cupsGas = document.getElementById('cups-gas').value.trim().toUpperCase();
             
             if (consumoLuz === 0 && consumoGas === 0) {
-                alert('Por favor, introduce tu consumo según tu factura');
+                alert('Por favor, introduce tu consumo mensual');
                 return;
             }
             
-            // === TARIFAS ENERLUX ===
-            const precioLuz = 0.11; // €/kWh
-            const precioGas = 0.06; // €/kWh
-            const precioPotencia = 11.5; // €/kW/año
+            if (consumoLuz > 0 && p1 === 0 && p2 === 0) {
+                alert('Por favor, introduce tu potencia (P1 y P2)');
+                return;
+            }
+            
+            // === PRECIOS TARIFA POR USO NATURGY ===
+            const precioPotenciaP1 = 0.12303;    // €/kW/día
+            const precioPotenciaP2 = 0.037337;   // €/kW/día
+            const precioEnergia = 0.1099;        // €/kWh
+            const precioGas = 0.06;              // €/kWh
+            const diasMes = 30;                  // Días promedio por mes
             
             // === CÁLCULO TARIFA POR USO ===
-            const costePotencia = (potencia * precioPotencia) / 12;
-            const costeLuz = consumoLuz * precioLuz;
+            // Potencia mensual = (P1 × precio P1 × días) + (P2 × precio P2 × días)
+            const costePotenciaP1 = p1 * precioPotenciaP1 * diasMes;
+            const costePotenciaP2 = p2 * precioPotenciaP2 * diasMes;
+            const costePotenciaTotal = costePotenciaP1 + costePotenciaP2;
+            
+            // Energía
+            const costeEnergia = consumoLuz * precioEnergia;
             const costeGas = consumoGas * precioGas;
-            const totalMensual = costePotencia + costeLuz + costeGas;
+            
+            // Total mensual
+            const totalLuz = costePotenciaTotal + costeEnergia;
+            const totalMensual = totalLuz + costeGas;
             
             // === MOSTRAR RESULTADOS ===
             let resultHTML = `
                 <div style="background: rgba(16, 185, 129, 0.15); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid rgba(16, 185, 129, 0.3);">
-                    <div style="font-size: 14px; opacity: 0.8; margin-bottom: 8px;">💰 Tarifa por Uso (0,11 €/kWh luz)</div>
+                    <div style="font-size: 14px; opacity: 0.8; margin-bottom: 8px;">💰 Tarifa Por Uso Luz</div>
                     <div style="font-size: 36px; font-weight: 700; color: #10B981;">${totalMensual.toFixed(2)} €<span style="font-size: 18px; opacity: 0.7;">/mes</span></div>
                     <div style="font-size: 13px; opacity: 0.7; margin-top: 8px;">
-                        Pagarás según lo que consumas
+                        Energía: 0,1099 €/kWh · Pagarás según lo que consumas
                     </div>
                 </div>
             `;
@@ -1783,11 +1799,23 @@
             // Detalle del cálculo
             resultHTML += `
                 <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; margin-bottom: 16px; font-size: 13px;">
-                    <div style="font-weight: 600; margin-bottom: 12px;">📋 Desglose:</div>
-                    ${consumoLuz > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px;"><span>⚡ Luz (${consumoLuz} kWh × 0,11€)</span><span>${costeLuz.toFixed(2)}€</span></div>` : ''}
-                    ${consumoGas > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px;"><span>🔥 Gas (${consumoGas} kWh × 0,06€)</span><span>${costeGas.toFixed(2)}€</span></div>` : ''}
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;"><span>⚡ Potencia (${potencia} kW)</span><span>${costePotencia.toFixed(2)}€</span></div>
+                    <div style="font-weight: 600; margin-bottom: 12px;">📋 Desglose mensual:</div>
+                    ${p1 > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>⚡ Potencia P1 (${p1} kW)</span><span>${costePotenciaP1.toFixed(2)}€</span></div>` : ''}
+                    ${p2 > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>⚡ Potencia P2 (${p2} kW)</span><span>${costePotenciaP2.toFixed(2)}€</span></div>` : ''}
+                    ${consumoLuz > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>⚡ Energía (${consumoLuz} kWh × 0,1099€)</span><span>${costeEnergia.toFixed(2)}€</span></div>` : ''}
+                    ${consumoGas > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>🔥 Gas (${consumoGas} kWh × 0,06€)</span><span>${costeGas.toFixed(2)}€</span></div>` : ''}
                     <div style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 8px; padding-top: 8px; font-weight: 600; display: flex; justify-content: space-between;"><span>Total/mes</span><span>${totalMensual.toFixed(2)}€</span></div>
+                </div>
+            `;
+            
+            // Precios de referencia
+            resultHTML += `
+                <div style="font-size: 12px; opacity: 0.6; margin-bottom: 16px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                    <div style="font-weight: 600; margin-bottom: 6px;">Precios Tarifa Por Uso:</div>
+                    <div>• Potencia P1: 0,12303 €/kW/día</div>
+                    <div>• Potencia P2: 0,037337 €/kW/día</div>
+                    <div>• Energía: 0,1099 €/kWh</div>
+                    ${consumoGas > 0 ? '<div>• Gas: 0,06 €/kWh</div>' : ''}
                 </div>
             `;
             
@@ -1807,12 +1835,12 @@
                 `;
             }
             
-            // CUPS verificados
+            // CUPS (si existen)
             if (cupsLuz) {
                 resultHTML += `
-                    <div style="background: rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 12px; opacity: 0.8;">
-                        ${cupsLuz ? `<div>⚡ CUPS Luz: ${cupsLuz}</div>` : ''}
-                        ${cupsGas ? `<div>🔥 CUPS Gas: ${cupsGas}</div>` : ''}
+                    <div style="font-size: 11px; opacity: 0.6; margin-bottom: 16px;">
+                        ${cupsLuz ? `⚡ CUPS Luz: ${cupsLuz}` : ''}
+                        ${cupsGas ? `<br>🔥 CUPS Gas: ${cupsGas}` : ''}
                     </div>
                 `;
             }
@@ -1820,9 +1848,9 @@
             // Botones de contacto
             let mensaje;
             if (consumoLuz >= 250) {
-                mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes (${potencia} kW)%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Tarifa 0,11€: ${totalMensual.toFixed(2)}€/mes%0A💎 También me interesa la Tarifa Plana%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
+                mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes%0A⚡ Potencia P1: ${p1} kW%0A⚡ Potencia P2: ${p2} kW%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Tarifa Por Uso: ${totalMensual.toFixed(2)}€/mes%0A💎 También me interesa la Tarifa Plana%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
             } else {
-                mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes (${potencia} kW)%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Tarifa 0,11€: ${totalMensual.toFixed(2)}€/mes%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
+                mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes%0A⚡ Potencia P1: ${p1} kW%0A⚡ Potencia P2: ${p2} kW%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Tarifa Por Uso: ${totalMensual.toFixed(2)}€/mes%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
             }
             
             resultHTML += `
