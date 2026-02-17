@@ -1451,17 +1451,17 @@
                         <div class="form-row" style="margin-bottom: 10px;">
                             <div class="form-group">
                                 <label class="form-label">Potencia P1 (kW)</label>
-                                <input type="number" step="0.01" class="form-input" id="potencia-p1" placeholder="ej: 4,6" min="0">
+                                <input type="text" inputmode="decimal" class="form-input" id="potencia-p1" placeholder="ej: 4.6">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Potencia P2 (kW)</label>
-                                <input type="number" step="0.01" class="form-input" id="potencia-p2" placeholder="ej: 4,6" min="0">
+                                <input type="text" inputmode="decimal" class="form-input" id="potencia-p2" placeholder="ej: 4.6">
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">Consumo mensual (kWh)</label>
-                            <input type="number" class="form-input" id="consumo-luz" placeholder="ej: 250" min="0">
+                            <input type="text" inputmode="numeric" class="form-input" id="consumo-luz" placeholder="ej: 250">
                         </div>
                     </div>
                     
@@ -1470,7 +1470,7 @@
                         <div style="font-weight: 600; margin-bottom: 12px; color: var(--primary); font-size: 14px;">🔥 Datos de gas:</div>
                         <div class="form-group">
                             <label class="form-label">Consumo mensual (kWh)</label>
-                            <input type="number" class="form-input" id="consumo-gas" placeholder="ej: 150" min="0">
+                            <input type="text" inputmode="numeric" class="form-input" id="consumo-gas" placeholder="ej: 150">
                         </div>
                     </div>
                     
@@ -1579,7 +1579,7 @@
                             Ideal para controlar gastos
                         </li>
                     </ul>
-                    <a href="#calculadora" class="btn btn-gold btn-block">
+                    <a href="https://wa.me/34610243061?text=Hola!%20Quiero%20calcular%20mi%20precio%20fijo%20mensual%20con%20la%20Tarifa%20Plana%20Zen%20de%20Naturgy" class="btn btn-gold btn-block" target="_blank">
                         📊 Calcular mi precio
                     </a>
                 </div>
@@ -1747,10 +1747,16 @@
         
         // Calculator - Calcular tarifa Naturgy
         function calculateTarifas() {
-            const consumoLuz = parseFloat(document.getElementById('consumo-luz').value) || 0;
-            const consumoGas = tipoServicio === 'luz-gas' ? (parseFloat(document.getElementById('consumo-gas').value) || 0) : 0;
-            const p1 = parseFloat(document.getElementById('potencia-p1').value) || 0;
-            const p2 = parseFloat(document.getElementById('potencia-p2').value) || 0;
+            // Obtener valores y convertir coma a punto
+            let consumoLuzVal = document.getElementById('consumo-luz').value.replace(',', '.');
+            let p1Val = document.getElementById('potencia-p1').value.replace(',', '.');
+            let p2Val = document.getElementById('potencia-p2').value.replace(',', '.');
+            let consumoGasVal = document.getElementById('consumo-gas').value.replace(',', '.');
+            
+            const consumoLuz = parseFloat(consumoLuzVal) || 0;
+            const consumoGas = tipoServicio === 'luz-gas' ? (parseFloat(consumoGasVal) || 0) : 0;
+            const p1 = parseFloat(p1Val) || 0;
+            const p2 = parseFloat(p2Val) || 0;
             const cupsLuz = document.getElementById('cups-luz').value.trim().toUpperCase();
             const cupsGas = document.getElementById('cups-gas').value.trim().toUpperCase();
             
