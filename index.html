@@ -1764,57 +1764,91 @@
                 return;
             }
             
-            // === PRECIOS TARIFA POR USO NATURGY ===
+            // === PRECIOS TARIFAS ===
+            // Tarifa Por Uso Naturgy
             const precioPotenciaP1 = 0.12303;    // €/kW/día
             const precioPotenciaP2 = 0.037337;   // €/kW/día
-            const precioEnergia = 0.1099;        // €/kWh
+            const precioEnergiaNaturgy = 0.1099; // €/kWh
+            
+            // Tarifa Precio Fijo 24h
+            const precioEnergiaFijo = 0.10;      // €/kWh (precio fijo 24h)
+            const precioPotenciaFijo = 0.10;     // €/kW/día (aproximado para tarifa fija)
+            
+            // Gas
             const precioGas = 0.06;              // €/kWh
             const diasMes = 30;                  // Días promedio por mes
             
-            // === CÁLCULO TARIFA POR USO ===
-            // Potencia mensual = (P1 × precio P1 × días) + (P2 × precio P2 × días)
+            // === CÁLCULO TARIFA POR USO NATURGY ===
             const costePotenciaP1 = p1 * precioPotenciaP1 * diasMes;
             const costePotenciaP2 = p2 * precioPotenciaP2 * diasMes;
-            const costePotenciaTotal = costePotenciaP1 + costePotenciaP2;
+            const costePotenciaNaturgy = costePotenciaP1 + costePotenciaP2;
+            const costeEnergiaNaturgy = consumoLuz * precioEnergiaNaturgy;
+            const totalNaturgy = costePotenciaNaturgy + costeEnergiaNaturgy + costeGas;
             
-            // Energía
-            const costeEnergia = consumoLuz * precioEnergia;
-            const costeGas = consumoGas * precioGas;
-            
-            // Total mensual
-            const totalLuz = costePotenciaTotal + costeEnergia;
-            const totalMensual = totalLuz + costeGas;
+            // === CÁLCULO TARIFA PRECIO FIJO 24H ===
+            const costePotenciaFijo = (p1 + p2) / 2 * precioPotenciaFijo * diasMes; // Promedio potencias
+            const costeEnergiaFijo = consumoLuz * precioEnergiaFijo;
+            const totalFijo = costePotenciaFijo + costeEnergiaFijo + costeGas;
             
             // === MOSTRAR RESULTADOS ===
             let resultHTML = `
-                <div style="background: rgba(16, 185, 129, 0.15); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid rgba(16, 185, 129, 0.3);">
-                    <div style="font-size: 14px; opacity: 0.8; margin-bottom: 8px;">💰 Tarifa Por Uso Luz</div>
-                    <div style="font-size: 36px; font-weight: 700; color: #10B981;">${totalMensual.toFixed(2)} €<span style="font-size: 18px; opacity: 0.7;">/mes</span></div>
-                    <div style="font-size: 13px; opacity: 0.7; margin-top: 8px;">
-                        Energía: 0,1099 €/kWh · Pagarás según lo que consumas
-                    </div>
+                <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9;">
+                    💡 Tus tarifas disponibles:
                 </div>
             `;
             
-            // Detalle del cálculo
+            // Tarifa Precio Fijo 24h (mejor opción)
+            resultHTML += `
+                <div style="background: rgba(16, 185, 129, 0.15); border-radius: 16px; padding: 20px; margin-bottom: 12px; border: 2px solid rgba(16, 185, 129, 0.3);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                        <div>
+                            <div style="font-size: 14px; opacity: 0.8;">💰 Precio Fijo 24h</div>
+                            <div style="font-size: 12px; opacity: 0.6;">Energía: 0,10 €/kWh</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 28px; font-weight: 700; color: #10B981;">${totalFijo.toFixed(2)} €<span style="font-size: 14px; opacity: 0.7;">/mes</span></div>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; opacity: 0.7;">Precio fijo las 24 horas · Sin sorpresas</div>
+                </div>
+            `;
+            
+            // Tarifa Por Uso Naturgy
+            resultHTML += `
+                <div style="background: rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                        <div>
+                            <div style="font-size: 14px; opacity: 0.8;">⚡ Tarifa Por Uso (Naturgy)</div>
+                            <div style="font-size: 12px; opacity: 0.6;">Energía: 0,1099 €/kWh</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 24px; font-weight: 700; opacity: 0.9;">${totalNaturgy.toFixed(2)} €<span style="font-size: 12px; opacity: 0.6;">/mes</span></div>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; opacity: 0.7;">Pagarás según lo que consumas</div>
+                </div>
+            `;
+            
+            // Detalle del cálculo (usamor tarifa fijo para el desglose)
+            const costePotenciaDesglose = (p1 + p2) / 2 * 0.10 * 30;
+            const costeEnergiaDesglose = consumoLuz * 0.10;
+            
             resultHTML += `
                 <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; margin-bottom: 16px; font-size: 13px;">
-                    <div style="font-weight: 600; margin-bottom: 12px;">📋 Desglose mensual:</div>
-                    ${p1 > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>⚡ Potencia P1 (${p1} kW)</span><span>${costePotenciaP1.toFixed(2)}€</span></div>` : ''}
-                    ${p2 > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>⚡ Potencia P2 (${p2} kW)</span><span>${costePotenciaP2.toFixed(2)}€</span></div>` : ''}
-                    ${consumoLuz > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>⚡ Energía (${consumoLuz} kWh × 0,1099€)</span><span>${costeEnergia.toFixed(2)}€</span></div>` : ''}
-                    ${consumoGas > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>🔥 Gas (${consumoGas} kWh × 0,06€)</span><span>${costeGas.toFixed(2)}€</span></div>` : ''}
-                    <div style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 8px; padding-top: 8px; font-weight: 600; display: flex; justify-content: space-between;"><span>Total/mes</span><span>${totalMensual.toFixed(2)}€</span></div>
+                    <div style="font-weight: 600; margin-bottom: 12px;">📋 Desglose mensual (Precio Fijo 24h):</div>
+                    ${p1 > 0 || p2 > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>⚡ Potencia (P1: ${p1}kW, P2: ${p2}kW)</span><span>${costePotenciaDesglose.toFixed(2)}€</span></div>` : ''}
+                    ${consumoLuz > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>⚡ Energía (${consumoLuz} kWh × 0,10€)</span><span>${costeEnergiaDesglose.toFixed(2)}€</span></div>` : ''}
+                    ${consumoGas > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>🔥 Gas (${consumoGas} kWh × 0,06€)</span><span>${(consumoGas * 0.06).toFixed(2)}€</span></div>` : ''}
+                    <div style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 8px; padding-top: 8px; font-weight: 600; display: flex; justify-content: space-between;"><span>Total/mes</span><span>${totalFijo.toFixed(2)}€</span></div>
                 </div>
             `;
             
             // Precios de referencia
             resultHTML += `
                 <div style="font-size: 12px; opacity: 0.6; margin-bottom: 16px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                    <div style="font-weight: 600; margin-bottom: 6px;">Precios Tarifa Por Uso:</div>
-                    <div>• Potencia P1: 0,12303 €/kW/día</div>
-                    <div>• Potencia P2: 0,037337 €/kW/día</div>
-                    <div>• Energía: 0,1099 €/kWh</div>
+                    <div style="font-weight: 600; margin-bottom: 6px;">Precios Precio Fijo 24h:</div>
+                    <div>• Energía: 0,10 €/kWh (precio fijo 24h)</div>
+                    <div>• Potencia: según contrato</div>
                     ${consumoGas > 0 ? '<div>• Gas: 0,06 €/kWh</div>' : ''}
                 </div>
             `;
@@ -1848,9 +1882,9 @@
             // Botones de contacto
             let mensaje;
             if (consumoLuz >= 250) {
-                mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes%0A⚡ Potencia P1: ${p1} kW%0A⚡ Potencia P2: ${p2} kW%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Tarifa Por Uso: ${totalMensual.toFixed(2)}€/mes%0A💎 También me interesa la Tarifa Plana%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
+                mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes%0A⚡ Potencia P1: ${p1} kW%0A⚡ Potencia P2: ${p2} kW%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Precio Fijo 24h: ${totalFijo.toFixed(2)}€/mes%0A💎 También me interesa la Tarifa Plana%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
             } else {
-                mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes%0A⚡ Potencia P1: ${p1} kW%0A⚡ Potencia P2: ${p2} kW%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Tarifa Por Uso: ${totalMensual.toFixed(2)}€/mes%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
+                mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes%0A⚡ Potencia P1: ${p1} kW%0A⚡ Potencia P2: ${p2} kW%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Precio Fijo 24h (0,10€/kWh): ${totalFijo.toFixed(2)}€/mes%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
             }
             
             resultHTML += `
