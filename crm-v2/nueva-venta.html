@@ -429,7 +429,14 @@
                     <div class="section-body">
                         <div class="form-grid">
                             <div class="form-group full">
-                                <label class="form-label">Identificación (DNI/NIE/Pasaporte) <span class="required">*</span></label>
+                                <label class="form-label">Tipo de cliente <span class="required">*</span></label>
+                                <select class="form-select" name="tipoCliente" required>
+                                    <option value="persona">👤 Persona Física</option>
+                                    <option value="empresa">🏢 Empresa / Autónomo</option>
+                                </select>
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">Identificación (DNI/NIE/CIF) <span class="required">*</span></label>
                                 <input type="text" class="form-input" name="dni" placeholder="12345678A" required>
                             </div>
                             <div class="form-group">
@@ -437,8 +444,8 @@
                                 <input type="text" class="form-input" name="nombre" required>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Apellidos <span class="required">*</span></label>
-                                <input type="text" class="form-input" name="apellidos" required>
+                                <label class="form-label">Apellidos</label>
+                                <input type="text" class="form-input" name="apellidos">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Email <span class="required">*</span></label>
@@ -453,8 +460,8 @@
                                 <input type="tel" class="form-input" name="fijo" placeholder="+34 900 000 000">
                             </div>
                             <div class="form-group full">
-                                <label class="form-label">Nacionalidad <span class="required">*</span></label>
-                                <input type="text" class="form-input" name="nacionalidad" placeholder="Española" required>
+                                <label class="form-label">Nacionalidad</label>
+                                <input type="text" class="form-input" name="nacionalidad" placeholder="Española">
                             </div>
                         </div>
                     </div>
@@ -527,13 +534,6 @@
                             <div class="form-group full">
                                 <label class="form-label">CUPS Luz <span class="required">*</span></label>
                                 <input type="text" class="form-input" name="cupsLuz" placeholder="ES00..." style="text-transform: uppercase;" maxlength="22">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Tensión</label>
-                                <select class="form-select" name="tension">
-                                    <option>230V - Monofásico</option>
-                                    <option>400V - Trifásico</option>
-                                </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Tarifa de Acceso</label>
