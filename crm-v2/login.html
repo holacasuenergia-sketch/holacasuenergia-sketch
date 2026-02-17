@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso - Enerlux CRM</title>
+    <link rel="icon" type="image/jpeg" href="../logo-enerlux.jpg">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --primary-light: #34D399;
+            --secondary: #0EA5E9;
+            --accent: #F59E0B;
+            --accent-gold: #FCD34D;
+            --white: #FFFFFF;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+        }
+        
+        .login-brand {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-brand::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 250px;
+            height: 250px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .login-brand::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        
+        .brand-logo {
+            width: 100px;
+            height: auto;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .brand-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .brand-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 300px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .brand-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .brand-stat {
+            text-align: center;
+        }
+        
+        .brand-stat-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .brand-stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+        
+        .login-form {
+            flex: 1;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .form-header {
+            margin-bottom: 40px;
+        }
+        
+        .form-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+        
+        .form-subtitle {
+            font-size: 15px;
+            color: var(--gray-500);
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 15px;
+            font-family: inherit;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            background: var(--gray-50);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+        
+        .btn-block { width: 100%; }
+        
+        .error-message {
+            background: #FEF2F2;
+            color: var(--error);
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+            border: 1px solid #FEE2E2;
+        }
+        
+        .success-message {
+            background: #ECFDF5;
+            color: var(--success);
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+            border: 1px solid #D1FAE5;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: var(--gray-500);
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 12px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .demo-hint {
+            margin-top: 30px;
+            padding: 16px;
+            background: var(--gray-50);
+            border-radius: 12px;
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+        
+        .demo-hint strong {
+            color: var(--gray-700);
+        }
+        
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+            
+            .login-brand {
+                padding: 40px 30px;
+            }
+            
+            .brand-stats {
+                gap: 20px;
+            }
+            
+            .brand-stat-value {
+                font-size: 22px;
+            }
+            
+            .login-form {
+                padding: 40px 30px;
+            }
+            
+            .form-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-brand">
+            <img src="logo.png" alt="Enerlux" class="brand-logo">
+            <h1 class="brand-title">Enerlux CRM</h1>
+            <p class="brand-subtitle">Sistema de gestión comercial para asesores de energía</p>
+            
+            <div class="brand-stats">
+                <div class="brand-stat">
+                    <div class="brand-stat-value">20€</div>
+                    <div class="brand-stat-label">Por Luz/Gas</div>
+                </div>
+                <div class="brand-stat">
+                    <div class="brand-stat-value">10€</div>
+                    <div class="brand-stat-label">Por Mantenimiento</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-form">
+            <div class="form-header">
+                <h2 class="form-title">Bienvenido</h2>
+                <p class="form-subtitle">Inicia sesión para acceder al panel</p>
+            </div>
+            
+            <div class="error-message" id="error-message"></div>
+            <div class="success-message" id="success-message"></div>
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>Verificando credenciales...</p>
+            </div>
+            
+            <form id="login-form" style="display: block;">
+                <div class="form-group">
+                    <label class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-input" id="email" placeholder="tu@email.com" required autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" class="form-input" id="password" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    Iniciar Sesión
+                </button>
+            </form>
+            
+            <div class="demo-hint">
+                <strong>Usuarios de prueba:</strong><br>
+                Admin: admin@enerlux.com<br>
+                Asesor: juan@enerlux.com<br>
+                Contraseña: enerlux123
+            </div>
+        </div>
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLWicHjU6ji76EDIBeDO51Ivvf73Oc504",
+            authDomain: "enerlux-crm.firebaseapp.com",
+            databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "enerlux-crm",
+            storageBucket: "enerlux-crm.firebasestorage.app",
+            messagingSenderId: "84970919171",
+            appId: "1:84970919171:web:a9904b377254bb26884536"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+        
+        // Elements
+        const form = document.getElementById('login-form');
+        const errorMsg = document.getElementById('error-message');
+        const successMsg = document.getElementById('success-message');
+        const loading = document.getElementById('loading');
+        
+        // Check if already logged in
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                try {
+                    const roleSnapshot = await db.ref(`users/${user.uid}/role`).once('value');
+                    const role = roleSnapshot.val();
+                    
+                    loading.style.display = 'block';
+                    form.style.display = 'none';
+                    
+                    if (role === 'admin') {
+                        window.location.href = 'admin-dashboard.html';
+                    } else if (role === 'asesor') {
+                        window.location.href = 'asesor-dashboard.html';
+                    }
+                } catch (error) {
+                    console.error('Error checking role:', error);
+                }
+            }
+        });
+        
+        // Login form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Reset messages
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            // Show loading
+            form.style.display = 'none';
+            loading.style.display = 'block';
+            
+            try {
+                // Sign in with Firebase
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Get user role
+                const roleSnapshot = await db.ref(`users/${user.uid}/role`).once('value');
+                const role = roleSnapshot.val();
+                
+                if (!role) {
+                    throw new Error('Usuario sin rol asignado');
+                }
+                
+                // Update last login
+                await db.ref(`users/${user.uid}`).update({
+                    lastLogin: new Date().toISOString()
+                });
+                
+                successMsg.textContent = '¡Inicio de sesión exitoso! Redirigiendo...';
+                successMsg.style.display = 'block';
+                
+                // Redirect based on role
+                setTimeout(() => {
+                    if (role === 'admin') {
+                        window.location.href = 'admin-dashboard.html';
+                    } else {
+                        window.location.href = 'asesor-dashboard.html';
+                    }
+                }, 1000);
+                
+            } catch (error) {
+                loading.style.display = 'none';
+                form.style.display = 'block';
+                
+                let message = 'Error al iniciar sesión';
+                
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                    case 'auth/invalid-credential':
+                        message = 'Email o contraseña incorrectos';
+                        break;
+                    case 'auth/invalid-email':
+                        message = 'Email no válido';
+                        break;
+                    case 'auth/too-many-requests':
+                        message = 'Demasiados intentos. Espera unos minutos';
+                        break;
+                    default:
+                        message = error.message || 'Error desconocido';
+                }
+                
+                errorMsg.textContent = message;
+                errorMsg.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

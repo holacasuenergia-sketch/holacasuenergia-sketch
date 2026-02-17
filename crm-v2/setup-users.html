@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuarios - Enerlux CRM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 { font-size: 24px; margin-bottom: 8px; }
+        p { color: #6B7280; margin-bottom: 24px; }
+        
+        .user-card {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .user-info strong { display: block; font-size: 15px; }
+        .user-info small { color: #6B7280; }
+        
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status.pending { background: #FEF3C7; color: #92400E; }
+        .status.success { background: #D1FAE5; color: #065F46; }
+        .status.error { background: #FEE2E2; color: #991B1B; }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .log {
+            margin-top: 20px;
+            padding: 16px;
+            background: #1F2937;
+            border-radius: 12px;
+            color: #10B981;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .log-item { margin-bottom: 4px; }
+        .log-error { color: #EF4444; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Configurar Usuarios</h1>
+        <p>Crear usuarios de prueba en Firebase Auth</p>
+        
+        <div class="user-card">
+            <div class="user-info">
+                <strong>admin@enerlux.com</strong>
+                <small>Contraseña: enerlux123 · Rol: Admin</small>
+            </div>
+            <span class="status pending" id="status-admin">Pendiente</span>
+        </div>
+        
+        <div class="user-card">
+            <div class="user-info">
+                <strong>juan@enerlux.com</strong>
+                <small>Contraseña: enerlux123 · Rol: Asesor</small>
+            </div>
+            <span class="status pending" id="status-asesor">Pendiente</span>
+        </div>
+        
+        <button class="btn btn-primary" onclick="crearUsuarios()">
+            ▶️ Crear Usuarios
+        </button>
+        
+        <div class="log" id="log"></div>
+    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLWicHjU6ji76EDIBeDO51Ivvf73Oc504",
+            authDomain: "enerlux-crm.firebaseapp.com",
+            databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "enerlux-crm",
+            storageBucket: "enerlux-crm.firebasestorage.app",
+            messagingSenderId: "84970919171",
+            appId: "1:84970919171:web:a9904b377254bb26884536"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+        
+        function log(msg, isError = false) {
+            const logDiv = document.getElementById('log');
+            const item = document.createElement('div');
+            item.className = 'log-item' + (isError ? ' log-error' : '');
+            item.textContent = msg;
+            logDiv.appendChild(item);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        async function crearUsuarios() {
+            const usuarios = [
+                { email: 'admin@enerlux.com', password: 'enerlux123', role: 'admin', name: 'Administrador', jornada: null },
+                { email: 'juan@enerlux.com', password: 'enerlux123', role: 'asesor', name: 'Juan Asesor', jornada: 'full' }
+            ];
+            
+            log('🔍 Verificando usuarios existentes...');
+            
+            // Check if users already exist in database
+            const existingUsers = await db.ref('users').once('value');
+            const existingEmails = Object.values(existingUsers.val() || {}).map(u => u.email);
+            
+            log('📧 Usuarios en DB: ' + (existingEmails.join(', ') || 'ninguno'));
+            
+            for (const user of usuarios) {
+                log('');
+                log(`📝 Procesando: ${user.email}`);
+                
+                try {
+                    // Try to sign in first to check if exists
+                    try {
+                        await auth.signInWithEmailAndPassword(user.email, user.password);
+                        log(`✅ Usuario ya existe en Auth: ${user.email}`);
+                        await auth.signOut();
+                    } catch (signInError) {
+                        if (signInError.code === 'auth/user-not-found') {
+                            // Create user
+                            log(`➕ Creando usuario en Auth: ${user.email}`);
+                            const userCredential = await auth.createUserWithEmailAndPassword(user.email, user.password);
+                            log(`✅ Usuario creado en Auth: ${userCredential.user.uid}`);
+                            await auth.signOut();
+                        } else {
+                            throw signInError;
+                        }
+                    }
+                    
+                    // Update database
+                    const usersSnapshot = await db.ref('users').orderByChild('email').equalTo(user.email).once('value');
+                    const userData = usersSnapshot.val();
+                    
+                    if (userData) {
+                        const uid = Object.keys(userData)[0];
+                        await db.ref(`users/${uid}`).update({
+                            email: user.email,
+                            nombre: user.name,
+                            role: user.role,
+                            jornada: user.jornada,
+                            lastUpdate: new Date().toISOString()
+                        });
+                        log(`✅ Base de datos actualizada para: ${user.email}`);
+                    } else {
+                        log(`⚠️ Usuario no encontrado en DB, necesita crear registro manualmente`);
+                    }
+                    
+                    // Update status
+                    document.getElementById(user.role === 'admin' ? 'status-admin' : 'status-asesor').className = 'status success';
+                    document.getElementById(user.role === 'admin' ? 'status-admin' : 'status-asesor').textContent = '✓ Creado';
+                    
+                } catch (error) {
+                    log(`❌ Error con ${user.email}: ${error.message}`, true);
+                    document.getElementById(user.role === 'admin' ? 'status-admin' : 'status-asesor').className = 'status error';
+                    document.getElementById(user.role === 'admin' ? 'status-admin' : 'status-asesor').textContent = 'Error';
+                }
+            }
+            
+            log('');
+            log('🎉 Proceso completado');
+            log('');
+            log('👉 Ahora puedes ir a login.html e iniciar sesión');
+        }
+    </script>
+</body>
+</html>
