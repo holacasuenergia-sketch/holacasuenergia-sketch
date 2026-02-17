@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Venta - Enerlux CRM</title>
+    <link rel="icon" type="image/jpeg" href="../logo-enerlux.jpg">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --secondary: #0EA5E9;
+            --accent: #F59E0B;
+            --white: #FFFFFF;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+            --error: #EF4444;
+            --warning: #F59E0B;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-50);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1E3A5F 0%, #0F2744 100%);
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .header-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* Layout */
+        .container {
+            display: grid;
+            grid-template-columns: 350px 1fr 350px;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid var(--gray-100);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray-100);
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        /* Compañías Panel */
+        .compania-item {
+            padding: 14px 16px;
+            border: 2px solid var(--gray-100);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .compania-item:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+        
+        .compania-item.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(16,185,129,0.05) 0%, rgba(14,165,233,0.05) 100%);
+        }
+        
+        .compania-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .compania-badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+        
+        .compania-precios {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        
+        .precio-item {
+            background: var(--gray-50);
+            padding: 8px 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .precio-label { color: var(--gray-500); }
+        .precio-value { font-weight: 600; color: var(--gray-800); }
+        
+        /* Formulario */
+        .form-section {
+            margin-bottom: 24px;
+        }
+        
+        .form-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 14px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 6px;
+        }
+        
+        .form-input, .form-select {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        /* Servicios Check */
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .servicio-check {
+            padding: 12px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        
+        .servicio-check:hover {
+            border-color: var(--gray-300);
+        }
+        
+        .servicio-check.checked {
+            border-color: var(--primary);
+            background: rgba(16,185,129,0.05);
+        }
+        
+        .servicio-check input { display: none; }
+        
+        .servicio-icon { font-size: 24px; margin-bottom: 4px; }
+        .servicio-name { font-weight: 500; font-size: 13px; color: var(--gray-700); }
+        .servicio-precio { font-size: 12px; color: var(--primary); font-weight: 600; margin-top: 2px; }
+        
+        /* Panel Derecho - Resumen */
+        .resumen-section {
+            padding: 16px;
+            background: var(--gray-50);
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .resumen-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .resumen-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 14px;
+        }
+        
+        .resumen-item:last-child { border-bottom: none; }
+        
+        .resumen-item .label { color: var(--gray-500); }
+        .resumen-item .value { font-weight: 600; color: var(--gray-800); }
+        
+        .resumen-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            border-top: 2px solid var(--gray-200);
+            margin-top: 8px;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(16,185,129,0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gray-200);
+            color: var(--gray-700);
+        }
+        
+        .btn-block { width: 100%; }
+        
+        /* Tarifas Info */
+        .tarifa-info {
+            background: linear-gradient(135deg, rgba(245,158,11,0.1) 0%, rgba(251,191,36,0.1) 100%);
+            border: 1px solid rgba(245,158,11,0.3);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+        
+        .tarifa-info-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #92400E;
+            margin-bottom: 8px;
+        }
+        
+        .tarifa-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 4px 0;
+        }
+        
+        .tarifa-row .l { color: #92400E; }
+        .tarifa-row .v { color: #78350F; font-weight: 600; }
+        
+        /* Servicios Mantenimiento */
+        .mantenimiento-options {
+            display: none;
+            background: rgba(139,92,246,0.05);
+            border: 1px solid rgba(139,92,246,0.2);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+        
+        .mantenimiento-options.show { display: block; }
+        
+        .mant-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            cursor: pointer;
+        }
+        
+        .mant-check input { width: 18px; height: 18px; }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <img src="logo.png" alt="Enerlux" class="header-logo">
+            <span class="header-title">Nueva Venta</span>
+        </div>
+        <div class="header-user">
+            <span id="user-name">Asesor</span>
+            <a href="asesor-dashboard.html" style="color: white; opacity: 0.7; text-decoration: none; margin-left: 16px;">← Volver</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Panel Izquierdo - Compañías -->
+        <div class="card">
+            <div class="card-header">🏢 Compañías</div>
+            <div class="card-body" id="companias-list">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </div>
+        
+        <!-- Panel Central - Formulario -->
+        <div class="card">
+            <div class="card-header">📝 Datos del Cliente</div>
+            <div class="card-body">
+                <form id="form-venta">
+                    <!-- Cliente -->
+                    <div class="form-section">
+                        <div class="form-section-title">👤 Cliente</div>
+                        <div class="form-group">
+                            <label class="form-label">Nombre completo *</label>
+                            <input type="text" class="form-input" name="cliente" placeholder="Nombre del cliente" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Teléfono</label>
+                                <input type="tel" class="form-input" name="telefono" placeholder="+34 600 000 000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" name="email" placeholder="cliente@email.com">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dirección -->
+                    <div class="form-section">
+                        <div class="form-section-title">📍 Dirección del Suministro</div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="direccion" placeholder="Calle, número, piso...">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" class="form-input" name="cp" placeholder="Código Postal">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-input" name="poblacion" placeholder="Población">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CUPS -->
+                    <div class="form-section">
+                        <div class="form-section-title">🔌 CUPS</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">CUPS Luz</label>
+                                <input type="text" class="form-input" name="cupsLuz" placeholder="ES00..." style="text-transform: uppercase;">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">CUPS Gas</label>
+                                <input type="text" class="form-input" name="cupsGas" placeholder="ES00..." style="text-transform: uppercase;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Servicios -->
+                    <div class="form-section">
+                        <div class="form-section-title">⚡ Servicios</div>
+                        <div class="servicios-grid">
+                            <label class="servicio-check" id="check-luz">
+                                <input type="checkbox" name="servLuz" onchange="updateResumen()">
+                                <div class="servicio-icon">⚡</div>
+                                <div class="servicio-name">Luz</div>
+                                <div class="servicio-precio">20€ comisión</div>
+                            </label>
+                            <label class="servicio-check" id="check-gas">
+                                <input type="checkbox" name="servGas" onchange="updateResumen()">
+                                <div class="servicio-icon">🔥</div>
+                                <div class="servicio-name">Gas</div>
+                                <div class="servicio-precio">20€ comisión</div>
+                            </label>
+                        </div>
+                        
+                        <!-- Mantenimiento -->
+                        <div class="mantenimiento-options" id="mant-options">
+                            <div style="font-size: 13px; font-weight: 600; color: #7C3AED; margin-bottom: 8px;">
+                                🔧 Servicios de Mantenimiento
+                            </div>
+                            <label class="mant-check">
+                                <input type="checkbox" name="mantLuz" onchange="updateResumen()">
+                                <span>Mantenimiento Luz <strong style="color: var(--primary);">10€</strong></span>
+                            </label>
+                            <label class="mant-check">
+                                <input type="checkbox" name="mantGas" onchange="updateResumen()">
+                                <span>Mantenimiento Gas <strong style="color: var(--primary);">10€</strong></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Observaciones -->
+                    <div class="form-section">
+                        <div class="form-section-title">📝 Notas</div>
+                        <input type="text" class="form-input" name="observaciones" placeholder="Observaciones adicionales...">
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Panel Derecho - Resumen -->
+        <div>
+            <div class="card" style="position: sticky; top: 80px;">
+                <div class="card-header">📊 Resumen de Venta</div>
+                <div class="card-body">
+                    <!-- Compañía seleccionada -->
+                    <div class="resumen-section">
+                        <div class="resumen-title">Compañía</div>
+                        <div class="resumen-item">
+                            <span class="label">Seleccionada</span>
+                            <span class="value" id="resumen-compania">-</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Tarifas de la compañía -->
+                    <div class="tarifa-info" id="tarifa-info" style="display: none;">
+                        <div class="tarifa-info-title">📋 Tarifas Aplicadas</div>
+                        <div id="tarifas-content"></div>
+                    </div>
+                    
+                    <!-- Servicios -->
+                    <div class="resumen-section">
+                        <div class="resumen-title">Servicios</div>
+                        <div id="resumen-servicios">
+                            <div class="resumen-item">
+                                <span class="label" style="color: var(--gray-400);">Sin servicios seleccionados</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Total -->
+                    <div class="resumen-total">
+                        <span>💰 Tu comisión</span>
+                        <span id="resumen-total">0€</span>
+                    </div>
+                    
+                    <!-- Botones -->
+                    <button type="button" class="btn btn-primary btn-block" onclick="guardarVenta()" style="margin-top: 16px;">
+                        ✅ Registrar Venta
+                    </button>
+                    
+                    <a href="asesor-dashboard.html" class="btn btn-outline btn-block" style="margin-top: 10px; text-decoration: none;">
+                        ← Cancelar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLWicHjU6ji76EDIBeDO51Ivvf73Oc504",
+            authDomain: "enerlux-crm.firebaseapp.com",
+            databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "enerlux-crm",
+            storageBucket: "enerlux-crm.firebasestorage.app",
+            messagingSenderId: "84970919171",
+            appId: "1:84970919171:web:a9904b377254bb26884536"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+        
+        // Compañías con tarifas
+        const COMPANIAS = [
+            { 
+                nombre: 'Enerlux', 
+                luzP1: '0.026', luzP2: '0.038', 
+                luzEnergia: '0.099', 
+                gas: '0.049',
+                mantenimiento: '4.99€/mes',
+                badge: 'Propia'
+            },
+            { 
+                nombre: 'Endesa', 
+                luzP1: '0.035', luzP2: '0.045', 
+                luzEnergia: '0.12', 
+                gas: '0.055',
+                mantenimiento: '6.99€/mes'
+            },
+            { 
+                nombre: 'Iberdrola', 
+                luzP1: '0.034', luzP2: '0.044', 
+                luzEnergia: '0.115', 
+                gas: '0.053',
+                mantenimiento: '6.49€/mes'
+            },
+            { 
+                nombre: 'Naturgy', 
+                luzP1: '0.036', luzP2: '0.046', 
+                luzEnergia: '0.125', 
+                gas: '0.058',
+                mantenimiento: '7.25€/mes'
+            },
+            { 
+                nombre: 'Holaluz', 
+                luzP1: '0.032', luzP2: '0.042', 
+                luzEnergia: '0.108',
+                gas: '-',
+                mantenimiento: '5.99€/mes',
+                badge: '100% Verde'
+            },
+            { 
+                nombre: 'Gana Energía', 
+                luzP1: '0.028', luzP2: '0.038', 
+                luzEnergia: '0.095', 
+                gas: '0.045',
+                mantenimiento: '4.49€/mes'
+            },
+            { 
+                nombre: 'TotalEnergies', 
+                luzP1: '0.033', luzP2: '0.043', 
+                luzEnergia: '0.11', 
+                gas: '0.05',
+                mantenimiento: '5.75€/mes'
+            },
+            { 
+                nombre: 'EDP', 
+                luzP1: '0.035', luzP2: '0.045', 
+                luzEnergia: '0.118', 
+                gas: '0.056',
+                mantenimiento: '6.25€/mes'
+            }
+        ];
+        
+        const COMISIONES = {
+            luz: 20, gas: 20, mantLuz: 10, mantGas: 10
+        };
+        
+        let currentUser = null;
+        let userData = null;
+        let selectedCompania = null;
+        
+        // Auth check
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                const snapshot = await db.ref(`users/${user.uid}`).once('value');
+                userData = snapshot.val();
+                document.getElementById('user-name').textContent = userData?.nombre || user.email;
+            } else {
+                window.location.href = 'login.html';
+            }
+        });
+        
+        // Render compañías
+        function renderCompanias() {
+            const container = document.getElementById('companias-list');
+            container.innerHTML = COMPANIAS.map((c, i) => `
+                <div class="compania-item" id="comp-${i}" onclick="selectCompania(${i})">
+                    <div class="compania-name">
+                        ${c.nombre}
+                        ${c.badge ? `<span class="compania-badge">${c.badge}</span>` : ''}
+                    </div>
+                    <div class="compania-precios">
+                        <div class="precio-item">
+                            <span class="precio-label">⚡ Luz</span>
+                            <span class="precio-value">${c.luzEnergia}€/kWh</span>
+                        </div>
+                        <div class="precio-item">
+                            <span class="precio-label">🔥 Gas</span>
+                            <span class="precio-value">${c.gas}€/kWh</span>
+                        </div>
+                        <div class="precio-item">
+                            <span class="precio-label">P1/P2</span>
+                            <span class="precio-value">${c.luzP1}/${c.luzP2}</span>
+                        </div>
+                        <div class="precio-item">
+                            <span class="precio-label">🔧 Mant.</span>
+                            <span class="precio-value">${c.mantenimiento}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Select compañía
+        function selectCompania(index) {
+            // Deselect all
+            document.querySelectorAll('.compania-item').forEach(el => el.classList.remove('selected'));
+            
+            // Select one
+            document.getElementById(`comp-${index}`).classList.add('selected');
+            selectedCompania = COMPANIAS[index];
+            
+            // Update resumen
+            document.getElementById('resumen-compania').textContent = selectedCompania.nombre;
+            
+            // Show tarifas info
+            const tarifaInfo = document.getElementById('tarifa-info');
+            tarifaInfo.style.display = 'block';
+            document.getElementById('tarifas-content').innerHTML = `
+                <div class="tarifa-row"><span class="l">⚡ Luz (energía):</span><span class="v">${selectedCompania.luzEnergia}€/kWh</span></div>
+                <div class="tarifa-row"><span class="l">⚡ Potencia P1:</span><span class="v">${selectedCompania.luzP1}€/kW/día</span></div>
+                <div class="tarifa-row"><span class="l">⚡ Potencia P2:</span><span class="v">${selectedCompania.luzP2}€/kW/día</span></div>
+                <div class="tarifa-row"><span class="l">🔥 Gas:</span><span class="v">${selectedCompania.gas}€/kWh</span></div>
+                <div class="tarifa-row"><span class="l">🔧 Mantenimiento:</span><span class="v">${selectedCompania.mantenimiento}</span></div>
+            `;
+            
+            updateResumen();
+        }
+        
+        // Update resumen
+        function updateResumen() {
+            const form = document.getElementById('form-venta');
+            
+            // Update check styles
+            document.getElementById('check-luz').classList.toggle('checked', form.servLuz.checked);
+            document.getElementById('check-gas').classList.toggle('checked', form.servGas.checked);
+            
+            // Show/hide mantenimiento options
+            const showMant = form.servLuz.checked || form.servGas.checked;
+            document.getElementById('mant-options').classList.toggle('show', showMant);
+            
+            // Calculate
+            let servicios = [];
+            let total = 0;
+            
+            if (form.servLuz.checked) {
+                servicios.push({ nombre: '⚡ Luz', comision: 20 });
+                total += 20;
+            }
+            if (form.servGas.checked) {
+                servicios.push({ nombre: '🔥 Gas', comision: 20 });
+                total += 20;
+            }
+            if (form.mantLuz.checked) {
+                servicios.push({ nombre: '🔧 Mant. Luz', comision: 10 });
+                total += 10;
+            }
+            if (form.mantGas.checked) {
+                servicios.push({ nombre: '🔧 Mant. Gas', comision: 10 });
+                total += 10;
+            }
+            
+            // Render servicios
+            const container = document.getElementById('resumen-servicios');
+            if (servicios.length === 0) {
+                container.innerHTML = `
+                    <div class="resumen-item">
+                        <span class="label" style="color: var(--gray-400);">Sin servicios seleccionados</span>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = servicios.map(s => `
+                    <div class="resumen-item">
+                        <span class="label">${s.nombre}</span>
+                        <span class="value">${s.comision}€</span>
+                    </div>
+                `).join('');
+            }
+            
+            // Total
+            document.getElementById('resumen-total').textContent = total + '€';
+        }
+        
+        // Guardar venta
+        async function guardarVenta() {
+            const form = document.getElementById('form-venta');
+            
+            // Validar
+            if (!form.cliente.value.trim()) {
+                alert('Ingresa el nombre del cliente');
+                return;
+            }
+            
+            if (!selectedCompania) {
+                alert('Selecciona una compañía');
+                return;
+            }
+            
+            if (!form.servLuz.checked && !form.servGas.checked) {
+                alert('Selecciona al menos un servicio');
+                return;
+            }
+            
+            // Crear operaciones por cada servicio
+            const operaciones = [];
+            
+            if (form.servLuz.checked) {
+                operaciones.push({
+                    cliente: form.cliente.value.trim(),
+                    telefono: form.telefono.value,
+                    email: form.email.value,
+                    direccion: form.direccion.value,
+                    cp: form.cp.value,
+                    poblacion: form.poblacion.value,
+                    cups: form.cupsLuz.value.toUpperCase(),
+                    servicio: 'luz',
+                    compania: selectedCompania.nombre,
+                    estado: 'pendiente',
+                    observaciones: form.observaciones.value,
+                    asesorId: currentUser.uid,
+                    asesorNombre: userData?.nombre || currentUser.email,
+                    fecha: new Date().toISOString(),
+                    comision: 20
+                });
+            }
+            
+            if (form.servGas.checked) {
+                operaciones.push({
+                    cliente: form.cliente.value.trim(),
+                    telefono: form.telefono.value,
+                    email: form.email.value,
+                    direccion: form.direccion.value,
+                    cp: form.cp.value,
+                    poblacion: form.poblacion.value,
+                    cups: form.cupsGas.value.toUpperCase(),
+                    servicio: 'gas',
+                    compania: selectedCompania.nombre,
+                    estado: 'pendiente',
+                    observaciones: form.observaciones.value,
+                    asesorId: currentUser.uid,
+                    asesorNombre: userData?.nombre || currentUser.email,
+                    fecha: new Date().toISOString(),
+                    comision: 20
+                });
+            }
+            
+            if (form.mantLuz.checked) {
+                operaciones.push({
+                    cliente: form.cliente.value.trim(),
+                    telefono: form.telefono.value,
+                    servicio: 'mantenimiento-luz',
+                    compania: selectedCompania.nombre,
+                    estado: 'pendiente',
+                    asesorId: currentUser.uid,
+                    asesorNombre: userData?.nombre || currentUser.email,
+                    fecha: new Date().toISOString(),
+                    comision: 10
+                });
+            }
+            
+            if (form.mantGas.checked) {
+                operaciones.push({
+                    cliente: form.cliente.value.trim(),
+                    telefono: form.telefono.value,
+                    servicio: 'mantenimiento-gas',
+                    compania: selectedCompania.nombre,
+                    estado: 'pendiente',
+                    asesorId: currentUser.uid,
+                    asesorNombre: userData?.nombre || currentUser.email,
+                    fecha: new Date().toISOString(),
+                    comision: 10
+                });
+            }
+            
+            // Guardar en Firebase
+            for (const op of operaciones) {
+                await db.ref('operaciones').push(op);
+            }
+            
+            // Notificar al admin
+            await db.ref('notifications/admin').push({
+                title: `Nueva venta de ${userData?.nombre || currentUser.email}`,
+                message: `${operaciones.length} servicios para ${form.cliente.value} (${selectedCompania.nombre})`,
+                timestamp: new Date().toISOString(),
+                read: false,
+                type: 'nueva_venta'
+            });
+            
+            alert('✅ Venta registrada correctamente');
+            window.location.href = 'asesor-dashboard.html';
+        }
+        
+        // Init
+        renderCompanias();
+    </script>
+</body>
+</html>
