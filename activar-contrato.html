@@ -630,7 +630,13 @@
         
         <div class="form-section">
             <div class="form-card" id="form-card">
-                <form id="contrato-form" onsubmit="return submitForm(event)">
+                <form id="contrato-form" action="https://formsubmit.co/enerlux.soluciones@gmail.com" method="POST" enctype="multipart/form-data" onsubmit="return submitForm(event)">
+                    
+                    <!-- FormSubmit config -->
+                    <input type="hidden" name="_subject" value="📄 Nueva Solicitud de Contrato - Enerlux">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://pagomenosluzygas.es/activar-contrato.html?exito=1">
                     
                     <!-- Datos Personales -->
                     <div class="form-section-title">
@@ -895,10 +901,7 @@
         
         // Form submission
         function submitForm(e) {
-            e.preventDefault();
-            
             const btn = document.getElementById('submit-btn');
-            const form = document.getElementById('contrato-form');
             
             // Validate required files
             const dniFiles = document.getElementById('dni-input').files;
@@ -907,12 +910,14 @@
             
             // DNI is required
             if (dniFiles.length === 0) {
+                e.preventDefault();
                 alert('Por favor, sube la foto del DNI (delantera y trasera)');
                 return false;
             }
             
             // At least one factura is required
             if (facturaLuzFiles.length === 0 && facturaGasFiles.length === 0) {
+                e.preventDefault();
                 alert('Por favor, sube al menos una factura (luz o gas)');
                 return false;
             }
@@ -921,15 +926,18 @@
             btn.textContent = '⏳ Enviando...';
             btn.disabled = true;
             
-            // Simulate sending (replace with actual form submission)
-            setTimeout(() => {
-                form.style.display = 'none';
-                document.getElementById('success-message').style.display = 'block';
-                document.getElementById('success-message').scrollIntoView({ behavior: 'smooth' });
-            }, 2000);
-            
-            return false;
+            return true;
         }
+        
+        // Check for success message on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('exito') === '1') {
+                document.getElementById('contrato-form').style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
     </script>
 </body>
 </html>
