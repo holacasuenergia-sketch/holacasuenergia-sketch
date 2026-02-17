@@ -572,81 +572,16 @@
             </div>
         </div>
         
-        <!-- Nueva Venta Section -->
+        <!-- Nueva Venta Section - Formulario Completo (Solo Admin) -->
         <div class="section" id="section-nueva-venta">
             <div class="header">
                 <div>
-                    <h1 class="header-title">Nueva Venta</h1>
-                    <p class="header-subtitle">Registrar operación (Admin)</p>
+                    <h1 class="header-title">📝 Nueva Venta</h1>
+                    <p class="header-subtitle">Formulario completo de contratación</p>
                 </div>
             </div>
             
-            <div class="card" style="max-width: 600px;">
-                <form id="form-nueva-venta">
-                    <div class="form-group">
-                        <label class="form-label">Nombre del Cliente *</label>
-                        <input type="text" class="form-input" name="cliente" placeholder="Nombre completo" required>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                        <div class="form-group">
-                            <label class="form-label">Teléfono</label>
-                            <input type="tel" class="form-input" name="telefono" placeholder="+34 600 000 000">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-input" name="email" placeholder="cliente@email.com">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">CUPS *</label>
-                        <input type="text" class="form-input" name="cups" placeholder="ES00..." style="text-transform: uppercase;" required>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                        <div class="form-group">
-                            <label class="form-label">Tipo de Servicio *</label>
-                            <select class="form-select" name="servicio" required>
-                                <option value="">Selecciona...</option>
-                                <option value="luz">⚡ Luz - 20€</option>
-                                <option value="gas">🔥 Gas - 20€</option>
-                                <option value="mantenimiento-luz">🔧 Mant. Luz - 10€</option>
-                                <option value="mantenimiento-gas">🔧 Mant. Gas - 10€</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Compañía</label>
-                            <select class="form-select" name="compania">
-                                <option value="">Selecciona...</option>
-                                <option>Endesa</option>
-                                <option>Iberdrola</option>
-                                <option>Naturgy</option>
-                                <option>Holaluz</option>
-                                <option>Gana Energía</option>
-                                <option>TotalEnergies</option>
-                                <option>EDP</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Estado</label>
-                        <select class="form-select" name="estado">
-                            <option value="pendiente">Pendiente</option>
-                            <option value="enviado">Enviado</option>
-                            <option value="confirmado">Confirmado</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Observaciones</label>
-                        <input type="text" class="form-input" name="observaciones" placeholder="Notas adicionales...">
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">✅ Registrar Venta</button>
-                </form>
-            </div>
+            <iframe src="nueva-venta.html?admin=1" style="width: 100%; height: 1200px; border: none; border-radius: 8px;" frameborder="0"></iframe>
         </div>
         
         <!-- Asesores Section -->
