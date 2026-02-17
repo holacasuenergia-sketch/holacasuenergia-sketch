@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta name="description" content="Activa tu contrato de luz o gas con Enerlux. Proceso sencillo y rápido.">
     <meta name="robots" content="index, follow">
     <title>Activar Contrato - Enerlux Soluciones</title>
     <link rel="canonical" href="https://www.pagomenosluzygas.es/activar-contrato">
-    <link rel="icon" type="image/jpeg" href="logo-enerlux.jpg">
+    <link rel="icon" type="image/jpeg" href="logo-enerlux.jpg?v=2026-02-17-v2">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- VERSION: 2026-02-17-v2 - Archivos acumulativos -->
     <style>
         :root {
             --primary: #10B981;
@@ -857,6 +861,9 @@
     </footer>
     
     <script>
+        // VERSION: 2026-02-17-v2 - Archivos acumulativos
+        console.log('🚀 Script cargado - v2026-02-17-v2');
+        
         // Almacenamiento de archivos acumulados por tipo
         const accumulatedFiles = {
             'dni': [],
@@ -876,17 +883,25 @@
         
         // File upload handlers - ACUMULATIVO
         function updateFiles(type) {
+            console.log('📁 updateFiles llamado para:', type);
             const input = document.getElementById(type + '-input');
+            console.log('📁 Archivos seleccionados:', input.files.length);
             
             // Añadir nuevos archivos a los acumulados (sin duplicados)
             for (let i = 0; i < input.files.length; i++) {
                 const newFile = input.files[i];
+                console.log('📁 Procesando:', newFile.name);
                 // Verificar si ya existe un archivo con el mismo nombre
                 const exists = accumulatedFiles[type].some(f => f.name === newFile.name);
                 if (!exists) {
                     accumulatedFiles[type].push(newFile);
+                    console.log('✅ Añadido:', newFile.name);
+                } else {
+                    console.log('⚠️ Ya existe:', newFile.name);
                 }
             }
+            
+            console.log('📁 Total acumulado para', type + ':', accumulatedFiles[type].length);
             
             // Actualizar el input file con todos los archivos acumulados
             const dt = new DataTransfer();
