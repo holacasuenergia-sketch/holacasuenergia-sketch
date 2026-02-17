@@ -1853,21 +1853,19 @@
                 </div>
             `;
             
-            // Opción Tarifa Plana
-            if (consumoLuz >= 250) {
-                resultHTML += `
-                    <div style="background: rgba(245, 166, 35, 0.15); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid rgba(245, 166, 35, 0.3);">
-                        <div style="font-size: 14px; opacity: 0.8; margin-bottom: 8px;">💎 Tarifa Plana Zen (Naturgy)</div>
-                        <div style="font-size: 24px; font-weight: 700; color: #F5A623;">Precio fijo/mes</div>
-                        <div style="font-size: 13px; opacity: 0.7; margin-top: 8px;">
-                            El mismo precio cada mes, consumas lo que consumas
-                        </div>
-                        <div style="font-size: 12px; opacity: 0.6; margin-top: 4px;">
-                            Te calculamos tu cuota personalizada
-                        </div>
+            // Opción Tarifa Plana (SIEMPRE visible)
+            resultHTML += `
+                <div style="background: rgba(245, 166, 35, 0.15); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid rgba(245, 166, 35, 0.3);">
+                    <div style="font-size: 14px; opacity: 0.8; margin-bottom: 8px;">💎 Tarifa Plana Zen (Naturgy)</div>
+                    <div style="font-size: 24px; font-weight: 700; color: #F5A623;">Precio fijo/mes</div>
+                    <div style="font-size: 13px; opacity: 0.7; margin-top: 8px;">
+                        El mismo precio cada mes, consumas lo que consumas
                     </div>
-                `;
-            }
+                    <div style="font-size: 12px; opacity: 0.6; margin-top: 4px;">
+                        Te calculamos tu cuota personalizada
+                    </div>
+                </div>
+            `;
             
             // CUPS (si existen)
             if (cupsLuz) {
@@ -1880,12 +1878,7 @@
             }
             
             // Botones de contacto
-            let mensaje;
-            if (consumoLuz >= 250) {
-                mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes%0A⚡ Potencia P1: ${p1} kW%0A⚡ Potencia P2: ${p2} kW%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Precio Fijo 24h: ${totalFijo.toFixed(2)}€/mes%0A💎 También me interesa la Tarifa Plana%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
-            } else {
-                mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes%0A⚡ Potencia P1: ${p1} kW%0A⚡ Potencia P2: ${p2} kW%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Precio Fijo 24h (0,10€/kWh): ${totalFijo.toFixed(2)}€/mes%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
-            }
+            const mensaje = `Hola! Quiero calcular mi tarifa.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes%0A⚡ Potencia P1: ${p1} kW%0A⚡ Potencia P2: ${p2} kW%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}%0A💰 Precio Fijo 24h: ${totalFijo.toFixed(2)}€/mes%0A%0A💎 También me interesa la Tarifa Plana Zen (precio fijo/mes)%0A${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}`;
             
             resultHTML += `
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
