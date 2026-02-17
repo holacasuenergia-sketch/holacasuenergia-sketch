@@ -1792,6 +1792,9 @@
             const precioGas = 0.06;              // €/kWh
             const diasMes = 30;                  // Días promedio por mes
             
+            // === COSTE GAS ===
+            const costeGas = consumoGas * precioGas;
+            
             // === CÁLCULO TARIFA POR USO NATURGY ===
             const costePotenciaP1 = p1 * precioPotenciaP1 * diasMes;
             const costePotenciaP2 = p2 * precioPotenciaP2 * diasMes;
