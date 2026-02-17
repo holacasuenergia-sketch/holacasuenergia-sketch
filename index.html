@@ -748,22 +748,25 @@
         }
         
         .result-card {
-            background: linear-gradient(135deg, var(--accent-dark) 0%, #004080 100%);
+            background: var(--white);
             border-radius: 16px;
             padding: 30px;
-            color: var(--white);
+            color: var(--gray-800);
             margin-top: 30px;
             display: none;
+            border: 2px solid var(--gray-200);
+            box-shadow: var(--shadow-lg);
         }
-        
+
         .result-card.active {
             display: block;
         }
-        
+
         .result-title {
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 20px;
+            color: var(--accent-dark);
         }
         
         .result-tariff {
@@ -1809,24 +1812,24 @@
             
             // === MOSTRAR RESULTADOS ===
             let resultHTML = `
-                <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; opacity: 0.9;">
+                <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px; color: var(--gray-700);">
                     💡 Tus tarifas disponibles:
                 </div>
             `;
             
             // Tarifa Precio Fijo 24h (mejor opción)
             resultHTML += `
-                <div style="background: rgba(16, 185, 129, 0.15); border-radius: 16px; padding: 20px; margin-bottom: 12px; border: 2px solid rgba(16, 185, 129, 0.3);">
+                <div style="background: rgba(16, 185, 129, 0.1); border-radius: 16px; padding: 20px; margin-bottom: 12px; border: 2px solid rgba(16, 185, 129, 0.3);">
                     <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
                         <div>
-                            <div style="font-size: 14px; opacity: 0.8;">💰 Precio Fijo 24h</div>
-                            <div style="font-size: 12px; opacity: 0.6;">Energía: 0,10 €/kWh</div>
+                            <div style="font-size: 14px; color: var(--gray-700);">💰 Precio Fijo 24h</div>
+                            <div style="font-size: 12px; color: var(--gray-500);">Energía: 0,10 €/kWh</div>
                         </div>
                         <div style="text-align: right;">
-                            <div style="font-size: 28px; font-weight: 700; color: #10B981;">${totalFijo.toFixed(2)} €<span style="font-size: 14px; opacity: 0.7;">/mes</span></div>
+                            <div style="font-size: 28px; font-weight: 700; color: #10B981;">${totalFijo.toFixed(2)} €<span style="font-size: 14px; color: var(--gray-500);">/mes</span></div>
                         </div>
                     </div>
-                    <div style="font-size: 12px; opacity: 0.7;">Precio aproximado según tu consumo</div>
+                    <div style="font-size: 12px; color: var(--gray-500);">Precio aproximado según tu consumo</div>
                 </div>
             `;
             
@@ -1835,19 +1838,19 @@
             const costeEnergiaDesglose = consumoLuz * 0.10;
             
             resultHTML += `
-                <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 16px; margin-bottom: 16px; font-size: 13px;">
-                    <div style="font-weight: 600; margin-bottom: 12px;">📋 Desglose mensual (Precio Fijo 24h):</div>
-                    ${p1 > 0 || p2 > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>⚡ Potencia (P1: ${p1}kW, P2: ${p2}kW)</span><span>${costePotenciaDesglose.toFixed(2)}€</span></div>` : ''}
-                    ${consumoLuz > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>⚡ Energía (${consumoLuz} kWh × 0,10€)</span><span>${costeEnergiaDesglose.toFixed(2)}€</span></div>` : ''}
-                    ${consumoGas > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; opacity: 0.9;"><span>🔥 Gas (${consumoGas} kWh × 0,06€)</span><span>${(consumoGas * 0.06).toFixed(2)}€</span></div>` : ''}
-                    <div style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 8px; padding-top: 8px; font-weight: 600; display: flex; justify-content: space-between;"><span>Total/mes</span><span>${totalFijo.toFixed(2)}€</span></div>
+                <div style="background: var(--gray-50); border-radius: 12px; padding: 16px; margin-bottom: 16px; font-size: 13px;">
+                    <div style="font-weight: 600; margin-bottom: 12px; color: var(--accent-dark);">📋 Desglose mensual (Precio Fijo 24h):</div>
+                    ${p1 > 0 || p2 > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; color: var(--gray-600);"><span>⚡ Potencia (P1: ${p1}kW, P2: ${p2}kW)</span><span>${costePotenciaDesglose.toFixed(2)}€</span></div>` : ''}
+                    ${consumoLuz > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; color: var(--gray-600);"><span>⚡ Energía (${consumoLuz} kWh × 0,10€)</span><span>${costeEnergiaDesglose.toFixed(2)}€</span></div>` : ''}
+                    ${consumoGas > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 6px; color: var(--gray-600);"><span>🔥 Gas (${consumoGas} kWh × 0,06€)</span><span>${(consumoGas * 0.06).toFixed(2)}€</span></div>` : ''}
+                    <div style="border-top: 1px solid var(--gray-200); margin-top: 8px; padding-top: 8px; font-weight: 600; display: flex; justify-content: space-between; color: var(--gray-800);"><span>Total/mes</span><span>${totalFijo.toFixed(2)}€</span></div>
                 </div>
             `;
             
             // Precios de referencia
             resultHTML += `
-                <div style="font-size: 12px; opacity: 0.6; margin-bottom: 16px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                    <div style="font-weight: 600; margin-bottom: 6px;">Precios Precio Fijo 24h:</div>
+                <div style="font-size: 12px; color: var(--gray-500); margin-bottom: 16px; padding: 12px; background: var(--gray-50); border-radius: 8px;">
+                    <div style="font-weight: 600; margin-bottom: 6px; color: var(--gray-600);">Precios Precio Fijo 24h:</div>
                     <div>• Energía: 0,10 €/kWh (precio fijo 24h)</div>
                     <div>• Potencia: según contrato</div>
                     ${consumoGas > 0 ? '<div>• Gas: 0,06 €/kWh</div>' : ''}
@@ -1859,14 +1862,14 @@
             
             // Opción Tarifa Plana (SIEMPRE visible)
             resultHTML += `
-                <div style="margin-bottom: 12px; font-size: 14px; font-weight: 600; opacity: 0.9;">
+                <div style="margin-bottom: 12px; font-size: 14px; font-weight: 600; color: var(--gray-700);">
                     También tienes la opción:
                 </div>
-                <div style="background: rgba(245, 166, 35, 0.15); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid rgba(245, 166, 35, 0.3);">
-                    <div style="font-size: 14px; opacity: 0.8; margin-bottom: 8px;">💎 Tarifa Plana Zen (Naturgy)</div>
-                    <div style="font-size: 24px; font-weight: 700; color: #F5A623;">Precio fijo/mes</div>
-                    <div style="font-size: 13px; opacity: 0.7; margin-top: 8px;">
-                        El mismo precio cada mes, consumas lo que consumas
+                <div style="background: rgba(245, 166, 35, 0.1); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid rgba(245, 166, 35, 0.3);">
+                    <div style="font-size: 14px; color: var(--gray-700); margin-bottom: 8px;">💎 Tarifa Plana Zen (Naturgy)</div>
+                    <div style="font-size: 24px; font-weight: 700; color: #D97706;">Precio fijo/mes</div>
+                    <div style="font-size: 13px; color: var(--gray-500); margin-top: 8px;">
+                        El mismo precio cada mes, consumas lo que consuma
                     </div>
                     <div style="margin-top: 16px;">
                         <a href="https://wa.me/34610243061?text=${mensajePlana}" target="_blank" class="btn btn-gold" style="display: block; text-align: center;">
@@ -1879,7 +1882,7 @@
             // CUPS (si existen)
             if (cupsLuz) {
                 resultHTML += `
-                    <div style="font-size: 11px; opacity: 0.6; margin-bottom: 16px;">
+                    <div style="font-size: 11px; color: var(--gray-500); margin-bottom: 16px;">
                         ${cupsLuz ? `⚡ CUPS Luz: ${cupsLuz}` : ''}
                         ${cupsGas ? `<br>🔥 CUPS Gas: ${cupsGas}` : ''}
                     </div>
