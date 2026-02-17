@@ -126,7 +126,7 @@
         .card-header {
             padding: 16px 20px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -137,6 +137,7 @@
         .card-header.gas { background: linear-gradient(135deg, #FEE2E2, #FECACA); color: #991B1B; }
         .card-header.mant { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); color: #1E40AF; }
         .card-header.desc { background: linear-gradient(135deg, #D1FAE5, #A7F3D0); color: #065F46; }
+        .card-header.solar { background: linear-gradient(135deg, #FEF3C7, #FDE68A); color: #92400E; }
         
         .card-body { padding: 20px; }
         
@@ -196,6 +197,17 @@
             margin-top: 16px;
             font-size: 13px;
             color: #1E40AF;
+            line-height: 1.6;
+        }
+        
+        .source-box {
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #166534;
         }
         
         .link-oficial {
@@ -230,13 +242,13 @@
     <div class="container">
         <div class="page-header">
             <h1 class="page-title">Tarifas y Precios Actualizados</h1>
-            <p class="page-subtitle">Información de referencia para orientar a los clientes. Verificar siempre en la web oficial.</p>
+            <p class="page-subtitle">Información del portal de colaboradores para orientar a los clientes</p>
         </div>
         
-        <div class="update-badge">📅 Febrero 2026 - Los precios pueden variar diariamente</div>
+        <div class="update-badge">📅 Febrero 2026 - Fuente: Portal colaboradores + webs oficiales</div>
         
         <div class="warning-box">
-            <p>⚠️ <strong>Importante:</strong> Las tarifas de luz y gas cambian frecuentemente. Estos precios son de referencia. La <strong>Tarifa Plana</strong> de Naturgy es personalizada según consumo (usar su calculadora online). Siempre verifique en la web oficial de cada compañía antes de hacer una propuesta.</p>
+            <p>⚠️ <strong>Importante:</strong> Las tarifas pueden cambiar. La <strong>Tarifa Plana de Naturgy</strong> es personalizada según consumo (usar su calculadora online). Siempre verificar en el portal de colaboradores antes de hacer una propuesta.</p>
         </div>
         
         <div class="company-tabs">
@@ -253,28 +265,52 @@
         <div class="company-panel active" id="panel-endesa">
             <div class="tarifas-grid">
                 <div class="card">
-                    <div class="card-header luz">⚡ Luz - Tarifa Por Uso (Indexada)</div>
+                    <div class="card-header luz">⚡ Luz - Tarifa Libre</div>
                     <div class="card-body">
-                        <div class="price-row"><span class="price-label">Potencia P1 (Punta)</span><span class="price-value">0,1186 €/kW día</span></div>
-                        <div class="price-row"><span class="price-label">Potencia P2 (Valle)</span><span class="price-value">0,0345 €/kW día</span></div>
-                        <div class="price-row"><span class="price-label">Energía P1 (Punta)</span><span class="price-value">0,3219 €/kWh</span></div>
-                        <div class="price-row"><span class="price-label">Energía P2 (Valle)</span><span class="price-value">0,0810 €/kWh</span></div>
-                        <div class="price-row"><span class="price-label">Energía P3 (Llano)</span><span class="price-value">0,1524 €/kWh</span></div>
-                        <div class="info-box">💡 Precio fijo las 24h, sin discriminación horaria en la tarifa One Luz</div>
+                        <div class="price-row"><span class="price-label">Potencia</span><span class="price-value">0,094 €/kW</span></div>
+                        <div class="price-row"><span class="price-label">Energía P1/P2/P3</span><span class="price-value highlight">0,1212 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">Precio base energía</span><span class="price-value">0,134692 €/kWh</span></div>
+                        <div class="info-box">💡 Precio único las 24 horas, sin discriminación horaria</div>
                     </div>
                 </div>
                 
                 <div class="card">
-                    <div class="card-header gas">🔥 Gas - Por Uso</div>
+                    <div class="card-header gas">🔥 Gas - DUAL con Luz</div>
                     <div class="card-body">
                         <div class="price-row"><span class="price-label">Término fijo (RL1)</span><span class="price-value">4,29 €/mes</span></div>
                         <div class="price-row"><span class="price-label">Término variable</span><span class="price-value">0,0579 €/kWh</span></div>
+                        <div class="info-box">💡 Contratando gas + luz juntos = mejores descuentos</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header solar">☀️ Solar Plus & Batería Virtual</div>
+                    <div class="card-body">
+                        <div class="price-row"><span class="price-label">Potencia</span><span class="price-value">0,09 €/kW</span></div>
+                        <div class="price-row"><span class="price-label">Energía P1-P3</span><span class="price-value">0,148828 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">Batería virtual</span><span class="price-value">2,00 €/mes</span></div>
+                        <div class="price-row"><span class="price-label">Compensación excedentes</span><span class="price-value highlight">0,06 €/kWh</span></div>
                     </div>
                 </div>
                 
                 <div class="card">
                     <div class="card-header mant">🔧 Mantenimientos</div>
                     <div class="card-body">
+                        <div class="mant-item">
+                            <div class="mant-name">Protección 360 Plus</div>
+                            <div class="mant-price">Consultar</div>
+                            <div class="mant-info">Protección completa hogar</div>
+                        </div>
+                        <div class="mant-item">
+                            <div class="mant-name">Mantenimiento Aire Completo</div>
+                            <div class="mant-price">Consultar</div>
+                            <div class="mant-info">Aire acondicionado</div>
+                        </div>
+                        <div class="mant-item">
+                            <div class="mant-name">Mantenimiento Gas Completo</div>
+                            <div class="mant-price">Consultar</div>
+                            <div class="mant-info">Caldera y calefacción gas</div>
+                        </div>
                         <div class="mant-item">
                             <div class="mant-name">Luz Esencial</div>
                             <div class="mant-price">7,59 €/mes</div>
@@ -285,16 +321,6 @@
                             <div class="mant-price">13,99 €/mes</div>
                             <div class="mant-info">Reparación + electrodomésticos</div>
                         </div>
-                        <div class="mant-item">
-                            <div class="mant-name">Gas Total</div>
-                            <div class="mant-price">11,99 €/mes</div>
-                            <div class="mant-info">Reparación gas y calefacción</div>
-                        </div>
-                        <div class="mant-item">
-                            <div class="mant-name">Hogar Total</div>
-                            <div class="mant-price">19,99 €/mes</div>
-                            <div class="mant-info">Todo incluido: Luz + Gas + Electrod.</div>
-                        </div>
                     </div>
                 </div>
                 
@@ -302,29 +328,37 @@
                     <div class="card-header desc">🎁 Descuentos y Promociones</div>
                     <div class="card-body">
                         <div class="desc-item">
-                            <span class="desc-badge">20%</span>
+                            <span class="desc-badge">10%</span>
                             <div>
-                                <div class="desc-text">Descuento en energía primer año</div>
-                                <div class="desc-cond">Contratando luz + gas conjuntamente</div>
+                                <div class="desc-text">Descuento en energía durante 1 año</div>
                             </div>
                         </div>
                         <div class="desc-item">
-                            <span class="desc-badge">10%</span>
+                            <span class="desc-badge">1 MES GRATIS</span>
                             <div>
-                                <div class="desc-text">Descuento adicional con mantenimiento</div>
-                                <div class="desc-cond">Clientes nuevos</div>
+                                <div class="desc-text">Con permanencia de 1 año</div>
+                                <div class="desc-cond">Válido para nuevos clientes</div>
+                            </div>
+                        </div>
+                        <div class="desc-item">
+                            <span class="desc-badge">20% DUAL</span>
+                            <div>
+                                <div class="desc-text">Descuento contratando Luz + Gas juntos</div>
                             </div>
                         </div>
                         <div class="desc-item">
                             <span class="desc-badge">Sin permanencia</span>
                             <div>
-                                <div class="desc-text">Puedes cambiar cuando quieras</div>
+                                <div class="desc-text">Puedes cambiar cuando quieras (sin el mes gratis)</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <a href="https://www.endesa.es/es/tarifas-luz-gas" target="_blank" class="link-oficial">🔗 Ver tarifas oficiales en endesa.es</a>
+            <div class="source-box">
+                📋 Fuente: Portal colaboradores.processus.es - Tarifa Libre Endesa
+            </div>
+            <a href="https://www.endesa.es/es/tarifas-luz-gas" target="_blank" class="link-oficial">🔗 Ver web oficial endesa.es</a>
         </div>
         
         <!-- IBERDROLA -->
@@ -399,7 +433,7 @@
                     </div>
                 </div>
             </div>
-            <a href="https://www.iberdrola.es/luz-y-gas/tarifas-luz" target="_blank" class="link-oficial">🔗 Ver tarifas oficiales en iberdrola.es</a>
+            <a href="https://www.iberdrola.es/luz-y-gas/tarifas-luz" target="_blank" class="link-oficial">🔗 Ver web oficial iberdrola.es</a>
         </div>
         
         <!-- NATURGY -->
@@ -419,7 +453,7 @@
                     <div class="card-body">
                         <div class="price-row"><span class="price-label">Término fijo (RL1)</span><span class="price-value">4,12 €/mes</span></div>
                         <div class="price-row"><span class="price-label">Término variable</span><span class="price-value highlight">0,07 €/kWh</span></div>
-                        <div class="price-row"><span class="price-label">Alternativa por kW</span><span class="price-value">0,06 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">Alternativa por kW</span><span class="price-value">0,06 €/kW</span></div>
                     </div>
                 </div>
                 
@@ -428,7 +462,7 @@
                     <div class="card-body">
                         <div class="price-row"><span class="price-label">Precio</span><span class="price-value highlight">Según consumo</span></div>
                         <div class="price-row"><span class="price-label">Calculadora online</span><span class="price-value">Obligatoria</span></div>
-                        <div class="info-box">⚠️ Naturgy NO tiene un precio fijo publicado. Usa su calculadora online para obtener el precio personalizado según el consumo del cliente.</div>
+                        <div class="info-box">⚠️ Naturgy NO tiene un precio fijo publicado. El precio depende del consumo estimado del cliente. Usar la calculadora de su web.</div>
                     </div>
                 </div>
                 
@@ -478,18 +512,18 @@
                     </div>
                 </div>
             </div>
-            <a href="https://www.naturgy.es/es/tarifas-y-precios" target="_blank" class="link-oficial">🔗 Ver tarifas oficiales en naturgy.es (usar calculadora)</a>
+            <a href="https://www.naturgy.es/es/tarifas-y-precios" target="_blank" class="link-oficial">🔗 Ver web oficial naturgy.es (usar calculadora)</a>
         </div>
         
         <!-- HOLALUZ -->
         <div class="company-panel" id="panel-holaluz">
             <div class="tarifas-grid">
                 <div class="card">
-                    <div class="card-header luz">⚡ Luz - Indexada (PVPC)</div>
+                    <div class="card-header luz">⚡ Luz - Indexada</div>
                     <div class="card-body">
                         <div class="price-row"><span class="price-label">Potencia</span><span class="price-value">Precio mercado + peaje</span></div>
                         <div class="price-row"><span class="price-label">Energía</span><span class="price-value">PVPC + pequeño margen</span></div>
-                        <div class="price-row"><span class="price-label">Energía plana</span><span class="price-value highlight">~0,108 €/kWh</span></div>
+                        <div class="price-row"><span class="price-label">Energía (aprox.)</span><span class="price-value highlight">~0,108 €/kWh</span></div>
                     </div>
                 </div>
                 
@@ -536,7 +570,7 @@
             <div class="info-box" style="margin-top: 20px;">
                 ⚠️ <strong>Holaluz NO ofrece servicio de gas natural.</strong> Solo comercializa energía eléctrica 100% renovable.
             </div>
-            <a href="https://www.holaluz.com/tarifas-luz/" target="_blank" class="link-oficial">🔗 Ver tarifas oficiales en holaluz.com</a>
+            <a href="https://www.holaluz.com/tarifas-luz/" target="_blank" class="link-oficial">🔗 Ver web oficial holaluz.com</a>
         </div>
         
         <!-- GANA ENERGÍA -->
@@ -604,7 +638,7 @@
                     </div>
                 </div>
             </div>
-            <a href="https://www.ganaenergia.es/tarifas-luz" target="_blank" class="link-oficial">🔗 Ver tarifas oficiales en ganaenergia.es</a>
+            <a href="https://www.ganaenergia.es/tarifas-luz" target="_blank" class="link-oficial">🔗 Ver web oficial ganaenergia.es</a>
         </div>
         
         <!-- TOTALENERGIES -->
@@ -661,7 +695,7 @@
                     </div>
                 </div>
             </div>
-            <a href="https://www.totalenergies.es/clientes/luz-y-gas" target="_blank" class="link-oficial">🔗 Ver tarifas oficiales en totalenergies.es</a>
+            <a href="https://www.totalenergies.es/clientes/luz-y-gas" target="_blank" class="link-oficial">🔗 Ver web oficial totalenergies.es</a>
         </div>
         
         <!-- EDP -->
@@ -723,7 +757,7 @@
                     </div>
                 </div>
             </div>
-            <a href="https://www.edp.es/particulares/luz-y-gas" target="_blank" class="link-oficial">🔗 Ver tarifas oficiales en edp.es</a>
+            <a href="https://www.edp.es/particulares/luz-y-gas" target="_blank" class="link-oficial">🔗 Ver web oficial edp.es</a>
         </div>
         
     </div>
