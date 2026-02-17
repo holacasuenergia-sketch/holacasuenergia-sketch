@@ -14,15 +14,10 @@
         :root {
             --primary: #10B981;
             --primary-dark: #059669;
-            --primary-light: #34D399;
-            --secondary: #0EA5E9;
-            --accent: #F59E0B;
-            --accent-gold: #FCD34D;
             --white: #FFFFFF;
             --gray-50: #F9FAFB;
             --gray-100: #F3F4F6;
             --gray-200: #E5E7EB;
-            --gray-300: #D1D5DB;
             --gray-400: #9CA3AF;
             --gray-500: #6B7280;
             --gray-600: #4B5563;
@@ -31,7 +26,6 @@
             --gray-900: #111827;
             --success: #10B981;
             --error: #EF4444;
-            --warning: #F59E0B;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -48,7 +42,7 @@
         
         .login-container {
             display: flex;
-            max-width: 1000px;
+            max-width: 900px;
             width: 100%;
             background: var(--white);
             border-radius: 20px;
@@ -58,7 +52,7 @@
         
         .login-brand {
             flex: 1;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, #0891B2 100%);
             padding: 60px 50px;
             display: flex;
             flex-direction: column;
@@ -78,17 +72,6 @@
             width: 250px;
             height: 250px;
             background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-        
-        .login-brand::after {
-            content: '';
-            position: absolute;
-            bottom: -50px;
-            left: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255,255,255,0.05);
             border-radius: 50%;
         }
         
@@ -117,29 +100,6 @@
             line-height: 1.6;
             position: relative;
             z-index: 1;
-        }
-        
-        .brand-stats {
-            display: flex;
-            gap: 30px;
-            margin-top: 40px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .brand-stat {
-            text-align: center;
-        }
-        
-        .brand-stat-value {
-            font-size: 28px;
-            font-weight: 700;
-        }
-        
-        .brand-stat-label {
-            font-size: 12px;
-            opacity: 0.8;
-            margin-top: 4px;
         }
         
         .login-form {
@@ -267,43 +227,26 @@
             to { transform: rotate(360deg); }
         }
         
-        .demo-hint {
-            margin-top: 30px;
-            padding: 16px;
-            background: var(--gray-50);
-            border-radius: 12px;
-            font-size: 13px;
-            color: var(--gray-500);
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
         }
         
-        .demo-hint strong {
-            color: var(--gray-700);
+        .back-link a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .back-link a:hover {
+            color: var(--primary);
         }
         
         @media (max-width: 768px) {
-            .login-container {
-                flex-direction: column;
-            }
-            
-            .login-brand {
-                padding: 40px 30px;
-            }
-            
-            .brand-stats {
-                gap: 20px;
-            }
-            
-            .brand-stat-value {
-                font-size: 22px;
-            }
-            
-            .login-form {
-                padding: 40px 30px;
-            }
-            
-            .form-title {
-                font-size: 24px;
-            }
+            .login-container { flex-direction: column; }
+            .login-brand { padding: 40px 30px; }
+            .login-form { padding: 40px 30px; }
+            .form-title { font-size: 24px; }
         }
     </style>
 </head>
@@ -328,7 +271,7 @@
                 <p>Verificando credenciales...</p>
             </div>
             
-            <form id="login-form" style="display: block;">
+            <form id="login-form">
                 <div class="form-group">
                     <label class="form-label">Usuario</label>
                     <input type="email" class="form-input" id="email" placeholder="tu@email.com" required autocomplete="email">
@@ -340,9 +283,13 @@
                 </div>
                 
                 <button type="submit" class="btn btn-primary btn-block">
-                    Iniciar Sesión
+                    Acceder
                 </button>
             </form>
+            
+            <div class="back-link">
+                <a href="https://pagomenosluzygas.es">← Volver al sitio web</a>
+            </div>
         </div>
     </div>
     
@@ -363,6 +310,7 @@
             appId: "1:84970919171:web:a9904b377254bb26884536"
         };
         
+        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.database();
@@ -373,23 +321,38 @@
         const successMsg = document.getElementById('success-message');
         const loading = document.getElementById('loading');
         
+        // Show error helper
+        function showError(message) {
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            successMsg.style.display = 'none';
+            loading.style.display = 'none';
+            form.style.display = 'block';
+        }
+        
         // Check if already logged in
         auth.onAuthStateChanged(async (user) => {
             if (user) {
+                console.log('Usuario ya logueado:', user.email);
+                loading.style.display = 'block';
+                form.style.display = 'none';
+                
                 try {
                     const roleSnapshot = await db.ref(`users/${user.uid}/role`).once('value');
                     const role = roleSnapshot.val();
-                    
-                    loading.style.display = 'block';
-                    form.style.display = 'none';
+                    console.log('Rol encontrado:', role);
                     
                     if (role === 'admin') {
                         window.location.href = 'admin-dashboard.html';
                     } else if (role === 'asesor') {
                         window.location.href = 'asesor-dashboard.html';
+                    } else {
+                        showError('Usuario sin rol válido. Contacta al administrador.');
+                        auth.signOut();
                     }
                 } catch (error) {
-                    console.error('Error checking role:', error);
+                    console.error('Error verificando rol:', error);
+                    showError('Error al verificar permisos. Intenta nuevamente.');
                 }
             }
         });
@@ -401,6 +364,11 @@
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             
+            if (!email || !password) {
+                showError('Ingresa email y contraseña');
+                return;
+            }
+            
             // Reset messages
             errorMsg.style.display = 'none';
             successMsg.style.display = 'none';
@@ -410,16 +378,23 @@
             loading.style.display = 'block';
             
             try {
+                console.log('Intentando login con:', email);
+                
                 // Sign in with Firebase
                 const userCredential = await auth.signInWithEmailAndPassword(email, password);
                 const user = userCredential.user;
+                console.log('Login exitoso:', user.uid);
                 
-                // Get user role
+                // Get user role from database
                 const roleSnapshot = await db.ref(`users/${user.uid}/role`).once('value');
                 const role = roleSnapshot.val();
+                console.log('Rol desde DB:', role);
                 
                 if (!role) {
-                    throw new Error('Usuario sin rol asignado');
+                    // User exists in Auth but not in DB - sign out
+                    await auth.signOut();
+                    showError('Usuario no registrado en el sistema. Contacta al administrador.');
+                    return;
                 }
                 
                 // Update last login
@@ -427,8 +402,9 @@
                     lastLogin: new Date().toISOString()
                 });
                 
-                successMsg.textContent = '¡Inicio de sesión exitoso! Redirigiendo...';
+                successMsg.textContent = '✓ Acceso correcto. Redirigiendo...';
                 successMsg.style.display = 'block';
+                loading.style.display = 'none';
                 
                 // Redirect based on role
                 setTimeout(() => {
@@ -437,9 +413,10 @@
                     } else {
                         window.location.href = 'asesor-dashboard.html';
                     }
-                }, 1000);
+                }, 800);
                 
             } catch (error) {
+                console.error('Error en login:', error);
                 loading.style.display = 'none';
                 form.style.display = 'block';
                 
@@ -447,6 +424,8 @@
                 
                 switch (error.code) {
                     case 'auth/user-not-found':
+                        message = 'Usuario no encontrado';
+                        break;
                     case 'auth/wrong-password':
                     case 'auth/invalid-credential':
                         message = 'Email o contraseña incorrectos';
@@ -457,12 +436,14 @@
                     case 'auth/too-many-requests':
                         message = 'Demasiados intentos. Espera unos minutos';
                         break;
+                    case 'auth/network-request-failed':
+                        message = 'Error de conexión. Verifica tu internet';
+                        break;
                     default:
                         message = error.message || 'Error desconocido';
                 }
                 
-                errorMsg.textContent = message;
-                errorMsg.style.display = 'block';
+                showError(message);
             }
         });
     </script>

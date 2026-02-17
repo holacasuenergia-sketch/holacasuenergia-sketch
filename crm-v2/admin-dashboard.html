@@ -9,6 +9,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* Loading screen */
+        .auth-loading {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .auth-loading-content {
+            text-align: center;
+            color: white;
+        }
+        
+        .auth-loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top-color: #10B981;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        .auth-loading-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Hide content until loaded */
+        .app-content { display: none; }
+        .app-content.loaded { display: block; }
+        
         :root {
             --primary: #10B981;
             --primary-dark: #059669;
@@ -356,6 +394,16 @@
     </style>
 </head>
 <body>
+    <!-- Auth Loading Screen -->
+    <div class="auth-loading" id="auth-loading">
+        <div class="auth-loading-content">
+            <div class="auth-loading-spinner"></div>
+            <div class="auth-loading-text">Verificando permisos...</div>
+        </div>
+    </div>
+    
+    <!-- App Content (hidden until auth verified) -->
+    <div class="app-content" id="app-content">
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-logo">
@@ -746,6 +794,7 @@
             </div>
         </div>
     </div>
+    </div><!-- End app-content -->
     
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -777,21 +826,30 @@
         
         // Auth check
         auth.onAuthStateChanged(async (user) => {
+            const authLoading = document.getElementById('auth-loading');
+            const appContent = document.getElementById('app-content');
+            
             if (user) {
                 currentUser = user;
                 const snapshot = await db.ref(`users/${user.uid}`).once('value');
                 const userData = snapshot.val();
                 
                 if (!userData || userData.role !== 'admin') {
+                    // Redirect to asesor dashboard if not admin
                     window.location.href = 'asesor-dashboard.html';
                     return;
                 }
+                
+                // User is admin - show content
+                authLoading.style.display = 'none';
+                appContent.classList.add('loaded');
                 
                 loadDashboard();
                 loadOperaciones();
                 loadAsesores();
                 loadNotificaciones();
             } else {
+                // No user - redirect to login
                 window.location.href = 'login.html';
             }
         });
