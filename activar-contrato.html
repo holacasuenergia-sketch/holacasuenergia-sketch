@@ -831,12 +831,7 @@
                         Hemos recibido tu solicitud correctamente.<br>
                         Nos pondremos en contacto contigo en menos de 24 horas.
                     </p>
-                    <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-                        <a href="https://wa.me/34610243061?text=Hola%2C%20acabo%20de%20enviar%20el%20formulario%20de%20contrato.%20Mi%20nombre%20es%20" class="btn" style="background: #25D366; color: white;">
-                            💬 Escribir por WhatsApp
-                        </a>
-                        <a href="/" class="btn btn-primary">Volver al inicio</a>
-                    </div>
+                    <a href="/" class="btn btn-primary">Volver al inicio</a>
                 </div>
                 
                 <div class="form-divider"><span>o si prefieres</span></div>
@@ -907,7 +902,6 @@
         // Form submission
         function submitForm(e) {
             const btn = document.getElementById('submit-btn');
-            const form = document.getElementById('contrato-form');
             
             // Validate required files
             const dniFiles = document.getElementById('dni-input').files;
@@ -928,47 +922,11 @@
                 return false;
             }
             
-            // Save form data to localStorage for WhatsApp notification
-            const formData = {
-                nombre: form.nombre.value,
-                apellidos: form.apellidos.value,
-                telefono: form.telefono.value,
-                email: form.email.value,
-                direccion: form.direccion.value,
-                cp: form.cp.value,
-                poblacion: form.poblacion.value,
-                suministro: form.suministro.value,
-                compania: form.compania.value,
-                timestamp: new Date().toISOString()
-            };
-            localStorage.setItem('enerlux_form_data', JSON.stringify(formData));
-            
             // Show loading
             btn.textContent = '⏳ Enviando...';
             btn.disabled = true;
             
             return true;
-        }
-        
-        // Send WhatsApp notification
-        function sendWhatsAppNotification(formData) {
-            // Webhook endpoint - cambiar cuando tengas el backend desplegado
-            const webhookUrl = 'https://nomadway-api.vercel.app/api/enerlux/notify';
-            
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('WhatsApp notification sent:', data);
-            })
-            .catch(error => {
-                console.error('Error sending WhatsApp notification:', error);
-            });
         }
         
         // Check for success message on page load
@@ -978,13 +936,6 @@
                 document.getElementById('contrato-form').style.display = 'none';
                 document.getElementById('success-message').style.display = 'block';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                // Send WhatsApp notification after successful form submission
-                const formData = JSON.parse(localStorage.getItem('enerlux_form_data'));
-                if (formData) {
-                    sendWhatsAppNotification(formData);
-                    localStorage.removeItem('enerlux_form_data');
-                }
             }
         });
     </script>
