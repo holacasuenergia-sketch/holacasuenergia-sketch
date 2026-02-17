@@ -1853,6 +1853,9 @@
                 </div>
             `;
             
+            // Mensaje para tarifa personalizada
+            const mensajePlana = `Hola! Quiero una Tarifa Plana Zen personalizada.%0A%0A⚡ Luz: ${consumoLuz} kWh/mes%0A⚡ Potencia P1: ${p1} kW%0A⚡ Potencia P2: ${p2} kW%0A${consumoGas > 0 ? `🔥 Gas: ${consumoGas} kWh/mes%0A` : ''}${cupsLuz ? `%0ACUPS Luz: ${cupsLuz}` : ''}${cupsGas ? `%0ACUPS Gas: ${cupsGas}` : ''}%0A%0A¿Cuál sería mi precio fijo mensual?`;
+            
             // Opción Tarifa Plana (SIEMPRE visible)
             resultHTML += `
                 <div style="background: rgba(245, 166, 35, 0.15); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 2px solid rgba(245, 166, 35, 0.3);">
@@ -1861,8 +1864,10 @@
                     <div style="font-size: 13px; opacity: 0.7; margin-top: 8px;">
                         El mismo precio cada mes, consumas lo que consumas
                     </div>
-                    <div style="font-size: 12px; opacity: 0.6; margin-top: 4px;">
-                        Te calculamos tu cuota personalizada
+                    <div style="margin-top: 16px;">
+                        <a href="https://wa.me/34610243061?text=${mensajePlana}" target="_blank" class="btn btn-gold" style="display: block; text-align: center;">
+                            💬 Calcular mi precio fijo
+                        </a>
                     </div>
                 </div>
             `;
