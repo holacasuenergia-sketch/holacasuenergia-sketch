@@ -678,27 +678,34 @@
     <div class="modal-overlay" id="modal-editar">
         <div class="modal">
             <div class="modal-header">
-                <h3 class="modal-title">Editar Estado</h3>
+                <h3 class="modal-title">Gestionar Operación</h3>
                 <button class="modal-close" onclick="closeModal('modal-editar')">×</button>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="edit-op-id">
-                <p style="margin-bottom: 16px;"><strong>Cliente:</strong> <span id="edit-cliente"></span></p>
+                <p style="margin-bottom: 12px;"><strong>Cliente:</strong> <span id="edit-cliente"></span></p>
+                <p style="margin-bottom: 12px;"><strong>CUPS:</strong> <span id="edit-cups"></span></p>
                 <p style="margin-bottom: 16px;"><strong>Servicio:</strong> <span id="edit-servicio"></span></p>
                 
                 <div class="form-group">
-                    <label class="form-label">Nuevo Estado</label>
+                    <label class="form-label">Estado</label>
                     <select class="form-select" id="edit-estado">
-                        <option value="pendiente">Pendiente</option>
-                        <option value="enviado">Enviado</option>
-                        <option value="confirmado">Confirmado</option>
-                        <option value="rechazado">Rechazado</option>
+                        <option value="pendiente">⏳ Pendiente</option>
+                        <option value="enviado">📤 Enviado a compañía</option>
+                        <option value="confirmado">✅ Confirmado</option>
+                        <option value="baja">❌ Baja / Cancelado</option>
+                        <option value="rechazado">🚫 Rechazado</option>
                     </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Notas del Admin</label>
+                    <textarea class="form-input" id="edit-notas" rows="3" placeholder="Añadir notas sobre esta operación..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline" onclick="closeModal('modal-editar')">Cancelar</button>
-                <button class="btn btn-primary" onclick="guardarEstado()">Guardar</button>
+                <button class="btn btn-primary" onclick="guardarEstado()">💾 Guardar</button>
             </div>
         </div>
     </div>
@@ -890,7 +897,10 @@
                 return;
             }
             
-            tbody.innerHTML = ops.map(([id, op]) => `
+            tbody.innerHTML = ops.map(([id, op]) => {
+                const cups = op.cups || '';
+                const notas = (op.notasAdmin || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                return `
                 <tr>
                     <td>${new Date(op.fecha).toLocaleDateString('es-ES')}</td>
                     <td><strong>${op.cliente}</strong></td>
@@ -901,10 +911,10 @@
                     <td><strong>${COMISIONES[op.servicio] || 0}€</strong></td>
                     <td>${getEstadoBadge(op.estado)}</td>
                     <td>
-                        <button class="btn btn-outline btn-sm" onclick="editarEstado('${id}', '${op.cliente}', '${op.servicio}', '${op.estado}')">✏️</button>
+                        <button class="btn btn-outline btn-sm" onclick="editarEstado('${id}', '${op.cliente.replace(/'/g, "\\'")}', '${op.servicio}', '${op.estado}', '${cups}', '${notas}')">✏️</button>
                     </td>
                 </tr>
-            `).join('');
+            `}).join('');
         }
         
         function getServicioBadge(servicio) {
@@ -919,35 +929,43 @@
         
         function getEstadoBadge(estado) {
             const badges = {
-                'pendiente': '<span class="badge badge-pendiente">Pendiente</span>',
-                'enviado': '<span class="badge badge-enviado">Enviado</span>',
-                'confirmado': '<span class="badge badge-confirmado">Confirmado</span>',
-                'rechazado': '<span class="badge badge-rechazado">Rechazado</span>'
+                'pendiente': '<span class="badge badge-pendiente">⏳ Pendiente</span>',
+                'enviado': '<span class="badge badge-enviado">📤 Enviado</span>',
+                'confirmado': '<span class="badge badge-confirmado">✅ Confirmado</span>',
+                'baja': '<span class="badge badge-rechazado">❌ Baja</span>',
+                'rechazado': '<span class="badge badge-rechazado">🚫 Rechazado</span>'
             };
             return badges[estado] || estado;
         }
         
         // Editar Estado
-        function editarEstado(opId, cliente, servicio, estado) {
+        function editarEstado(opId, cliente, servicio, estado, cups, notas) {
             document.getElementById('edit-op-id').value = opId;
             document.getElementById('edit-cliente').textContent = cliente;
+            document.getElementById('edit-cups').textContent = cups || '-';
             document.getElementById('edit-servicio').textContent = servicio;
             document.getElementById('edit-estado').value = estado;
+            document.getElementById('edit-notas').value = notas || '';
             openModal('modal-editar');
         }
         
         async function guardarEstado() {
             const opId = document.getElementById('edit-op-id').value;
             const nuevoEstado = document.getElementById('edit-estado').value;
+            const notasAdmin = document.getElementById('edit-notas').value;
             
-            await db.ref(`operaciones/${opId}`).update({ estado: nuevoEstado });
+            await db.ref(`operaciones/${opId}`).update({ 
+                estado: nuevoEstado,
+                notasAdmin: notasAdmin,
+                fechaActualizacion: new Date().toISOString()
+            });
             
             // Notificar al asesor
             const op = allOperaciones[opId];
             if (op.asesorId) {
                 await db.ref(`notifications/${op.asesorId}`).push({
                     title: 'Estado actualizado',
-                    message: `Tu operación para ${op.cliente} ahora está: ${nuevoEstado}`,
+                    message: `Tu operación para ${op.cliente} ahora está: ${nuevoEstado}${notasAdmin ? '. Notas: ' + notasAdmin : ''}`,
                     timestamp: new Date().toISOString(),
                     read: false
                 });
@@ -956,7 +974,7 @@
             closeModal('modal-editar');
             loadDashboard();
             loadOperaciones();
-            alert('✅ Estado actualizado');
+            alert('✅ Operación actualizada');
         }
         
         // Load Asesores
