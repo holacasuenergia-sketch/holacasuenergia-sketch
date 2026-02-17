@@ -42,7 +42,7 @@
         .header {
             background: linear-gradient(135deg, #1E3A5F 0%, #0F2744 100%);
             color: white;
-            padding: 16px 24px;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -51,240 +51,262 @@
             z-index: 100;
         }
         
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .header-logo { width: 32px; height: 32px; border-radius: 8px; }
+        .header-title { font-size: 16px; font-weight: 600; }
+        .header-user { font-size: 13px; opacity: 0.8; }
         
-        .header-logo {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-        }
-        
-        .header-title {
-            font-size: 18px;
-            font-weight: 600;
-        }
-        
-        .header-user {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .back-btn {
+            color: white;
+            opacity: 0.7;
+            text-decoration: none;
             font-size: 14px;
-            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
+        .back-btn:hover { opacity: 1; }
         
         /* Layout */
-        .container {
-            display: grid;
-            grid-template-columns: 350px 1fr 350px;
-            gap: 20px;
-            padding: 20px;
-            max-width: 1600px;
-            margin: 0 auto;
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 52px);
         }
         
-        /* Cards */
-        .card {
+        .form-panel {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            max-width: 800px;
+        }
+        
+        .summary-panel {
+            width: 350px;
             background: var(--white);
-            border-radius: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border: 1px solid var(--gray-100);
+            border-left: 1px solid var(--gray-200);
+            padding: 20px;
+            position: sticky;
+            top: 52px;
+            height: calc(100vh - 52px);
+            overflow-y: auto;
+        }
+        
+        /* Form Sections */
+        .section {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 1px solid var(--gray-200);
             overflow: hidden;
         }
         
-        .card-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--gray-100);
+        .section-header {
+            background: var(--gray-50);
+            padding: 14px 18px;
             font-weight: 600;
             font-size: 15px;
             color: var(--gray-800);
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-        
-        .card-body {
-            padding: 20px;
-        }
-        
-        /* Compañías Panel */
-        .compania-item {
-            padding: 14px 16px;
-            border: 2px solid var(--gray-100);
-            border-radius: 12px;
-            margin-bottom: 10px;
+            gap: 10px;
+            border-bottom: 1px solid var(--gray-200);
             cursor: pointer;
-            transition: all 0.2s ease;
         }
         
-        .compania-item:hover {
-            border-color: var(--primary);
-            background: var(--gray-50);
-        }
-        
-        .compania-item.selected {
-            border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(16,185,129,0.05) 0%, rgba(14,165,233,0.05) 100%);
-        }
-        
-        .compania-name {
-            font-weight: 600;
-            font-size: 15px;
-            color: var(--gray-800);
+        .section-header .num {
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
         }
         
-        .compania-badge {
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            background: var(--gray-100);
-            color: var(--gray-600);
+        .section-body {
+            padding: 18px;
         }
         
-        .compania-precios {
+        .form-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 10px;
-            font-size: 13px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
         }
         
-        .precio-item {
-            background: var(--gray-50);
-            padding: 8px 10px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .precio-label { color: var(--gray-500); }
-        .precio-value { font-weight: 600; color: var(--gray-800); }
-        
-        /* Formulario */
-        .form-section {
-            margin-bottom: 24px;
-        }
-        
-        .form-section-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--gray-500);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .form-group {
-            margin-bottom: 14px;
-        }
+        .form-group { margin-bottom: 0; }
+        .form-group.full { grid-column: 1 / -1; }
         
         .form-label {
             display: block;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
-            color: var(--gray-700);
-            margin-bottom: 6px;
+            color: var(--gray-600);
+            margin-bottom: 5px;
         }
+        
+        .form-label .required { color: var(--error); }
         
         .form-input, .form-select {
             width: 100%;
-            padding: 10px 14px;
+            padding: 9px 12px;
             font-size: 14px;
             font-family: inherit;
-            border: 2px solid var(--gray-200);
-            border-radius: 10px;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            background: var(--white);
             transition: all 0.2s ease;
         }
         
         .form-input:focus, .form-select:focus {
             outline: none;
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
         }
         
-        .form-row {
+        .form-input::placeholder { color: var(--gray-400); }
+        
+        /* Servicios Cards */
+        .servicios-cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
+            margin-bottom: 16px;
         }
         
-        /* Servicios Check */
-        .servicios-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        
-        .servicio-check {
-            padding: 12px;
+        .servicio-card {
             border: 2px solid var(--gray-200);
-            border-radius: 10px;
+            border-radius: 12px;
+            padding: 16px;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
         }
         
-        .servicio-check:hover {
-            border-color: var(--gray-300);
-        }
+        .servicio-card:hover { border-color: var(--gray-300); }
         
-        .servicio-check.checked {
+        .servicio-card.selected {
             border-color: var(--primary);
             background: rgba(16,185,129,0.05);
         }
         
-        .servicio-check input { display: none; }
+        .servicio-card input { display: none; }
+        .servicio-icon { font-size: 28px; margin-bottom: 8px; }
+        .servicio-name { font-weight: 600; font-size: 15px; color: var(--gray-800); }
         
-        .servicio-icon { font-size: 24px; margin-bottom: 4px; }
-        .servicio-name { font-weight: 500; font-size: 13px; color: var(--gray-700); }
-        .servicio-precio { font-size: 12px; color: var(--primary); font-weight: 600; margin-top: 2px; }
-        
-        /* Panel Derecho - Resumen */
-        .resumen-section {
-            padding: 16px;
-            background: var(--gray-50);
-            border-radius: 10px;
-            margin-bottom: 16px;
+        /* Compañía Select */
+        .compania-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 8px;
         }
         
-        .resumen-title {
-            font-size: 12px;
+        .compania-option {
+            padding: 10px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .compania-option:hover { border-color: var(--gray-300); }
+        .compania-option.selected { border-color: var(--primary); background: rgba(16,185,129,0.05); }
+        .compania-option input { display: none; }
+        
+        /* Tarifas Info */
+        .tarifas-info {
+            background: var(--gray-50);
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 12px;
+        }
+        
+        .tarifas-title {
+            font-size: 13px;
             font-weight: 600;
-            color: var(--gray-500);
-            text-transform: uppercase;
+            color: var(--gray-700);
             margin-bottom: 10px;
         }
         
-        .resumen-item {
+        .tarifa-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
+            font-size: 13px;
+            padding: 4px 0;
             border-bottom: 1px solid var(--gray-200);
-            font-size: 14px;
         }
         
-        .resumen-item:last-child { border-bottom: none; }
+        .tarifa-row:last-child { border-bottom: none; }
+        .tarifa-row .l { color: var(--gray-500); }
+        .tarifa-row .v { font-weight: 600; color: var(--gray-800); }
         
-        .resumen-item .label { color: var(--gray-500); }
-        .resumen-item .value { font-weight: 600; color: var(--gray-800); }
-        
-        .resumen-total {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
+        /* Summary Panel */
+        .summary-title {
             font-size: 16px;
             font-weight: 700;
-            color: var(--primary);
-            border-top: 2px solid var(--gray-200);
+            color: var(--gray-800);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .summary-section {
+            background: var(--gray-50);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+        
+        .summary-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 4px 0;
+            color: var(--gray-600);
+        }
+        
+        .summary-row .v { color: var(--gray-800); font-weight: 500; }
+        
+        .summary-total {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+        
+        .summary-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+        
+        .summary-total-main {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: 700;
             margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
         
         /* Buttons */
@@ -313,67 +335,61 @@
             box-shadow: 0 4px 15px rgba(16,185,129,0.3);
         }
         
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--gray-200);
-            color: var(--gray-700);
-        }
-        
         .btn-block { width: 100%; }
         
-        /* Tarifas Info */
-        .tarifa-info {
-            background: linear-gradient(135deg, rgba(245,158,11,0.1) 0%, rgba(251,191,36,0.1) 100%);
-            border: 1px solid rgba(245,158,11,0.3);
-            border-radius: 10px;
-            padding: 12px;
-            margin-top: 12px;
-        }
+        /* Collapsible */
+        .section.collapsed .section-body { display: none; }
+        .section-header .toggle { margin-left: auto; font-size: 12px; }
         
-        .tarifa-info-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: #92400E;
-            margin-bottom: 8px;
-        }
-        
-        .tarifa-row {
+        /* Toggle switch */
+        .toggle-group {
             display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            padding: 4px 0;
+            gap: 8px;
+            margin-bottom: 16px;
         }
         
-        .tarifa-row .l { color: #92400E; }
-        .tarifa-row .v { color: #78350F; font-weight: 600; }
-        
-        /* Servicios Mantenimiento */
-        .mantenimiento-options {
-            display: none;
-            background: rgba(139,92,246,0.05);
-            border: 1px solid rgba(139,92,246,0.2);
-            border-radius: 10px;
-            padding: 12px;
-            margin-top: 10px;
+        .toggle-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            background: var(--white);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
         
-        .mantenimiento-options.show { display: block; }
+        .toggle-btn.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
         
-        .mant-check {
+        /* Mantenimiento */
+        .mantenimiento-check {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 8px;
+            padding: 12px;
+            background: rgba(139,92,246,0.05);
+            border: 1px solid rgba(139,92,246,0.2);
+            border-radius: 10px;
+            margin-top: 12px;
             cursor: pointer;
         }
         
-        .mant-check input { width: 18px; height: 18px; }
+        .mantenimiento-check input { width: 18px; height: 18px; }
         
         /* Responsive */
-        @media (max-width: 1200px) {
-            .container {
-                grid-template-columns: 1fr;
+        @media (max-width: 900px) {
+            .main-container { flex-direction: column; }
+            .summary-panel {
+                width: 100%;
+                position: static;
+                height: auto;
+                order: -1;
             }
+            .form-panel { max-width: 100%; }
         }
     </style>
 </head>
@@ -384,165 +400,390 @@
             <img src="logo.png" alt="Enerlux" class="header-logo">
             <span class="header-title">Nueva Venta</span>
         </div>
-        <div class="header-user">
-            <span id="user-name">Asesor</span>
-            <a href="asesor-dashboard.html" style="color: white; opacity: 0.7; text-decoration: none; margin-left: 16px;">← Volver</a>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <span class="header-user" id="user-name">Asesor</span>
+            <a href="asesor-dashboard.html" class="back-btn">← Volver</a>
         </div>
     </header>
     
-    <div class="container">
-        <!-- Panel Izquierdo - Compañías -->
-        <div class="card">
-            <div class="card-header">🏢 Compañías</div>
-            <div class="card-body" id="companias-list">
-                <!-- Se llena dinámicamente -->
-            </div>
-        </div>
-        
-        <!-- Panel Central - Formulario -->
-        <div class="card">
-            <div class="card-header">📝 Datos del Cliente</div>
-            <div class="card-body">
-                <form id="form-venta">
-                    <!-- Cliente -->
-                    <div class="form-section">
-                        <div class="form-section-title">👤 Cliente</div>
-                        <div class="form-group">
-                            <label class="form-label">Nombre completo *</label>
-                            <input type="text" class="form-input" name="cliente" placeholder="Nombre del cliente" required>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Teléfono</label>
-                                <input type="tel" class="form-input" name="telefono" placeholder="+34 600 000 000">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-input" name="email" placeholder="cliente@email.com">
-                            </div>
-                        </div>
+    <div class="main-container">
+        <!-- Form Panel -->
+        <div class="form-panel">
+            <form id="form-venta">
+                
+                <!-- Servicios -->
+                <div class="section">
+                    <div class="section-header">
+                        <span class="num">1</span>
+                        ¿Qué está contratando?
                     </div>
-                    
-                    <!-- Dirección -->
-                    <div class="form-section">
-                        <div class="form-section-title">📍 Dirección del Suministro</div>
-                        <div class="form-group">
-                            <input type="text" class="form-input" name="direccion" placeholder="Calle, número, piso...">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" class="form-input" name="cp" placeholder="Código Postal">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-input" name="poblacion" placeholder="Población">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- CUPS -->
-                    <div class="form-section">
-                        <div class="form-section-title">🔌 CUPS</div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">CUPS Luz</label>
-                                <input type="text" class="form-input" name="cupsLuz" placeholder="ES00..." style="text-transform: uppercase;">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">CUPS Gas</label>
-                                <input type="text" class="form-input" name="cupsGas" placeholder="ES00..." style="text-transform: uppercase;">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Servicios -->
-                    <div class="form-section">
-                        <div class="form-section-title">⚡ Servicios</div>
-                        <div class="servicios-grid">
-                            <label class="servicio-check" id="check-luz">
-                                <input type="checkbox" name="servLuz" onchange="updateResumen()">
+                    <div class="section-body">
+                        <div class="servicios-cards">
+                            <label class="servicio-card" id="card-luz">
+                                <input type="checkbox" name="servLuz" onchange="toggleServicio('luz')">
                                 <div class="servicio-icon">⚡</div>
                                 <div class="servicio-name">Luz</div>
-                                <div class="servicio-precio">20€ comisión</div>
                             </label>
-                            <label class="servicio-check" id="check-gas">
-                                <input type="checkbox" name="servGas" onchange="updateResumen()">
+                            <label class="servicio-card" id="card-gas">
+                                <input type="checkbox" name="servGas" onchange="toggleServicio('gas')">
                                 <div class="servicio-icon">🔥</div>
                                 <div class="servicio-name">Gas</div>
-                                <div class="servicio-precio">20€ comisión</div>
                             </label>
                         </div>
                         
-                        <!-- Mantenimiento -->
-                        <div class="mantenimiento-options" id="mant-options">
-                            <div style="font-size: 13px; font-weight: 600; color: #7C3AED; margin-bottom: 8px;">
-                                🔧 Servicios de Mantenimiento
-                            </div>
-                            <label class="mant-check">
-                                <input type="checkbox" name="mantLuz" onchange="updateResumen()">
-                                <span>Mantenimiento Luz <strong style="color: var(--primary);">10€</strong></span>
-                            </label>
-                            <label class="mant-check">
-                                <input type="checkbox" name="mantGas" onchange="updateResumen()">
-                                <span>Mantenimiento Gas <strong style="color: var(--primary);">10€</strong></span>
-                            </label>
+                        <label class="mantenimiento-check">
+                            <input type="checkbox" name="mantenimiento" onchange="updateSummary()">
+                            <span>🔧 Añadir servicio de mantenimiento</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Compañía -->
+                <div class="section">
+                    <div class="section-header">
+                        <span class="num">2</span>
+                        Compañía
+                    </div>
+                    <div class="section-body">
+                        <div class="compania-selector" id="compania-selector">
+                            <!-- Se llena dinámicamente -->
+                        </div>
+                        
+                        <div class="tarifas-info" id="tarifas-info" style="display: none;">
+                            <div class="tarifas-title">📋 Tarifas de <span id="tarifas-compania"></span></div>
+                            <div id="tarifas-content"></div>
                         </div>
                     </div>
-                    
-                    <!-- Observaciones -->
-                    <div class="form-section">
-                        <div class="form-section-title">📝 Notas</div>
-                        <input type="text" class="form-input" name="observaciones" placeholder="Observaciones adicionales...">
+                </div>
+                
+                <!-- Datos del Titular -->
+                <div class="section">
+                    <div class="section-header" onclick="toggleSection(this)">
+                        <span class="num">3</span>
+                        Datos del Titular
+                        <span class="toggle">▼</span>
                     </div>
-                </form>
-            </div>
+                    <div class="section-body">
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label class="form-label">Identificación (DNI/NIE/Pasaporte) <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="dni" placeholder="12345678A" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Nombre <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Apellidos <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="apellidos" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email <span class="required">*</span></label>
+                                <input type="email" class="form-input" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Móvil <span class="required">*</span></label>
+                                <input type="tel" class="form-input" name="movil" placeholder="+34 600 000 000" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Fijo</label>
+                                <input type="tel" class="form-input" name="fijo" placeholder="+34 900 000 000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Nacionalidad <span class="required">*</span></label>
+                                <select class="form-select" name="nacionalidad" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="Española" selected>Española</option>
+                                    <option value="Otra">Otra</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dirección y Suministro -->
+                <div class="section">
+                    <div class="section-header" onclick="toggleSection(this)">
+                        <span class="num">4</span>
+                        Dirección y Datos de Suministro
+                        <span class="toggle">▼</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Código Postal <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="cp" maxlength="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Provincia <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="provincia" required>
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">Municipio <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="municipio" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tipo de vía <span class="required">*</span></label>
+                                <select class="form-select" name="tipoVia" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option>Calle</option>
+                                    <option>Avenida</option>
+                                    <option>Plaza</option>
+                                    <option>Paseo</option>
+                                    <option>Carretera</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">Nombre de la vía <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="nombreVia" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Número <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="numero" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Escalera</label>
+                                <input type="text" class="form-input" name="escalera">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Piso</label>
+                                <input type="text" class="form-input" name="piso">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Puerta</label>
+                                <input type="text" class="form-input" name="puerta">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">CNAE</label>
+                                <select class="form-select" name="cnae">
+                                    <option value="">Seleccionar...</option>
+                                    <option value="0111">0111 - Cultivo de cereales</option>
+                                    <option value="4511" selected>4511 - Venta de automóviles</option>
+                                    <option value="4611">4611 - Intermediarios comercio</option>
+                                    <option value="4711">4711 - Comercio al por menor</option>
+                                    <option value="5510">5510 - Hoteles y alojamientos</option>
+                                    <option value="5610">5610 - Restaurantes</option>
+                                    <option value="6201">6201 - Programación informática</option>
+                                    <option value="6810">6810 - Inmobiliarias</option>
+                                    <option value="8411">8411 - Administración pública</option>
+                                    <option value="8510">8510 - Educación</option>
+                                    <option value="8610">8610 - Actividades hospitalarias</option>
+                                    <option value="9311">9311 - Actividades deportivas</option>
+                                    <option value="9499">9499 - Otras actividades asociativas</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Datos Luz -->
+                <div class="section" id="section-luz" style="display: none;">
+                    <div class="section-header" onclick="toggleSection(this)">
+                        <span class="num">⚡</span>
+                        Datos de Suministro - Luz
+                        <span class="toggle">▼</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label class="form-label">CUPS Luz <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="cupsLuz" placeholder="ES00..." style="text-transform: uppercase;" maxlength="22">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tensión</label>
+                                <select class="form-select" name="tension">
+                                    <option>230V - Monofásico</option>
+                                    <option>400V - Trifásico</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tarifa de Acceso</label>
+                                <select class="form-select" name="tarifaAccesoLuz">
+                                    <option>2.0TD - Pequeña demanda</option>
+                                    <option>2.1TD - Pequeña demanda con HP</option>
+                                    <option>3.0TD - Media demanda</option>
+                                    <option>3.1TD - Media demanda con HP</option>
+                                    <option>6.1TD - Gran demanda</option>
+                                    <option>6.2TD - Gran demanda con HP</option>
+                                    <option>6.3TD - Muy grande demanda</option>
+                                    <option>6.4TD - Muy grande demanda con HP</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Consumo mensual (kWh)</label>
+                                <input type="number" class="form-input" name="consumoLuz" placeholder="250">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Comercializadora actual</label>
+                                <select class="form-select" name="compActualLuz">
+                                    <option value="">Seleccionar...</option>
+                                    <option>Endesa</option>
+                                    <option>Iberdrola</option>
+                                    <option>Naturgy</option>
+                                    <option>Holaluz</option>
+                                    <option>Gana Energía</option>
+                                    <option>TotalEnergies</option>
+                                    <option>EDP</option>
+                                    <option>Otra</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Potencia P1 (kW) <span class="required">*</span></label>
+                                <input type="number" step="0.1" class="form-input" name="potenciaP1" placeholder="4.6">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Potencia P2 (kW) <span class="required">*</span></label>
+                                <input type="number" step="0.1" class="form-input" name="potenciaP2" placeholder="5.75">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Datos Gas -->
+                <div class="section" id="section-gas" style="display: none;">
+                    <div class="section-header" onclick="toggleSection(this)">
+                        <span class="num">🔥</span>
+                        Datos de Suministro - Gas
+                        <span class="toggle">▼</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label class="form-label">CUPS Gas <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="cupsGas" placeholder="ES00..." style="text-transform: uppercase;" maxlength="22">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tarifa de Acceso</label>
+                                <select class="form-select" name="tarifaAccesoGas">
+                                    <option>RL1 - Consumo &lt;5.000 kWh/año</option>
+                                    <option>RL2 - Consumo 5.000-50.000 kWh/año</option>
+                                    <option>RL3 - Consumo 50.000-100.000 kWh/año</option>
+                                    <option>RL4 - Consumo &gt;100.000 kWh/año</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Consumo mensual (kWh)</label>
+                                <input type="number" class="form-input" name="consumoGas" placeholder="150">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Comercializadora actual</label>
+                                <select class="form-select" name="compActualGas">
+                                    <option value="">Seleccionar...</option>
+                                    <option>Endesa</option>
+                                    <option>Iberdrola</option>
+                                    <option>Naturgy</option>
+                                    <option>Gana Energía</option>
+                                    <option>TotalEnergies</option>
+                                    <option>EDP</option>
+                                    <option>Otra</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Datos de Facturación -->
+                <div class="section">
+                    <div class="section-header" onclick="toggleSection(this)">
+                        <span class="num">5</span>
+                        Datos de Facturación
+                        <span class="toggle">▼</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label class="form-label">IBAN <span class="required">*</span></label>
+                                <input type="text" class="form-input" name="iban" placeholder="ES00 0000 0000 0000 0000 0000" style="text-transform: uppercase;">
+                            </div>
+                        </div>
+                        <label style="display: flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 14px; color: var(--gray-600); cursor: pointer;">
+                            <input type="checkbox" name="titularCuenta" checked style="width: 16px; height: 16px;">
+                            El titular de la cuenta bancaria es el mismo que el titular del contrato
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Observaciones -->
+                <div class="section">
+                    <div class="section-header" onclick="toggleSection(this)">
+                        <span class="num">📝</span>
+                        Observaciones
+                        <span class="toggle">▼</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label class="form-label">Notas adicionales</label>
+                                <input type="text" class="form-input" name="observaciones" placeholder="Comentarios sobre esta venta...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
         </div>
         
-        <!-- Panel Derecho - Resumen -->
-        <div>
-            <div class="card" style="position: sticky; top: 80px;">
-                <div class="card-header">📊 Resumen de Venta</div>
-                <div class="card-body">
-                    <!-- Compañía seleccionada -->
-                    <div class="resumen-section">
-                        <div class="resumen-title">Compañía</div>
-                        <div class="resumen-item">
-                            <span class="label">Seleccionada</span>
-                            <span class="value" id="resumen-compania">-</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Tarifas de la compañía -->
-                    <div class="tarifa-info" id="tarifa-info" style="display: none;">
-                        <div class="tarifa-info-title">📋 Tarifas Aplicadas</div>
-                        <div id="tarifas-content"></div>
-                    </div>
-                    
-                    <!-- Servicios -->
-                    <div class="resumen-section">
-                        <div class="resumen-title">Servicios</div>
-                        <div id="resumen-servicios">
-                            <div class="resumen-item">
-                                <span class="label" style="color: var(--gray-400);">Sin servicios seleccionados</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Total -->
-                    <div class="resumen-total">
-                        <span>💰 Tu comisión</span>
-                        <span id="resumen-total">0€</span>
-                    </div>
-                    
-                    <!-- Botones -->
-                    <button type="button" class="btn btn-primary btn-block" onclick="guardarVenta()" style="margin-top: 16px;">
-                        ✅ Registrar Venta
-                    </button>
-                    
-                    <a href="asesor-dashboard.html" class="btn btn-outline btn-block" style="margin-top: 10px; text-decoration: none;">
-                        ← Cancelar
-                    </a>
+        <!-- Summary Panel -->
+        <div class="summary-panel">
+            <div class="summary-title">📋 Tu Resumen</div>
+            
+            <!-- Luz -->
+            <div class="summary-section" id="summary-luz" style="display: none;">
+                <div class="summary-section-title">
+                    ⚡ Tarifa Luz
+                </div>
+                <div id="summary-luz-content"></div>
+            </div>
+            
+            <!-- Gas -->
+            <div class="summary-section" id="summary-gas" style="display: none;">
+                <div class="summary-section-title">
+                    🔥 Tarifa Gas
+                </div>
+                <div id="summary-gas-content"></div>
+            </div>
+            
+            <!-- Mantenimiento -->
+            <div class="summary-section" id="summary-mant" style="display: none;">
+                <div class="summary-section-title">
+                    🔧 Mantenimiento
+                </div>
+                <div id="summary-mant-content"></div>
+            </div>
+            
+            <!-- Compañía -->
+            <div class="summary-section">
+                <div class="summary-section-title">🏢 Compañía</div>
+                <div class="summary-row">
+                    <span>Seleccionada</span>
+                    <span class="v" id="summary-compania">-</span>
                 </div>
             </div>
+            
+            <!-- Total -->
+            <div class="summary-total">
+                <div class="summary-total-row">
+                    <span>⚡ Luz</span>
+                    <span id="total-luz">0€</span>
+                </div>
+                <div class="summary-total-row">
+                    <span>🔥 Gas</span>
+                    <span id="total-gas">0€</span>
+                </div>
+                <div class="summary-total-row">
+                    <span>🔧 Mantenimiento</span>
+                    <span id="total-mant">0€</span>
+                </div>
+                <div class="summary-total-main">
+                    <span>💰 Tu comisión</span>
+                    <span id="total-comision">0€</span>
+                </div>
+            </div>
+            
+            <button type="button" class="btn btn-primary btn-block" onclick="guardarVenta()" style="margin-top: 20px;">
+                ✅ Guardar y Continuar
+            </button>
         </div>
     </div>
     
@@ -566,71 +807,112 @@
         const auth = firebase.auth();
         const db = firebase.database();
         
-        // Compañías con tarifas
+        // Compañías con tarifas reales
         const COMPANIAS = [
             { 
                 nombre: 'Enerlux', 
-                luzP1: '0.026', luzP2: '0.038', 
-                luzEnergia: '0.099', 
-                gas: '0.049',
-                mantenimiento: '4.99€/mes',
+                luz: {
+                    p1: '0,12303 €/kW',
+                    p2: '0,037337 €/kW', 
+                    energia: '0,1099 €/kWh'
+                },
+                gas: {
+                    fijo: '5,15 €/mes',
+                    variable: '0,08 €/kWh'
+                },
+                mantenimiento: '4,99 €/mes',
                 badge: 'Propia'
             },
             { 
                 nombre: 'Endesa', 
-                luzP1: '0.035', luzP2: '0.045', 
-                luzEnergia: '0.12', 
-                gas: '0.055',
-                mantenimiento: '6.99€/mes'
+                luz: {
+                    p1: '0,1363 €/kW',
+                    p2: '0,049 €/kW',
+                    energia: '0,125 €/kWh'
+                },
+                gas: {
+                    fijo: '5,80 €/mes',
+                    variable: '0,055 €/kWh'
+                },
+                mantenimiento: '6,99 €/mes'
             },
             { 
                 nombre: 'Iberdrola', 
-                luzP1: '0.034', luzP2: '0.044', 
-                luzEnergia: '0.115', 
-                gas: '0.053',
-                mantenimiento: '6.49€/mes'
+                luz: {
+                    p1: '0,132 €/kW',
+                    p2: '0,047 €/kW',
+                    energia: '0,118 €/kWh'
+                },
+                gas: {
+                    fijo: '5,50 €/mes',
+                    variable: '0,052 €/kWh'
+                },
+                mantenimiento: '6,49 €/mes'
             },
             { 
                 nombre: 'Naturgy', 
-                luzP1: '0.036', luzP2: '0.046', 
-                luzEnergia: '0.125', 
-                gas: '0.058',
-                mantenimiento: '7.25€/mes'
+                luz: {
+                    p1: '0,138 €/kW',
+                    p2: '0,051 €/kW',
+                    energia: '0,128 €/kWh'
+                },
+                gas: {
+                    fijo: '6,10 €/mes',
+                    variable: '0,059 €/kWh'
+                },
+                mantenimiento: '7,25 €/mes'
             },
             { 
                 nombre: 'Holaluz', 
-                luzP1: '0.032', luzP2: '0.042', 
-                luzEnergia: '0.108',
-                gas: '-',
-                mantenimiento: '5.99€/mes',
+                luz: {
+                    p1: '0,125 €/kW',
+                    p2: '0,042 €/kW',
+                    energia: '0,108 €/kWh'
+                },
+                gas: null,
+                mantenimiento: '5,99 €/mes',
                 badge: '100% Verde'
             },
             { 
                 nombre: 'Gana Energía', 
-                luzP1: '0.028', luzP2: '0.038', 
-                luzEnergia: '0.095', 
-                gas: '0.045',
-                mantenimiento: '4.49€/mes'
+                luz: {
+                    p1: '0,115 €/kW',
+                    p2: '0,038 €/kW',
+                    energia: '0,095 €/kWh'
+                },
+                gas: {
+                    fijo: '4,80 €/mes',
+                    variable: '0,045 €/kWh'
+                },
+                mantenimiento: '4,49 €/mes'
             },
             { 
                 nombre: 'TotalEnergies', 
-                luzP1: '0.033', luzP2: '0.043', 
-                luzEnergia: '0.11', 
-                gas: '0.05',
-                mantenimiento: '5.75€/mes'
+                luz: {
+                    p1: '0,129 €/kW',
+                    p2: '0,045 €/kW',
+                    energia: '0,112 €/kWh'
+                },
+                gas: {
+                    fijo: '5,25 €/mes',
+                    variable: '0,049 €/kWh'
+                },
+                mantenimiento: '5,75 €/mes'
             },
             { 
                 nombre: 'EDP', 
-                luzP1: '0.035', luzP2: '0.045', 
-                luzEnergia: '0.118', 
-                gas: '0.056',
-                mantenimiento: '6.25€/mes'
+                luz: {
+                    p1: '0,135 €/kW',
+                    p2: '0,048 €/kW',
+                    energia: '0,120 €/kWh'
+                },
+                gas: {
+                    fijo: '5,65 €/mes',
+                    variable: '0,056 €/kWh'
+                },
+                mantenimiento: '6,25 €/mes'
             }
         ];
-        
-        const COMISIONES = {
-            luz: 20, gas: 20, mantLuz: 10, mantGas: 10
-        };
         
         let currentUser = null;
         let userData = null;
@@ -650,113 +932,131 @@
         
         // Render compañías
         function renderCompanias() {
-            const container = document.getElementById('companias-list');
+            const container = document.getElementById('compania-selector');
             container.innerHTML = COMPANIAS.map((c, i) => `
-                <div class="compania-item" id="comp-${i}" onclick="selectCompania(${i})">
-                    <div class="compania-name">
-                        ${c.nombre}
-                        ${c.badge ? `<span class="compania-badge">${c.badge}</span>` : ''}
-                    </div>
-                    <div class="compania-precios">
-                        <div class="precio-item">
-                            <span class="precio-label">⚡ Luz</span>
-                            <span class="precio-value">${c.luzEnergia}€/kWh</span>
-                        </div>
-                        <div class="precio-item">
-                            <span class="precio-label">🔥 Gas</span>
-                            <span class="precio-value">${c.gas}€/kWh</span>
-                        </div>
-                        <div class="precio-item">
-                            <span class="precio-label">P1/P2</span>
-                            <span class="precio-value">${c.luzP1}/${c.luzP2}</span>
-                        </div>
-                        <div class="precio-item">
-                            <span class="precio-label">🔧 Mant.</span>
-                            <span class="precio-value">${c.mantenimiento}</span>
-                        </div>
-                    </div>
-                </div>
+                <label class="compania-option" id="comp-${i}" onclick="selectCompania(${i})">
+                    <input type="radio" name="compania" value="${c.nombre}">
+                    ${c.nombre}
+                    ${c.badge ? `<span style="font-size:10px;color:var(--primary);display:block;">${c.badge}</span>` : ''}
+                </label>
             `).join('');
         }
         
         // Select compañía
         function selectCompania(index) {
-            // Deselect all
-            document.querySelectorAll('.compania-item').forEach(el => el.classList.remove('selected'));
-            
-            // Select one
+            document.querySelectorAll('.compania-option').forEach(el => el.classList.remove('selected'));
             document.getElementById(`comp-${index}`).classList.add('selected');
             selectedCompania = COMPANIAS[index];
             
-            // Update resumen
-            document.getElementById('resumen-compania').textContent = selectedCompania.nombre;
+            document.getElementById('summary-compania').textContent = selectedCompania.nombre;
             
-            // Show tarifas info
-            const tarifaInfo = document.getElementById('tarifa-info');
-            tarifaInfo.style.display = 'block';
-            document.getElementById('tarifas-content').innerHTML = `
-                <div class="tarifa-row"><span class="l">⚡ Luz (energía):</span><span class="v">${selectedCompania.luzEnergia}€/kWh</span></div>
-                <div class="tarifa-row"><span class="l">⚡ Potencia P1:</span><span class="v">${selectedCompania.luzP1}€/kW/día</span></div>
-                <div class="tarifa-row"><span class="l">⚡ Potencia P2:</span><span class="v">${selectedCompania.luzP2}€/kW/día</span></div>
-                <div class="tarifa-row"><span class="l">🔥 Gas:</span><span class="v">${selectedCompania.gas}€/kWh</span></div>
-                <div class="tarifa-row"><span class="l">🔧 Mantenimiento:</span><span class="v">${selectedCompania.mantenimiento}</span></div>
+            // Show tarifas
+            const tarifasInfo = document.getElementById('tarifas-info');
+            tarifasInfo.style.display = 'block';
+            document.getElementById('tarifas-compania').textContent = selectedCompania.nombre;
+            
+            let html = '';
+            if (selectedCompania.luz) {
+                html += `
+                    <div style="font-weight:600;color:#F59E0B;margin-bottom:8px;">⚡ Luz</div>
+                    <div class="tarifa-row"><span class="l">Potencia P1:</span><span class="v">${selectedCompania.luz.p1}</span></div>
+                    <div class="tarifa-row"><span class="l">Potencia P2:</span><span class="v">${selectedCompania.luz.p2}</span></div>
+                    <div class="tarifa-row"><span class="l">Energía:</span><span class="v">${selectedCompania.luz.energia}</span></div>
+                `;
+            }
+            if (selectedCompania.gas) {
+                html += `
+                    <div style="font-weight:600;color:#EF4444;margin:12px 0 8px;">🔥 Gas</div>
+                    <div class="tarifa-row"><span class="l">Término fijo:</span><span class="v">${selectedCompania.gas.fijo}</span></div>
+                    <div class="tarifa-row"><span class="l">Término variable:</span><span class="v">${selectedCompania.gas.variable}</span></div>
+                `;
+            }
+            html += `
+                <div style="font-weight:600;color:#8B5CF6;margin:12px 0 8px;">🔧 Mantenimiento</div>
+                <div class="tarifa-row"><span class="l">Cuota mensual:</span><span class="v">${selectedCompania.mantenimiento}</span></div>
             `;
             
-            updateResumen();
+            document.getElementById('tarifas-content').innerHTML = html;
+            updateSummary();
         }
         
-        // Update resumen
-        function updateResumen() {
+        // Toggle servicio
+        function toggleServicio(tipo) {
             const form = document.getElementById('form-venta');
+            const cardLuz = document.getElementById('card-luz');
+            const cardGas = document.getElementById('card-gas');
+            const sectionLuz = document.getElementById('section-luz');
+            const sectionGas = document.getElementById('section-gas');
             
-            // Update check styles
-            document.getElementById('check-luz').classList.toggle('checked', form.servLuz.checked);
-            document.getElementById('check-gas').classList.toggle('checked', form.servGas.checked);
+            cardLuz.classList.toggle('selected', form.servLuz.checked);
+            cardGas.classList.toggle('selected', form.servGas.checked);
             
-            // Show/hide mantenimiento options
-            const showMant = form.servLuz.checked || form.servGas.checked;
-            document.getElementById('mant-options').classList.toggle('show', showMant);
+            sectionLuz.style.display = form.servLuz.checked ? 'block' : 'none';
+            sectionGas.style.display = form.servGas.checked ? 'block' : 'none';
             
-            // Calculate
-            let servicios = [];
+            updateSummary();
+        }
+        
+        // Toggle section
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('collapsed');
+            header.querySelector('.toggle').textContent = section.classList.contains('collapsed') ? '▶' : '▼';
+        }
+        
+        // Update summary
+        function updateSummary() {
+            const form = document.getElementById('form-venta');
             let total = 0;
             
-            if (form.servLuz.checked) {
-                servicios.push({ nombre: '⚡ Luz', comision: 20 });
-                total += 20;
-            }
-            if (form.servGas.checked) {
-                servicios.push({ nombre: '🔥 Gas', comision: 20 });
-                total += 20;
-            }
-            if (form.mantLuz.checked) {
-                servicios.push({ nombre: '🔧 Mant. Luz', comision: 10 });
-                total += 10;
-            }
-            if (form.mantGas.checked) {
-                servicios.push({ nombre: '🔧 Mant. Gas', comision: 10 });
-                total += 10;
-            }
-            
-            // Render servicios
-            const container = document.getElementById('resumen-servicios');
-            if (servicios.length === 0) {
-                container.innerHTML = `
-                    <div class="resumen-item">
-                        <span class="label" style="color: var(--gray-400);">Sin servicios seleccionados</span>
-                    </div>
+            // Luz
+            const serviciosLuz = document.getElementById('summary-luz');
+            if (form.servLuz.checked && selectedCompania?.luz) {
+                serviciosLuz.style.display = 'block';
+                document.getElementById('summary-luz-content').innerHTML = `
+                    <div class="summary-row"><span>Potencia P1</span><span class="v">${selectedCompania.luz.p1}</span></div>
+                    <div class="summary-row"><span>Potencia P2</span><span class="v">${selectedCompania.luz.p2}</span></div>
+                    <div class="summary-row"><span>Energía P1-P3</span><span class="v">${selectedCompania.luz.energia}</span></div>
                 `;
+                document.getElementById('total-luz').textContent = '20€';
+                total += 20;
             } else {
-                container.innerHTML = servicios.map(s => `
-                    <div class="resumen-item">
-                        <span class="label">${s.nombre}</span>
-                        <span class="value">${s.comision}€</span>
-                    </div>
-                `).join('');
+                serviciosLuz.style.display = 'none';
+                document.getElementById('total-luz').textContent = '0€';
             }
             
-            // Total
-            document.getElementById('resumen-total').textContent = total + '€';
+            // Gas
+            const serviciosGas = document.getElementById('summary-gas');
+            if (form.servGas.checked && selectedCompania?.gas) {
+                serviciosGas.style.display = 'block';
+                document.getElementById('summary-gas-content').innerHTML = `
+                    <div class="summary-row"><span>Término fijo</span><span class="v">${selectedCompania.gas.fijo}</span></div>
+                    <div class="summary-row"><span>Término variable</span><span class="v">${selectedCompania.gas.variable}</span></div>
+                `;
+                document.getElementById('total-gas').textContent = '20€';
+                total += 20;
+            } else {
+                serviciosGas.style.display = 'none';
+                document.getElementById('total-gas').textContent = '0€';
+            }
+            
+            // Mantenimiento
+            const serviciosMant = document.getElementById('summary-mant');
+            if (form.mantenimiento.checked) {
+                serviciosMant.style.display = 'block';
+                const mantCount = (form.servLuz.checked ? 1 : 0) + (form.servGas.checked ? 1 : 0);
+                document.getElementById('summary-mant-content').innerHTML = `
+                    <div class="summary-row"><span>Servicios</span><span class="v">${mantCount} mantenimiento${mantCount > 1 ? 's' : ''}</span></div>
+                    <div class="summary-row"><span>Cuota</span><span class="v">${selectedCompania?.mantenimiento || '-'}</span></div>
+                `;
+                document.getElementById('total-mant').textContent = (mantCount * 10) + '€';
+                total += mantCount * 10;
+            } else {
+                serviciosMant.style.display = 'none';
+                document.getElementById('total-mant').textContent = '0€';
+            }
+            
+            document.getElementById('total-comision').textContent = total + '€';
         }
         
         // Guardar venta
@@ -764,7 +1064,7 @@
             const form = document.getElementById('form-venta');
             
             // Validar
-            if (!form.cliente.value.trim()) {
+            if (!form.nombre.value.trim()) {
                 alert('Ingresa el nombre del cliente');
                 return;
             }
@@ -775,24 +1075,41 @@
             }
             
             if (!form.servLuz.checked && !form.servGas.checked) {
-                alert('Selecciona al menos un servicio');
+                alert('Selecciona al menos un servicio (Luz o Gas)');
                 return;
             }
             
-            // Crear operaciones por cada servicio
+            if (form.servLuz.checked && !form.cupsLuz.value.trim()) {
+                alert('Ingresa el CUPS de Luz');
+                return;
+            }
+            
+            if (form.servGas.checked && !form.cupsGas.value.trim()) {
+                alert('Ingresa el CUPS de Gas');
+                return;
+            }
+            
+            // Crear operaciones
             const operaciones = [];
             
             if (form.servLuz.checked) {
                 operaciones.push({
-                    cliente: form.cliente.value.trim(),
-                    telefono: form.telefono.value,
+                    cliente: `${form.nombre.value} ${form.apellidos.value}`.trim(),
+                    dni: form.dni.value,
                     email: form.email.value,
-                    direccion: form.direccion.value,
+                    movil: form.movil.value,
+                    direccion: `${form.tipoVia.value} ${form.nombreVia.value} ${form.numero.value} ${form.escalera.value || ''} ${form.piso.value ? 'Piso ' + form.piso.value : ''} ${form.puerta.value ? 'Puerta ' + form.puerta.value : ''}`.trim(),
                     cp: form.cp.value,
-                    poblacion: form.poblacion.value,
+                    municipio: form.municipio.value,
+                    provincia: form.provincia.value,
                     cups: form.cupsLuz.value.toUpperCase(),
                     servicio: 'luz',
                     compania: selectedCompania.nombre,
+                    potenciaP1: form.potenciaP1.value,
+                    potenciaP2: form.potenciaP2.value,
+                    consumoLuz: form.consumoLuz.value,
+                    tarifaAcceso: form.tarifaAccesoLuz.value,
+                    iban: form.iban.value,
                     estado: 'pendiente',
                     observaciones: form.observaciones.value,
                     asesorId: currentUser.uid,
@@ -804,15 +1121,20 @@
             
             if (form.servGas.checked) {
                 operaciones.push({
-                    cliente: form.cliente.value.trim(),
-                    telefono: form.telefono.value,
+                    cliente: `${form.nombre.value} ${form.apellidos.value}`.trim(),
+                    dni: form.dni.value,
                     email: form.email.value,
-                    direccion: form.direccion.value,
+                    movil: form.movil.value,
+                    direccion: `${form.tipoVia.value} ${form.nombreVia.value} ${form.numero.value}`.trim(),
                     cp: form.cp.value,
-                    poblacion: form.poblacion.value,
+                    municipio: form.municipio.value,
+                    provincia: form.provincia.value,
                     cups: form.cupsGas.value.toUpperCase(),
                     servicio: 'gas',
                     compania: selectedCompania.nombre,
+                    consumoGas: form.consumoGas.value,
+                    tarifaAcceso: form.tarifaAccesoGas.value,
+                    iban: form.iban.value,
                     estado: 'pendiente',
                     observaciones: form.observaciones.value,
                     asesorId: currentUser.uid,
@@ -822,43 +1144,42 @@
                 });
             }
             
-            if (form.mantLuz.checked) {
-                operaciones.push({
-                    cliente: form.cliente.value.trim(),
-                    telefono: form.telefono.value,
-                    servicio: 'mantenimiento-luz',
-                    compania: selectedCompania.nombre,
-                    estado: 'pendiente',
-                    asesorId: currentUser.uid,
-                    asesorNombre: userData?.nombre || currentUser.email,
-                    fecha: new Date().toISOString(),
-                    comision: 10
-                });
+            if (form.mantenimiento.checked) {
+                if (form.servLuz.checked) {
+                    operaciones.push({
+                        cliente: `${form.nombre.value} ${form.apellidos.value}`.trim(),
+                        servicio: 'mantenimiento-luz',
+                        compania: selectedCompania.nombre,
+                        estado: 'pendiente',
+                        asesorId: currentUser.uid,
+                        asesorNombre: userData?.nombre || currentUser.email,
+                        fecha: new Date().toISOString(),
+                        comision: 10
+                    });
+                }
+                if (form.servGas.checked) {
+                    operaciones.push({
+                        cliente: `${form.nombre.value} ${form.apellidos.value}`.trim(),
+                        servicio: 'mantenimiento-gas',
+                        compania: selectedCompania.nombre,
+                        estado: 'pendiente',
+                        asesorId: currentUser.uid,
+                        asesorNombre: userData?.nombre || currentUser.email,
+                        fecha: new Date().toISOString(),
+                        comision: 10
+                    });
+                }
             }
             
-            if (form.mantGas.checked) {
-                operaciones.push({
-                    cliente: form.cliente.value.trim(),
-                    telefono: form.telefono.value,
-                    servicio: 'mantenimiento-gas',
-                    compania: selectedCompania.nombre,
-                    estado: 'pendiente',
-                    asesorId: currentUser.uid,
-                    asesorNombre: userData?.nombre || currentUser.email,
-                    fecha: new Date().toISOString(),
-                    comision: 10
-                });
-            }
-            
-            // Guardar en Firebase
+            // Guardar
             for (const op of operaciones) {
                 await db.ref('operaciones').push(op);
             }
             
-            // Notificar al admin
+            // Notificar admin
             await db.ref('notifications/admin').push({
                 title: `Nueva venta de ${userData?.nombre || currentUser.email}`,
-                message: `${operaciones.length} servicios para ${form.cliente.value} (${selectedCompania.nombre})`,
+                message: `${operaciones.length} servicios para ${form.nombre.value} ${form.apellidos.value} (${selectedCompania.nombre})`,
                 timestamp: new Date().toISOString(),
                 read: false,
                 type: 'nueva_venta'
