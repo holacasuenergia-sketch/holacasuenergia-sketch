@@ -1451,11 +1451,11 @@
                         <div class="form-row" style="margin-bottom: 10px;">
                             <div class="form-group">
                                 <label class="form-label">Potencia P1 (kW)</label>
-                                <input type="text" inputmode="decimal" class="form-input" id="potencia-p1" placeholder="ej: 4.6">
+                                <input type="text" inputmode="decimal" class="form-input" id="potencia-p1" placeholder="ej: 4,6">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Potencia P2 (kW)</label>
-                                <input type="text" inputmode="decimal" class="form-input" id="potencia-p2" placeholder="ej: 4.6">
+                                <input type="text" inputmode="decimal" class="form-input" id="potencia-p2" placeholder="ej: 4,6">
                             </div>
                         </div>
                         
@@ -1474,7 +1474,7 @@
                         </div>
                     </div>
                     
-                    <button type="button" class="btn btn-gold btn-block" onclick="calculateTarifas()">
+                    <button type="button" id="btn-calcular" class="btn btn-gold btn-block">
                         🔍 Calcular mi tarifa
                     </button>
                 </div>
@@ -1917,6 +1917,9 @@
             // Scroll al resultado
             document.getElementById('result-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
+        
+        // Botón calcular - event listener
+        document.getElementById('btn-calcular').addEventListener('click', calculateTarifas);
         
         // Form submission
         document.getElementById('factura-form').addEventListener('submit', function(e) {
