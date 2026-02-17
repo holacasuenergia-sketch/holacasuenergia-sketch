@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Version: 2026-02-17-v4 -->
+    <!-- Version: 2026-02-17-v5 -->
     
     <!-- SEO Meta Tags -->
     <title>Luz a 0,10€/kWh Fijo | Ahorra hasta 150€/año | PagoMenosLuzyGas.es</title>
@@ -668,81 +668,72 @@
         }
         
         /* ========================================
-           COMPANIES SECTION - CON FONDO
+           COMPANIES SECTION - CLARO Y MODERNO
            ======================================== */
         .companies {
-            padding: 70px 0;
-            background: var(--gray-900);
+            padding: 80px 0;
+            background: linear-gradient(180deg, #F0FDF4 0%, #ECFDF5 50%, #F0FDFA 100%);
             position: relative;
-        }
-        
-        .companies::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(5, 150, 105, 0.15) 0%, rgba(14, 165, 233, 0.15) 100%);
         }
         
         .section-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
-            position: relative;
-            z-index: 1;
         }
         
         .companies-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
         
         .companies-title {
             font-family: var(--font-display);
-            font-size: clamp(24px, 3vw, 32px);
+            font-size: clamp(26px, 3.5vw, 36px);
             font-weight: 700;
-            color: var(--white);
-            margin-bottom: 10px;
+            color: var(--gray-900);
+            margin-bottom: 12px;
         }
         
         .companies-subtitle {
-            font-size: 16px;
-            color: rgba(255,255,255,0.7);
+            font-size: 17px;
+            color: var(--gray-600);
         }
         
         .companies-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            max-width: 900px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         
         .company-card {
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--white);
             border-radius: 20px;
-            padding: 24px;
+            padding: 28px 20px;
             text-align: center;
+            box-shadow: 0 2px 15px rgba(16, 185, 129, 0.08);
+            border: 2px solid transparent;
             transition: all 0.3s ease;
         }
         
         .company-card:hover {
-            background: rgba(255,255,255,0.12);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+            border-color: var(--primary-light);
         }
         
         .company-name {
             font-weight: 700;
-            color: var(--white);
-            margin-bottom: 4px;
+            color: var(--gray-900);
+            margin-bottom: 6px;
             font-size: 16px;
         }
         
         .company-type {
             font-size: 13px;
-            color: rgba(255,255,255,0.6);
+            color: var(--gray-500);
         }
         
         .company-name {
@@ -758,11 +749,11 @@
         }
         
         /* ========================================
-           CALCULATOR SECTION - DINÁMICO
+           CALCULATOR SECTION - CLARO Y ATRACTIVO
            ======================================== */
         .calculator {
             padding: 100px 0;
-            background: linear-gradient(180deg, var(--gray-900) 0%, #0F172A 100%);
+            background: linear-gradient(180deg, var(--white) 0%, #F0FDF4 50%, #ECFDF5 100%);
             position: relative;
             overflow: hidden;
         }
@@ -770,37 +761,36 @@
         .calculator::before {
             content: '';
             position: absolute;
-            top: 10%;
+            top: -20%;
             right: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(16, 185, 129, 0.1);
-            border-radius: 50%;
-            filter: blur(80px);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+            pointer-events: none;
         }
         
         .calculator::after {
             content: '';
             position: absolute;
-            bottom: 20%;
+            bottom: -10%;
             left: -5%;
-            width: 300px;
-            height: 300px;
-            background: rgba(14, 165, 233, 0.1);
-            border-radius: 50%;
-            filter: blur(60px);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.06) 0%, transparent 70%);
+            pointer-events: none;
         }
         
         .calculator-card {
             background: var(--white);
-            border-radius: 32px;
-            padding: 48px;
-            box-shadow: 0 25px 80px -12px rgba(0,0,0,0.5);
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: 0 15px 50px -10px rgba(16, 185, 129, 0.15);
             max-width: 700px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
             overflow: hidden;
+            border: 1px solid rgba(16, 185, 129, 0.1);
         }
         
         .calculator-card::before {
@@ -809,24 +799,24 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 5px;
+            height: 4px;
             background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
         }
         
         .calculator-title {
             font-family: var(--font-display);
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 700;
             color: var(--gray-900);
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .calculator-subtitle {
             font-size: 16px;
             color: var(--gray-500);
             text-align: center;
-            margin-bottom: 36px;
+            margin-bottom: 32px;
         }
         
         .calculator-input {
@@ -840,14 +830,14 @@
             padding: 16px 20px;
             font-size: 16px;
             border: 2px solid var(--gray-200);
-            border-radius: 16px;
+            border-radius: 14px;
             transition: all 0.3s ease;
         }
         
         .calculator-input input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
         }
         
         .or-divider {
@@ -935,31 +925,17 @@
         }
         
         /* ========================================
-           TARIFAS SECTION - CON GRADIENTE
+           TARIFAS SECTION - CLARO Y ATRACTIVO
            ======================================== */
         .tarifas {
             padding: 100px 0;
-            background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 50%, var(--white) 100%);
+            background: linear-gradient(180deg, #F0FDFA 0%, var(--white) 50%, #F0FDF4 100%);
             position: relative;
-        }
-        
-        .tarifas::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%);
-            pointer-events: none;
         }
         
         .section-header {
             text-align: center;
             margin-bottom: 60px;
-            position: relative;
-            z-index: 1;
         }
         
         .section-eyebrow {
@@ -996,30 +972,28 @@
             gap: 28px;
             max-width: 1100px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
         
         .tarifa-card {
             background: var(--white);
-            border-radius: 28px;
+            border-radius: 24px;
             padding: 36px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 25px rgba(16, 185, 129, 0.08);
             border: 2px solid var(--gray-100);
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
         
         .tarifa-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.12);
             border-color: var(--primary-light);
         }
         
         .tarifa-card.featured {
             border-color: var(--accent-gold);
-            background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, var(--white) 100%);
+            background: linear-gradient(180deg, rgba(245, 158, 11, 0.03) 0%, var(--white) 100%);
             transform: scale(1.02);
         }
         
@@ -1037,12 +1011,12 @@
         }
         
         .tarifa-card.featured:hover {
-            transform: scale(1.02) translateY(-10px);
+            transform: scale(1.02) translateY(-8px);
         }
         
         .tarifa-badge {
             display: inline-block;
-            padding: 6px 14px;
+            padding: 8px 16px;
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%);
             color: var(--primary-dark);
             border-radius: 25px;
@@ -1052,7 +1026,7 @@
         }
         
         .tarifa-badge.gold {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(252, 211, 77, 0.15) 100%);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(252, 211, 77, 0.12) 100%);
             color: #D97706;
         }
         
@@ -1076,7 +1050,7 @@
         
         .tarifa-price-value {
             font-family: var(--font-display);
-            font-size: 42px;
+            font-size: 44px;
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--secondary) 100%);
             -webkit-background-clip: text;
@@ -1111,14 +1085,14 @@
         }
         
         .tarifa-feature-icon {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 12px;
             color: var(--white);
             flex-shrink: 0;
         }
@@ -1184,12 +1158,12 @@
         }
         
         /* ========================================
-           FOOTER
+           FOOTER - LIMPIO Y MODERNO
            ======================================== */
         .footer {
-            background: var(--gray-900);
-            color: var(--gray-400);
-            padding: 60px 0 30px;
+            background: linear-gradient(180deg, var(--gray-900) 0%, #0F172A 100%);
+            color: var(--gray-300);
+            padding: 70px 0 30px;
         }
         
         .footer-grid {
@@ -1200,25 +1174,26 @@
         }
         
         .footer-brand {
-            max-width: 280px;
+            max-width: 300px;
         }
         
         .footer-logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 18px;
         }
         
         .footer-logo img {
-            height: 40px;
+            height: 42px;
             border-radius: 8px;
         }
         
         .footer-description {
             font-size: 14px;
             line-height: 1.7;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
+            color: var(--gray-400);
         }
         
         .footer-social {
@@ -1227,9 +1202,9 @@
         }
         
         .footer-social a {
-            width: 38px;
-            height: 38px;
-            background: var(--gray-800);
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.08);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1240,7 +1215,7 @@
         }
         
         .footer-social a:hover {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: var(--white);
         }
         
@@ -1249,7 +1224,7 @@
             font-size: 16px;
             font-weight: 600;
             color: var(--white);
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
         
         .footer-links {
@@ -1257,14 +1232,14 @@
         }
         
         .footer-links li {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         
         .footer-links a {
             color: var(--gray-400);
             text-decoration: none;
             font-size: 14px;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .footer-links a:hover {
@@ -1273,13 +1248,14 @@
         
         .footer-bottom {
             padding-top: 30px;
-            border-top: 1px solid var(--gray-800);
+            border-top: 1px solid rgba(255,255,255,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 13px;
             flex-wrap: wrap;
             gap: 16px;
+            color: var(--gray-500);
         }
         
         .footer-legal {
