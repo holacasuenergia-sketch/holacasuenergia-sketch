@@ -70,13 +70,15 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Enerlux Backend API`);
-  console.log(`📡 Server running on port ${PORT}`);
-  console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`⏰ Started at: ${new Date().toISOString()}`);
-});
+// Start server (only in development, not in Vercel)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Enerlux Backend API`);
+    console.log(`📡 Server running on port ${PORT}`);
+    console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`⏰ Started at: ${new Date().toISOString()}`);
+  });
+}
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
@@ -84,4 +86,5 @@ process.on('SIGTERM', () => {
   process.exit(0);
 });
 
+// Export for Vercel
 module.exports = app;

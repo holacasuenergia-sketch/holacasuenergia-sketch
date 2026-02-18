@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- VERSION: 2026-02-18-19:12-FIX-ASESORES -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin v2.1 - Enerlux CRM</title>
     <link rel="icon" type="image/jpeg" href="../logo-enerlux.jpg">
@@ -1142,7 +1143,11 @@
         // Load Asesores
         async function loadAsesores() {
             const container = document.getElementById('asesores-list');
-            const asesores = Object.entries(allAsesores);
+            
+            // Cargar usuarios directamente desde Firebase
+            const usersSnap = await db.ref('users').once('value');
+            const allUsers = usersSnap.val() || {};
+            const asesores = Object.entries(allUsers).filter(([uid, data]) => data.role === 'asesor');
             
             if (asesores.length === 0) {
                 container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--gray-400);">No hay asesores registrados</div>';
