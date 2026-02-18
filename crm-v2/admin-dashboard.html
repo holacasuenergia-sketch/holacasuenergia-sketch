@@ -823,6 +823,44 @@
             </div>
         </div>
     </div>
+    
+    <!-- Modal Editar Asesor -->
+    <div class="modal-overlay" id="modal-editar-asesor">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar Asesor</h3>
+                <button class="modal-close" onclick="closeModal('modal-editar-asesor')">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="form-editar-asesor">
+                    <input type="hidden" name="uid" id="edit-asesor-uid">
+                    <div class="form-group">
+                        <label class="form-label">Nombre completo *</label>
+                        <input type="text" class="form-input" name="nombre" id="edit-asesor-nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jornada</label>
+                        <select class="form-select" name="jornada" id="edit-asesor-jornada">
+                            <option value="full">Full-time (4 ventas/día)</option>
+                            <option value="part">Part-time (2 ventas/día)</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('modal-editar-asesor')">Cancelar</button>
+                <button class="btn btn-danger" onclick="eliminarAsesor()" style="margin-right: auto;">🗑️ Eliminar</button>
+                <button class="btn btn-primary" onclick="guardarAsesor()">Guardar</button>
+            </div>
+        </div>
+    </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('modal-nuevo-asesor')">Cancelar</button>
+                <button class="btn btn-primary" onclick="crearAsesor()">Crear Asesor</button>
+            </div>
+        </div>
+    </div>
     </div><!-- End app-content -->
     
     <!-- Firebase -->
@@ -1136,6 +1174,7 @@
                             <div class="asesor-stat-label">Jornada</div>
                         </div>
                     </div>
+                    <button class="btn btn-outline" style="margin-top: 12px; width: 100%;" onclick="editarAsesor('${uid}', '${data.nombre || ''}', '${data.jornada || 'part'}')">✏️ Editar</button>
                 </div>
             `).join('');
         }
@@ -1280,6 +1319,64 @@
                 
                 loadAsesores();
                 alert('✅ Asesor creado correctamente');
+            } catch (error) {
+                alert('❌ Error: ' + error.message);
+            }
+        }
+        
+        // Editar Asesor
+        function editarAsesor(uid, nombre, jornada) {
+            document.getElementById('edit-asesor-uid').value = uid;
+            document.getElementById('edit-asesor-nombre').value = nombre;
+            document.getElementById('edit-asesor-jornada').value = jornada;
+            openModal('modal-editar-asesor');
+        }
+        
+        // Guardar cambios de asesor
+        async function guardarAsesor() {
+            const uid = document.getElementById('edit-asesor-uid').value;
+            const nombre = document.getElementById('edit-asesor-nombre').value;
+            const jornada = document.getElementById('edit-asesor-jornada').value;
+            
+            try {
+                await db.ref(`users/${uid}`).update({
+                    nombre: nombre,
+                    name: nombre,
+                    jornada: jornada
+                });
+                
+                // Recargar lista
+                const asesoresSnap = await db.ref('users').orderByChild('role').equalTo('asesor').once('value');
+                allAsesores = asesoresSnap.val() || {};
+                loadAsesores();
+                
+                closeModal('modal-editar-asesor');
+                alert('✅ Asesor actualizado correctamente');
+            } catch (error) {
+                alert('❌ Error: ' + error.message);
+            }
+        }
+        
+        // Eliminar Asesor
+        async function eliminarAsesor() {
+            const uid = document.getElementById('edit-asesor-uid').value;
+            const asesor = allAsesores[uid];
+            
+            if (!confirm(`¿Seguro que quieres eliminar a ${asesor?.nombre || 'este asesor'}?\n\n⚠️ Esta acción no se puede deshacer.`)) {
+                return;
+            }
+            
+            try {
+                await db.ref(`users/${uid}`).remove();
+                
+                // Recargar lista
+                const asesoresSnap = await db.ref('users').orderByChild('role').equalTo('asesor').once('value');
+                allAsesores = asesoresSnap.val() || {};
+                document.getElementById('stat-asesores').textContent = Object.keys(allAsesores).length;
+                loadAsesores();
+                
+                closeModal('modal-editar-asesor');
+                alert('✅ Asesor eliminado correctamente');
             } catch (error) {
                 alert('❌ Error: ' + error.message);
             }
