@@ -1,15 +1,8 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/email/(.*)",
-      "dest": "/api/index.js"
+      "source": "/api/email/:path*",
+      "destination": "/api/:path*"
     }
   ]
 }
