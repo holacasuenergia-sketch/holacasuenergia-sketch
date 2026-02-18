@@ -1272,6 +1272,12 @@
                 
                 closeModal('modal-nuevo-asesor');
                 form.reset();
+                
+                // Recargar lista de asesores desde Firebase
+                const asesoresSnap = await db.ref('users').orderByChild('role').equalTo('asesor').once('value');
+                allAsesores = asesoresSnap.val() || {};
+                document.getElementById('stat-asesores').textContent = Object.keys(allAsesores).length;
+                
                 loadAsesores();
                 alert('✅ Asesor creado correctamente');
             } catch (error) {
