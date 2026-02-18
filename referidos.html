@@ -213,7 +213,7 @@
                 <h2>🚀 Únete al programa de referidos</h2>
                 <p class="subtitle">Regístrate y genera tu enlace único para empezar a ganar</p>
                 
-                <form action="https://formsubmit.co/enerlux.soluciones@gmail.com" method="POST">
+                <form id="referido-form" action="https://formsubmit.co/enerlux.soluciones@gmail.com" method="POST">
                     <input type="hidden" name="_subject" value="🤝 Nuevo Referido Registrado - Enerlux">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
@@ -251,24 +251,40 @@
         </div>
     </section>
     
-    <!-- Share Section (demo) -->
-    <section style="padding: 0 20px;">
+    <!-- Success Section (oculto hasta registro) -->
+    <section id="success-section" style="padding: 0 20px; display: none;">
         <div class="container">
-            <div class="share-section">
-                <h2>📲 Comparte tu enlace</h2>
-                <p>Usa este enlace para referir amigos (te llegará por email al registrarte):</p>
+            <div class="share-section" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); border: none;">
+                <h2 style="color: white;">🎉 ¡Ya eres referidor!</h2>
+                <p style="color: rgba(255,255,255,0.9); margin-bottom: 24px;">Tu código único está listo. Compártelo ahora:</p>
+                
+                <div style="background: white; padding: 16px 24px; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                    <span style="font-size: 14px; color: #6B7280;">Tu código:</span>
+                    <span id="codigo-unico" style="font-size: 28px; font-weight: 800; color: #059669; letter-spacing: 2px;">--</span>
+                    <button onclick="copiarCodigo()" style="background: #E5E7EB; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px;">📋 Copiar</button>
+                </div>
+                
+                <p style="color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 16px;">Tu enlace completo:</p>
+                <div style="background: white; padding: 12px 16px; border-radius: 8px; margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
+                    <input type="text" id="enlace-completo" value="" readonly style="flex: 1; border: none; font-size: 14px; color: #374151;">
+                    <button onclick="copiarEnlace()" style="background: #059669; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px;">📋</button>
+                </div>
                 
                 <div class="share-buttons">
-                    <a href="https://wa.me/?text=Hola!%20Te%20recomiendo%20este%20comparador%20de%20tarifas%20de%20luz.%20Yo%20ahorré%20dinero%20y%20tú%20también%20puedes%20😊%20https://pagomenosluzygas.es/?ref=TU_CODIGO" class="share-btn whatsapp" target="_blank">
+                    <a id="btn-whatsapp" href="#" class="share-btn whatsapp" target="_blank">
                         📱 WhatsApp
                     </a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://pagomenosluzygas.es/?ref=TU_CODIGO" class="share-btn facebook" target="_blank">
+                    <a id="btn-facebook" href="#" class="share-btn facebook" target="_blank">
                         📘 Facebook
                     </a>
-                    <a href="https://instagram.com" class="share-btn instagram" target="_blank">
+                    <a id="btn-instagram" href="https://instagram.com" class="share-btn instagram" target="_blank">
                         📸 Instagram
                     </a>
                 </div>
+                
+                <p style="color: rgba(255,255,255,0.7); font-size: 13px; margin-top: 20px;">
+                    💡 También te enviamos el código por email. Revisa tu bandeja de entrada.
+                </p>
             </div>
         </div>
     </section>
@@ -356,13 +372,116 @@
         </div>
     </footer>
     
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script>
-        function copyLink() {
-            const input = document.getElementById('share-url');
-            input.select();
-            document.execCommand('copy');
+        const firebaseConfig = {
+            apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
+            authDomain: "enerlux-crm.firebaseapp.com",
+            databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "enerlux-crm",
+            storageBucket: "enerlux-crm.firebasestorage.app",
+            messagingSenderId: "84970919171",
+            appId: "1:84970919171:web:a9904b377254bb26884536"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        
+        let codigoUnico = '';
+        let datosReferidor = {};
+        
+        // Generar código único
+        function generarCodigo(nombre) {
+            const initiales = nombre.replace(/\s+/g, '').substring(0, 4).toUpperCase();
+            const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+            return `${initiales}-${random}`;
+        }
+        
+        // Registrar referidor
+        function registrarReferidor(formData) {
+            const nombre = formData.get('nombre');
+            codigoUnico = generarCodigo(nombre);
+            
+            datosReferidor = {
+                nombre: nombre,
+                telefono: formData.get('telefono'),
+                email: formData.get('email'),
+                metodoPago: formData.get('metodo_pago'),
+                origen: formData.get('origen'),
+                codigo: codigoUnico,
+                fuente: 'referido',
+                estado: 'nuevo',
+                fechaRegistro: new Date().toISOString(),
+                clientesReferidos: 0,
+                ganancias: 0
+            };
+            
+            // Guardar en Firebase
+            db.ref('referidores').push(datosReferidor);
+            
+            // También guardar en leads
+            db.ref('leads').push({
+                nombre: nombre,
+                telefono: formData.get('telefono'),
+                email: formData.get('email'),
+                codigo: codigoUnico,
+                fuente: 'referido',
+                estado: 'nuevo',
+                fecha: new Date().toISOString()
+            });
+            
+            // Mostrar sección de éxito
+            mostrarCodigo();
+        }
+        
+        function mostrarCodigo() {
+            const enlace = `https://pagomenosluzygas.es/?ref=${codigoUnico}`;
+            
+            document.getElementById('codigo-unico').textContent = codigoUnico;
+            document.getElementById('enlace-completo').value = enlace;
+            
+            // Actualizar botones de compartir
+            const msg = `Hola! Te recomiendo este comparador de tarifas de luz. Yo ahorré dinero y tú también puedes 😊 ${enlace}`;
+            document.getElementById('btn-whatsapp').href = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+            document.getElementById('btn-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(enlace)}`;
+            
+            // Ocultar formulario, mostrar éxito
+            document.querySelector('.form-section').style.display = 'none';
+            document.getElementById('success-section').style.display = 'block';
+        }
+        
+        function copiarCodigo() {
+            navigator.clipboard.writeText(codigoUnico);
+            alert('¡Código copiado!');
+        }
+        
+        function copiarEnlace() {
+            const enlace = document.getElementById('enlace-completo').value;
+            navigator.clipboard.writeText(enlace);
             alert('¡Enlace copiado! Compártelo con tus amigos.');
         }
+        
+        // Interceptar envío del formulario
+        document.getElementById('referido-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const nombre = formData.get('nombre');
+            
+            if (!nombre) {
+                alert('Por favor completa tu nombre');
+                return;
+            }
+            
+            registrarReferidor(formData);
+            
+            // También enviar email por Formsubmit
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            }).catch(() => {}); // Silenciar error, lo importante es Firebase
+        });
         
         // FAQ toggle
         document.querySelectorAll('.faq-question').forEach(q => {
