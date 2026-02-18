@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Ahorro en Luz y Gas | PagoMenosLuzyGas</title>
+    <meta name="description" content="Artículos sobre ahorro de energía, cambiar de compañía, tarifas luz y gas. Consejos prácticos para reducir tu factura.">
+    <link rel="canonical" href="https://www.pagomenosluzygas.es/blog.html">
+    
+    <link rel="icon" type="image/jpeg" href="logo-enerlux.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #F8FAFC; color: #1E293B; line-height: 1.7; }
+        a { color: #10B981; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        
+        .header { background: linear-gradient(135deg, #10B981 0%, #0EA5E9 100%); color: white; padding: 20px; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 12px; color: white; text-decoration: none; }
+        .logo img { width: 42px; height: 42px; border-radius: 10px; }
+        .logo-text { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 700; }
+        .back-btn { background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 10px; color: white; text-decoration: none; font-weight: 600; }
+        .back-btn:hover { background: rgba(255,255,255,0.3); text-decoration: none; }
+        
+        .hero { background: linear-gradient(135deg, #059669 0%, #10B981 100%); color: white; padding: 60px 20px; text-align: center; }
+        .hero h1 { font-family: 'Poppins', sans-serif; font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin-bottom: 16px; }
+        .hero p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        
+        .articles { padding: 60px 20px; }
+        .articles-grid { display: grid; gap: 30px; }
+        
+        .article-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s; }
+        .article-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); text-decoration: none; }
+        
+        .article-image { height: 200px; background: linear-gradient(135deg, #10B981 0%, #0EA5E9 100%); display: flex; align-items: center; justify-content: center; font-size: 64px; }
+        
+        .article-content { padding: 24px; }
+        .article-tag { display: inline-block; padding: 4px 12px; background: rgba(16, 185, 129, 0.1); color: #059669; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+        .article-title { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: #1E293B; margin-bottom: 12px; line-height: 1.3; }
+        .article-excerpt { color: #64748B; font-size: 15px; margin-bottom: 16px; }
+        .article-meta { display: flex; justify-content: space-between; color: #94A3B8; font-size: 13px; }
+        
+        .featured-badge { background: #F59E0B; color: white; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; margin-left: 10px; }
+        
+        .footer { background: #1E293B; color: white; padding: 40px 20px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 20px; }
+        .footer-links a { color: white; opacity: 0.7; }
+        .footer-links a:hover { opacity: 1; }
+        
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="logo-enerlux.jpg" alt="PagoMenosLuzyGas">
+                    <span class="logo-text">PagoMenosLuzyGas</span>
+                </a>
+                <a href="index.html" class="back-btn">← Volver al inicio</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>📚 Blog de Ahorro</h1>
+            <p>Consejos prácticos para reducir tu factura de luz y gas</p>
+        </div>
+    </section>
+    
+    <!-- Articles -->
+    <section class="articles">
+        <div class="container">
+            <div class="articles-grid">
+                
+                <!-- Artículo 1 - Destacado -->
+                <a href="articulo-cambiar-compania-luz-2026.html" class="article-card">
+                    <div class="article-image">📄</div>
+                    <div class="article-content">
+                        <span class="article-tag">Guía completa</span>
+                        <span class="featured-badge">POPULAR</span>
+                        <h2 class="article-title">Cómo cambiar de compañía de luz en 2026: Guía paso a paso</h2>
+                        <p class="article-excerpt">El proceso es más fácil de lo que piensas. Te explicamos los documentos que necesitas, los plazos reales y qué buscar en tu nueva tarifa.</p>
+                        <div class="article-meta">
+                            <span>📅 15 Feb 2026</span>
+                            <span>⏱️ 8 min lectura</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Artículo 2 -->
+                <a href="articulo-endesa-vs-iberdrola.html" class="article-card">
+                    <div class="article-image" style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);">⚡</div>
+                    <div class="article-content">
+                        <span class="article-tag">Comparativas</span>
+                        <h2 class="article-title">Endesa vs Iberdrola: ¿Cuál conviene más en 2026?</h2>
+                        <p class="article-excerpt">Análisis detallado de tarifas, calidad de servicio, atención al cliente y precios de las dos grandes compañías.</p>
+                        <div class="article-meta">
+                            <span>📅 12 Feb 2026</span>
+                            <span>⏱️ 10 min lectura</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Artículo 3 -->
+                <a href="articulo-5-trucos-reducir-factura.html" class="article-card">
+                    <div class="article-image" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">💡</div>
+                    <div class="article-content">
+                        <span class="article-tag">Consejos</span>
+                        <h2 class="article-title">5 trucos para reducir tu factura de luz YA</h2>
+                        <p class="article-excerpt">Cambios sencillos que puedes hacer hoy mismo para notar la diferencia en tu próxima factura.</p>
+                        <div class="article-meta">
+                            <span>📅 10 Feb 2026</span>
+                            <span>⏱️ 5 min lectura</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Artículo 4 -->
+                <a href="articulo-documentos-necesarios.html" class="article-card">
+                    <div class="article-image" style="background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);">📋</div>
+                    <div class="article-content">
+                        <span class="article-tag">Práctico</span>
+                        <h2 class="article-title">Qué documentos necesitas para cambiar de compañía</h2>
+                        <p class="article-excerpt">Todo lo que debes tener a mano antes de solicitar el cambio. Lista completa y descargable.</p>
+                        <div class="article-meta">
+                            <span>📅 8 Feb 2026</span>
+                            <span>⏱️ 3 min lectura</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Artículo 5 -->
+                <a href="articulo-tarifa-fija-vs-variable.html" class="article-card">
+                    <div class="article-image" style="background: linear-gradient(135deg, #059669 0%, #10B981 100%);">💰</div>
+                    <div class="article-content">
+                        <span class="article-tag">Economía</span>
+                        <h2 class="article-title">Tarifa fija vs variable: ¿Cuándo conviene cada una?</h2>
+                        <p class="article-excerpt">Depende de tus hábitos de consumo. Te ayudamos a decidir cuál es mejor para ti con ejemplos reales.</p>
+                        <div class="article-meta">
+                            <span>📅 5 Feb 2026</span>
+                            <span>⏱️ 7 min lectura</span>
+                        </div>
+                    </div>
+                </a>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section style="padding: 60px 20px; background: linear-gradient(135deg, #10B981 0%, #059669 100%); text-align: center; color: white;">
+        <div class="container">
+            <h2 style="font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 700; margin-bottom: 16px;">¿Quieres saber cuánto puedes ahorrar?</h2>
+            <p style="margin-bottom: 24px; opacity: 0.9;">Calcula tu ahorro en 30 segundos</p>
+            <a href="index.html#calculadora" style="display: inline-block; background: white; color: #059669; padding: 16px 40px; border-radius: 12px; font-weight: 700; text-decoration: none;">
+                📊 Calcular mi ahorro GRATIS
+            </a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#calculadora">Calculadora</a>
+                <a href="index.html#tarifas">Tarifas</a>
+                <a href="activar-contrato.html">Activar Contrato</a>
+            </div>
+            <p style="opacity: 0.5; font-size: 14px;">© 2026 PagoMenosLuzyGas.es · Tu ahorro empieza aquí</p>
+        </div>
+    </footer>
+</body>
+</html>
