@@ -2168,7 +2168,23 @@
         </div>
     </footer>
     
+    <!-- Firebase para guardar leads -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script>
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCC_j9qnWf0snHV7XOaFSQLiqszZzCkGuc",
+            authDomain: "enerlux-crm.firebaseapp.com",
+            databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "enerlux-crm",
+            storageBucket: "enerlux-crm.firebasestorage.app",
+            messagingSenderId: "84970919171",
+            appId: "1:84970919171:web:a9904b377254bb26884536"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        
         // Mobile menu toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
@@ -2289,10 +2305,26 @@
                 fuente: 'calculadora'
             };
             
-            // Guardar en array de leads
+            // Guardar en localStorage
             let leads = JSON.parse(localStorage.getItem('enerlux_leads') || '[]');
             leads.push(lead);
             localStorage.setItem('enerlux_leads', JSON.stringify(leads));
+            
+            // Guardar en Firebase para el CRM
+            db.ref('leads').push({
+                nombre: email ? email.split('@')[0] : 'Lead Web',
+                email: email || '',
+                telefono: phone || '',
+                consumoLuz: datosCalculo.consumoLuz,
+                consumoGas: datosCalculo.consumoGas,
+                potencia: `P1: ${datosCalculo.p1}kW, P2: ${datosCalculo.p2}kW`,
+                cupsLuz: datosCalculo.cupsLuz || '',
+                cupsGas: datosCalculo.cupsGas || '',
+                fuente: 'calculadora',
+                estado: 'nuevo',
+                fecha: new Date().toISOString(),
+                timestamp: Date.now()
+            }).catch(() => {}); // Silenciar errores
             
             // Enviar a Formsubmit (notificación por email)
             if (email || phone) {
@@ -2465,6 +2497,36 @@
             const btn = this.querySelector('button[type="submit"]');
             btn.textContent = '⏳ Enviando...';
             btn.disabled = true;
+            
+            // Guardar en Firebase
+            const formData = new FormData(this);
+            db.ref('leads').push({
+                nombre: formData.get('nombre') || '',
+                email: formData.get('email') || '',
+                telefono: formData.get('telefono') || '',
+                fuente: 'factura',
+                estado: 'nuevo',
+                fecha: new Date().toISOString(),
+                timestamp: Date.now()
+            }).catch(() => {});
+        });
+        
+        // Formulario de colaborador - guardar en Firebase
+        document.getElementById('colaborador-form')?.addEventListener('submit', function(e) {
+            const formData = new FormData(this);
+            db.ref('leads').push({
+                nombre: formData.get('nombre') || '',
+                email: formData.get('email') || '',
+                telefono: formData.get('telefono') || '',
+                ciudad: formData.get('ciudad') || '',
+                experiencia: formData.get('experiencia') || '',
+                disponibilidad: formData.get('disponibilidad') || '',
+                origen: formData.get('origen') || '',
+                fuente: 'colaborador',
+                estado: 'nuevo',
+                fecha: new Date().toISOString(),
+                timestamp: Date.now()
+            }).catch(() => {});
         });
         
         // Dark Mode Toggle
