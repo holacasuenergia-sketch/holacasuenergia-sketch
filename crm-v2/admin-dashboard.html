@@ -1001,9 +1001,12 @@
             document.getElementById('stat-ventas-total').textContent = totalVentas + ' ventas';
             document.getElementById('stat-pendientes').textContent = pendientes + ' pendientes';
             
-            // Count asesores
-            const asesoresSnap = await db.ref('users').orderByChild('role').equalTo('asesor').once('value');
-            allAsesores = asesoresSnap.val() || {};
+            // Count asesores (filtrar en JavaScript para evitar error de índice)
+            const usersSnap = await db.ref('users').once('value');
+            const allUsers = usersSnap.val() || {};
+            allAsesores = Object.fromEntries(
+                Object.entries(allUsers).filter(([uid, data]) => data.role === 'asesor')
+            );
             document.getElementById('stat-asesores').textContent = Object.keys(allAsesores).length;
             
             // Update filtro asesor dropdown
@@ -1313,8 +1316,11 @@
                 form.reset();
                 
                 // Recargar lista de asesores desde Firebase
-                const asesoresSnap = await db.ref('users').orderByChild('role').equalTo('asesor').once('value');
-                allAsesores = asesoresSnap.val() || {};
+                const usersSnap = await db.ref('users').once('value');
+                const allUsers = usersSnap.val() || {};
+                allAsesores = Object.fromEntries(
+                    Object.entries(allUsers).filter(([uid, data]) => data.role === 'asesor')
+                );
                 document.getElementById('stat-asesores').textContent = Object.keys(allAsesores).length;
                 
                 loadAsesores();
@@ -1346,8 +1352,11 @@
                 });
                 
                 // Recargar lista
-                const asesoresSnap = await db.ref('users').orderByChild('role').equalTo('asesor').once('value');
-                allAsesores = asesoresSnap.val() || {};
+                const usersSnap = await db.ref('users').once('value');
+                const allUsers = usersSnap.val() || {};
+                allAsesores = Object.fromEntries(
+                    Object.entries(allUsers).filter(([uid, data]) => data.role === 'asesor')
+                );
                 loadAsesores();
                 
                 closeModal('modal-editar-asesor');
@@ -1370,8 +1379,11 @@
                 await db.ref(`users/${uid}`).remove();
                 
                 // Recargar lista
-                const asesoresSnap = await db.ref('users').orderByChild('role').equalTo('asesor').once('value');
-                allAsesores = asesoresSnap.val() || {};
+                const usersSnap = await db.ref('users').once('value');
+                const allUsers = usersSnap.val() || {};
+                allAsesores = Object.fromEntries(
+                    Object.entries(allUsers).filter(([uid, data]) => data.role === 'asesor')
+                );
                 document.getElementById('stat-asesores').textContent = Object.keys(allAsesores).length;
                 loadAsesores();
                 
