@@ -1457,11 +1457,12 @@
                 </div>
                 
                 <h1 class="hero-title">
-                    Deja de pagar de más.<br><span>Ahorra hasta 470€/año</span> en luz
+                    Tu factura de luz <span>demasiado cara</span><br>¿Quieres ahorrar 470€ al año?
                 </h1>
                 
                 <p class="hero-subtitle">
-                    En 30 segundos descubre tu ahorro real. Sin papeleos. Sin permanencia. Sin letra pequeña.
+                    <strong>⚡ Luz fija a 0,10€/kWh 24h</strong> — Calcula tu ahorro en 30 segundos. 
+                    <span style="color: var(--primary); font-weight: 600;">+10.000 clientes</span> ya pagan menos. ¿Y tú?
                 </p>
                 
                 <div class="hero-cta">
@@ -1551,6 +1552,28 @@
                         <div class="form-group">
                             <label class="form-label">Consumo mensual (kWh)</label>
                             <input type="text" inputmode="numeric" class="form-input" id="consumo-gas" placeholder="ej: 150">
+                        </div>
+                    </div>
+                    
+                    <div id="lead-capture" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%); border: 2px dashed var(--primary); border-radius: 16px; padding: 20px; margin-bottom: 16px; display: none;">
+                        <div style="text-align: center; margin-bottom: 16px;">
+                            <div style="font-size: 32px; margin-bottom: 8px;">🎁</div>
+                            <div style="font-weight: 700; color: var(--gray-800); font-size: 18px;">¡Hemos calculado tu ahorro!</div>
+                            <div style="color: var(--gray-500); font-size: 14px;">Introduce tu email o teléfono para ver el resultado</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" id="lead-email" class="form-input" placeholder="📧 Tu email" style="margin-bottom: 10px;">
+                            <div style="text-align: center; color: var(--gray-400); font-size: 12px; margin: 8px 0;">o</div>
+                            <input type="tel" id="lead-phone" class="form-input" placeholder="📞 Tu teléfono (+34...)">
+                        </div>
+                        
+                        <button type="button" id="btn-ver-resultado" class="btn btn-gold btn-block">
+                            👀 Ver mi ahorro estimado
+                        </button>
+                        
+                        <div style="text-align: center; font-size: 11px; color: var(--gray-400); margin-top: 10px;">
+                            🔒 Sin spam. Solo te escribimos si quieres.
                         </div>
                     </div>
                     
@@ -1761,6 +1784,150 @@
         </div>
     </section>
     
+    <!-- COLABORA CON NOSOTROS -->
+    <section id="colabora" style="padding: 80px 0; background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 50%, #FCD34D 100%); position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -10%; right: -5%; width: 300px; height: 300px; background: rgba(245, 158, 11, 0.2); border-radius: 50%; filter: blur(60px);"></div>
+        
+        <div class="section-container" style="max-width: 1100px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+                
+                <!-- Contenido izquierdo -->
+                <div>
+                    <div style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(217, 119, 6, 0.15); border-radius: 50px; font-size: 14px; font-weight: 600; color: #92400E; margin-bottom: 20px;">
+                        🤝 Únete a nuestro equipo
+                    </div>
+                    
+                    <h2 style="font-family: 'Poppins', sans-serif; font-size: clamp(32px, 4vw, 44px); font-weight: 800; color: #78350F; line-height: 1.2; margin-bottom: 20px;">
+                        ¿Eres autónomo? <span style="color: #D97706;">Gana dinero</span> desde casa
+                    </h2>
+                    
+                    <p style="font-size: 18px; color: #92400E; margin-bottom: 30px; line-height: 1.7;">
+                        Únete a nuestra red de colaboradores. <strong>Sin inversión inicial</strong>, sin horarios fijos. 
+                        Tú decides cuánto quieres ganar.
+                    </p>
+                    
+                    <!-- Beneficios -->
+                    <div style="display: grid; gap: 16px; margin-bottom: 30px;">
+                        <div style="display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.7); padding: 16px 20px; border-radius: 12px;">
+                            <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #10B981 0%, #059669 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">💸</div>
+                            <div>
+                                <div style="font-weight: 700; color: #78350F; font-size: 18px;">Hasta 20€ por venta</div>
+                                <div style="font-size: 14px; color: #92400E;">Luz + Gas = 40€ por cliente completo</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.7); padding: 16px 20px; border-radius: 12px;">
+                            <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">🏠</div>
+                            <div>
+                                <div style="font-weight: 700; color: #78350F; font-size: 18px;">Trabaja desde casa</div>
+                                <div style="font-size: 14px; color: #92400E;">Solo necesitas móvil y WhatsApp</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.7); padding: 16px 20px; border-radius: 12px;">
+                            <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">📈</div>
+                            <div>
+                                <div style="font-weight: 700; color: #78350F; font-size: 18px;">Ingresos ilimitados</div>
+                                <div style="font-size: 14px; color: #92400E;">Cuanto más vendes, más ganas</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ejemplo de ganancias -->
+                    <div style="background: #78350F; color: white; padding: 20px 24px; border-radius: 16px;">
+                        <div style="font-size: 14px; opacity: 0.8; margin-bottom: 8px;">💡 Ejemplo real:</div>
+                        <div style="font-size: 16px; font-weight: 500;">
+                            "5 ventas/semana = <strong style="font-size: 24px;">400€/semana</strong> = <strong style="font-size: 28px; color: #FCD34D;">1.600€/mes</strong> extra"
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Formulario derecho -->
+                <div style="background: white; border-radius: 24px; padding: 32px; box-shadow: 0 20px 60px rgba(120, 53, 15, 0.15); position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);"></div>
+                    
+                    <h3 style="font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 700; color: #78350F; margin-bottom: 8px; text-align: center;">
+                        Quiero ser colaborador
+                    </h3>
+                    <p style="text-align: center; color: #92400E; margin-bottom: 24px; font-size: 15px;">
+                        Rellena el formulario y te contactamos en 24h
+                    </p>
+                    
+                    <form id="colaborador-form" action="https://formsubmit.co/enerlux.soluciones@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="🤝 Nuevo Colaborador Interesado - Enerlux">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_next" value="https://pagomenosluzygas.es/?colaborador=gracias">
+                        
+                        <div class="form-group">
+                            <label class="form-label">Nombre completo *</label>
+                            <input type="text" name="nombre" class="form-input" placeholder="Tu nombre" required style="border-color: #FCD34D;">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Teléfono *</label>
+                                <input type="tel" name="telefono" class="form-input" placeholder="+34 600 000 000" required style="border-color: #FCD34D;">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email *</label>
+                                <input type="email" name="email" class="form-input" placeholder="tu@email.com" required style="border-color: #FCD34D;">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">¿Tu ciudad/provincia?</label>
+                            <input type="text" name="ciudad" class="form-input" placeholder="ej: Madrid, Barcelona..." style="border-color: #FCD34D;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">¿Tienes experiencia en ventas?</label>
+                            <select name="experiencia" class="form-input" style="border-color: #FCD34D;">
+                                <option value="">Selecciona una opción</option>
+                                <option value="Si, tengo experiencia">Sí, tengo experiencia</option>
+                                <option value="No, pero estoy motivado">No, pero estoy muy motivado</option>
+                                <option value="Autónomo en otro sector">Soy autónomo en otro sector</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">¿Cuántas horas puedes dedicar?</label>
+                            <select name="disponibilidad" class="form-input" style="border-color: #FCD34D;">
+                                <option value="">Selecciona una opción</option>
+                                <option value="1-2 horas/día">1-2 horas al día</option>
+                                <option value="3-4 horas/día">3-4 horas al día</option>
+                                <option value="Tiempo completo">Tiempo completo</option>
+                                <option value="Fines de semana">Solo fines de semana</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">¿Cómo nos has conocido?</label>
+                            <input type="text" name="origen" class="form-input" placeholder="ej: Instagram, un amigo, Google..." style="border-color: #FCD34D;">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-gold btn-block" style="font-size: 17px; padding: 18px;">
+                            🚀 ¡Quiero empezar a ganar!
+                        </button>
+                        
+                        <p style="text-align: center; font-size: 12px; color: #92400E; margin-top: 14px; opacity: 0.7;">
+                            🔒 Tus datos están protegidos. Sin spam.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+            @media (max-width: 768px) {
+                #colabora .section-container > div {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+            }
+        </style>
+    </section>
+    
     <!-- CTA Final -->
     <section class="cta-final">
         <div class="section-container">
@@ -1891,6 +2058,9 @@
             }
         }
         
+        // Variables globales para guardar datos del cálculo
+        let datosCalculo = null;
+        
         // Calculator - Calcular tarifa Naturgy
         function calculateTarifas() {
             // Obtener valores de forma segura
@@ -1923,6 +2093,71 @@
                 alert('Por favor, introduce al menos una potencia (P1 o P2)');
                 return;
             }
+            
+            // Guardar datos para usar después
+            datosCalculo = { consumoLuz, consumoGas, p1, p2, cupsLuz, cupsGas, tipoServicio };
+            
+            // Mostrar captura de leads (pedir email/teléfono antes de mostrar resultado)
+            document.getElementById('lead-capture').style.display = 'block';
+            document.getElementById('btn-calcular').style.display = 'none';
+            
+            // Scroll al formulario de captura
+            document.getElementById('lead-capture').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        // Ver resultado después de capturar lead
+        function mostrarResultado() {
+            const email = document.getElementById('lead-email').value.trim();
+            const phone = document.getElementById('lead-phone').value.trim();
+            
+            if (!email && !phone) {
+                alert('Por favor, introduce tu email o teléfono para ver el resultado');
+                return;
+            }
+            
+            // Guardar lead en localStorage (simple)
+            const lead = {
+                email: email,
+                phone: phone,
+                datos: datosCalculo,
+                fecha: new Date().toISOString(),
+                fuente: 'calculadora'
+            };
+            
+            // Guardar en array de leads
+            let leads = JSON.parse(localStorage.getItem('enerlux_leads') || '[]');
+            leads.push(lead);
+            localStorage.setItem('enerlux_leads', JSON.stringify(leads));
+            
+            // Enviar a Formsubmit (notificación por email)
+            if (email || phone) {
+                fetch('https://formsubmit.co/ajax/enerlux.soluciones@gmail.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        _subject: '📊 Nuevo Lead Calculadora - Enerlux',
+                        _template: 'table',
+                        email: email || 'No proporcionado',
+                        telefono: phone || 'No proporcionado',
+                        consumo_luz: datosCalculo.consumoLuz + ' kWh/mes',
+                        potencia: `P1: ${datosCalculo.p1}kW, P2: ${datosCalculo.p2}kW`,
+                        consumo_gas: datosCalculo.consumoGas > 0 ? datosCalculo.consumoGas + ' kWh/mes' : 'Sin gas',
+                        cups_luz: datosCalculo.cupsLuz || 'No proporcionado',
+                        fuente: 'Calculadora web'
+                    })
+                }).catch(() => {}); // Silenciar errores
+            }
+            
+            // Ocultar captura y mostrar resultado
+            document.getElementById('lead-capture').style.display = 'none';
+            
+            // Calcular y mostrar resultado
+            calcularYMostrarResultado(datosCalculo);
+        }
+        
+        // Función separada para calcular y mostrar resultado
+        function calcularYMostrarResultado(d) {
+            const { consumoLuz, consumoGas, p1, p2, cupsLuz, cupsGas, tipoServicio } = d;
             
             // === PRECIOS TARIFAS ===
             // Tarifa Por Uso Naturgy
@@ -2056,6 +2291,9 @@
         
         // Botón calcular - event listener
         document.getElementById('btn-calcular').addEventListener('click', calculateTarifas);
+        
+        // Botón ver resultado (después de capturar lead)
+        document.getElementById('btn-ver-resultado').addEventListener('click', mostrarResultado);
         
         // Form submission
         document.getElementById('factura-form').addEventListener('submit', function(e) {
