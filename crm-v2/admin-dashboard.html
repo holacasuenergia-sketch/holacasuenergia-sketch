@@ -452,7 +452,7 @@
             <div class="nav-item" onclick="showSection('notificaciones')">
                 <span class="nav-item-icon">🔔</span>
                 Notificaciones
-                <span class="notification-dot" id="notif-dot" style="display: none;"></span>
+                <span class="notification-badge" id="notif-badge" style="display: none; background: #EF4444; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; margin-left: 8px;">0</span>
             </div>
         </nav>
         
@@ -462,6 +462,9 @@
             <button class="sidebar-logout" onclick="logout()">🚪 Cerrar Sesión</button>
         </div>
     </aside>
+    
+    <!-- Toast Container -->
+    <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px;"></div>
     
     <!-- Main Content -->
     <main class="main">
@@ -842,6 +845,12 @@
                 loadOperaciones();
                 loadAsesores();
                 loadNotificaciones();
+                
+                // Iniciar listeners de notificaciones en tiempo real
+                setTimeout(() => {
+                    listenNewLeads();
+                    listenNewOperaciones();
+                }, 1000);
             } else {
                 // No user - redirect to login
                 window.location.href = 'login.html';
@@ -1217,6 +1226,152 @@
             } catch (error) {
                 alert('❌ Error: ' + error.message);
             }
+        }
+        
+        // ===== NOTIFICACIONES =====
+        let notifUnread = 0;
+        
+        // Mostrar toast
+        function showToast(message, type = 'info', duration = 5000) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const icons = {
+                success: '✅',
+                error: '❌',
+                warning: '⚠️',
+                info: '📢',
+                lead: '📥',
+                sale: '💰'
+            };
+            
+            toast.style.cssText = `
+                background: white;
+                padding: 14px 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                max-width: 350px;
+                animation: slideIn 0.3s ease;
+                border-left: 4px solid ${type === 'success' ? '#10B981' : type === 'error' ? '#EF4444' : type === 'warning' ? '#F59E0B' : type === 'lead' ? '#6366F1' : type === 'sale' ? '#10B981' : '#0EA5E9'};
+            `;
+            toast.innerHTML = `
+                <span style="font-size: 20px;">${icons[type] || icons.info}</span>
+                <div style="flex: 1; font-size: 14px; color: #1F2937;">${message}</div>
+                <button onclick="this.parentElement.remove()" style="background: none; border: none; font-size: 18px; cursor: pointer; color: #9CA3AF;">×</button>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Auto-remove después de duration
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+        
+        // Actualizar badge de notificaciones
+        function updateNotifBadge(count) {
+            const badge = document.getElementById('notif-badge');
+            notifUnread = count;
+            if (count > 0) {
+                badge.style.display = 'inline';
+                badge.textContent = count > 9 ? '9+' : count;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+        
+        // Escuchar nuevos leads en tiempo real
+        function listenNewLeads() {
+            db.ref('leads').on('child_added', (snapshot) => {
+                const lead = snapshot.val();
+                // Solo notificar si es nuevo (últimos 30 segundos)
+                const leadTime = new Date(lead.createdAt).getTime();
+                const now = Date.now();
+                if (now - leadTime < 30000) {
+                    showToast(` Nuevo lead: ${lead.nombre} - ${lead.telefono}`, 'lead');
+                    updateNotifBadge(notifUnread + 1);
+                    saveNotification({
+                        tipo: 'nuevo_lead',
+                        mensaje: `Nuevo lead: ${lead.nombre}`,
+                        data: lead,
+                        leida: false,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+            });
+        }
+        
+        // Escuchar nuevas operaciones en tiempo real
+        function listenNewOperaciones() {
+            db.ref('operaciones').on('child_added', (snapshot) => {
+                const op = snapshot.val();
+                const opTime = new Date(op.fecha).getTime();
+                const now = Date.now();
+                if (now - opTime < 30000) {
+                    showToast(` Nueva venta de ${op.asesorNombre || 'Asesor'}: ${op.servicio || 'Luz'}`, 'sale');
+                    updateNotifBadge(notifUnread + 1);
+                    saveNotification({
+                        tipo: 'nueva_venta',
+                        mensaje: `${op.asesorNombre || 'Asesor'} registró venta`,
+                        data: op,
+                        leida: false,
+                        createdAt: new Date().toISOString()
+                    });
+                }
+            });
+        }
+        
+        // Guardar notificación en Firebase
+        async function saveNotification(notif) {
+            await db.ref('notifications').push(notif);
+        }
+        
+        // Cargar notificaciones
+        async function loadNotifications() {
+            const container = document.getElementById('notifications-container');
+            const snapshot = await db.ref('notifications').orderByChild('createdAt').limitToLast(50).once('value');
+            const notifs = snapshot.val() || {};
+            
+            const sorted = Object.entries(notifs).sort((a, b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+            
+            // Contar no leídas
+            const unread = sorted.filter(([id, n]) => !n.leida).length;
+            updateNotifBadge(unread);
+            
+            if (sorted.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #9CA3AF; padding: 40px;">Sin notificaciones</p>';
+                return;
+            }
+            
+            container.innerHTML = sorted.map(([id, n]) => `
+                <div class="notification-item ${n.leida ? '' : 'unread'}" style="padding: 16px; border-bottom: 1px solid #E5E7EB; ${n.leida ? '' : 'background: #F0FDF4;'}">
+                    <div style="display: flex; align-items: start; gap: 12px;">
+                        <span style="font-size: 24px;">${n.tipo === 'nuevo_lead' ? '📥' : n.tipo === 'nueva_venta' ? '💰' : '📢'}</span>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: #1F2937;">${n.mensaje}</div>
+                            <div style="font-size: 12px; color: #9CA3AF; margin-top: 4px;">${new Date(n.createdAt).toLocaleString('es-ES')}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Marcar notificaciones como leídas
+        async function markNotificationsRead() {
+            const snapshot = await db.ref('notifications').orderByChild('leida').equalTo(false).once('value');
+            const updates = {};
+            snapshot.forEach((child) => {
+                updates[`${child.key}/leida`] = true;
+            });
+            if (Object.keys(updates).length > 0) {
+                await db.ref('notifications').update(updates);
+            }
+            updateNotifBadge(0);
+            loadNotifications();
         }
         
         // ===== GRÁFICOS =====
