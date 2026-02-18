@@ -114,11 +114,38 @@
         
         @media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 900px) { 
-            .sidebar { display: none; }
+            .sidebar { transform: translateX(-100%); position: fixed; z-index: 1000; height: 100vh; }
+            .sidebar.open { transform: translateX(0); }
             .main { margin-left: 0; }
             .table-header { display: none; }
             .table-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .mobile-menu-btn { display: flex !important; }
         }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 1001;
+            background: #1E293B;
+            border: 1px solid #334155;
+            color: #F8FAFC;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 10px;
+        }
+        
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+        }
+        .sidebar-overlay.active { display: block; }
     </style>
 </head>
 <body>
@@ -142,8 +169,12 @@
     
     <!-- Main Content -->
     <div class="app-content" id="app-content">
+        <!-- Mobile Menu Button & Overlay -->
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+        <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+        
         <!-- Sidebar -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="logo">
                 <img src="../logo-enerlux.jpg" alt="Enerlux">
                 <span class="logo-text">Enerlux CRM</span>
@@ -423,6 +454,14 @@
         }
         
         function refreshLeads() { location.reload(); }
+        
+        // Toggle Sidebar (Mobile)
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
     </script>
 </body>
 </html>
