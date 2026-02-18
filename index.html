@@ -1391,6 +1391,99 @@
                 max-width: 280px;
             }
         }
+        
+        /* ========================================
+           MODO OSCURO
+           ======================================== */
+        body.dark-mode {
+            background: #0F172A;
+            color: #E2E8F0;
+        }
+        
+        body.dark-mode .hero {
+            background: linear-gradient(180deg, #0F172A 0%, #1E293B 50%, #132337 100%);
+        }
+        
+        body.dark-mode .hero-content {
+            color: #E2E8F0;
+        }
+        
+        body.dark-mode .hero-title {
+            color: #F8FAFC;
+        }
+        
+        body.dark-mode .hero-subtitle {
+            color: #94A3B8;
+        }
+        
+        body.dark-mode .hero-form-card,
+        body.dark-mode .calculator-card,
+        body.dark-mode .tarifa-card,
+        body.dark-mode .companies {
+            background: #1E293B;
+            border-color: #334155;
+        }
+        
+        body.dark-mode .form-card-title,
+        body.dark-mode .calculator-title,
+        body.dark-mode .tarifa-name {
+            color: #F8FAFC;
+        }
+        
+        body.dark-mode .form-input {
+            background: #334155;
+            border-color: #475569;
+            color: #E2E8F0;
+        }
+        
+        body.dark-mode .result-card {
+            background: #1E293B;
+            border-color: #334155;
+        }
+        
+        body.dark-mode .section-title {
+            color: #F8FAFC;
+        }
+        
+        body.dark-mode .section-subtitle {
+            color: #94A3B8;
+        }
+        
+        body.dark-mode #testimonios .section-header + div > div {
+            background: #1E293B;
+        }
+        
+        body.dark-mode #testimonios article p {
+            color: #E2E8F0;
+        }
+        
+        body.dark-mode .tarifas {
+            background: linear-gradient(180deg, #132337 0%, #0F172A 50%, #1E293B 100%);
+        }
+        
+        body.dark-mode .company-card {
+            background: #1E293B;
+            border-color: #334155;
+        }
+        
+        body.dark-mode .tarifas-grid {
+            background: transparent;
+        }
+        
+        body.dark-mode .hero-form-card::before,
+        body.dark-mode .calculator-card::before {
+            background: linear-gradient(90deg, #10B981 0%, #0EA5E9 100%);
+        }
+        
+        body.dark-mode .btn-outline {
+            border-color: #10B981;
+            color: #10B981;
+        }
+        
+        body.dark-mode .btn-outline:hover {
+            background: #10B981;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -1415,10 +1508,12 @@
             <nav class="nav-desktop">
                 <a href="#calculadora" class="nav-link">Calculadora</a>
                 <a href="#tarifas" class="nav-link">Tarifas</a>
+                <a href="blog.html" class="nav-link">Blog</a>
                 <a href="activar-contrato.html" class="nav-link">Activar Contrato</a>
             </nav>
             
             <div class="header-actions">
+                <button id="dark-mode-toggle" onclick="toggleDarkMode()" title="Cambiar tema" style="background: rgba(255,255,255,0.2); border: none; color: white; font-size: 20px; cursor: pointer; padding: 10px; border-radius: 50%; transition: all 0.3s;">🌙</button>
                 <a href="https://wa.me/34610243061?text=Hola,%20quiero%20comparar%20tarifas" class="btn btn-success">
                     💬 WhatsApp
                 </a>
@@ -2371,6 +2466,25 @@
             btn.textContent = '⏳ Enviando...';
             btn.disabled = true;
         });
+        
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.getElementById('dark-mode-toggle');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            // Cambiar icono
+            btn.textContent = isDark ? '☀️' : '🌙';
+            
+            // Guardar preferencia
+            localStorage.setItem('darkMode', isDark);
+        }
+        
+        // Aplicar modo oscuro si estaba guardado
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('dark-mode-toggle').textContent = '☀️';
+        }
     </script>
 </body>
 </html><!-- Cache: 1771287587 -->
