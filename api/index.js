@@ -10,9 +10,6 @@ app.use(express.json());
 
 // Email transporter
 const createTransporter = () => {
-  console.log('EMAIL_USER:', process.env.EMAIL_USER ? 'SET' : 'NOT SET');
-  console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? 'SET' : 'NOT SET');
-  
   return nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -23,6 +20,16 @@ const createTransporter = () => {
 };
 
 const ADMIN_EMAIL = 'admin@enerlux.com';
+
+// Health check
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'ok',
+    service: 'Enerlux Email API',
+    endpoints: ['/nuevo-lead', '/nueva-venta', '/cambio-estado', '/liquidacion'],
+    email_configured: !!(process.env.EMAIL_USER && process.env.EMAIL_PASS)
+  });
+});
 
 // Email de nuevo lead
 app.post('/nuevo-lead', async (req, res) => {
@@ -88,7 +95,7 @@ app.post('/nueva-venta', async (req, res) => {
 
 // Email de cambio de estado
 app.post('/cambio-estado', async (req, res) => {
-  const { asesorEmail, operacionId, cliente,.estadoAnterior, estadoNuevo } = req.body;
+  const { asesorEmail, operacionId, cliente, estadoAnterior, estadoNuevo } = req.body;
   
   try {
     const transporter = createTransporter();
@@ -140,15 +147,6 @@ app.post('/liquidacion', async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
-});
-
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
-    email_user: process.env.EMAIL_USER ? 'configured' : 'missing',
-    email_pass: process.env.EMAIL_PASS ? 'configured' : 'missing'
-  });
 });
 
 module.exports = app;
