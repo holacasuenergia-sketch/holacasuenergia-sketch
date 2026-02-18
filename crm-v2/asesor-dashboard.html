@@ -609,6 +609,8 @@
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
+                position: fixed;
+                z-index: 1000;
             }
             
             .sidebar.open {
@@ -618,6 +620,36 @@
             .main {
                 margin-left: 0;
             }
+            
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+        }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 12px;
+        }
+        
+        /* Overlay for mobile menu */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .sidebar-overlay.active { display: block; }
             
             .mobile-menu-btn {
                 display: block;
@@ -734,6 +766,10 @@
     
     <!-- Toast Container -->
     <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px;"></div>
+    
+    <!-- Mobile Menu Button & Overlay -->
+    <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
     
     <!-- Main Content -->
     <main class="main">
@@ -1083,6 +1119,17 @@
             
             document.getElementById(`section-${sectionId}`).classList.add('active');
             event.currentTarget.classList.add('active');
+            
+            // Cerrar sidebar en móvil
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebar-overlay').classList.remove('active');
+            }
+        }
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
         }
         
         // Logout

@@ -502,14 +502,14 @@
         
         <!-- Dashboard Section -->
         <div class="section active" id="section-dashboard">
-            <div class="header">
+            <div class="header" style="flex-wrap: wrap; gap: 16px;">
                 <div>
                     <h1 class="header-title">Dashboard Admin</h1>
                     <p class="header-subtitle">Vista general del sistema</p>
                 </div>
-                <div class="header-actions">
-                    <button class="btn btn-outline" onclick="logout()">🚪 Cerrar Sesión</button>
-                    <button class="btn btn-gold" onclick="showSection('nueva-venta')">➕ Nueva Venta</button>
+                <div class="header-actions" style="display: flex; gap: 8px;">
+                    <button class="btn btn-outline" onclick="logout()">🚪 Cerrar</button>
+                    <button class="btn btn-gold" onclick="showSection('nueva-venta')">➕ Nueva</button>
                 </div>
             </div>
             
@@ -918,6 +918,14 @@
         
         function openModal(id) { document.getElementById(id).classList.add('active'); }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        
+        // Toggle Sidebar (Mobile)
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
         
         // Load Dashboard
         async function loadDashboard() {
