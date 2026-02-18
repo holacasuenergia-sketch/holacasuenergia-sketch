@@ -2200,20 +2200,99 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         
-        // Referral tracking - detectar código de referidor en URL
+        <!-- Referral tracking - detectar código de referidor en URL -->
         let codigoReferidor = null;
+        let nombreReferidor = null;
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('ref')) {
             codigoReferidor = urlParams.get('ref').toUpperCase();
             // Guardar en localStorage para persistir durante la sesión
             localStorage.setItem('enerlux_ref', codigoReferidor);
             console.log('Código de referidor detectado:', codigoReferidor);
+            
+            // Buscar nombre del referidor en Firebase
+            db.ref('referidores').orderByChild('codigo').equalTo(codigoReferidor).once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = Object.values(snapshot.val())[0];
+                    nombreReferidor = data.nombre ? data.nombre.split(' ')[0] : 'Tu amigo';
+                    mostrarBannerReferidor(nombreReferidor);
+                } else {
+                    mostrarBannerReferidor('Tu amigo');
+                }
+            }).catch(() => {
+                mostrarBannerReferidor('Tu amigo');
+            });
+            
+            // Scroll automático a la calculadora después de 1 segundo
+            setTimeout(() => {
+                const calculadora = document.getElementById('calculadora');
+                if (calculadora) {
+                    calculadora.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 1000);
         }
         
         // Recuperar código de referidor guardado
         if (!codigoReferidor) {
             codigoReferidor = localStorage.getItem('enerlux_ref');
         }
+        
+        // Función para mostrar banner de referidor
+        function mostrarBannerReferidor(nombre) {
+            const banner = document.createElement('div');
+            banner.id = 'referral-banner';
+            banner.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+                color: white;
+                padding: 16px 20px;
+                text-align: center;
+                font-family: 'Inter', sans-serif;
+                font-size: 16px;
+                font-weight: 600;
+                z-index: 10000;
+                box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+                transform: translateY(-100%);
+                animation: slideDown 0.5s ease forwards;
+            `;
+            banner.innerHTML = `
+                🎉 ¡<strong>${nombre}</strong> te invita a ahorrar! Calcula tu ahorro y ambos ganan 30€
+                <button onclick="cerrarBanner()" style="background: rgba(255,255,255,0.2); border: none; color: white; margin-left: 16px; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600;">✕</button>
+            `;
+            document.body.prepend(banner);
+            document.body.style.paddingTop = '60px';
+            
+            // Auto-cerrar después de 10 segundos
+            setTimeout(() => cerrarBanner(), 10000);
+        }
+        
+        function cerrarBanner() {
+            const banner = document.getElementById('referral-banner');
+            if (banner) {
+                banner.style.animation = 'slideUp 0.3s ease forwards';
+                setTimeout(() => {
+                    banner.remove();
+                    document.body.style.paddingTop = '0';
+                }, 300);
+            }
+        }
+        
+        // Agregar estilos de animación
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDown {
+                from { transform: translateY(-100%); }
+                to { transform: translateY(0); }
+            }
+            @keyframes slideUp {
+                from { transform: translateY(0); }
+                to { transform: translateY(-100%); }
+            }
+        `;
+        document.head.appendChild(style);
         
         // Mobile menu toggle
         function toggleMobileMenu() {
