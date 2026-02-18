@@ -756,7 +756,7 @@
         </nav>
         
         <div class="sidebar-user">
-            <div class="sidebar-user-name" id="user-name">Juan Asesor</div>
+            <div class="sidebar-user-name" id="user-name">Cargando...</div>
             <div class="sidebar-user-role">Asesor</div>
             <button class="sidebar-logout" onclick="logout()">
                 🚪 Cerrar Sesión
@@ -790,7 +790,7 @@
             
             <!-- Motivation Card -->
             <div class="motivation-card">
-                <h2 class="motivation-title">¡Hola, <span id="motivation-name">Juan</span>! 👋</h2>
+                <h2 class="motivation-title">¡Hola, <span id="motivation-name">...</span>! 👋</h2>
                 <p class="motivation-message" id="motivation-message">¡Excelente día para cerrar ventas! Te faltan 2 ventas para cumplir tu objetivo diario.</p>
                 <div class="motivation-stats">
                     <div>
@@ -1099,8 +1099,10 @@
                 authLoading.style.display = 'none';
                 appContent.classList.add('loaded');
                 
-                // Update UI
-                document.getElementById('user-name').textContent = userData?.nombre || user.email;
+                // Update UI with user name
+                const userName = userData?.nombre || userData?.name || user.email.split('@')[0];
+                document.getElementById('user-name').textContent = userName;
+                document.getElementById('motivation-name').textContent = userName;
                 
                 // Load data
                 loadDashboard();
