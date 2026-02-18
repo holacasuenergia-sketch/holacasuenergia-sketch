@@ -732,6 +732,9 @@
         </div>
     </aside>
     
+    <!-- Toast Container -->
+    <div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px;"></div>
+    
     <!-- Main Content -->
     <main class="main">
         <!-- Dashboard Section -->
@@ -1331,6 +1334,79 @@
             // Go to operaciones
             showSection('operaciones');
         });
+        
+        // ===== NOTIFICACIONES EN TIEMPO REAL =====
+        
+        // Mostrar toast
+        function showToast(message, type = 'info', duration = 5000) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const icons = { success: '✅', error: '❌', warning: '⚠️', info: '📢', estado: '📋', liquidacion: '💰' };
+            
+            toast.style.cssText = `
+                background: white;
+                padding: 14px 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                max-width: 350px;
+                animation: slideIn 0.3s ease;
+                border-left: 4px solid ${type === 'success' ? '#10B981' : type === 'estado' ? '#6366F1' : type === 'liquidacion' ? '#10B981' : '#0EA5E9'};
+            `;
+            toast.innerHTML = `
+                <span style="font-size: 20px;">${icons[type] || icons.info}</span>
+                <div style="flex: 1; font-size: 14px; color: #1F2937;">${message}</div>
+                <button onclick="this.parentElement.remove()" style="background: none; border: none; font-size: 18px; cursor: pointer; color: #9CA3AF;">×</button>
+            `;
+            
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.animation = 'slideOut 0.3s ease'; setTimeout(() => toast.remove(), 300); }, duration);
+        }
+        
+        // Escuchar cambios en mis operaciones (cambio de estado por admin)
+        function listenOperacionesChanges() {
+            db.ref('operaciones').orderByChild('asesorId').equalTo(currentUser.uid).on('child_changed', (snapshot) => {
+                const op = snapshot.val();
+                const opId = snapshot.key;
+                
+                // Verificar si el estado cambió recientemente
+                if (op.estadoUpdated && Date.now() - new Date(op.estadoUpdated).getTime() < 30000) {
+                    showToast(`Estado actualizado: ${op.cliente} → ${op.estado}`, 'estado');
+                    
+                    // Guardar notificación
+                    db.ref(`notifications/${currentUser.uid}`).push({
+                        title: 'Estado actualizado',
+                        message: `${op.cliente}: nuevo estado "${op.estado}"`,
+                        timestamp: new Date().toISOString(),
+                        read: false,
+                        type: 'estado_change'
+                    });
+                    
+                    loadNotifications();
+                }
+            });
+        }
+        
+        // Escuchar nuevas liquidaciones para el asesor
+        function listenLiquidaciones() {
+            db.ref('liquidaciones').orderByChild('asesorId').equalTo(currentUser.uid).on('child_added', (snapshot) => {
+                const liq = snapshot.val();
+                
+                // Si es nueva (últimos 30 segundos)
+                if (liq.createdAt && Date.now() - new Date(liq.createdAt).getTime() < 30000) {
+                    showToast(`¡Liquidación lista! ${liq.total}€`, 'liquidacion');
+                }
+            });
+        }
+        
+        // Iniciar listeners cuando se carga la página
+        setTimeout(() => {
+            listenOperacionesChanges();
+            listenLiquidaciones();
+        }, 2000);
     </script>
     </div><!-- End app-content -->
 </body>

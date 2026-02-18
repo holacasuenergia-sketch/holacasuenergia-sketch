@@ -387,11 +387,39 @@
         /* Responsive */
         @media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
+            .sidebar { transform: translateX(-100%); position: fixed; z-index: 1000; }
             .sidebar.open { transform: translateX(0); }
             .main { margin-left: 0; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .mobile-menu-btn { display: flex !important; }
+            .header-actions { flex-wrap: wrap; gap: 8px; }
+            .header-actions .btn { font-size: 13px; padding: 8px 12px; }
         }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 12px;
+        }
+        
+        /* Overlay for mobile menu */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .sidebar-overlay.active { display: block; }
     </style>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
@@ -468,6 +496,10 @@
     
     <!-- Main Content -->
     <main class="main">
+        <!-- Mobile Menu Button & Overlay -->
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+        <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+        
         <!-- Dashboard Section -->
         <div class="section active" id="section-dashboard">
             <div class="header">
@@ -865,6 +897,17 @@
             
             if (sectionId === 'companias') loadCompanias();
             if (sectionId === 'liquidaciones') loadLiquidaciones();
+            
+            // Cerrar sidebar en móvil
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('open');
+                document.getElementById('sidebar-overlay').classList.remove('active');
+            }
+        }
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
         }
         
         function logout() { 
