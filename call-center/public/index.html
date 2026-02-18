@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enerlux Call Center IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1E3A5F 0%, #0F2744 100%);
+      min-height: 100vh;
+      color: white;
+    }
+    
+    .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 30px;
+    }
+    
+    .logo { display: flex; align-items: center; gap: 15px; }
+    .logo-icon {
+      width: 50px; height: 50px;
+      background: #10B981;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+    }
+    .logo h1 { font-size: 24px; font-weight: 700; }
+    .logo span { color: #10B981; }
+    
+    .status { display: flex; gap: 15px; align-items: center; }
+    .status-badge {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .status-badge.ok { background: rgba(16, 185, 129, 0.2); color: #10B981; }
+    .status-badge.error { background: rgba(239, 68, 68, 0.2); color: #EF4444; }
+    
+    .grid { display: grid; grid-template-columns: 350px 1fr 350px; gap: 20px; }
+    @media (max-width: 1200px) { .grid { grid-template-columns: 1fr; } }
+    
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .card-title { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+    .card-title .count {
+      background: #10B981;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+    }
+    
+    /* Upload */
+    .upload-area {
+      border: 2px dashed rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 15px;
+    }
+    .upload-area:hover { border-color: #10B981; background: rgba(16, 185, 129, 0.05); }
+    .upload-area p { color: rgba(255,255,255,0.6); margin-top: 8px; font-size: 12px; }
+    
+    /* Client list */
+    .client-list { max-height: calc(100vh - 400px); overflow-y: auto; }
+    .client-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      background: rgba(255,255,255,0.03);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .client-item:hover { background: rgba(255,255,255,0.08); }
+    .client-item.active { background: rgba(16, 185, 129, 0.2); border: 1px solid #10B981; }
+    .client-info h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .client-info p { font-size: 12px; color: rgba(255,255,255,0.6); }
+    
+    .status-tag {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .status-tag.pendiente { background: rgba(251, 191, 36, 0.2); color: #FBBF24; }
+    .status-tag.llamando { background: rgba(59, 130, 246, 0.2); color: #3B82F6; animation: pulse 1s infinite; }
+    .status-tag.contestado { background: rgba(16, 185, 129, 0.2); color: #10B981; }
+    .status-tag.interesado { background: rgba(16, 185, 129, 0.3); color: #10B981; }
+    .status-tag.no-interesado { background: rgba(239, 68, 68, 0.2); color: #EF4444; }
+    .status-tag.error { background: rgba(239, 68, 68, 0.2); color: #EF4444; }
+    
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+    
+    /* Call panel */
+    .call-panel { text-align: center; }
+    .current-client {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+    .current-client h2 { font-size: 28px; margin-bottom: 10px; }
+    .current-client p { color: rgba(255,255,255,0.6); font-size: 18px; }
+    .current-client .phone { font-size: 24px; color: #10B981; margin-top: 10px; }
+    
+    .call-actions { display: flex; gap: 15px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
+    
+    .btn {
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary { background: #10B981; color: white; }
+    .btn-primary:hover:not(:disabled) { background: #059669; }
+    .btn-danger { background: #EF4444; color: white; }
+    .btn-danger:hover:not(:disabled) { background: #DC2626; }
+    .btn-secondary { background: rgba(255,255,255,0.1); color: white; }
+    .btn-secondary:hover:not(:disabled) { background: rgba(255,255,255,0.2); }
+    
+    .result-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .result-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: white;
+      transition: all 0.2s;
+    }
+    .result-btn:hover { background: rgba(255,255,255,0.1); }
+    .result-btn.success { border-color: #10B981; color: #10B981; }
+    .result-btn.success:hover { background: rgba(16, 185, 129, 0.2); }
+    .result-btn.danger { border-color: #EF4444; color: #EF4444; }
+    .result-btn.danger:hover { background: rgba(239, 68, 68, 0.2); }
+    
+    /* Stats */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+    .stat {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .stat-value { font-size: 28px; font-weight: 700; color: #10B981; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 5px; }
+    
+    /* Conversation */
+    .conversation { max-height: 400px; overflow-y: auto; }
+    .message {
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      max-width: 85%;
+    }
+    .message.agent { background: #10B981; margin-right: auto; }
+    .message.client { background: rgba(255,255,255,0.1); margin-left: auto; }
+    .message-time { font-size: 10px; opacity: 0.6; margin-top: 5px; }
+    
+    /* Config */
+    .config-box {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+    .config-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .config-row:last-child { border-bottom: none; }
+    .config-label { color: rgba(255,255,255,0.6); font-size: 13px; }
+    .config-value { font-size: 13px; }
+    .config-value.ok { color: #10B981; }
+    .config-value.error { color: #EF4444; }
+    
+    /* Empty state */
+    .empty {
+      text-align: center;
+      padding: 40px;
+      color: rgba(255,255,255,0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">📞</div>
+        <h1>Enerlux <span>Call Center IA</span></h1>
+      </div>
+      <div class="status">
+        <span id="twilio-status" class="status-badge error">Twilio: ❌</span>
+        <span id="openai-status" class="status-badge error">OpenAI: ❌</span>
+      </div>
+    </header>
+    
+    <div class="grid">
+      <!-- Lista de clientes -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            👥 Clientes
+            <span id="client-count" class="count">0</span>
+          </div>
+          <button class="btn btn-secondary" id="btn-auto" style="padding: 8px 15px; font-size: 13px;">
+            ▶️ Auto
+          </button>
+        </div>
+        
+        <div class="upload-area" id="upload-area">
+          <span style="font-size: 32px;">📄</span>
+          <p>Arrastra CSV/JSON o haz clic</p>
+          <input type="file" id="file-input" accept=".csv,.json" style="display: none;">
+        </div>
+        
+        <div class="client-list" id="client-list">
+          <div class="empty">
+            Carga una lista de clientes para comenzar
+          </div>
+        </div>
+      </div>
+      
+      <!-- Panel de llamada -->
+      <div class="card call-panel">
+        <div class="card-header">
+          <div class="card-title">📞 Llamada</div>
+        </div>
+        
+        <div class="current-client" id="current-client">
+          <h2>Sin llamada activa</h2>
+          <p>Selecciona un cliente y haz clic en Llamar</p>
+        </div>
+        
+        <div class="call-actions">
+          <button class="btn btn-primary" id="btn-call" disabled>📞 Llamar</button>
+          <button class="btn btn-secondary" id="btn-next" disabled>⏭️ Siguiente</button>
+          <button class="btn btn-danger" id="btn-hangup" disabled>❌ Colgar</button>
+        </div>
+        
+        <div class="result-buttons" id="result-buttons" style="display: none;">
+          <button class="result-btn success" data-result="interesado">✅ Interesado</button>
+          <button class="result-btn" data-result="pendiente">🔄 Llamar después</button>
+          <button class="result-btn" data-result="no-contesta">📵 No contesta</button>
+          <button class="result-btn danger" data-result="no-interesado">❌ No interesado</button>
+        </div>
+        
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value" id="stat-total">0</div>
+            <div class="stat-label">Total</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="stat-answered">0</div>
+            <div class="stat-label">Contestados</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="stat-interested">0</div>
+            <div class="stat-label">Interesados</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="stat-rejected">0</div>
+            <div class="stat-label">No interesados</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Conversación y configuración -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">💬 Conversación</div>
+        </div>
+        
+        <div class="conversation" id="conversation">
+          <div class="empty">
+            La conversación aparecerá aquí durante la llamada
+          </div>
+        </div>
+        
+        <div class="config-box">
+          <div class="config-row">
+            <span class="config-label">Tu número (Caller ID)</span>
+            <span class="config-value" id="caller-id">No configurado</span>
+          </div>
+          <div class="config-row">
+            <span class="config-label">Número Twilio</span>
+            <span class="config-value" id="twilio-number">No configurado</span>
+          </div>
+          <div class="config-row">
+            <span class="config-label">Servidor</span>
+            <span class="config-value" id="server-url">No configurado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Estado
+    let clientes = [];
+    let clienteActual = null;
+    let autoMode = false;
+    
+    // Elementos
+    const clientListEl = document.getElementById('client-list');
+    const clientCountEl = document.getElementById('client-count');
+    const currentClientEl = document.getElementById('current-client');
+    const conversationEl = document.getElementById('conversation');
+    const uploadArea = document.getElementById('upload-area');
+    const fileInput = document.getElementById('file-input');
+    
+    // Botones
+    const btnCall = document.getElementById('btn-call');
+    const btnNext = document.getElementById('btn-next');
+    const btnHangup = document.getElementById('btn-hangup');
+    const btnAuto = document.getElementById('btn-auto');
+    const resultButtons = document.getElementById('result-buttons');
+    
+    // Stats
+    const statTotal = document.getElementById('stat-total');
+    const statAnswered = document.getElementById('stat-answered');
+    const statInterested = document.getElementById('stat-interested');
+    const statRejected = document.getElementById('stat-rejected');
+    
+    // Inicializar
+    async function init() {
+      await checkHealth();
+      await loadEstado();
+      
+      // Actualizar cada 3 segundos
+      setInterval(loadEstado, 3000);
+    }
+    
+    // Verificar estado de APIs
+    async function checkHealth() {
+      try {
+        const res = await fetch('/api/health');
+        const data = await res.json();
+        
+        document.getElementById('twilio-status').textContent = 
+          data.twilio ? 'Twilio: ✅' : 'Twilio: ❌';
+        document.getElementById('twilio-status').className = 
+          'status-badge ' + (data.twilio ? 'ok' : 'error');
+        
+        document.getElementById('openai-status').textContent = 
+          data.openai ? 'OpenAI: ✅' : 'OpenAI: ❌';
+        document.getElementById('openai-status').className = 
+          'status-badge ' + (data.openai ? 'ok' : 'error');
+          
+      } catch (error) {
+        console.error('Error checking health:', error);
+      }
+    }
+    
+    // Cargar estado
+    async function loadEstado() {
+      try {
+        const res = await fetch('/api/estado');
+        const data = await res.json();
+        
+        clientes = data.clientes || [];
+        clienteActual = data.clienteActual;
+        
+        renderClientes();
+        updateStats(data.estadisticas);
+        
+        if (clienteActual) {
+          actualizarClienteActual(clienteActual, data.llamando);
+        }
+        
+      } catch (error) {
+        console.error('Error loading state:', error);
+      }
+    }
+    
+    // Renderizar clientes
+    function renderClientes() {
+      if (clientes.length === 0) {
+        clientListEl.innerHTML = '<div class="empty">Carga una lista de clientes</div>';
+        clientCountEl.textContent = '0';
+        return;
+      }
+      
+      clientCountEl.textContent = clientes.length;
+      
+      clientListEl.innerHTML = clientes.map((c, i) => `
+        <div class="client-item ${clienteActual && clienteActual.telefono === c.telefono ? 'active' : ''}" 
+             data-index="${i}">
+          <div class="client-info">
+            <h4>${c.nombre || 'Cliente'}</h4>
+            <p>${c.telefono}</p>
+          </div>
+          <span class="status-tag ${c.estado || 'pendiente'}">${c.estado || 'Pendiente'}</span>
+        </div>
+      `).join('');
+      
+      // Eventos
+      document.querySelectorAll('.client-item').forEach(item => {
+        item.addEventListener('click', () => selectCliente(parseInt(item.dataset.index)));
+      });
+    }
+    
+    // Seleccionar cliente
+    function selectCliente(index) {
+      clienteActual = clientes[index];
+      actualizarClienteActual(clienteActual, false);
+      
+      // Habilitar botón llamar si hay número
+      if (clienteActual && clienteActual.telefono) {
+        btnCall.disabled = false;
+      }
+    }
+    
+    // Actualizar panel de cliente actual
+    function actualizarClienteActual(cliente, llamando) {
+      if (cliente) {
+        currentClientEl.innerHTML = `
+          <h2>${cliente.nombre || 'Cliente'}</h2>
+          <p class="phone">📞 ${cliente.telefono}</p>
+          <p style="font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 10px;">
+            ${cliente.direccion || ''} ${cliente.notas ? '| ' + cliente.notas : ''}
+          </p>
+        `;
+        
+        btnCall.disabled = llamando;
+        btnHangup.disabled = !llamando;
+        resultButtons.style.display = llamando ? 'none' : 'flex';
+        
+        if (llamando) {
+          currentClientEl.style.borderColor = '#3B82F6';
+        } else {
+          currentClientEl.style.borderColor = 'transparent';
+        }
+      } else {
+        currentClientEl.innerHTML = `
+          <h2>Sin llamada activa</h2>
+          <p>Selecciona un cliente y haz clic en Llamar</p>
+        `;
+        btnCall.disabled = true;
+        btnHangup.disabled = true;
+        resultButtons.style.display = 'none';
+      }
+    }
+    
+    // Actualizar estadísticas
+    function updateStats(stats) {
+      if (!stats) return;
+      statTotal.textContent = stats.total || 0;
+      statAnswered.textContent = stats.contestadas || 0;
+      statInterested.textContent = stats.interesados || 0;
+      statRejected.textContent = stats.noInteresados || 0;
+    }
+    
+    // Cargar archivo
+    function handleFile(file) {
+      const reader = new FileReader();
+      
+      reader.onload = async (e) => {
+        let clientesCargados = [];
+        
+        if (file.name.endsWith('.json')) {
+          clientesCargados = JSON.parse(e.target.result);
+        } else {
+          // CSV
+          const lines = e.target.result.split('\n');
+          const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+          
+          for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue;
+            const values = lines[i].split(',');
+            const cliente = {};
+            headers.forEach((h, j) => {
+              cliente[h] = values[j]?.trim();
+            });
+            clientesCargados.push(cliente);
+          }
+        }
+        
+        // Enviar al servidor
+        const res = await fetch('/api/clientes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ clientes: clientesCargados })
+        });
+        
+        const data = await res.json();
+        alert(`✅ ${data.message}`);
+        
+        loadEstado();
+      };
+      
+      reader.readAsText(file);
+    }
+    
+    // Llamar
+    btnCall.addEventListener('click', async () => {
+      if (!clienteActual) return;
+      
+      const index = clientes.findIndex(c => c.telefono === clienteActual.telefono);
+      
+      btnCall.disabled = true;
+      
+      try {
+        const res = await fetch(`/api/llamar/${index}`, { method: 'POST' });
+        const data = await res.json();
+        
+        if (data.error) {
+          alert('❌ Error: ' + data.error);
+          btnCall.disabled = false;
+          return;
+        }
+        
+        actualizarClienteActual(clienteActual, true);
+        
+      } catch (error) {
+        alert('❌ Error al llamar: ' + error.message);
+        btnCall.disabled = false;
+      }
+    });
+    
+    // Siguiente
+    btnNext.addEventListener('click', async () => {
+      const res = await fetch('/api/siguiente');
+      const data = await res.json();
+      
+      if (data.cliente) {
+        clienteActual = data.cliente;
+        actualizarClienteActual(clienteActual, false);
+        btnCall.disabled = false;
+      } else {
+        alert('No hay más clientes pendientes');
+      }
+    });
+    
+    // Colgar
+    btnHangup.addEventListener('click', async () => {
+      await fetch('/api/colgar', { method: 'POST' });
+      actualizarClienteActual(null, false);
+    });
+    
+    // Resultado
+    document.querySelectorAll('.result-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const resultado = btn.dataset.result;
+        
+        await fetch('/api/finalizar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ resultado })
+        });
+        
+        clienteActual = null;
+        actualizarClienteActual(null, false);
+        resultButtons.style.display = 'none';
+        
+        // Si autoMode, llamar al siguiente
+        if (autoMode) {
+          setTimeout(() => btnNext.click(), 2000);
+        }
+      });
+    });
+    
+    // Auto mode
+    btnAuto.addEventListener('click', () => {
+      autoMode = !autoMode;
+      btnAuto.textContent = autoMode ? '⏸️ Parar' : '▶️ Auto';
+      btnAuto.style.background = autoMode ? '#EF4444' : 'transparent';
+      
+      if (autoMode) {
+        btnNext.click();
+      }
+    });
+    
+    // Upload
+    uploadArea.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+    uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.style.borderColor = '#10B981'; });
+    uploadArea.addEventListener('dragleave', () => uploadArea.style.borderColor = 'rgba(255,255,255,0.2)');
+    uploadArea.addEventListener('drop', (e) => { e.preventDefault(); handleFile(e.dataTransfer.files[0]); });
+    
+    // Iniciar
+    init();
+  </script>
+</body>
+</html>

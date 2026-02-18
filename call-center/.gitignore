@@ -1,0 +1,23 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno (API KEYS)
+.env
+
+# Archivos temporales
+*.mp3
+*.wav
+*.webm
+temp_*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
