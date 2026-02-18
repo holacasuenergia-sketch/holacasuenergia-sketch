@@ -88,8 +88,8 @@
         .search-input:focus { outline: none; border-color: #10B981; }
         
         .leads-table { background: #1E293B; border-radius: 16px; overflow: hidden; border: 1px solid #334155; }
-        .table-header { display: grid; grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 100px; padding: 16px 20px; background: #334155; font-weight: 600; font-size: 13px; color: #94A3B8; text-transform: uppercase; }
-        .table-row { display: grid; grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 100px; padding: 16px 20px; border-bottom: 1px solid #334155; align-items: center; }
+        .table-header { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 80px; padding: 16px 20px; background: #334155; font-weight: 600; font-size: 13px; color: #94A3B8; text-transform: uppercase; }
+        .table-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 80px; padding: 16px 20px; border-bottom: 1px solid #334155; align-items: center; }
         .table-row:hover { background: rgba(16, 185, 129, 0.05); }
         .lead-name { font-weight: 600; color: #F8FAFC; }
         .lead-name small { display: block; font-weight: 400; color: #64748B; font-size: 12px; margin-top: 2px; }
@@ -195,9 +195,9 @@
                     <div class="stat-label">Nuevos</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">📞</div>
-                    <div class="stat-value" id="contactados">--</div>
-                    <div class="stat-label">Contactados</div>
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value" id="con-referidor">--</div>
+                    <div class="stat-label">Con Referidor</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">✅</div>
@@ -227,10 +227,10 @@
                 <div class="table-header">
                     <span>Contacto</span>
                     <span>Fuente</span>
-                    <span>Datos</span>
+                    <span>Referidor</span>
                     <span>Estado</span>
                     <span>Fecha</span>
-                    <span>Acciones</span>
+                    <span></span>
                 </div>
                 <div id="leads-container"></div>
             </div>
@@ -343,7 +343,9 @@
                     <div>
                         <span class="lead-source source-${lead.fuente || 'calculadora'}">${getFuenteLabel(lead.fuente)}</span>
                     </div>
-                    <div class="lead-contact">${lead.consumoLuz ? lead.consumoLuz + ' kWh' : '-'}</div>
+                    <div style="color: ${lead.codigoReferidor ? '#10B981' : '#64748B'}; font-size: 13px; font-weight: ${lead.codigoReferidor ? '600' : '400'};">
+                        ${lead.codigoReferidor || '-'}
+                    </div>
                     <div>
                         <span class="lead-status status-${lead.estado || 'nuevo'}">${getEstadoLabel(lead.estado)}</span>
                     </div>
@@ -359,7 +361,7 @@
         function updateStats() {
             document.getElementById('total-leads').textContent = allLeads.length;
             document.getElementById('nuevos-leads').textContent = allLeads.filter(l => l.estado === 'nuevo' || !l.estado).length;
-            document.getElementById('contactados').textContent = allLeads.filter(l => l.estado === 'contactado').length;
+            document.getElementById('con-referidor').textContent = allLeads.filter(l => l.codigoReferidor).length;
             document.getElementById('contratados').textContent = allLeads.filter(l => l.estado === 'contratado').length;
         }
         
@@ -408,9 +410,9 @@
         }
         
         function exportLeads() {
-            let csv = 'Nombre,Email,Teléfono,Fuente,Consumo Luz,Fecha,Estado\n';
+            let csv = 'Nombre,Email,Teléfono,Fuente,Referidor,Fecha,Estado\n';
             allLeads.forEach(l => {
-                csv += `"${l.nombre || ''}","${l.email || ''}","${l.telefono || ''}","${l.fuente || ''}","${l.consumoLuz || ''}","${l.fecha || l.timestamp || ''}","${l.estado || 'nuevo'}"\n`;
+                csv += `"${l.nombre || ''}","${l.email || ''}","${l.telefono || ''}","${l.fuente || ''}","${l.codigoReferidor || ''}","${l.fecha || l.timestamp || ''}","${l.estado || 'nuevo'}"\n`;
             });
             const blob = new Blob([csv], { type: 'text/csv' });
             const url = URL.createObjectURL(blob);
