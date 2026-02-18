@@ -47,8 +47,8 @@
         .access-denied a { color: #10B981; }
         
         /* Hide content until loaded */
-        .app-content { display: none; }
-        .app-content.loaded { display: block; }
+        .app-content { display: none !important; }
+        .app-content.loaded { display: block !important; }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #0F172A; color: #E2E8F0; min-height: 100vh; }
@@ -270,8 +270,15 @@
         let allLeads = [];
         let currentFilter = 'todos';
         
+        // Timeout de seguridad - si no hay auth en 5 segundos, redirigir
+        const authTimeout = setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 5000);
+        
         // Verificar autenticación y rol
         auth.onAuthStateChanged((user) => {
+            clearTimeout(authTimeout); // Cancelar timeout
+            
             if (!user) {
                 // No autenticado - redirigir a login
                 window.location.href = 'login.html';
