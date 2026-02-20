@@ -1823,7 +1823,7 @@
                         </div>
                     </div>
                     
-                    <button type="button" id="btn-calcular" class="btn btn-gold btn-block" onclick="alert('Botón clickeado!'); calculateTarifas();">
+                    <button type="button" id="btn-calcular" class="btn btn-gold btn-block" onclick="calculateTarifas()">
                         🔍 Calcular mi tarifa
                     </button>
                 </div>
@@ -2388,7 +2388,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         
-        <!-- Referral tracking - detectar código de referidor en URL -->
+        // Referral tracking - detectar código de referidor en URL
         let codigoReferidor = null;
         let nombreReferidor = null;
         const urlParams = new URLSearchParams(window.location.search);
