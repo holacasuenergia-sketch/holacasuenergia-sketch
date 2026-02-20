@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Version: 2026-02-17-v6 -->
+    <!-- Version: 2026-02-20-v1-calcfix -->
     
     <!-- SEO Meta Tags -->
     <title>Luz a 0,10€/kWh Fijo | Ahorra hasta 470€/año | PagoMenosLuzyGas.es</title>
@@ -2541,6 +2541,8 @@
         
         // Calculator - Calcular tarifa Naturgy
         function calculateTarifas() {
+            console.log('🧮 calculateTarifas llamado');
+            
             // Obtener valores de forma segura
             const consumoLuzEl = document.getElementById('consumo-luz');
             const p1El = document.getElementById('potencia-p1');
