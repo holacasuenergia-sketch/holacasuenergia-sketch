@@ -2391,7 +2391,10 @@
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
-        
+
+        // DOMContentLoaded - ejecutar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+
         // Referral tracking - detectar código de referidor en URL
         let codigoReferidor = null;
         let nombreReferidor = null;
@@ -2882,6 +2885,8 @@
             document.body.classList.add('dark-mode');
             document.getElementById('dark-mode-toggle').textContent = '☀️';
         }
+
+        }); // Fin de DOMContentLoaded
     </script>
 </body>
 </html><!-- Cache: 1771287587 -->
