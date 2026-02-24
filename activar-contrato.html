@@ -670,17 +670,30 @@
                     <!-- DNI -->
                     <div class="form-group full">
                         <label class="form-label">DNI - Foto delantera y trasera <span class="required">*</span></label>
+
+                        <!-- DNI Delantero -->
                         <div class="form-upload" id="dni-upload">
-                            <input type="file" name="dni" accept=".jpg,.jpeg,.png,.pdf" multiple id="dni-input" onchange="updateFiles('dni')">
+                            <input type="file" name="dni_delante" accept=".jpg,.jpeg,.png,.pdf" id="dni-input" onchange="updateFiles('dni')">
                             <span class="form-upload-icon">🪪</span>
-                            <div class="form-upload-title">Sube tu DNI</div>
+                            <div class="form-upload-title">DNI Delantero</div>
                             <div class="form-upload-text">
                                 <strong>Haz clic o arrastra</strong><br>
-                                Foto delantera y trasera del DNI<br>
-                                <small>Puedes subir los archivos uno a uno</small>
+                                Foto delantera del DNI
                             </div>
                         </div>
                         <div class="file-list" id="dni-list"></div>
+
+                        <!-- DNI Trasero -->
+                        <div class="form-upload" id="dni-detras-upload">
+                            <input type="file" name="dni_detras" accept=".jpg,.jpeg,.png,.pdf" id="dni-detras-input" onchange="updateFiles('dni-detras')">
+                            <span class="form-upload-icon">🪪</span>
+                            <div class="form-upload-title">DNI Trasero</div>
+                            <div class="form-upload-text">
+                                <strong>Haz clic o arrastra</strong><br>
+                                Foto trasera del DNI
+                            </div>
+                        </div>
+                        <div class="file-list" id="dni-detras-list"></div>
                     </div>
                     
                     <!-- Dirección -->
@@ -867,6 +880,7 @@
         // Almacenamiento de archivos acumulados por tipo
         const accumulatedFiles = {
             'dni': [],
+            'dni-detras': [],
             'factura-luz': [],
             'factura-gas': []
         };
@@ -953,16 +967,24 @@
         // Form submission
         function submitForm(e) {
             const btn = document.getElementById('submit-btn');
-            
+
             // Validate required files
             const dniFiles = document.getElementById('dni-input').files;
+            const dniDetrasFiles = document.getElementById('dni-detras-input').files;
             const facturaLuzFiles = document.getElementById('factura-luz-input').files;
             const facturaGasFiles = document.getElementById('factura-gas-input').files;
-            
-            // DNI is required
+
+            // DNI delantero is required
             if (dniFiles.length === 0) {
                 e.preventDefault();
-                alert('Por favor, sube la foto del DNI (delantera y trasera)');
+                alert('Por favor, sube la foto delantera del DNI');
+                return false;
+            }
+
+            // DNI trasero is required
+            if (dniDetrasFiles.length === 0) {
+                e.preventDefault();
+                alert('Por favor, sube la foto trasera del DNI');
                 return false;
             }
             
