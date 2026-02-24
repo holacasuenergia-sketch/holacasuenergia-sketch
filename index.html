@@ -2830,7 +2830,7 @@
             const btn = this.querySelector('button[type="submit"]');
             btn.textContent = '⏳ Enviando...';
             btn.disabled = true;
-            
+
             // Guardar en Firebase
             const formData = new FormData(this);
             db.ref('leads').push({
@@ -2841,7 +2841,9 @@
                 estado: 'nuevo',
                 fecha: new Date().toISOString(),
                 timestamp: Date.now()
-            }).catch(() => {});
+            })
+            .then(() => console.log('✅ Lead de factura guardado en Firebase CRM'))
+            .catch(err => console.error('❌ Error Firebase:', err));
         });
         
         // Formulario de colaborador - guardar en Firebase
