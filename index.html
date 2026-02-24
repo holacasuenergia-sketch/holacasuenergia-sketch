@@ -1805,13 +1805,13 @@
                         <div style="text-align: center; margin-bottom: 16px;">
                             <div style="font-size: 32px; margin-bottom: 8px;">🎁</div>
                             <div style="font-weight: 700; color: var(--gray-800); font-size: 18px;">¡Hemos calculado tu ahorro!</div>
-                            <div style="color: var(--gray-500); font-size: 14px;">Introduce tu email o teléfono para ver el resultado</div>
+                            <div style="color: var(--gray-500); font-size: 14px;">Introduce tu email y teléfono <span style="color: #EF4444; font-weight: 600;">*</span> para ver el resultado</div>
                         </div>
-                        
+
                         <div class="form-group">
-                            <input type="email" id="lead-email" class="form-input" placeholder="📧 Tu email" style="margin-bottom: 10px;">
-                            <div style="text-align: center; color: var(--gray-400); font-size: 12px; margin: 8px 0;">o</div>
-                            <input type="tel" id="lead-phone" class="form-input" placeholder="📞 Tu teléfono (+34...)">
+                            <input type="email" id="lead-email" class="form-input" placeholder="📧 Tu email *" required style="margin-bottom: 10px;">
+                            <div style="text-align: center; color: var(--gray-400); font-size: 12px; margin: 8px 0;">y</div>
+                            <input type="tel" id="lead-phone" class="form-input" placeholder="📞 Tu teléfono (+34...) *" required>
                         </div>
                         
                         <button type="button" id="btn-ver-resultado" class="btn btn-gold btn-block" onclick="mostrarResultado()">
@@ -2589,9 +2589,22 @@
         function mostrarResultado() {
             const email = document.getElementById('lead-email').value.trim();
             const phone = document.getElementById('lead-phone').value.trim();
-            
+
+            // Validar que ambos campos estén llenos
             if (!email && !phone) {
-                alert('Por favor, introduce tu email o teléfono para ver el resultado');
+                alert('Por favor, introduce tu email y teléfono para ver el resultado');
+                return;
+            }
+
+            if (!email) {
+                alert('Por favor, introduce tu email para ver el resultado');
+                document.getElementById('lead-email').focus();
+                return;
+            }
+
+            if (!phone) {
+                alert('Por favor, introduce tu teléfono para ver el resultado');
+                document.getElementById('lead-phone').focus();
                 return;
             }
             
