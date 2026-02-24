@@ -602,6 +602,10 @@
             .footer-links { flex-wrap: wrap; gap: 16px; }
         }
     </style>
+
+    <!-- Firebase para guardar leads en CRM -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -881,7 +885,20 @@
     <script>
         // VERSION: 2026-02-17-v3 - Archivos acumulativos con ID único
         console.log('🚀 Script cargado - v2026-02-17-v3');
-        
+
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLWicHjU6ji76EDIBeDO51Ivvf73Oc504",
+            authDomain: "enerlux-crm.firebaseapp.com",
+            databaseURL: "https://enerlux-crm-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "enerlux-crm",
+            storageBucket: "enerlux-crm.firebasestorage.app",
+            messagingSenderId: "84970919171",
+            appId: "1:84970919171:web:a9904b377254bb26884536"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
         // Almacenamiento de archivos acumulados por tipo
         const accumulatedFiles = {
             'dni': [],
@@ -1027,31 +1044,35 @@
                 return false;
             }
 
-            // DNI delantero is required
-            if (dniFiles.length === 0) {
-                e.preventDefault();
-                alert('Por favor, sube la foto delantera del DNI');
-                return false;
-            }
+            // Guardar lead en Firebase (sin bloquear el submit)
+            const form = document.getElementById('contrato-form');
+            const formData = new FormData(form);
+            const leadData = {
+                nombre: formData.get('nombre') || '',
+                apellidos: formData.get('apellidos') || '',
+                telefono: formData.get('telefono') || '',
+                email: formData.get('email') || '',
+                direccion: formData.get('direccion') || '',
+                cp: formData.get('cp') || '',
+                provincia: formData.get('provincia') || '',
+                ciudad: formData.get('ciudad') || '',
+                compania: formData.get('compania') || '',
+                suministro: formData.get('suministro') || '',
+                fuente: 'contrato',
+                estado: 'nuevo',
+                fecha: new Date().toISOString(),
+                timestamp: Date.now()
+            };
 
-            // DNI trasero is required
-            if (dniDetrasFiles.length === 0) {
-                e.preventDefault();
-                alert('Por favor, sube la foto trasera del DNI');
-                return false;
-            }
-            
-            // At least one factura is required
-            if (facturaLuzFiles.length === 0 && facturaGasFiles.length === 0) {
-                e.preventDefault();
-                alert('Por favor, sube al menos una factura (luz o gas)');
-                return false;
-            }
-            
+            // Guardar en Firebase sin esperar (fire and forget)
+            db.ref('leads').push(leadData)
+                .then(() => console.log('✅ Lead de contrato guardado en Firebase CRM'))
+                .catch(err => console.error('❌ Error Firebase:', err));
+
             // Show loading
             btn.textContent = '⏳ Enviando...';
             btn.disabled = true;
-            
+
             return true;
         }
         
