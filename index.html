@@ -2810,12 +2810,15 @@
         
         // Form submission
         document.getElementById('factura-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevenir envío automático
+
+            const form = this; // Guardar referencia al formulario
             const btn = this.querySelector('button[type="submit"]');
             btn.textContent = '⏳ Enviando...';
             btn.disabled = true;
 
-            // Guardar en Firebase
-            const formData = new FormData(this);
+            // Guardar en Firebase PRIMERO
+            const formData = new FormData(form);
             db.ref('leads').push({
                 nombre: formData.get('nombre') || '',
                 email: formData.get('email') || '',
@@ -2825,8 +2828,20 @@
                 fecha: new Date().toISOString(),
                 timestamp: Date.now()
             })
-            .then(() => console.log('✅ Lead de factura guardado en Firebase CRM'))
-            .catch(err => console.error('❌ Error Firebase:', err));
+            .then(() => {
+                console.log('✅ Lead de factura guardado en Firebase CRM');
+                // Enviar el formulario manualmente DESPUÉS de Firebase
+                setTimeout(() => {
+                    form.submit(); // Usar la referencia guardada
+                }, 100);
+            })
+            .catch(err => {
+                console.error('❌ Error Firebase:', err);
+                // Incluso si falla, enviar el formulario para que llegue el email
+                setTimeout(() => {
+                    form.submit(); // Usar la referencia guardada
+                }, 100);
+            });
         });
         
         // Formulario de colaborador - guardar en Firebase
