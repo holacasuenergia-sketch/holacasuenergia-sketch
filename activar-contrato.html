@@ -740,7 +740,7 @@
                             <div class="upload-card-title">⚡ Factura de Luz</div>
                             <div class="upload-card-desc">Sube tu factura actual de electricidad</div>
                             <div class="form-upload" id="factura-luz-upload" style="padding: 20px;">
-                                <input type="file" name="factura_luz" accept=".jpg,.jpeg,.png,.pdf" id="factura-luz-input" onchange="updateFiles('factura-luz')">
+                                <input type="file" name="factura_luz" accept=".jpg,.jpeg,.png,.pdf" id="factura-luz-input" onchange="updateFile('factura-luz')">
                                 <span class="form-upload-icon">📄</span>
                                 <div class="form-upload-text">
                                     <strong>Haz clic aquí</strong><br>
@@ -749,13 +749,13 @@
                             </div>
                             <div class="file-list" id="factura-luz-list"></div>
                         </div>
-                        
+
                         <!-- Factura Gas -->
                         <div class="upload-card">
                             <div class="upload-card-title">🔥 Factura de Gas</div>
                             <div class="upload-card-desc">Sube tu factura actual de gas (si tienes)</div>
                             <div class="form-upload" id="factura-gas-upload" style="padding: 20px;">
-                                <input type="file" name="factura_gas" accept=".jpg,.jpeg,.png,.pdf" id="factura-gas-input" onchange="updateFiles('factura-gas')">
+                                <input type="file" name="factura_gas" accept=".jpg,.jpeg,.png,.pdf" id="factura-gas-input" onchange="updateFile('factura-gas')">
                                 <span class="form-upload-icon">📄</span>
                                 <div class="form-upload-text">
                                     <strong>Haz clic aquí</strong><br>
@@ -885,9 +885,7 @@
         // Almacenamiento de archivos acumulados por tipo
         const accumulatedFiles = {
             'dni': [],
-            'dni-detras': [],
-            'factura-luz': [],
-            'factura-gas': []
+            'dni-detras': []
         };
         
         // Función para generar ID único de archivo
@@ -958,15 +956,44 @@
             console.log('🗑️ Eliminando archivo', index, 'de', type);
             // Eliminar del array acumulado
             accumulatedFiles[type].splice(index, 1);
-            
+
             // Actualizar el input file
             const input = document.getElementById(type + '-input');
             const dt = new DataTransfer();
             accumulatedFiles[type].forEach(file => dt.items.add(file));
             input.files = dt.files;
-            
+
             // Actualizar la lista visual
             renderFileList(type);
+        }
+
+        // File upload handler - UN SOLO ARCHIVO (para DNI trasero, Luz, Gas)
+        function updateFile(type) {
+            console.log('📁 updateFile llamado para:', type);
+            const input = document.getElementById(type + '-input');
+            console.log('📁 Archivos seleccionados:', input.files.length);
+
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                const container = document.getElementById(type + '-list');
+                container.innerHTML = `
+                    <div class="file-item">
+                        <span>📄 ${file.name} (${(file.size / 1024).toFixed(1)} KB)</span>
+                        <button type="button" onclick="clearFile('${type}')">✕</button>
+                    </div>
+                `;
+                document.getElementById(type + '-upload').style.display = 'none';
+                console.log('✅ Archivo cargado:', file.name);
+            }
+        }
+
+        // Clear single file
+        function clearFile(type) {
+            const input = document.getElementById(type + '-input');
+            input.value = '';
+            document.getElementById(type + '-list').innerHTML = '';
+            document.getElementById(type + '-upload').style.display = 'block';
+            console.log('🗑️ Archivo borrado:', type);
         }
         
         // Form submission
@@ -978,6 +1005,27 @@
             const dniDetrasFiles = document.getElementById('dni-detras-input').files;
             const facturaLuzFiles = document.getElementById('factura-luz-input').files;
             const facturaGasFiles = document.getElementById('factura-gas-input').files;
+
+            // DNI delantero is required
+            if (dniFiles.length === 0) {
+                e.preventDefault();
+                alert('Por favor, sube la foto delantera del DNI');
+                return false;
+            }
+
+            // DNI trasero is required
+            if (dniDetrasFiles.length === 0) {
+                e.preventDefault();
+                alert('Por favor, sube la foto trasera del DNI');
+                return false;
+            }
+
+            // At least one factura is required
+            if (facturaLuzFiles.length === 0 && facturaGasFiles.length === 0) {
+                e.preventDefault();
+                alert('Por favor, sube al menos una factura (luz o gas)');
+                return false;
+            }
 
             // DNI delantero is required
             if (dniFiles.length === 0) {
