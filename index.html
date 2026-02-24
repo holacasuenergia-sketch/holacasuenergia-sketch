@@ -2580,11 +2580,21 @@
             
             // Guardar datos para usar después
             datosCalculo = { consumoLuz, consumoGas, p1, p2, cupsLuz, cupsGas, tipoServicio };
-            
             // Mostrar captura de leads (pedir email/teléfono antes de mostrar resultado)
             document.getElementById('lead-capture').style.display = 'block';
             document.getElementById('btn-calcular').style.display = 'none';
-            
+
+            // Prepoblar email y teléfono si el cliente ya los llenó en el formulario de factura
+            const facturaEmail = document.querySelector('#factura-form input[name="email"]')?.value.trim();
+            const facturaPhone = document.querySelector('#factura-form input[name="telefono"]')?.value.trim();
+
+            if (facturaEmail && !document.getElementById('lead-email').value.trim()) {
+                document.getElementById('lead-email').value = facturaEmail;
+            }
+            if (facturaPhone && !document.getElementById('lead-phone').value.trim()) {
+                document.getElementById('lead-phone').value = facturaPhone;
+            }
+
             // Scroll al formulario de captura
             document.getElementById('lead-capture').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
